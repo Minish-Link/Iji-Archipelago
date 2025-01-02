@@ -1,5 +1,5 @@
 Iji 1.8 Manual Randomizer
-v1.0.0
+v1.0.1
 by MinishLink
 
 Base game: https://www.remar.se/daniel/iji.php
