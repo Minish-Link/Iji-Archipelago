@@ -1,0 +1,51 @@
+{
+  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
+  "Ribbons": {
+    "yaml_option": [ "Ribbon_Locations" ],
+    "hidden": true
+  },
+  "Posters": {
+    "yaml_option": [ "Poster_Locations" ],
+    "hidden": true
+  },
+  "Supercharges": {
+    "yaml_option": [ "Supercharge_Locations" ],
+    "hidden": true
+  },
+  "Levels": {
+    "yaml_option": [ "LevelUp_Locations" ],
+    "hidden": true
+  },
+  "Upgrades": {
+    "yaml_option": [ "JumpAndArmorUpgrade_Locations" ],
+    "hidden": true
+  },
+  "Nanoweapons": {
+    "yaml_option": [ "Nanoweapon_Locations" ]
+  },
+  "Pacifist": {
+    "yaml_option": [ "AllowPacifistRoute_Locations" ],
+    "hidden": true
+  },
+  "Violent": {
+    "yaml_option": [ "AllowNonPacifist_Locations" ],
+    "hidden": true
+  },
+  "Miscellaneous": {
+    "yaml_option": [ "Miscellaneous_Locations" ],
+    "hidden": true
+  },
+  "Maximum Charge": {
+    "yaml_option": [ "Maximum_Charge_General_Tor" ],
+    "hidden": true
+  },
+  "NormalDifficulty": {
+    "hidden": true
+  },
+  "HardDifficulty": {
+    "hidden": true
+  },
+  "ExtremeDifficulty": {
+    "hidden": true
+  }
+}

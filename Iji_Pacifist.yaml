@@ -1,0 +1,305 @@
+﻿# Q. What is this file?
+# A. This file contains options which allow you to configure your multiworld experience while allowing
+#    others to play how they want as well.
+#
+# Q. How do I use it?
+# A. The options in this file are weighted. This means the higher number you assign to a value, the
+#    more chances you have for that option to be chosen. For example, an option like this:
+#
+#    map_shuffle:
+#      on: 5
+#      off: 15
+#
+#    Means you have 5 chances for map shuffle to occur, and 15 chances for map shuffle to be turned
+#    off.
+#
+# Q. I've never seen a file like this before. What characters am I allowed to use?
+# A. This is a .yaml file. You are allowed to use most characters.
+#    To test if your yaml is valid or not, you can use this website:
+#        http://www.yamllint.com/
+#    You can also verify that your Archipelago options are valid at this site:
+#        https://archipelago.gg/check
+
+# Your name in-game, limited to 16 characters.
+#     {player} will be replaced with the player's slot number.
+#     {PLAYER} will be replaced with the player's slot number, if that slot number is greater than 1.
+#     {number} will be replaced with the counter value of the name.
+#     {NUMBER} will be replaced with the counter value of the name, if the counter value is greater than 1.
+name: Player{number}
+
+# Used to describe your yaml. Useful if you have multiple files.
+description: Default Manual_Iji_MinishLink Template
+
+game: Manual_Iji_MinishLink
+requires:
+  version: 0.5.1 # Version of Archipelago required for this yaml to work as expected.
+
+Manual_Iji_MinishLink:
+  # Game Options
+  progression_balancing:
+    # A system that can move progression earlier, to try and prevent the player from getting stuck and bored early.
+    # 
+    # A lower setting means more getting stuck. A higher setting means less getting stuck.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 99
+    random: 0
+    random-low: 0
+    random-high: 0
+    disabled: 0 # equivalent to 0
+    normal: 50 # equivalent to 50
+    extreme: 0 # equivalent to 99
+
+  accessibility:
+    # Set rules for reachability of your items/locations.
+    # 
+    # **Full:** ensure everything can be reached and acquired.
+    # 
+    # **Minimal:** ensure what is needed to reach your goal can be acquired.
+    full: 50
+    minimal: 0
+
+  goal:
+    # Choose your victory condition.
+    sector x complete: 0
+    sector z complete: 0
+    sector x complete with the massacre: 50
+
+  Ribbon_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  Poster_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  Supercharge_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  LevelUp_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  JumpAndArmorUpgrade_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  Nanoweapon_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  AllowPacifistRoute_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 0
+    'true': 50
+
+  AllowNonPacifist_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 50
+    'true': 0
+
+  Miscellaneous_Locations:
+    # Should items/locations linked to this option be enabled?
+    'false': 50
+    'true': 0
+
+  Maximum_Charge_General_Tor:
+    # Should items/locations linked to this option be enabled?
+    'false': 50
+    'true': 0
+
+  combat_logic:
+    # This determines how many health stat items are needed for Sectors to be accessible in logic.
+    # You can still play them out of logic if you have access to the sector,
+    # but easier options should try to force health upgrades earlier into logic,
+    # if you're concerned about survival. Sector 1 will never require any items to be in logic.
+    # 
+    # The health requirements per setting, from Sector 1 -> X are:
+    # Off:        [1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, X:0]
+    # Easy:       [1:0, 2:1, 3:3, 4:5, 5:7, 6:9, 7:9, 8:9, 9:9, X:9]
+    # Normal:     [1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8, X:9]
+    # Hard:       [1:0, 2:0, 3:1, 4:1, 5:2, 6:2, 7:3, 8:3, 9:4, X:4]
+    # Extreme:    [1:0, 2:0, 3:0, 4:0, 5:1, 6:1, 7:1, 8:1, 9:2, X:2]
+    'off': 0
+    easy: 0
+    normal: 50
+    hard: 0
+    extreme: 0
+
+  health_items:
+    # This determines the minimum number of Health stat items that can be shuffled into the pool.
+    # 
+    # Note 1: Any items that logically require more Health items than there are in the pool will be removed.
+    # The Sector Z goal requires 9 Health items.
+    # Generation for that goal will fail if you choose a lower value here.
+    # 
+    # Note 2: If you have combat logic enabled, any sectors that require more health items than there are
+    # in the pool will have their requirements reduced to the value chosen here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  attack_items:
+    # This determines the minimum number of Attack stat items that can be shuffled into the pool.
+    # 
+    # Note: Any items that logically require more Attack items than there are in the pool will be removed.
+    # The Sector Z goal requires at least 2 Attack items.
+    # Generation for that goal will fail if you choose a lower value here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  assimilate_items:
+    # This determines the minimum number of Assimilate stat items that can be shuffled into the pool.
+    # 
+    # Note: Any items that logically require more Assimilate items than there are in the pool will be removed.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  strength_items:
+    # This determines the minimum number of Strength stat items that can be shuffled into the pool.
+    # 
+    # Note: Any items that logically require more Strength items than there are in the pool will be removed.
+    # The Sector Z goal requires at least 3 Strength items.
+    # Generation for that goal will fail if you choose a lower value here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  tasen_items:
+    # This determines the minimum number of Tasen stat items that can be shuffled into the pool.
+    # Machine Gun requires 2 Tasen stat items, Rocket launcher requires 5, and MPFB Devastator requires 9.
+    # 
+    # Note: Any items that logically require more Tasen items than there are in the pool will be removed.
+    # The Sector Z and Massacre goals each require 9 Tasen items.
+    # Generation for those goals will fail if you choose a lower value here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  komato_items:
+    # This determines the minimum number of Komato stat items that can be shuffled into the pool.
+    # Pulse Cannon requires 2 Komato stat items, Shocksplinter requires 5, and Cyclic Fusion Ignition System requires 9.
+    # 
+    # Note 2: Any items that logically require more Komato items than there are in the pool will be removed.
+    # The Sector Z and Massacre goals each require 9 Komato items.
+    # Generation for those goals will fail if you choose a lower value here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  crack_items:
+    # This determines the minimum number of Crack stat items that can be shuffled into the pool.
+    # 
+    # Note 1: Any items that logically require more Crack items than there are in the pool will be removed.
+    # The Sector Z and Massacre goals each require 9 Crack items.
+    # Generation for those goals will fail if you choose a lower value here.
+    #
+    # You can define additional values between the minimum and maximum values.
+    # Minimum value is 0
+    # Maximum value is 9
+    9: 50
+    random: 0
+    random-low: 0
+    random-high: 0
+
+  game_difficulty:
+    # Choose what difficulty the game will be played on.
+    # The level/stat limitations of higher difficulties may remove some locations from the pool
+    # 
+    # Note 1: Choosing Extreme will make reaching Poster 6 impossible.
+    # If you chose Sector Z as your goal, generation won't fail,
+    # but you won't be able to reach all the Posters.
+    # 
+    # Note 1.5: Poster 6 on Hard difficulty requires at least 3 Supercharges from among Sectors 1-6
+    # in order to obtain enough stat points.
+    # 
+    # Note 2: Choosing Ultimortal will make any goal other than defeating Tor impossible,
+    # and will cause generation to fail if Sector Z or Massacre are chosen as goals.
+    # It will also remove all stat items other than health from the pool.
+    # 
+    # Note 3: Single Sector Play uses Normal difficulty. Keep in mind how many stat points you are intended to have access to
+    # for your chosen difficulty level when backtracking for checks via Single Sector Play
+    # (including Supercharges you found in previous levels)
+    normal: 50
+    hard: 0
+    extreme: 0
+    ultimortal: 0
+
+  # Item & Location Options
+  local_items:
+    # Forces these items to be in their native world.
+    []
+
+  non_local_items:
+    # Forces these items to be outside their native world.
+    []
+
+  start_inventory:
+    # Start with these items.
+    {}
+
+  start_hints:
+    # Start with these item's locations prefilled into the ``!hint`` command.
+    []
+
+  start_location_hints:
+    # Start with these locations and their item prefilled into the ``!hint`` command.
+    []
+
+  exclude_locations:
+    # Prevent these locations from having an important item.
+    []
+
+  priority_locations:
+    # Prevent these locations from having an unimportant item.
+    []
+
+  item_links:
+    # Share part of your item pool with other players.
+    []
+
+  start_inventory_from_pool:
+    # Start with these items and don't place them in the world.
+    # 
+    # The game decides what the replacement items will be.
+    {}

@@ -1,0 +1,70 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
+  "data": [
+    {
+      "count": "9",
+      "name": "Health Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Attack Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Strength Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Assimilate Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Tasen Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Komato Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Crack Stat",
+      "category": [
+        "Stats"
+      ],
+      "progression": true
+    },
+    {
+      "count": "9",
+      "name": "Sector Access",
+      "category": [
+        "Sectors"
+      ],
+      "progression": true
+    }
+  ]
+
+}

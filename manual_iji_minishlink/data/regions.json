@@ -1,0 +1,53 @@
+{
+  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+  "Sector 1": {
+    "starting": true,
+    "connects_to": [ "Sector 2" ],
+    "requires": []
+  },
+  "Sector 2": {
+    "connects_to": [ "Sector 3" ],
+    "requires": "|Sector Access:1| AND {hasEnoughHealthForSector(1)}"
+  },
+  "Sector 3": {
+    "connects_to": [ "Sector 4" ],
+    "requires": "|Sector Access:2| AND {hasEnoughHealthForSector(2)}"
+  },
+  "Sector 4": {
+    "connects_to": [ "Sector 5" ],
+    "requires": "|Sector Access:3| AND {hasEnoughHealthForSector(3)}"
+  },
+  "Sector 5": {
+    "connects_to": [ "Sector 6" ],
+    "requires": "|Sector Access:4| AND {hasEnoughHealthForSector(4)}"
+  },
+  "Sector 6": {
+    "connects_to": [ "Sector 7" ],
+    "requires": "|Sector Access:5| AND {hasEnoughHealthForSector(5)}"
+  },
+  "Sector 7": {
+    "connects_to": [ "Sector 8" ],
+    "requires": "|Sector Access:6| AND {hasEnoughHealthForSector(6)}"
+  },
+  "Sector 8": {
+    "connects_to": [ "Sector 9" ],
+    "requires": "|Sector Access:7| AND {hasEnoughHealthForSector(7)}"
+  },
+  "Sector 9": {
+    "connects_to": [ "Sector X" ],
+    "requires": "|Sector Access:8| AND {hasEnoughHealthForSector(8)}"
+  },
+  "Sector X": {
+    "connects_to": [ "Sector Z" ],
+    "requires": "|Sector Access:9| AND {hasEnoughHealthForSector(9)}"
+  },
+  "Sector Z": {
+    "connects_to": [],
+    "requires": "|Health Stat:9| AND |Crack Stat:9| AND |Tasen Stat:9| AND |Komato Stat:9| AND |Attack Stat:2| AND |Strength Stat:3|"
+  },
+  "Other": {
+    "starting": true,
+    "connects_to": [],
+    "requires": []
+  }
+}

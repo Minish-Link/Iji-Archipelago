@@ -1,0 +1,1153 @@
+{
+	"$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
+  "data": [
+    {
+      "name": "Sector X Complete",
+      "region": "Sector X",
+      "category": [ "Sector X", "Goal" ],
+      "requires": [],
+      "victory": true
+    },
+    {
+      "name": "Sector Z Complete",
+      "region": "Sector Z",
+      "category": [ "Sector Z", "Goal" ],
+      "requires": [],
+      "victory": true
+    },
+    {
+      "name": "Sector X Complete with the Massacre",
+      "region": "Sector X",
+      "category": [ "Sector X", "Goal" ],
+      "requires": "{canAccessVelocithor()}",
+      "victory": true
+    },
+    {
+      "name": "Maximum Charge Terminal",
+      "region": "Sector X",
+      "category": [ "Sector X", "Maximum Charge" ],
+      "requires": []
+    },
+
+    {
+      "name": "Sector 1 Complete",
+      "region": "Sector 1",
+      "category": [ "Sector 1" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 2 Complete",
+      "region": "Sector 2",
+      "category": [ "Sector 2" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 3 Complete",
+      "region": "Sector 3",
+      "category": [ "Sector 3" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 4 Complete",
+      "region": "Sector 4",
+      "category": [ "Sector 4" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 5 Complete",
+      "region": "Sector 5",
+      "category": [ "Sector 5" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 6 Complete",
+      "region": "Sector 6",
+      "category": [ "Sector 6" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 7 Complete",
+      "region": "Sector 7",
+      "category": [ "Sector 7" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 8 Complete",
+      "region": "Sector 8",
+      "category": [ "Sector 8" ],
+      "requires": []
+    },
+    {
+      "name": "Sector 9 Complete",
+      "region": "Sector 9",
+      "category": [ "Sector 9" ],
+      "requires": []
+    },
+
+    {
+      "name": "Normal Level 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 2",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 3",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 4",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 5",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 6",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 7",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 8",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 9",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 10",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 11",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 12",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 13",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 14",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 15",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 16",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 17",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 18",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 19",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 20",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 21",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 22",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 23",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 24",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 25",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 26",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 27",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 28",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 29",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 30",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 31",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 32",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 33",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 34",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 35",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 36",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 37",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 38",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 39",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 40",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 41",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 42",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 43",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 44",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 45",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 46",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 47",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 48",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 49",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Normal Level 50",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "NormalDifficulty" ],
+      "requires": []
+    },
+
+    {
+      "name": "Hard Level 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 2",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 3",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 4",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 5",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 6",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 7",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 8",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 9",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 10",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 11",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 12",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 13",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 14",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 15",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 16",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 17",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 18",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 19",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 20",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 21",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 22",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 23",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 24",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 25",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 26",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 27",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 28",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 29",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 30",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 31",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 32",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 33",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 34",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 35",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 36",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 37",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 38",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 39",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Hard Level 40",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "HardDifficulty" ],
+      "requires": []
+    },
+
+    {
+      "name": "Extreme Level 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 2",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 3",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 4",
+      "region": "Sector 2",
+      "category": [ "Sector 3", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 5",
+      "region": "Sector 2",
+      "category": [ "Sector 3", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 6",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 7",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 8",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 9",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 10",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 11",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 12",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 13",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 14",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 15",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 16",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 17",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 18",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 19",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 20",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 21",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 22",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 23",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 24",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 25",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 26",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 27",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 28",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 29",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+    {
+      "name": "Extreme Level 30",
+      "region": "Sector X",
+      "category": [ "Sector X", "Levels", "ExtremeDifficulty" ],
+      "requires": []
+    },
+
+    {
+      "name": "Ribbon 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 2",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 3",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 4",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 5",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 6",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 7",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 8",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 9",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Ribbons" ],
+      "requires": []
+    },
+    {
+      "name": "Ribbon 10",
+      "region": "Sector X",
+      "category": [ "Sector X", "Ribbons" ],
+      "requires": []
+    },
+
+    {
+      "name": "Jump Upgrade 1",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Upgrades" ],
+      "requires": []
+    },
+    {
+      "name": "Jump Upgrade 2",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Upgrades" ],
+      "requires": []
+    },
+    {
+      "name": "Armor Upgrade 1",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Upgrades" ],
+      "requires": []
+    },
+    {
+      "name": "Armor Upgrade 2",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Upgrades" ],
+      "requires": []
+    },
+    {
+      "name": "Trapmine",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Miscellaneous" ],
+      "requires": []
+    },
+    {
+      "name": "Scrambler",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Miscellaneous", "Violent" ],
+      "requires": "{canAccessVelocithor()} AND |Health Stat:9| AND |Attack Stat:9|"
+    },
+    {
+      "name": "Annihilator Beta Terminal",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Miscellaneous" ],
+      "requires": []
+    },
+    {
+      "name": "Techning Skill Logbook",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Miscellaneous" ],
+      "requires": []
+    },
+    {
+      "name": "Retribution Skill Logbook",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Miscellaneous" ],
+      "requires": []
+    },
+    {
+      "name": "Nanofield Reboot Skill Logbook",
+      "region": "Sector X",
+      "category": [ "Sector X", "Miscellaneous" ],
+      "requires": []
+    },
+
+    {
+      "name": "Poster 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Posters" ],
+      "requires": "|Strength Stat:1|"
+    },
+    {
+      "name": "Poster 2",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Posters" ],
+      "requires": "{canAccessMachineGun()} OR |Strength Stat:3|"
+    },
+    {
+      "name": "Poster 3",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Posters", "Violent" ],
+      "requires": "|Strength Stat:3| AND |Health Stat:1|"
+    },
+    {
+      "name": "Poster 4",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Posters" ],
+      "requires": "{canAccessRocketLauncher()} OR (|Strength Stat:3| AND Health Stat:1)"
+    },
+    {
+      "name": "Poster 5",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Posters", "Violent" ],
+      "requires": "{canAccessNuke()}"
+    },
+    {
+      "name": "Poster 6",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Posters" ],
+      "requires": "{canAccessVelocithor()}"
+    },
+    {
+      "name": "Poster 7",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Posters" ],
+      "requires": "{canAccessNuke()} AND {canAccessCFIS()} AND |Attack Stat:2|"
+    },
+    {
+      "name": "Poster 8",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Posters" ],
+      "requires": "|Health Stat:1|"
+    },
+    {
+      "name": "Poster 9",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Posters" ],
+      "requires": "{canAccessMPFB()} AND |Health Stat:9|"
+    },
+    {
+      "name": "Poster 10",
+      "region": "Sector X",
+      "category": [ "Sector X", "Posters", "Violent" ],
+      "requires": "{canAccessNuke()} AND {canAccessSplinterGun()}"
+    },
+
+    {
+      "name": "Supercharge 1",
+      "region": "Sector 1",
+      "category": [ "Sector 1", "Supercharges" ],
+      "requires": "|Strength Stat:3|"
+    },
+    {
+      "name": "Supercharge 2",
+      "region": "Sector 2",
+      "category": [ "Sector 2", "Supercharges" ],
+      "requires": "{canAccessRocketLauncher()} AND |Health Stat:1|"
+    },
+    {
+      "name": "Supercharge 3",
+      "region": "Sector 3",
+      "category": [ "Sector 3", "Supercharges" ],
+      "requires": "{canAccessHyperPulse()}"
+    },
+    {
+      "name": "Supercharge 4",
+      "region": "Sector 4",
+      "category": [ "Sector 4", "Supercharges" ],
+      "requires": "|Health Stat:1| OR |Strength Stat:3| OR {canAccessRocketLauncher()}"
+    },
+    {
+      "name": "Supercharge 5",
+      "region": "Sector 5",
+      "category": [ "Sector 5", "Supercharges" ],
+      "requires": "{canAccessNuke()}"
+    },
+    {
+      "name": "Supercharge 6",
+      "region": "Sector 6",
+      "category": [ "Sector 6", "Supercharges" ],
+      "requires": "{canAccessNuke()} OR {canAccessSplinterGun()}"
+    },
+    {
+      "name": "Supercharge 7",
+      "region": "Sector 7",
+      "category": [ "Sector 7", "Supercharges" ],
+      "requires": "{canAccessMPFB()} AND |Attack Stat:9| AND |Assimilate Stat:3| AND |Health Stat:4|"
+    },
+    {
+      "name": "Supercharge 8",
+      "region": "Sector 8",
+      "category": [ "Sector 8", "Supercharges" ],
+      "requires": "|Crack Stat:4| AND ({canAccessRocketLauncher()} OR {canAccessShocksplinter()}) AND |Attack Stat:4|"
+    },
+    {
+      "name": "Supercharge 9",
+      "region": "Sector 9",
+      "category": [ "Sector 9", "Supercharges", "Pacifist" ],
+      "requires": []
+    },
+    {
+      "name": "Supercharge 10",
+      "region": "Sector X",
+      "category": [ "Sector X", "Supercharges", "Violent" ],
+      "requires": "{canAccessVelocithor()}"
+    },
+
+    {
+      "name": "Machine Gun",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "|Tasen Stat:2|"
+    },
+    {
+      "name": "Rocket Launcher",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessRocketLauncher()}"
+    },
+    {
+      "name": "MPFB Devastator",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "|Tasen Stat:9| AND |Sector Access:3|"
+    },
+    {
+      "name": "Resonance Detonator",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "|Sector Access:1|"
+    },
+    {
+      "name": "Pulse Cannon",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessPulseCannon()}"
+    },
+    {
+      "name": "Shocksplinter",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessShocksplinter()}"
+    },
+    {
+      "name": "Cyclic Fusion Ignition System",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessCFIS()}"
+    },
+
+    {
+      "name": "Buster Gun",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessBusterGun()}"
+    },
+    {
+      "name": "Splinter Gun",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessSplinterGun()}"
+    },
+    {
+      "name": "Spread Rockets",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessSpreadRockets()}"
+    },
+    {
+      "name": "Nuke",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessNuke()}"
+    },
+    {
+      "name": "Resonance Reflector",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessResonanceReflector()}"
+    },
+    {
+      "name": "Hyper Pulse",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessHyperPulse()}"
+    },
+    {
+      "name": "Plasma Cannon",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessPlasmaCannon()}"
+    },
+    {
+      "name": "Velocithor V2-10",
+      "region": "Other",
+      "category": [ "Nanoweapons" ],
+      "requires": "{canAccessVelocithor()}"
+    },
+    {
+      "name": "Banana Gun",
+      "region": "Sector 9",
+      "category": [ "Nanoweapons", "Sector 9" ],
+      "requires": "|Tasen Stat:9| AND |Komato Stat:9| AND |Health Stat:9|"
+    }
+  ]
+}
+
