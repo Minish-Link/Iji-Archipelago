@@ -7,44 +7,44 @@ sector_items = {
 
 # Stats
 stat_items = {
-    "Health": 9,
-    "Attack": 9,
-    "Assimilate": 9,
-    "Strength": 9,
-    "Crack Stat": 9,
-    "Tasen Stat": 9,
-    "Komato Stat": 9
+    "Health",
+    "Attack",
+    "Assimilate",
+    "Strength",
+    "Crack Stat",
+    "Tasen Stat",
+    "Komato Stat",
     }
 
 # Basic Weapons
 weapon_items = {
-    "Resonance Detonator": 1,
-    "Machine Gun": 1,
-    "Pulse Cannon": 1,
-    "Rocket Launcher": 1,
-    "Shocksplinter": 1,
-    "MPFB Devastator": 1,
-    "Cyclic Fusion Ignition System": 1,
-    "Banana Gun": 1,
-    "Massacre": 1,
-    "Null Driver": 1
+    "Resonance Detonator",
+    "Machine Gun",
+    "Pulse Cannon",
+    "Rocket Launcher",
+    "Shocksplinter",
+    "MPFB Devastator",
+    "Cyclic Fusion Ignition System",
+    "Banana Gun",
+    "Massacre",
+    "Null Driver"
     }
 
 #Advanced Weapons
 advanced_weapon_items = {
-    "Buster Gun": 1,
-    "Resonance Reflector": 1,
-    "Splintergun": 1,
-    "Hyper Pulse Cannon": 1,
-    "Spread Rockets": 1,
-    "Plasma Cannon": 1,
-    "Nuke": 1,
-    "Velocithor V2-10": 1
+    "Buster Gun",
+    "Resonance Reflector",
+    "Splintergun",
+    "Hyper Pulse Cannon",
+    "Spread Rockets",
+    "Plasma Cannon",
+    "Nuke",
+    "Velocithor V2-10"
     }
 
 # Miscellaneous
 misc_items = {
-    "Supercharge": 10
+    "Supercharge"
     }
 
 # Filler
