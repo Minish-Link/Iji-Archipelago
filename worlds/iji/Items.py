@@ -2,7 +2,7 @@
 
 # Sectors
 sector_items = {
-    "Sector Access": 9
+    "Sector Access"
     }
 
 # Stats
@@ -18,6 +18,7 @@ stat_items = {
 
 # Basic Weapons
 weapon_items = {
+    "Shotgun"
     "Resonance Detonator",
     "Machine Gun",
     "Pulse Cannon",
@@ -30,18 +31,6 @@ weapon_items = {
     "Null Driver"
     }
 
-#Advanced Weapons
-advanced_weapon_items = {
-    "Buster Gun",
-    "Resonance Reflector",
-    "Splintergun",
-    "Hyper Pulse Cannon",
-    "Spread Rockets",
-    "Plasma Cannon",
-    "Nuke",
-    "Velocithor V2-10"
-    }
-
 # Miscellaneous
 misc_items = {
     "Supercharge"
@@ -50,6 +39,7 @@ misc_items = {
 # Filler
 filler_items = {
     "Health Restore",
+    "Armor Restore",
     "Machine Ammo",
     "Pulse Ammo",
     "Rocket Ammo",
