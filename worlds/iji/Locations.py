@@ -1238,3 +1238,9 @@ location_weapons_table = {
     **locations_combinedweapons,
     **locations_uniquespecialweapons
 }
+
+location_groups_table = {
+    group: locations
+    for group in [data.region[:8] for _, data in locations_sectorcomplete.items()]
+    for locations in [[location for location, data in location_table.items() if data.region[:8] == group]]
+}

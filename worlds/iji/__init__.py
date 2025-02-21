@@ -1,20 +1,26 @@
 from BaseClasses import Item, ItemClassification, Location, MultiWorld
 from worlds.generic.Rules import add_rule, set_rule
 from worlds.iji.Rules import can_kill_annihilators, can_rocket_boost, has_weapon_stats
-from .Items import item_table, create_itempool, create_item
-from .Locations import location_table, location_weapons_table
+from .Items import item_table, create_itempool, create_item, item_groups_table
+from .Locations import location_table, location_weapons_table, location_groups_table
+from .Regions import create_regions
 from .Options import IjiOptions
 from worlds.AutoWorld import World, CollectionState
 
 class IjiWorld(World):
     """
-    Insert Iji description here later
-    """
-
+    Iji is a freeware action platformer developed by Daniel Remar and released in 2008.
+    You play as Iji: a young woman empowered with alien technology and suddenly thrown into the midst of deadly 
+    intergalactic conflict... with the fate of humanity in her hands. The game features ten regular levels and several
+    extra levels, an in-depth stat system that rewards customisation, an arsenal of powerful alien weaponry and a
+    wealth of secrets to discover.
+    """ # Description by Ladybunne
 
     game="Iji"
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}
+    item_name_groups = item_groups_table
+    location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
 
@@ -28,7 +34,7 @@ class IjiWorld(World):
         return create_item(self, name)
 
     def create_regions(self):
-        pass
+        create_regions(self)
 
         
 
