@@ -1,523 +1,1240 @@
-from BaseClasses import Location
+from typing import Callable, Dict, Mapping, NamedTuple, TYPE_CHECKING
+
+from BaseClasses import CollectionState, Location
+from worlds.generic.Rules import CollectionRule
+
+if TYPE_CHECKING:
+    from . import IjiWorld
 
 class IjiLocation(Location):
     game="Iji"
 
-class IjiLocData:
-    id: int
-    name: str
+class IjiLocData(NamedTuple):
+    code: int
     region: str
+    valid: Callable[["IjiWorld"], bool] = lambda world: True,
+    weapon: str = ""
 
-location_sectorcomplete = {
-    IjiLocData(id=1,    name="Sector 1 - Sector Complete", region="Sector 1"),
-    IjiLocData(id=2,    name="Sector 2 - Sector Complete", region="Sector 2"),
-    IjiLocData(id=3,    name="Sector 3 - Sector Complete", region="Sector 3"),
-    IjiLocData(id=4,    name="Sector 4 - Sector Complete", region="Sector 4"),
-    IjiLocData(id=5,    name="Sector 5 - Sector Complete", region="Sector 5"),
-    IjiLocData(id=6,    name="Sector 6 - Sector Complete", region="Sector 6"),
-    IjiLocData(id=7,    name="Sector 7 - Sector Complete", region="Sector 7"),
-    IjiLocData(id=8,    name="Sector 8 - Sector Complete", region="Sector 8"),
-    IjiLocData(id=9,    name="Sector 9 - Sector Complete", region="Sector 9"),
-    IjiLocData(id=10,   name="Sector X - Sector Complete", region="Sector X"),
-    IjiLocData(id=11,   name="Sector Z - Sector Complete", region="Sector Z"),
-    IjiLocData(id=12,   name="Sector Y - Sector Complete", region="Sector Y")
+def get_total_locations(world: "IjiWorld") -> int:
+    total = 59 # Sector Completes (1-9) and Level Ups (1-50)
+    
+    sectorzlocations: bool = False
+    sectorylocations: bool = False
+
+    world.multiworld.completion_condition
+
+    if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
+        world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
+        sectorzlocations = True
+        total += 1 # Sector Complete
+
+    if world.options.EndGoal.value == world.options.EndGoal.option_sector_y or \
+        world.options.PostGameLocations.value == world.options.PostGameLocations.option_sector_y:
+        sectorylocations = True
+        total += 1 # Sector Complete
+
+    
+
+    if world.options.RibbonLocations.value == True:
+        total += 10
+
+    if world.options.PosterLocations.value == True:
+        total += 10
+        if sectorzlocations:
+            total += 1
+        if sectorylocations:
+            total += 1
+
+    if world.options.SuperchargeLocations.value == True:
+        total += 10
+
+    if world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_only or \
+        world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
+        total += len(locations_specialtraits)
+        
+    if world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_time:
+        total += len(locations_uniquebasicweapons)
+    elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_per_sector:
+        total += len(locations_sectorweapons)
+    elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_all_instances:
+        total += len(locations_allbasicweapons)
+    
+    if world.options.UniqueWeaponLocations.value == True:
+        total += 2
+        if sectorzlocations and \
+            (world.options.NullDriverPosterRequirementType.value != 0 or \
+            world.options.NullDriverRibbonRequirementType.value != 0):
+            total += 1
+
+    if world.options.CombinedWeaponLocations.value == True:
+        total += len(locations_combinedweapons)
+
+    if world.options.UpgradeLocations.value == True:
+        total += len(locations_upgrades)
+
+    if world.options.LogbookLocations.value == True:
+        total += len(locations_logbooks)
+        if sectorzlocations:
+            total += len(locations_logbooks_z)
+        if sectorylocations:
+            total += len(locations_logbooks_y)
+
+    return total
+
+def get_location_names() -> Dict[str, int]:
+    names = {name: data.code for name, data in location_table.items()}
+
+locations_sectorcomplete: Dict[str,IjiLocData] = {
+    "Sector 1 - Sector Complete":   IjiLocData(code=1,  region="Sector 1"),
+    "Sector 2 - Sector Complete":   IjiLocData(code=2,  region="Sector 2"),
+    "Sector 3 - Sector Complete":   IjiLocData(code=3,  region="Sector 3"),
+    "Sector 4 - Sector Complete":   IjiLocData(code=4,  region="Sector 4"),
+    "Sector 5 - Sector Complete":   IjiLocData(code=5,  region="Sector 5"),
+    "Sector 6 - Sector Complete":   IjiLocData(code=6,  region="Sector 6"),
+    "Sector 7 - Sector Complete":   IjiLocData(code=7,  region="Sector 7"),
+    "Sector 8 - Sector Complete":   IjiLocData(code=8,  region="Sector 8"),
+    "Sector 9 - Sector Complete":   IjiLocData(code=9,  region="Sector 9"),
+    "Sector X - Sector Complete":   IjiLocData(code=10, region="Sector X"),
+    "Sector Z - Sector Complete":   IjiLocData(code=11, region="Sector Z", \
+        valid=lambda world: world.sector_z_allowed()),
+    "Sector Y - Sector Complete":   IjiLocData(code=12, region="Sector Y", \
+        valid=lambda world: world.sector_y_allowed())
 }
 
-# levelup regions change based on difficulty
-location_levelup = {
-    IjiLocData(id=101,  name="Level 1", region=""),
-    IjiLocData(id=102,  name="Level 2", region=""),
-    IjiLocData(id=103,  name="Level 3", region=""),
-    IjiLocData(id=104,  name="Level 4", region=""),
-    IjiLocData(id=105,  name="Level 5", region=""),
-    IjiLocData(id=106,  name="Level 6", region=""),
-    IjiLocData(id=107,  name="Level 7", region=""),
-    IjiLocData(id=108,  name="Level 8", region=""),
-    IjiLocData(id=109,  name="Level 9", region=""),
-    IjiLocData(id=110,  name="Level 10", region=""),
-    IjiLocData(id=111,  name="Level 11", region=""),
-    IjiLocData(id=112,  name="Level 12", region=""),
-    IjiLocData(id=113,  name="Level 13", region=""),
-    IjiLocData(id=114,  name="Level 14", region=""),
-    IjiLocData(id=115,  name="Level 15", region=""),
-    IjiLocData(id=116,  name="Level 16", region=""),
-    IjiLocData(id=117,  name="Level 17", region=""),
-    IjiLocData(id=118,  name="Level 18", region=""),
-    IjiLocData(id=119,  name="Level 19", region=""),
-    IjiLocData(id=120,  name="Level 20", region=""),
-    IjiLocData(id=121,  name="Level 21", region=""),
-    IjiLocData(id=122,  name="Level 22", region=""),
-    IjiLocData(id=123,  name="Level 23", region=""),
-    IjiLocData(id=124,  name="Level 24", region=""),
-    IjiLocData(id=125,  name="Level 25", region=""),
-    IjiLocData(id=126,  name="Level 26", region=""),
-    IjiLocData(id=127,  name="Level 27", region=""),
-    IjiLocData(id=128,  name="Level 28", region=""),
-    IjiLocData(id=129,  name="Level 29", region=""),
-    IjiLocData(id=130,  name="Level 30", region=""),
-    IjiLocData(id=131,  name="Level 31", region=""),
-    IjiLocData(id=132,  name="Level 32", region=""),
-    IjiLocData(id=133,  name="Level 33", region=""),
-    IjiLocData(id=134,  name="Level 34", region=""),
-    IjiLocData(id=135,  name="Level 35", region=""),
-    IjiLocData(id=136,  name="Level 36", region=""),
-    IjiLocData(id=137,  name="Level 37", region=""),
-    IjiLocData(id=138,  name="Level 38", region=""),
-    IjiLocData(id=139,  name="Level 39", region=""),
-    IjiLocData(id=140,  name="Level 40", region=""),
-    IjiLocData(id=141,  name="Level 41", region=""),
-    IjiLocData(id=142,  name="Level 42", region=""),
-    IjiLocData(id=143,  name="Level 43", region=""),
-    IjiLocData(id=144,  name="Level 44", region=""),
-    IjiLocData(id=145,  name="Level 45", region=""),
-    IjiLocData(id=146,  name="Level 46", region=""),
-    IjiLocData(id=147,  name="Level 47", region=""),
-    IjiLocData(id=148,  name="Level 48", region=""),
-    IjiLocData(id=149,  name="Level 49", region=""),
-    IjiLocData(id=150,  name="Level 50", region=""),
+# levelup regions change based on difficulty (Whenever that is implemented)
+locations_levelup: Dict[str, IjiLocData] = {
+    "Level 1":  IjiLocData(code=101, region="Sector 1"),
+    "Level 2":  IjiLocData(code=102, region="Sector 1"),
+    "Level 3":  IjiLocData(code=103, region="Sector 1"),
+    "Level 4":  IjiLocData(code=104, region="Sector 1"),
+    "Level 5":  IjiLocData(code=105, region="Sector 1"),
+    "Level 6":  IjiLocData(code=106, region="Sector 2"),
+    "Level 7":  IjiLocData(code=107, region="Sector 2"),
+    "Level 8":  IjiLocData(code=108, region="Sector 2"),
+    "Level 9":  IjiLocData(code=109, region="Sector 2"),
+    "Level 10": IjiLocData(code=110, region="Sector 2"),
+    "Level 11": IjiLocData(code=111, region="Sector 3"),
+    "Level 12": IjiLocData(code=112, region="Sector 3"),
+    "Level 13": IjiLocData(code=113, region="Sector 3"),
+    "Level 14": IjiLocData(code=114, region="Sector 3"),
+    "Level 15": IjiLocData(code=115, region="Sector 3"),
+    "Level 16": IjiLocData(code=116, region="Sector 4"),
+    "Level 17": IjiLocData(code=117, region="Sector 4"),
+    "Level 18": IjiLocData(code=118, region="Sector 4"),
+    "Level 19": IjiLocData(code=119, region="Sector 4"),
+    "Level 20": IjiLocData(code=120, region="Sector 4"),
+    "Level 21": IjiLocData(code=121, region="Sector 5"),
+    "Level 22": IjiLocData(code=122, region="Sector 5"),
+    "Level 23": IjiLocData(code=123, region="Sector 5"),
+    "Level 24": IjiLocData(code=124, region="Sector 5"),
+    "Level 25": IjiLocData(code=125, region="Sector 5"),
+    "Level 26": IjiLocData(code=126, region="Sector 6"),
+    "Level 27": IjiLocData(code=127, region="Sector 6"),
+    "Level 28": IjiLocData(code=128, region="Sector 6"),
+    "Level 29": IjiLocData(code=129, region="Sector 6"),
+    "Level 30": IjiLocData(code=130, region="Sector 6"),
+    "Level 31": IjiLocData(code=131, region="Sector 7"),
+    "Level 32": IjiLocData(code=132, region="Sector 7"),
+    "Level 33": IjiLocData(code=133, region="Sector 7"),
+    "Level 34": IjiLocData(code=134, region="Sector 7"),
+    "Level 35": IjiLocData(code=135, region="Sector 7"),
+    "Level 36": IjiLocData(code=136, region="Sector 8"),
+    "Level 37": IjiLocData(code=137, region="Sector 8"),
+    "Level 38": IjiLocData(code=138, region="Sector 8"),
+    "Level 39": IjiLocData(code=139, region="Sector 8"),
+    "Level 40": IjiLocData(code=140, region="Sector 8"),
+    "Level 41": IjiLocData(code=141, region="Sector 9"),
+    "Level 42": IjiLocData(code=142, region="Sector 9"),
+    "Level 43": IjiLocData(code=143, region="Sector 9"),
+    "Level 44": IjiLocData(code=144, region="Sector 9"),
+    "Level 45": IjiLocData(code=145, region="Sector 9"),
+    "Level 46": IjiLocData(code=146, region="Sector X"),
+    "Level 47": IjiLocData(code=147, region="Sector X"),
+    "Level 48": IjiLocData(code=148, region="Sector X"),
+    "Level 49": IjiLocData(code=149, region="Sector X"),
+    "Level 50": IjiLocData(code=150, region="Sector X"),
 }
 
-location_poster = {
-    IjiLocData(id=201,  name="Sector 1 - Poster", region="Sector 1 Poster"),
-    IjiLocData(id=202,  name="Sector 2 - Poster", region="Sector 2 Poster"),
-    IjiLocData(id=203,  name="Sector 3 - Poster", region="Sector 3 Poster"),
-    IjiLocData(id=204,  name="Sector 4 - Poster", region="Sector 4 Poster"),
-    IjiLocData(id=205,  name="Sector 5 - Poster", region="Sector 5 Poster"),
-    IjiLocData(id=206,  name="Sector 6 - Poster", region="Sector 6 Poster"),
-    IjiLocData(id=207,  name="Sector 7 - Poster", region="Sector 7 Poster"),
-    IjiLocData(id=208,  name="Sector 8 - Poster", region="Sector 8 Poster"),
-    IjiLocData(id=209,  name="Sector 9 - Poster", region="Sector 9 Poster"),
-    IjiLocData(id=210,  name="Sector X - Poster", region="Sector X Poster"),
-    IjiLocData(id=211,  name="Sector Z - Epic Poster", region="Sector Z"),
-    IjiLocData(id=212,  name="Sector Y - Poster of Doom", region="Sector Y")
+locations_specialtraits: Dict[str, IjiLocData] = {
+    "Reach Health Level 10":        IjiLocData(code=151, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Attack Level 10":        IjiLocData(code=152, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Assimilate Level 10":    IjiLocData(code=153, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Strength Level 10":      IjiLocData(code=154, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Crack Level 10":         IjiLocData(code=155, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Tasen Level 10":         IjiLocData(code=156, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations()),
+    "Reach Komato Level 10":        IjiLocData(code=157, region="Sector 2", \
+        valid=lambda world: world.special_trait_locations())
 }
 
-location_ribbon = {
-    IjiLocData(id=221,  name="Sector 1 - Ribbon", region="Sector 1"),
-    IjiLocData(id=222,  name="Sector 2 - Ribbon", region="Sector 2"),
-    IjiLocData(id=223,  name="Sector 3 - Ribbon", region="Sector 3"),
-    IjiLocData(id=224,  name="Sector 4 - Ribbon", region="Sector 4"),
-    IjiLocData(id=225,  name="Sector 5 - Ribbon", region="Sector 5"),
-    IjiLocData(id=226,  name="Sector 6 - Ribbon", region="Sector 6"),
-    IjiLocData(id=227,  name="Sector 7 - Ribbon", region="Sector 7"),
-    IjiLocData(id=228,  name="Sector 8 - Ribbon", region="Sector 8"),
-    IjiLocData(id=229,  name="Sector 9 - Ribbon", region="Sector 9"),
-    IjiLocData(id=230,  name="Sector X - Ribbon", region="Sector X")
+locations_poster: Dict[str, IjiLocData] = {
+    "Sector 1 - Poster":            IjiLocData(code=201, region="Sector 1 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 2 - Poster":            IjiLocData(code=202, region="Sector 2 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 3 - Poster":            IjiLocData(code=203, region="Sector 3 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 4 - Poster":            IjiLocData(code=204, region="Sector 4 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 5 - Poster":            IjiLocData(code=205, region="Sector 5 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 6 - Poster":            IjiLocData(code=206, region="Sector 6 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 7 - Poster":            IjiLocData(code=207, region="Sector 7 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 8 - Poster":            IjiLocData(code=208, region="Sector 8 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector 9 - Poster":            IjiLocData(code=209, region="Sector 9 Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector X - Poster":            IjiLocData(code=210, region="Sector X Poster", \
+        valid=lambda world: world.options.PosterLocations),
+    "Sector Z - Epic Poster":       IjiLocData(code=211, region="Sector Z", \
+        valid=lambda world: world.options.PosterLocations and world.sector_z_allowed()),
+    "Sector Y - Poster of Doom":    IjiLocData(code=212, region="Sector Y", \
+        valid=lambda world: world.options.PosterLocations and world.sector_y_allowed())
 }
 
-location_supercharge = {
-    IjiLocData(id=231,  name="Sector 1 - Supercharge", region="Sector 1 Restricted Area"),
-    IjiLocData(id=232,  name="Sector 2 - Supercharge", region="Sector 2 Storage Transport Top"),
-    IjiLocData(id=233,  name="Sector 3 - Supercharge", region="Sector 3"),
-    IjiLocData(id=234,  name="Sector 4 - Supercharge", region="Sector 4 Top of Main Storage"),
-    IjiLocData(id=235,  name="Sector 5 - Supercharge", region="Sector 5"),
-    IjiLocData(id=236,  name="Sector 6 - Supercharge", region="Sector 6"),
-    IjiLocData(id=237,  name="Sector 7 - Supercharge", region="Sector 7"),
-    IjiLocData(id=238,  name="Sector 8 - Supercharge", region="Sector 8 Staff Storage Return Trip"),
-    IjiLocData(id=239,  name="Sector 9 - Supercharge", region="Sector 9 Deep Sector"),
-    IjiLocData(id=240,  name="Sector X - Supercharge", region="Sector X")
+locations_ribbon: Dict[str, IjiLocData] = {
+    "Sector 1 - Ribbon":    IjiLocData(code=221, region="Sector 1", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 2 - Ribbon":    IjiLocData(code=222, region="Sector 2", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 3 - Ribbon":    IjiLocData(code=223, region="Sector 3", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 4 - Ribbon":    IjiLocData(code=224, region="Sector 4", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 5 - Ribbon":    IjiLocData(code=225, region="Sector 5", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 6 - Ribbon":    IjiLocData(code=226, region="Sector 6", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 7 - Ribbon":    IjiLocData(code=227, region="Sector 7", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 8 - Ribbon":    IjiLocData(code=228, region="Sector 8", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector 9 - Ribbon":    IjiLocData(code=229, region="Sector 9", \
+        valid=lambda world: world.options.RibbonLocations),
+    "Sector X - Ribbon":    IjiLocData(code=230, region="Sector X", \
+        valid=lambda world: world.options.RibbonLocations)
 }
 
-location_uniquebasicweapons = {
-    IjiLocData(id=241,  name="Obtain Machine Gun", region="Global"),
-    IjiLocData(id=242,  name="Obtain Rocket Launcher", region="Global"),
-    IjiLocData(id=243,  name="Obtain MPFB Devastator", region="Global"),
-    IjiLocData(id=244,  name="Obtain Resonance Detonator", region="Global"),
-    IjiLocData(id=245,  name="Obtain Pulse Cannon", region="Global"),
-    IjiLocData(id=246,  name="Obtain Shocksplinter", region="Global"),
-    IjiLocData(id=247,  name="Obtain Cyclic Fusion Ignition System", region="Global")
+locations_supercharge: Dict[str,IjiLocData] = {
+    "Sector 1 - Supercharge":   IjiLocData(code=231, region="Sector 1 Restricted Area", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 2 - Supercharge":   IjiLocData(code=232, region="Sector 2 Storage Transport Top", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 3 - Supercharge":   IjiLocData(code=233, region="Sector 3", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 4 - Supercharge":   IjiLocData(code=234, region="Sector 4 Top of Main Storage", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 5 - Supercharge":   IjiLocData(code=235, region="Sector 5", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 6 - Supercharge":   IjiLocData(code=236, region="Sector 6", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 7 - Supercharge":   IjiLocData(code=237, region="Sector 7", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 8 - Supercharge":   IjiLocData(code=238, region="Sector 8 Staff Storage Return Trip", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector 9 - Supercharge":   IjiLocData(code=239, region="Sector 9 Deep Sector", \
+        valid=lambda world: world.options.SuperchargeLocations),
+    "Sector X - Supercharge":   IjiLocData(code=240, region="Sector X", \
+        valid=lambda world: world.options.SuperchargeLocations)
 }
 
-location_uniquespecialweapons = {
-    IjiLocData(id=248,  name="Obtain Banana Gun", region="Sector 9 Poster"),
-    IjiLocData(id=249,  name="Obtain Massacre", region="Sector X"),
-    IjiLocData(id=250,  name="Obtain Null Driver", region="Sector Z Inner Prey")
+locations_uniquebasicweapons: Dict[str, IjiLocData] = {
+    "Obtain Machine Gun":                   IjiLocData(code=241, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon="Machine Gun"),
+    "Obtain Rocket Launcher":               IjiLocData(code=242, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "Rocket Launcher"),
+    "Obtain MPFB Devastator":               IjiLocData(code=243, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "MPFB Devastator"),
+    "Obtain Resonance Detonator":           IjiLocData(code=244, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "Resonance Detonator"),
+    "Obtain Pulse Cannon":                  IjiLocData(code=245, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "Pulse Cannon"),
+    "Obtain Shocksplinter":                 IjiLocData(code=246, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "Shocksplinter"),
+    "Obtain Cyclic Fusion Ignition System": IjiLocData(code=247, region="Global", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon = "CFIS")
 }
 
-location_combinedweapons = {
-    IjiLocData(id=251,  name="Obtain Buster Gun", region="Global"),
-    IjiLocData(id=252,  name="Obtain Splintergun", region="Global"),
-    IjiLocData(id=253,  name="Obtain Spread Rockets", region="Global"),
-    IjiLocData(id=254,  name="Obtain Nuke", region="Global"),
-    IjiLocData(id=255,  name="Obtain Resonance Reflector", region="Global"),
-    IjiLocData(id=256,  name="Obtain Hyper Pulse Cannon", region="Global"),
-    IjiLocData(id=257,  name="Obtain Plasma Cannon", region="Global"),
-    IjiLocData(id=258,  name="Obtain Velocithor V2-10", region="Global")
+locations_uniquespecialweapons: Dict[str, IjiLocData] = {
+    "Obtain Banana Gun":    IjiLocData(code=248, region="Sector 9 Poster", \
+        valid=lambda world: world.options.UniqueWeaponLocations, \
+        weapon = "Banana Gun"),
+    "Obtain Massacre":      IjiLocData(code=249, region="Sector X", \
+        valid=lambda world: world.options.UniqueWeaponLocations, \
+        weapon = "Massacre"),
+    "Obtain Null Driver":   IjiLocData(code=250, region="Sector Z Inner Prey", \
+        valid=lambda world: world.options.UniqueWeaponLocations and world.null_driver_allowed, \
+        weapon = "Null Driver")
 }
 
-location_upgrades = {
-    IjiLocData(id=261,  name="Sector 2 - Jump Upgrade", region="Sector 2"),
-    IjiLocData(id=262,  name="Sector 3 - Armor Upgrade", region="Sector 3"),
-    IjiLocData(id=263,  name="Sector 5 - Jump Upgrade", region="Sector 5"),
-    IjiLocData(id=264,  name="Sector 7 - Armor Upgrade", region="Sector 7"),
-    IjiLocData(id=265,  name="Sector 8 - Armor Upgrade", region="Sector 8"),
-    IjiLocData(id=266,  name="Sector 9 - Armor Upgrade", region="Sector 9"),
-    IjiLocData(id=267,  name="Sector X - Armor Upgrade", region="Sector X")
+locations_combinedweapons: Dict[str,IjiLocData] = {
+    "Obtain Buster Gun":            IjiLocData(code=251, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Buster Gun"),
+    "Obtain Splintergun":           IjiLocData(code=252, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Splintergun"),
+    "Obtain Spread Rockets":        IjiLocData(code=253, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Spread Rockets"),
+    "Obtain Nuke":                  IjiLocData(code=254, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Nuke"),
+    "Obtain Resonance Reflector":   IjiLocData(code=255, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Resonance Reflector"),
+    "Obtain Hyper Pulse Cannon":    IjiLocData(code=256, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Hyper Pulse Cannon"),
+    "Obtain Plasma Cannon":         IjiLocData(code=257, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Plasma Cannon"),
+    "Obtain Velocithor V2-10":      IjiLocData(code=258, region="Global", \
+        valid=lambda world: world.options.CombinedWeaponLocations, \
+        weapon = "Velocithor")
 }
 
-location_sectorweapons = {
-    IjiLocData(id=311,  name="Sector 1 - Machine Gun", region="Sector 1"),
-    IjiLocData(id=321,  name="Sector 2 - Machine Gun", region="Sector 2"),
-    IjiLocData(id=322,  name="Sector 2 - Rocket Launcher", region="Sector 2 Storage Transport Top"),
-    IjiLocData(id=324,  name="Sector 2 - Resonance Detonator", region="Sector 2"),
-    IjiLocData(id=331,  name="Sector 3 - Machine Gun", region="Sector 3"),
-    IjiLocData(id=332,  name="Sector 3 - Rocket Launcher", region="Sector 3"),
-    IjiLocData(id=334,  name="Sector 3 - Resonance Detonator", region="Sector 3"),
-    IjiLocData(id=335,  name="Sector 3 - Pulse Cannon", region="Sector 3"),
-    IjiLocData(id=341,  name="Sector 4 - Machine Gun", region="Sector 4"),
-    IjiLocData(id=342,  name="Sector 4 - Rocket Launcher", region="Sector 4"),
-    IjiLocData(id=343,  name="Sector 4 - MPFB Devastator", region="Sector 4 Top of Main Storage"),
-    IjiLocData(id=344,  name="Sector 4 - Resonance Detonator", region="Sector 4"),
-    IjiLocData(id=345,  name="Sector 4 - Pulse Cannon", region="Sector 4"),
-    IjiLocData(id=351,  name="Sector 5 - Machine Gun",region="Sector 5"),
-    IjiLocData(id=352,  name="Sector 5 - Rocket Launcher",region="Sector 5"),
-    IjiLocData(id=353,  name="Sector 5 - MPFB Devastator", region="Sector 5"),
-    IjiLocData(id=354,  name="Sector 5 - Resonance Detonator", region="Sector 5"),
-    IjiLocData(id=355,  name="Sector 5 - Pulse Cannon", region="Sector 5"),
-    IjiLocData(id=356,  name="Sector 5 - Shocksplinter", region="Sector 5"),
-    IjiLocData(id=361,  name="Sector 6 - Machine Gun",region="Sector 6"),
-    IjiLocData(id=362,  name="Sector 6 - Rocket Launcher", region="Sector 6"),
-    IjiLocData(id=363,  name="Sector 6 - MPFB Devastator", region="Sector 6"),
-    IjiLocData(id=364,  name="Sector 6 - Resonance Detonator", region="Sector 6"),
-    IjiLocData(id=365,  name="Sector 6 - Pulse Cannon", region="Sector 6"),
-    IjiLocData(id=366,  name="Sector 6 - Shocksplinter", region="Sector 6"),
-    IjiLocData(id=367,  name="Sector 6 - Cyclic Fusion Ignition System", region="Sector 6"),
-    IjiLocData(id=371,  name="Sector 7 - Machine Gun", region="Sector 7"),
-    IjiLocData(id=372,  name="Sector 7 - Rocket Launcher", region="Sector 7"),
-    IjiLocData(id=373,  name="Sector 7 - MPFB Devastator", region="Sector 7"),
-    IjiLocData(id=374,  name="Sector 7 - Resonance Detonator", region="Sector 7"),
-    IjiLocData(id=375,  name="Sector 7 - Pulse Cannon", region="Sector 7"),
-    IjiLocData(id=376,  name="Sector 7 - Shocksplinter", region="Sector 7"),
-    IjiLocData(id=377,  name="Sector 7 - Cyclic Fusion Ignition System", region="Sector 7 Heavy Weapon Armory"),
-    IjiLocData(id=381,  name="Sector 8 - Machine Gun", region="Sector 8"),
-    IjiLocData(id=382,  name="Sector 8 - Rocket Launcher", region="Sector 8"),
-    IjiLocData(id=383,  name="Sector 8 - MPFB Devastator", region="Sector 8"),
-    IjiLocData(id=384,  name="Sector 8 - Resonance Detonator",region="Sector 8"),
-    IjiLocData(id=385,  name="Sector 8 - Pulse Cannon", region="Sector 8"),
-    IjiLocData(id=386,  name="Sector 8 - Shocksplinter",region="Sector 8"),
-    IjiLocData(id=387,  name="Sector 8 - Cyclic Fusion Ignition System", region="Sector 8"),
-    IjiLocData(id=391,  name="Sector 9 - Machine Gun", region="Sector 9"),
-    IjiLocData(id=392,  name="Sector 9 - Rocket Launcher", region="Sector 9"),
-    IjiLocData(id=393,  name="Sector 9 - MPFB Devastator", region="Sector 9"),
-    IjiLocData(id=394,  name="Sector 9 - Resonance Detonator", region="Sector 9"),
-    IjiLocData(id=395,  name="Sector 9 - Pulse Cannon", region="Sector 9"),
-    IjiLocData(id=396,  name="Sector 9 - Shocksplinter", region="Sector 9"),
-    IjiLocData(id=397,  name="Sector 9 - Cyclic Fusion Ignition System", region="Sector 9"),
-    IjiLocData(id=301,  name="Sector X - Machine Gun", region="Sector X"),
-    IjiLocData(id=302,  name="Sector X - Rocket Launcher", region="Sector X"),
-    IjiLocData(id=303,  name="Sector X - MPFB Devastator", region="Sector X"),
-    IjiLocData(id=304,  name="Sector X - Resonance Detonator", region="Sector X"),
-    IjiLocData(id=305,  name="Sector X - Pulse Cannon", region="Sector X"),
-    IjiLocData(id=306,  name="Sector X - Shocksplinter", region="Sector X"),
-    IjiLocData(id=307,  name="Sector X - Cyclic Fusion Ignition System", region="Sector X"),
-    IjiLocData(id=308,  name="Sector X - Resonance Reflector", region="Sector X")
+locations_upgrades: Dict[str, IjiLocData] = {
+    "Sector 2 - Jump Upgrade":  IjiLocData(code=261, region="Sector 2", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector 3 - Armor Upgrade": IjiLocData(code=262, region="Sector 3", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector 5 - Jump Upgrade":  IjiLocData(code=263, region="Sector 5", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector 7 - Armor Upgrade": IjiLocData(code=264, region="Sector 7", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector 8 - Armor Upgrade": IjiLocData(code=265, region="Sector 8", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector 9 - Armor Upgrade": IjiLocData(code=266, region="Sector 9", \
+        valid=lambda world: world.options.UpgradeLocations),
+    "Sector X - Armor Upgrade": IjiLocData(code=267, region="Sector X", \
+        valid=lambda world: world.options.UpgradeLocations)
 }
 
-location_allweapons = {
-    IjiLocData(id=3111, name="Sector 1 - Machine Gun", region="Sector 1"),
-    IjiLocData(id=3211, name="Sector 2 - Machine Gun", region="Sector 2"),
-    IjiLocData(id=3221, name="Sector 2 - Rocket Launcher", region="Sector 2 Storage Transport Top"),
-    IjiLocData(id=3241, name="Sector 2 - Resonance Detonator", region="Sector 2"),
-    IjiLocData(id=3311, name="Sector 3 - Machine Gun 1", region="Sector 3"),
-    IjiLocData(id=3312, name="Sector 3 - Machine Gun 2", region="Sector 3"),
-    IjiLocData(id=3313, name="Sector 3 - Machine Gun 3", region="Sector 3"),
-    IjiLocData(id=3321, name="Sector 3 - Rocket Launcher 1", region="Sector 3"),
-    IjiLocData(id=3322, name="Sector 3 - Rocket Launcher 2", region="Sector 3"),
-    IjiLocData(id=3341, name="Sector 3 - Resonance Detonator",region="Sector 3"),
-    IjiLocData(id=3351, name="Sector 3 - Pulse Cannon", region="Sector 3"),
-    IjiLocData(id=3411, name="Sector 4 - Machine Gun", region="Sector 4"),
-    IjiLocData(id=3421, name="Sector 4 - Rocket Launcher 1", region="Sector 4"),
-    IjiLocData(id=3422, name="Sector 4 - Rocket Launcher 2", region="Sector 4"),
-    IjiLocData(id=3431, name="Sector 4 - MPFB Devastator", region="Sector 4 Top of Main Storage"),
-    IjiLocData(id=3441, name="Sector 4 - Resonance Detonator", region="Sector 4"),
-    IjiLocData(id=3451, name="Sector 4 - Pulse Cannon", region="Sector 4"),
-    IjiLocData(id=3511, name="Sector 5 - Machine Gun 1", region="Sector 5"),
-    IjiLocData(id=3512, name="Sector 5 - Machine Gun 2", region="Sector 5"),
-    IjiLocData(id=3521, name="Sector 5 - Rocket Launcher 1", region="Sector 5"),
-    IjiLocData(id=3522, name="Sector 5 - Rocket Launcher 2", region="Sector 5"),
-    IjiLocData(id=3531, name="Sector 5 - MPFB Devastator", region="Sector 5"),
-    IjiLocData(id=3541, name="Sector 5 - Resonance Detonator", region="Sector 5"),
-    IjiLocData(id=3551, name="Sector 5 - Pulse Cannon 1", region="Sector 5"),
-    IjiLocData(id=3552, name="Sector 5 - Pulse Cannon 2", region="Sector 5"),
-    IjiLocData(id=3553, name="Sector 5 - Pulse Cannon 3", region="Sector 5"),
-    IjiLocData(id=3561, name="Sector 5 - Shocksplinter", region="Sector 5"),
-    IjiLocData(id=3611, name="Sector 6 - Machine Gun 1", region="Sector 6"),
-    IjiLocData(id=3612, name="Sector 6 - Machine Gun 2", region="Sector 6"),
-    IjiLocData(id=3621, name="Sector 6 - Rocket Launcher 1", region="Sector 6"),
-    IjiLocData(id=3622, name="Sector 6 - Rocket Launcher 2", region="Sector 6"),
-    IjiLocData(id=3631, name="Sector 6 - MPFB Devastator 1", region="Sector 6"),
-    IjiLocData(id=3632, name="Sector 6 - MPFB Devastator 2", region="Sector 6"),
-    IjiLocData(id=3641, name="Sector 6 - Resonance Detonator", region="Sector 6"),
-    IjiLocData(id=3651, name="Sector 6 - Pulse Cannon 1", region="Sector 6"),
-    IjiLocData(id=3652, name="Sector 6 - Pulse Cannon 2", region="Sector 6"),
-    IjiLocData(id=3661, name="Sector 6 - Shocksplinter 1", region="Sector 6"),
-    IjiLocData(id=3662, name="Sector 6 - Shocksplinter 2", region="Sector 6"),
-    IjiLocData(id=3663, name="Sector 6 - Shocksplinter 3", region="Sector 6"),
-    IjiLocData(id=3671, name="Sector 6 - Cyclic Fusion Ignition System", region="Sector 6"),
-    IjiLocData(id=3711, name="Sector 7 - Machine Gun", region= "Sector 7"),
-    IjiLocData(id=3721, name="Sector 7 - Rocket Launcher 1", region="Sector 7"),
-    IjiLocData(id=3722, name="Sector 7 - Rocket Launcher 2", region="Sector 7"),
-    IjiLocData(id=3723, name="Sector 7 - Rocket Launcher 3", region="Sector 7"),
-    IjiLocData(id=3731, name="Sector 7 - MPFB Devastator", region="Sector 7"),
-    IjiLocData(id=3741, name="Sector 7 - Resonance Detonator 1", region="Sector 7"),
-    IjiLocData(id=3742, name="Sector 7 - Resonance Detonator 2", region="Sector 7"),
-    IjiLocData(id=3751, name="Sector 7 - Pulse Cannon 1", region="Sector 7"),
-    IjiLocData(id=3752, name="Sector 7 - Pulse Cannon 2", region="Sector 7"),
-    IjiLocData(id=3761, name="Sector 7 - Shocksplinter 1", region="Sector 7"),
-    IjiLocData(id=3762, name="Sector 7 - Shocksplinter 2", region="Sector 7"),
-    IjiLocData(id=3763, name="Sector 7 - Shocksplinter 3", region="Sector 7"),
-    IjiLocData(id=3771, name="Sector 7 - Cyclic Fusion Ignition System", region="Sector 7 Heavy Weapon Armory"),
-    IjiLocData(id=3811, name="Sector 8 - Machine Gun", region="Sector 8"),
-    IjiLocData(id=3821, name="Sector 8 - Rocket Launcher 1", region="Sector 8"),
-    IjiLocData(id=3822, name="Sector 8 - Rocket Launcher 2", region="Sector 8"),
-    IjiLocData(id=3823, name="Sector 8 - Rocket Launcher 3", region="Sector 8"),
-    IjiLocData(id=3831, name="Sector 8 - MPFB Devastator", region="Sector 8"),
-    IjiLocData(id=3841, name="Sector 8 - Resonance Detonator", region="Sector 8"),
-    IjiLocData(id=3851, name="Sector 8 - Pulse Cannon 1", region="Sector 8"),
-    IjiLocData(id=3852, name="Sector 8 - Pulse Cannon 2", region="Sector 8"),
-    IjiLocData(id=3861, name="Sector 8 - Shocksplinter 1", region="Sector 8"),
-    IjiLocData(id=3862, name="Sector 8 - Shocksplinter 2", region="Sector 8"),
-    IjiLocData(id=3871, name="Sector 8 - Cyclic Fusion Ignition System", region="Sector 8"),
-    IjiLocData(id=3911, name="Sector 9 - Machine Gun 1", region="Sector 9"),
-    IjiLocData(id=3912, name="Sector 9 - Machine Gun 2", region="Sector 9"),
-    IjiLocData(id=3913, name="Sector 9 - Machine Gun 3", region="Sector 9"),
-    IjiLocData(id=3914, name="Sector 9 - Machine Gun 4", region="Sector 9 Poster"),
-    IjiLocData(id=3921, name="Sector 9 - Rocket Launcher 1", region="Sector 9"),
-    IjiLocData(id=3922, name="Sector 9 - Rocket Launcher 2", region="Sector 9"),
-    IjiLocData(id=3923, name="Sector 9 - Rocket Launcher 3", region="Sector 9"),
-    IjiLocData(id=3924, name="Sector 9 - Rocket Launcher 4", region="Sector 9"),
-    IjiLocData(id=3925, name="Sector 9 - Rocket Launcher 5", region="Sector 9 Poster"),
-    IjiLocData(id=3931, name="Sector 9 - MPFB Devastator 1", region="Sector 9"),
-    IjiLocData(id=3932, name="Sector 9 - MPFB Devastator 2", region="Sector 9"),
-    IjiLocData(id=3933, name="Sector 9 - MPFB Devastator 3", region="Sector 9"),
-    IjiLocData(id=3934, name="Sector 9 - MPFB Devastator 4", region="Sector 9 Poster"),
-    IjiLocData(id=3941, name="Sector 9 - Resonance Detonator 1", region="Sector 9"),
-    IjiLocData(id=3942, name="Sector 9 - Resonance Detonator 2", region="Sector 9"),
-    IjiLocData(id=3943, name="Sector 9 - Resonance Detonator 3", region="Sector 9"),
-    IjiLocData(id=3944, name="Sector 9 - Resonance Detonator 4", region="Sector 9 Poster"),
-    IjiLocData(id=3951, name="Sector 9 - Pulse Cannon 1", region="Sector 9"),
-    IjiLocData(id=3952, name="Sector 9 - Pulse Cannon 2", region="Sector 9"),
-    IjiLocData(id=3953, name="Sector 9 - Pulse Cannon 3", region="Sector 9"),
-    IjiLocData(id=3954, name="Sector 9 - Pulse Cannon 4", region="Sector 9 Poster"),
-    IjiLocData(id=3961, name="Sector 9 - Shocksplinter 1", region="Sector 9"),
-    IjiLocData(id=3962, name="Sector 9 - Shocksplinter 2", region="Sector 9"),
-    IjiLocData(id=3963, name="Sector 9 - Shocksplinter 3", region="Sector 9"),
-    IjiLocData(id=3964, name="Sector 9 - Shocksplinter 4", region="Sector 9 Poster"),
-    IjiLocData(id=3971, name="Sector 9 - Cyclic Fusion Ignition System 1", region="Sector 9"),
-    IjiLocData(id=3972, name="Sector 9 - Cyclic Fusion Ignition System 2", region="Sector 9"),
-    IjiLocData(id=3973, name="Sector 9 - Cyclic Fusion Ignition System 3", region="Sector 9 Poster"),
-    IjiLocData(id=3011, name="Sector X - Machine Gun 1", region="Sector X"),
-    IjiLocData(id=3012, name="Sector X - Machine Gun 2",region="Sector X"),
-    IjiLocData(id=3013, name="Sector X - Machine Gun 3", region="Sector X"),
-    IjiLocData(id=3021, name="Sector X - Rocket Launcher 1", region="Sector X"),
-    IjiLocData(id=3022, name="Sector X - Rocket Launcher 2", region="Sector X"),
-    IjiLocData(id=3023, name="Sector X - Rocket Launcher 3", region="Sector X"),
-    IjiLocData(id=3031, name="Sector X - MPFB Devastator 1", region="Sector X"),
-    IjiLocData(id=3032, name="Sector X - MPFB Devastator 2", region="Sector X"),
-    IjiLocData(id=3033, name="Sector X - MPFB Devastator 3", region="Sector X"),
-    IjiLocData(id=3034, name="Sector X - MPFB Devastator 4", region="Sector X"),
-    IjiLocData(id=3041, name="Sector X - Resonance Detonator 1", region="Sector X"),
-    IjiLocData(id=3042, name="Sector X - Resonance Detonator 2", region="Sector X"),
-    IjiLocData(id=3051, name="Sector X - Pulse Cannon 1", region="Sector X"),
-    IjiLocData(id=3052, name="Sector X - Pulse Cannon 2", region="Sector X"),
-    IjiLocData(id=3053, name="Sector X - Pulse Cannon 3", region="Sector X"),
-    IjiLocData(id=3054, name="Sector X - Pulse Cannon 4", region="Sector X"),
-    IjiLocData(id=3061, name="Sector X - Shocksplinter 1", region="Sector X"),
-    IjiLocData(id=3062, name="Sector X - Shocksplinter 2", region="Sector X"),
-    IjiLocData(id=3063, name="Sector X - Shocksplinter 3", region="Sector X"),
-    IjiLocData(id=3071, name="Sector X - Cyclic Fusion Ignition System 1", region="Sector X"),
-    IjiLocData(id=3072, name="Sector X - Cyclic Fusion Ignition System 2", region="Sector X"),
-    IjiLocData(id=3073, name="Sector X - Cyclic Fusion Ignition System 3", region="Sector X"),
-    IjiLocData(id=3074, name="Sector X - Cyclic Fusion Ignition System 4", region="Sector X"),
-    IjiLocData(id=3081, name="Sector X - Resonance Reflector", region="Sector X")
+locations_sectorweapons: Dict[str, IjiLocData] = {
+    "Sector 1 - Machine Gun":                   IjiLocData(code=311, region="Sector 1", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 2 - Machine Gun":                   IjiLocData(code=321, region="Sector 2", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 2 - Rocket Launcher":               IjiLocData(code=322, region="Sector 2 Storage Transport Top", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 2 - Resonance Detonator":           IjiLocData(code=324, region="Sector 2", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 3 - Machine Gun":                   IjiLocData(code=331, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 3 - Rocket Launcher":               IjiLocData(code=332, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 3 - Resonance Detonator":           IjiLocData(code=334, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 3 - Pulse Cannon":                  IjiLocData(code=335, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 4 - Machine Gun":                   IjiLocData(code=341, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 4 - Rocket Launcher":               IjiLocData(code=342, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 4 - MPFB Devastator":               IjiLocData(code=343, region="Sector 4 Top of Main Storage", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 4 - Resonance Detonator":           IjiLocData(code=344, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 4 - Pulse Cannon":                  IjiLocData(code=345, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 5 - Machine Gun":                   IjiLocData(code=351, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 5 - Rocket Launcher":               IjiLocData(code=352, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 5 - MPFB Devastator":               IjiLocData(code=353, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 5 - Resonance Detonator":           IjiLocData(code=354, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 5 - Pulse Cannon":                  IjiLocData(code=355, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 5 - Shocksplinter":                 IjiLocData(code=356, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector 6 - Machine Gun":                   IjiLocData(code=361, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 6 - Rocket Launcher":               IjiLocData(code=362, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 6 - MPFB Devastator":               IjiLocData(code=363, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 6 - Resonance Detonator":           IjiLocData(code=364, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 6 - Pulse Cannon":                  IjiLocData(code=365, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 6 - Shocksplinter":                 IjiLocData(code=366, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector 6 - Cyclic Fusion Ignition System": IjiLocData(code=367, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "CFIS"),
+    "Sector 7 - Machine Gun":                   IjiLocData(code=371, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 7 - Rocket Launcher":               IjiLocData(code=372, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 7 - MPFB Devastator":               IjiLocData(code=373, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 7 - Resonance Detonator":           IjiLocData(code=374, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 7 - Pulse Cannon":                  IjiLocData(code=375, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 7 - Shocksplinter":                 IjiLocData(code=376, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector 7 - Cyclic Fusion Ignition System": IjiLocData(code=377, region="Sector 7 Heavy Weapon Armory", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "CFIS"),
+    "Sector 8 - Machine Gun":                   IjiLocData(code=381, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 8 - Rocket Launcher":               IjiLocData(code=382, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 8 - MPFB Devastator":               IjiLocData(code=383, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 8 - Resonance Detonator":           IjiLocData(code=384, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 8 - Pulse Cannon":                  IjiLocData(code=385, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 8 - Shocksplinter":                 IjiLocData(code=386, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector 8 - Cyclic Fusion Ignition System": IjiLocData(code=387, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "CFIS"),
+    "Sector 9 - Machine Gun":                   IjiLocData(code=391, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector 9 - Rocket Launcher":               IjiLocData(code=392, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector 9 - MPFB Devastator":               IjiLocData(code=393, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector 9 - Resonance Detonator":           IjiLocData(code=394, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector 9 - Pulse Cannon":                  IjiLocData(code=395, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector 9 - Shocksplinter":                 IjiLocData(code=396, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector 9 - Cyclic Fusion Ignition System": IjiLocData(code=397, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "CFIS"),
+    "Sector X - Machine Gun":                   IjiLocData(code=301, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Machine Gun"),
+    "Sector X - Rocket Launcher":               IjiLocData(code=302, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Rocket Launcher"),
+    "Sector X - MPFB Devastator":               IjiLocData(code=303, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "MPFB Devastator"),
+    "Sector X - Resonance Detonator":           IjiLocData(code=304, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Detonator"),
+    "Sector X - Pulse Cannon":                  IjiLocData(code=305, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Pulse Cannon"),
+    "Sector X - Shocksplinter":                 IjiLocData(code=306, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Shocksplinter"),
+    "Sector X - Cyclic Fusion Ignition System": IjiLocData(code=307, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "CFIS"),
+    "Sector X - Resonance Reflector":           IjiLocData(code=308, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value >= \
+        world.options.BasicWeaponLocations.option_first_per_sector)
 }
 
-location_logbooks = {
-    IjiLocData(id=1101, name="Sector 1 - Logbook 1", region="Sector 1"),
-    IjiLocData(id=1102, name="Sector 1 - Logbook 2", region="Sector 1"),
-    IjiLocData(id=1103, name="Sector 1 - Logbook 3", region="Sector 1"),
-    IjiLocData(id=1104, name="Sector 1 - Logbook 4", region="Sector 1"),
-    IjiLocData(id=1105, name="Sector 1 - Logbook 5", region="Sector 1"),
-    IjiLocData(id=1106, name="Sector 1 - Logbook 6", region="Sector 1"),
-    IjiLocData(id=1107, name="Sector 1 - Logbook 7", region="Sector 1"),
-    IjiLocData(id=1108, name="Sector 1 - Logbook 8", region="Sector 1"),
-    IjiLocData(id=1109, name="Sector 1 - Logbook 9", region="Sector 1"),
-    IjiLocData(id=1110, name="Sector 1 - Logbook 10", region="Sector 1"),
-    IjiLocData(id=1111, name="Sector 1 - Logbook 11", region="Sector 1 Poster"),
-    IjiLocData(id=1112, name="Sector 1 - Logbook 12", region="Sector 1 Poster"),
-    IjiLocData(id=1113, name="Sector 1 - Logbook 13", region="Sector 1 Poster"),
-    IjiLocData(id=1114, name="Sector 1 - Logbook 14", region="Sector 1 Poster"),
-    IjiLocData(id=1115, name="Sector 1 - Logbook 15", region="Sector 1 Restricted Area"),
-    IjiLocData(id=1201, name="Sector 2 - Logbook 1", region="Sector 2"),
-    IjiLocData(id=1202, name="Sector 2 - Logbook 2", region="Sector 2"),
-    IjiLocData(id=1203, name="Sector 2 - Logbook 3", region="Sector 2"),
-    IjiLocData(id=1204, name="Sector 2 - Logbook 4", region="Sector 2"),
-    IjiLocData(id=1205, name="Sector 2 - Logbook 5", region="Sector 2"),
-    IjiLocData(id=1206, name="Sector 2 - Logbook 6", region="Sector 2"),
-    IjiLocData(id=1207, name="Sector 2 - Logbook 7", region="Sector 2"),
-    IjiLocData(id=1208, name="Sector 2 - Logbook 8", region="Sector 2"),
-    IjiLocData(id=1209, name="Sector 2 - Logbook 9", region="Sector 2"),
-    IjiLocData(id=1210, name="Sector 2 - Logbook 10", region="Sector 2"),
-    IjiLocData(id=1211, name="Sector 2 - Logbook 11", region="Sector 2"),
-    IjiLocData(id=1212, name="Sector 2 - Logbook 12", region="Sector 2"),
-    IjiLocData(id=1213, name="Sector 2 - Logbook 13", region="Sector 2"),
-    IjiLocData(id=1214, name="Sector 2 - Logbook 14", region="Sector 2"),
-    IjiLocData(id=1215, name="Sector 2 - Logbook 15", region="Sector 2 Poster"),
-    IjiLocData(id=1216, name="Sector 2 - Logbook 16", region="Sector 2 Poster"),
-    IjiLocData(id=1301, name="Sector 3 - Logbook 1", region="Sector 3"),
-    IjiLocData(id=1302, name="Sector 3 - Logbook 2", region="Sector 3"),
-    IjiLocData(id=1303, name="Sector 3 - Logbook 3", region="Sector 3"),
-    IjiLocData(id=1304, name="Sector 3 - Logbook 4", region="Sector 3"),
-    IjiLocData(id=1305, name="Sector 3 - Logbook 5", region="Sector 3"),
-    IjiLocData(id=1306, name="Sector 3 - Logbook 6", region="Sector 3"),
-    IjiLocData(id=1307, name="Sector 3 - Logbook 7", region="Sector 3"),
-    IjiLocData(id=1308, name="Sector 3 - Logbook 8", region="Sector 3"),
-    IjiLocData(id=1309, name="Sector 3 - Logbook 9", region="Sector 3"),
-    IjiLocData(id=1310, name="Sector 3 - Logbook 10", region="Sector 3"),
-    IjiLocData(id=1311, name="Sector 3 - Logbook 11", region="Sector 3"),
-    IjiLocData(id=1312, name="Sector 3 - Logbook 12", region="Sector 3"),
-    IjiLocData(id=1313, name="Sector 3 - Logbook 13", region="Sector 3"),
-    IjiLocData(id=1314, name="Sector 3 - Logbook 14", region="Sector 3"),
-    IjiLocData(id=1315, name="Sector 3 - Logbook 15", region="Sector 3"),
-    IjiLocData(id=1316, name="Sector 3 - Logbook 16", region="Sector 3 Restricted Area"),
-    IjiLocData(id=1317, name="Sector 3 - Logbook 17", region="Sector 3 Restricted Area"),
-    IjiLocData(id=1318, name="Sector 3 - Logbook 18", region="Sector 3 Poster"),
-    IjiLocData(id=1401, name="Sector 4 - Logbook 1", region="Sector 4"),
-    IjiLocData(id=1402, name="Sector 4 - Logbook 2", region="Sector 4"),
-    IjiLocData(id=1403, name="Sector 4 - Logbook 3", region="Sector 4"),
-    IjiLocData(id=1404, name="Sector 4 - Logbook 4", region="Sector 4"),
-    IjiLocData(id=1405, name="Sector 4 - Logbook 5", region="Sector 4"),
-    IjiLocData(id=1406, name="Sector 4 - Logbook 6", region="Sector 4"),
-    IjiLocData(id=1407, name="Sector 4 - Logbook 7", region="Sector 4"),
-    IjiLocData(id=1408, name="Sector 4 - Logbook 8", region="Sector 4"),
-    IjiLocData(id=1409, name="Sector 4 - Logbook 9", region="Sector 4"),
-    IjiLocData(id=1410, name="Sector 4 - Logbook 10", region="Sector 4 Surveillance Control"),
-    IjiLocData(id=1411, name="Sector 4 - Logbook 11", region="Sector 4 Top of Main Storage"),
-    IjiLocData(id=1412, name="Sector 4 - Logbook 12", region="Sector 4"),
-    IjiLocData(id=1413, name="Sector 4 - Logbook 13", region="Sector 4 Poster"),
-    IjiLocData(id=1501, name="Sector 5 - Logbook 1", region="Sector 5"),
-    IjiLocData(id=1502, name="Sector 5 - Logbook 2", region="Sector 5"),
-    IjiLocData(id=1503, name="Sector 5 - Logbook 3", region="Sector 5"),
-    IjiLocData(id=1504, name="Sector 5 - Logbook 4", region="Sector 5"),
-    IjiLocData(id=1505, name="Sector 5 - Logbook 5", region="Sector 5"),
-    IjiLocData(id=1506, name="Sector 5 - Logbook 6", region="Sector 5"),
-    IjiLocData(id=1507, name="Sector 5 - Logbook 7", region="Sector 5"),
-    IjiLocData(id=1508, name="Sector 5 - Logbook 8", region="Sector 5"),
-    IjiLocData(id=1509, name="Sector 5 - Logbook 9", region="Sector 5"),
-    IjiLocData(id=1510, name="Sector 5 - Logbook 10", region="Sector 5"),
-    IjiLocData(id=1601, name="Sector 6 - Logbook 1", region="Sector 6"),
-    IjiLocData(id=1602, name="Sector 6 - Logbook 2", region="Sector 6"),
-    IjiLocData(id=1603, name="Sector 6 - Logbook 3", region="Sector 6"),
-    IjiLocData(id=1604, name="Sector 6 - Logbook 4", region="Sector 6"),
-    IjiLocData(id=1605, name="Sector 6 - Logbook 5", region="Sector 6"),
-    IjiLocData(id=1606, name="Sector 6 - Logbook 6", region="Sector 6"),
-    IjiLocData(id=1607, name="Sector 6 - Logbook 7", region="Sector 6"),
-    IjiLocData(id=1608, name="Sector 6 - Logbook 8", region="Sector 6"),
-    IjiLocData(id=1609, name="Sector 6 - Logbook 9", region="Sector 6"),
-    IjiLocData(id=1610, name="Sector 6 - Logbook 10", region="Sector 6"),
-    IjiLocData(id=1611, name="Sector 6 - Logbook 11", region="Sector 6 Poster"),
-    IjiLocData(id=1701, name="Sector 7 - Logbook 1", region="Sector 7"),
-    IjiLocData(id=1702, name="Sector 7 - Logbook 2", region="Sector 7"),
-    IjiLocData(id=1703, name="Sector 7 - Logbook 3", region="Sector 7"),
-    IjiLocData(id=1704, name="Sector 7 - Logbook 4", region="Sector 7"),
-    IjiLocData(id=1705, name="Sector 7 - Logbook 5", region="Sector 7"),
-    IjiLocData(id=1706, name="Sector 7 - Logbook 6", region="Sector 7"),
-    IjiLocData(id=1707, name="Sector 7 - Logbook 7", region="Sector 7"),
-    IjiLocData(id=1708, name="Sector 7 - Logbook 8", region="Sector 7"),
-    IjiLocData(id=1709, name="Sector 7 - Logbook 9", region="Sector 7"),
-    IjiLocData(id=1710, name="Sector 7 - Logbook 10", region="Sector 7"),
-    IjiLocData(id=1711, name="Sector 7 - Logbook 11", region="Sector 7"),
-    IjiLocData(id=1712, name="Sector 7 - Logbook 12", region="Sector 7"),
-    IjiLocData(id=1713, name="Sector 7 - Logbook 13", region="Sector 7"),
-    IjiLocData(id=1714, name="Sector 7 - Logbook 14", region="Sector 7 "),
-    IjiLocData(id=1715, name="Sector 7 - Logbook 15", region="Sector 7 Heavy Weapon Armory"),
-    IjiLocData(id=1716, name="Sector 7 - Logbook 16", region="Sector 7 Hyper Turret Logbooks"),
-    IjiLocData(id=1717, name="Sector 7 - Logbook 17", region="Sector 7 Hyper Turret Logbooks"),
-    IjiLocData(id=1718, name="Sector 7 - Logbook 18", region="Sector 7 Poster"),
-    IjiLocData(id=1719, name="Sector 7 - Logbook 19", region="Sector 7 Poster"),
-    IjiLocData(id=1720, name="Sector 7 - Logbook 20", region="Sector 7 Crackers' Hideout"),
-    IjiLocData(id=1721, name="Sector 7 - Logbook 21", region="Sector 7 Crackers' Hideout"),
-    IjiLocData(id=1722, name="Sector 7 - Logbook 22", region="Sector 7 Crackers' Hideout"),
-    IjiLocData(id=1801, name="Sector 8 - Logbook 1", region="Sector 8"),
-    IjiLocData(id=1802, name="Sector 8 - Logbook 2", region="Sector 8"),
-    IjiLocData(id=1803, name="Sector 8 - Logbook 3", region="Sector 8"),
-    IjiLocData(id=1804, name="Sector 8 - Logbook 4", region="Sector 8"),
-    IjiLocData(id=1805, name="Sector 8 - Logbook 5", region="Sector 8"),
-    IjiLocData(id=1806, name="Sector 8 - Logbook 6", region="Sector 8"),
-    IjiLocData(id=1807, name="Sector 8 - Logbook 7", region="Sector 8"),
-    IjiLocData(id=1808, name="Sector 8 - Logbook 8", region="Sector 8"),
-    IjiLocData(id=1809, name="Sector 8 - Logbook 9", region="Sector 8"),
-    IjiLocData(id=1810, name="Sector 8 - Logbook 10", region="Sector 8"),
-    IjiLocData(id=1811, name="Sector 8 - Logbook 11", region="Sector 8"),
-    IjiLocData(id=1812, name="Sector 8 - Logbook 12", region="Sector 8"),
-    IjiLocData(id=1813, name="Sector 8 - Logbook 13", region="Sector 8 Staff Storage Return Trip"),
-    IjiLocData(id=1814, name="Sector 8 - Logbook 14", region="Sector 8 Poster"),
-    IjiLocData(id=1815, name="Sector 8 - Logbook 15", region="Sector 8"),
-    IjiLocData(id=1901, name="Sector 9 - Logbook 1", region="Sector 9"),
-    IjiLocData(id=1902, name="Sector 9 - Logbook 2", region="Sector 9"),
-    IjiLocData(id=1903, name="Sector 9 - Logbook 3", region="Sector 9"),
-    IjiLocData(id=1904, name="Sector 9 - Logbook 4", region="Sector 9"),
-    IjiLocData(id=1905, name="Sector 9 - Logbook 5", region="Sector 9"),
-    IjiLocData(id=1906, name="Sector 9 - Logbook 6", region="Sector 9"),
-    IjiLocData(id=1907, name="Sector 9 - Logbook 7", region="Sector 9"),
-    IjiLocData(id=1908, name="Sector 9 - Logbook 8", region="Sector 9"),
-    IjiLocData(id=1909, name="Sector 9 - Logbook 9", region="Sector 9"),
-    IjiLocData(id=1910, name="Sector 9 - Logbook 10", region="Sector 9"),
-    IjiLocData(id=1911, name="Sector 9 - Logbook 11", region="Sector 9"),
-    IjiLocData(id=1912, name="Sector 9 - Logbook 12", region="Sector 9"),
-    IjiLocData(id=1913, name="Sector 9 - Logbook 13", region="Sector 9"),
-    IjiLocData(id=1914, name="Sector 9 - Logbook 14", region="Sector 9 Poster"),
-    IjiLocData(id=1915, name="Sector 9 - Logbook 15", region="Sector 9"),
-    IjiLocData(id=1916, name="Sector 9 - Logbook 16", region="Sector 9 Deep Sector"),
-    IjiLocData(id=1917, name="Sector 9 - Logbook 17", region="Sector 9 Deep Sector"),
-    IjiLocData(id=1918, name="Sector 9 - Logbook 18", region="Sector 9 Deep Sector"),
-    IjiLocData(id=1919, name="Sector 9 - Logbook 19", region="Sector 9 Deep Sector"),
-    IjiLocData(id=1001, name="Sector X - Logbook 1", region="Sector X"),
-    IjiLocData(id=1002, name="Sector X - Logbook 2", region="Sector X"),
-    IjiLocData(id=1003, name="Sector X - Logbook 3", region="Sector X"),
-    IjiLocData(id=1004, name="Sector X - Logbook 4", region="Sector X"),
-    IjiLocData(id=1005, name="Sector X - Logbook 5", region="Sector X"),
-    IjiLocData(id=1006, name="Sector X - Logbook 6", region="Sector X"),
-    IjiLocData(id=1007, name="Sector X - Logbook 7", region="Sector X"),
-    IjiLocData(id=1008, name="Sector X - Logbook 8", region="Sector X"),
-    IjiLocData(id=1009, name="Sector X - Logbook 9", region="Sector X"),
-    IjiLocData(id=1010, name="Sector X - Logbook 10", region="Sector X"),
-    IjiLocData(id=1011, name="Sector X - Logbook 11", region="Sector X"),
-    IjiLocData(id=1012, name="Sector X - Logbook 12", region="Sector X"),
-    IjiLocData(id=1013, name="Sector X - Logbook 13", region="Sector X"),
-    IjiLocData(id=1014, name="Sector X - Logbook 14", region="Sector X"),
-    IjiLocData(id=1015, name="Sector X - Logbook 15", region="Sector X"),
-    IjiLocData(id=1016, name="Sector X - Logbook 16", region="Sector X"),
-    IjiLocData(id=1017, name="Sector X - Logbook 17", region="Sector X"),
-    IjiLocData(id=1018, name="Sector X - Logbook 18", region="Sector X"),
-    IjiLocData(id=1019, name="Sector X - Logbook 19", region="Sector X"),
-    IjiLocData(id=1020, name="Sector X - Logbook 20", region="Sector X"),
-    IjiLocData(id=1021, name="Sector X - Logbook 21", region="Sector X"),
-    IjiLocData(id=1022, name="Sector X - Logbook 22", region="Sector X Ventilation Shaft"),
-    IjiLocData(id=1023, name="Sector X - Logbook 23", region="Sector X Ultimate Charge Terminal"),
-    IjiLocData(id=1024, name="Sector X - Logbook 24", region="Sector X Ultimate Charge Terminal"),
-    IjiLocData(id=1025, name="Sector X - Logbook 25", region="Sector X Ultimate Charge Terminal"),
-    IjiLocData(id=1116, name="Sector Z - Logbook 1", region="Sector Z"),
-    IjiLocData(id=1117, name="Sector Z - Logbook 2", region="Sector Z"),
-    IjiLocData(id=1118, name="Sector Y - Logbook 1", region="Sector Y"),
-    IjiLocData(id=1119, name="Sector Y - Logbook 2", region="Sector Y"),
-    IjiLocData(id=1120, name="Sector Y - Logbook 3", region="Sector Y"),
-    IjiLocData(id=1121, name="Sector Y - Logbook 4", region="Sector Y"),
-    IjiLocData(id=1122, name="Sector Y - Logbook 5", region="Sector Y"),
-    IjiLocData(id=1123, name="Sector Y - Logbook 6", region="Sector Y"),
-    IjiLocData(id=1124, name="Sector Y - Logbook 7", region="Sector Y"),
-    IjiLocData(id=1125, name="Sector Y - Logbook 8", region="Sector Y"),
-    IjiLocData(id=1126, name="Sector Y - Logbook 9", region="Sector Y"),
-    IjiLocData(id=1127, name="Sector Y - Logbook 10", region="Sector Y"),
-    IjiLocData(id=1128, name="Sector Y - Logbook 11", region="Sector Y"),
-    IjiLocData(id=1129, name="Sector Y - Logbook 12", region="Sector Y"),
-    IjiLocData(id=1130, name="Sector Y - Logbook 13", region="Sector Y"),
-    IjiLocData(id=1131, name="Sector Y - Logbook 14", region="Sector Y"),
-    IjiLocData(id=1132, name="Sector Y - Logbook 15", region="Sector Y")
+locations_allbasicweapons: Dict[str, IjiLocData] = {
+    "Sector 3 - Machine Gun 1/3":                   IjiLocData(code=3311, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 3 - Machine Gun 2/3":                   IjiLocData(code=3312, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 3 - Machine Gun 3/3":                   IjiLocData(code=3313, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 3 - Rocket Launcher 1/2":               IjiLocData(code=3321, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 3 - Rocket Launcher 2/2":               IjiLocData(code=3322, region="Sector 3", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 4 - Rocket Launcher 1/2":               IjiLocData(code=3421, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 4 - Rocket Launcher 2/2":               IjiLocData(code=3422, region="Sector 4", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Machine Gun 1/2":                   IjiLocData(code=3511, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Machine Gun 2/2":                   IjiLocData(code=3512, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Rocket Launcher 1/2":               IjiLocData(code=3521, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Rocket Launcher 2/2":               IjiLocData(code=3522, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Pulse Cannon 1/3":                  IjiLocData(code=3551, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Pulse Cannon 2/3":                  IjiLocData(code=3552, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 5 - Pulse Cannon 3/3":                  IjiLocData(code=3553, region="Sector 5", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Machine Gun 1/2":                   IjiLocData(code=3611, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Machine Gun 2/2":                   IjiLocData(code=3612, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Rocket Launcher 1/2":               IjiLocData(code=3621, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Rocket Launcher 2/2":               IjiLocData(code=3622, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - MPFB Devastator 1/2":               IjiLocData(code=3631, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - MPFB Devastator 2/2":               IjiLocData(code=3632, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Pulse Cannon 1/2":                  IjiLocData(code=3651, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Pulse Cannon 2/2":                  IjiLocData(code=3652, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Shocksplinter 1/3":                 IjiLocData(code=3661, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Shocksplinter 2/3":                 IjiLocData(code=3662, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 6 - Shocksplinter 3/3":                 IjiLocData(code=3663, region="Sector 6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Rocket Launcher 1/3":               IjiLocData(code=3721, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Rocket Launcher 2/3":               IjiLocData(code=3722, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Rocket Launcher 3/3":               IjiLocData(code=3723, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Resonance Detonator 1/2":           IjiLocData(code=3741, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Resonance Detonator 2/2":           IjiLocData(code=3742, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Pulse Cannon 1/2":                  IjiLocData(code=3751, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Pulse Cannon 2/2":                  IjiLocData(code=3752, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Shocksplinter 1/3":                 IjiLocData(code=3761, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Shocksplinter 2/3":                 IjiLocData(code=3762, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 7 - Shocksplinter 3/3":                 IjiLocData(code=3763, region="Sector 7", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Rocket Launcher 1/3":               IjiLocData(code=3821, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Rocket Launcher 2/3":               IjiLocData(code=3822, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Rocket Launcher 3/3":               IjiLocData(code=3823, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Pulse Cannon 1/2":                  IjiLocData(code=3851, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Pulse Cannon 2/2":                  IjiLocData(code=3852, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Shocksplinter 1/2":                 IjiLocData(code=3861, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 8 - Shocksplinter 2/2":                 IjiLocData(code=3862, region="Sector 8", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Machine Gun 1/4":                   IjiLocData(code=3911, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Machine Gun 2/4":                   IjiLocData(code=3912, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Machine Gun 3/4":                   IjiLocData(code=3913, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Machine Gun 4/4":                   IjiLocData(code=3914, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Rocket Launcher 1/5":               IjiLocData(code=3921, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Rocket Launcher 2/5":               IjiLocData(code=3922, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Rocket Launcher 3/5":               IjiLocData(code=3923, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Rocket Launcher 4/5":               IjiLocData(code=3924, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Rocket Launcher 5/5":               IjiLocData(code=3925, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - MPFB Devastator 1/4":               IjiLocData(code=3931, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - MPFB Devastator 2/4":               IjiLocData(code=3932, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - MPFB Devastator 3/4":               IjiLocData(code=3933, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - MPFB Devastator 4/4":               IjiLocData(code=3934, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Resonance Detonator 1/4":           IjiLocData(code=3941, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Resonance Detonator 2/4":           IjiLocData(code=3942, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Resonance Detonator 3/4":           IjiLocData(code=3943, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Resonance Detonator 4/4":           IjiLocData(code=3944, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Pulse Cannon 1/4":                  IjiLocData(code=3951, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Pulse Cannon 2/4":                  IjiLocData(code=3952, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Pulse Cannon 3/4":                  IjiLocData(code=3953, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Pulse Cannon 4/4":                  IjiLocData(code=3954, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Shocksplinter 1/4":                 IjiLocData(code=3961, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Shocksplinter 2/4":                 IjiLocData(code=3962, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Shocksplinter 3/4":                 IjiLocData(code=3963, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Shocksplinter 4/4":                 IjiLocData(code=3964, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Cyclic Fusion Ignition System 1/3": IjiLocData(code=3971, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Cyclic Fusion Ignition System 2/3": IjiLocData(code=3972, region="Sector 9", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector 9 - Cyclic Fusion Ignition System 3/3": IjiLocData(code=3973, region="Sector 9 Poster", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Machine Gun 1/3":                   IjiLocData(code=3011, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Machine Gun 2/3":                   IjiLocData(code=3012, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Machine Gun 3/3":                   IjiLocData(code=3013, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Rocket Launcher 1/3":               IjiLocData(code=3021, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Rocket Launcher 2/3":               IjiLocData(code=3022, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Rocket Launcher 3/3":               IjiLocData(code=3023, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - MPFB Devastator 1/4":               IjiLocData(code=3031, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - MPFB Devastator 2/4":               IjiLocData(code=3032, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - MPFB Devastator 3/4":               IjiLocData(code=3033, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - MPFB Devastator 4/4":               IjiLocData(code=3034, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Resonance Detonator 1/2":           IjiLocData(code=3041, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Resonance Detonator 2/2":           IjiLocData(code=3042, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Pulse Cannon 1/4":                  IjiLocData(code=3051, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Pulse Cannon 2/4":                  IjiLocData(code=3052, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Pulse Cannon 3/4":                  IjiLocData(code=3053, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Pulse Cannon 4/4":                  IjiLocData(code=3054, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Shocksplinter 1/3":                 IjiLocData(code=3061, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Shocksplinter 2/3":                 IjiLocData(code=3062, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Shocksplinter 3/3":                 IjiLocData(code=3063, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Cyclic Fusion Ignition System 1/4": IjiLocData(code=3071, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Cyclic Fusion Ignition System 2/4": IjiLocData(code=3072, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Cyclic Fusion Ignition System 3/4": IjiLocData(code=3073, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances),
+    "Sector X - Cyclic Fusion Ignition System 4/4": IjiLocData(code=3074, region="Sector X", \
+        valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances)
 }
 
-# location_doorsanity: [int, IjiLocData] = {2001->2999}
+locations_logbooks: Dict[str, IjiLocData] = {
+    "Sector 1 - Logbook 1":  IjiLocData(code=1101, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 2":  IjiLocData(code=1102, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 3":  IjiLocData(code=1103, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 4":  IjiLocData(code=1104, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 5":  IjiLocData(code=1105, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 6":  IjiLocData(code=1106, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 7":  IjiLocData(code=1107, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 8":  IjiLocData(code=1108, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 9":  IjiLocData(code=1109, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 10": IjiLocData(code=1110, region="Sector 1", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 11": IjiLocData(code=1111, region="Sector 1 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 12": IjiLocData(code=1112, region="Sector 1 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 13": IjiLocData(code=1113, region="Sector 1 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 14": IjiLocData(code=1114, region="Sector 1 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 1 - Logbook 15": IjiLocData(code=1115, region="Sector 1 Restricted Area", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 1":  IjiLocData(code=1201, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 2":  IjiLocData(code=1202, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 3":  IjiLocData(code=1203, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 4":  IjiLocData(code=1204, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 5":  IjiLocData(code=1205, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 6":  IjiLocData(code=1206, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 7":  IjiLocData(code=1207, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 8":  IjiLocData(code=1208, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 9":  IjiLocData(code=1209, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 10": IjiLocData(code=1210, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 11": IjiLocData(code=1211, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 12": IjiLocData(code=1212, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 13": IjiLocData(code=1213, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 14": IjiLocData(code=1214, region="Sector 2", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 15": IjiLocData(code=1215, region="Sector 2 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 2 - Logbook 16": IjiLocData(code=1216, region="Sector 2 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 1":  IjiLocData(code=1301, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 2":  IjiLocData(code=1302, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 3":  IjiLocData(code=1303, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 4":  IjiLocData(code=1304, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 5":  IjiLocData(code=1305, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 6":  IjiLocData(code=1306, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 7":  IjiLocData(code=1307, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 8":  IjiLocData(code=1308, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 9":  IjiLocData(code=1309, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 10": IjiLocData(code=1310, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 11": IjiLocData(code=1311, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 12": IjiLocData(code=1312, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 13": IjiLocData(code=1313, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 14": IjiLocData(code=1314, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 15": IjiLocData(code=1315, region="Sector 3", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 16": IjiLocData(code=1316, region="Sector 3 Restricted Area", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 17": IjiLocData(code=1317, region="Sector 3 Restricted Area", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 3 - Logbook 18": IjiLocData(code=1318, region="Sector 3 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 1":  IjiLocData(code=1401, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 2":  IjiLocData(code=1402, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 3":  IjiLocData(code=1403, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 4":  IjiLocData(code=1404, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 5":  IjiLocData(code=1405, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 6":  IjiLocData(code=1406, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 7":  IjiLocData(code=1407, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 8":  IjiLocData(code=1408, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 9":  IjiLocData(code=1409, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 10": IjiLocData(code=1410, region="Sector 4 Surveillance Control", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 11": IjiLocData(code=1411, region="Sector 4 Top of Main Storage", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 12": IjiLocData(code=1412, region="Sector 4", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 4 - Logbook 13": IjiLocData(code=1413, region="Sector 4 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 1":  IjiLocData(code=1501, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 2":  IjiLocData(code=1502, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 3":  IjiLocData(code=1503, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 4":  IjiLocData(code=1504, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 5":  IjiLocData(code=1505, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 6":  IjiLocData(code=1506, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 7":  IjiLocData(code=1507, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 8":  IjiLocData(code=1508, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 9":  IjiLocData(code=1509, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 5 - Logbook 10": IjiLocData(code=1510, region="Sector 5", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 1":  IjiLocData(code=1601, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 2":  IjiLocData(code=1602, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 3":  IjiLocData(code=1603, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 4":  IjiLocData(code=1604, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 5":  IjiLocData(code=1605, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 6":  IjiLocData(code=1606, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 7":  IjiLocData(code=1607, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 8":  IjiLocData(code=1608, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 9":  IjiLocData(code=1609, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 10": IjiLocData(code=1610, region="Sector 6", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 6 - Logbook 11": IjiLocData(code=1611, region="Sector 6 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 1":  IjiLocData(code=1701, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 2":  IjiLocData(code=1702, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 3":  IjiLocData(code=1703, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 4":  IjiLocData(code=1704, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 5":  IjiLocData(code=1705, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 6":  IjiLocData(code=1706, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 7":  IjiLocData(code=1707, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 8":  IjiLocData(code=1708, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 9":  IjiLocData(code=1709, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 10": IjiLocData(code=1710, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 11": IjiLocData(code=1711, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 12": IjiLocData(code=1712, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 13": IjiLocData(code=1713, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 14": IjiLocData(code=1714, region="Sector 7", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 15": IjiLocData(code=1715, region="Sector 7 Heavy Weapon Armory", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 16": IjiLocData(code=1716, region="Sector 7 Hyper Turret Logbooks", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 17": IjiLocData(code=1717, region="Sector 7 Hyper Turret Logbooks", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 18": IjiLocData(code=1718, region="Sector 7 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 19": IjiLocData(code=1719, region="Sector 7 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 20": IjiLocData(code=1720, region="Sector 7 Crackers' Hideout", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 21": IjiLocData(code=1721, region="Sector 7 Crackers' Hideout", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 7 - Logbook 22": IjiLocData(code=1722, region="Sector 7 Crackers' Hideout", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 1":  IjiLocData(code=1801, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 2":  IjiLocData(code=1802, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 3":  IjiLocData(code=1803, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 4":  IjiLocData(code=1804, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 5":  IjiLocData(code=1805, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 6":  IjiLocData(code=1806, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 7":  IjiLocData(code=1807, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 8":  IjiLocData(code=1808, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 9":  IjiLocData(code=1809, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 10": IjiLocData(code=1810, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 11": IjiLocData(code=1811, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 12": IjiLocData(code=1812, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 13": IjiLocData(code=1813, region="Sector 8 Staff Storage Return Trip", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 14": IjiLocData(code=1814, region="Sector 8 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 8 - Logbook 15": IjiLocData(code=1815, region="Sector 8", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 1":  IjiLocData(code=1901, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 2":  IjiLocData(code=1902, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 3":  IjiLocData(code=1903, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 4":  IjiLocData(code=1904, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 5":  IjiLocData(code=1905, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 6":  IjiLocData(code=1906, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 7":  IjiLocData(code=1907, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 8":  IjiLocData(code=1908, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 9":  IjiLocData(code=1909, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 10": IjiLocData(code=1910, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 11": IjiLocData(code=1911, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 12": IjiLocData(code=1912, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 13": IjiLocData(code=1913, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 14": IjiLocData(code=1914, region="Sector 9 Poster", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 15": IjiLocData(code=1915, region="Sector 9", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 16": IjiLocData(code=1916, region="Sector 9 Deep Sector", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 17": IjiLocData(code=1917, region="Sector 9 Deep Sector", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 18": IjiLocData(code=1918, region="Sector 9 Deep Sector", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector 9 - Logbook 19": IjiLocData(code=1919, region="Sector 9 Deep Sector", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 1":  IjiLocData(code=1001, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 2":  IjiLocData(code=1002, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 3":  IjiLocData(code=1003, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 4":  IjiLocData(code=1004, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 5":  IjiLocData(code=1005, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 6":  IjiLocData(code=1006, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 7":  IjiLocData(code=1007, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 8":  IjiLocData(code=1008, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 9":  IjiLocData(code=1009, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 10": IjiLocData(code=1010, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 11": IjiLocData(code=1011, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 12": IjiLocData(code=1012, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 13": IjiLocData(code=1013, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 14": IjiLocData(code=1014, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 15": IjiLocData(code=1015, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 16": IjiLocData(code=1016, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 17": IjiLocData(code=1017, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 18": IjiLocData(code=1018, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 19": IjiLocData(code=1019, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 20": IjiLocData(code=1020, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 21": IjiLocData(code=1021, region="Sector X", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 22": IjiLocData(code=1022, region="Sector X Ventilation Shaft", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 23": IjiLocData(code=1023, region="Sector X Maximum Charge Terminal", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 24": IjiLocData(code=1024, region="Sector X Maximum Charge Terminal", \
+        valid=lambda world: world.options.LogbookLocations),
+    "Sector X - Logbook 25": IjiLocData(code=1025, region="Sector X Maximum Charge Terminal", \
+        valid=lambda world: world.options.LogbookLocations)
+}
 
-# location_killsanity: [int, IjiLocData] = {10001->19999}
+locations_logbooks_z: Dict[str, IjiLocData] = {
+    "Sector Z - Logbook 1":  IjiLocData(code=1116, region="Sector Z", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_z_allowed()),
+    "Sector Z - Logbook 2":  IjiLocData(code=1117, region="Sector Z", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_z_allowed())
+}
 
-#location_pickupsanity: [int,IjiLocData] = {20001->29999}
+locations_logbooks_y: Dict[str, IjiLocData] = {
+    "Sector Y - Logbook 1":  IjiLocData(code=1118, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 2":  IjiLocData(code=1119, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 3":  IjiLocData(code=1120, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 4":  IjiLocData(code=1121, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 5":  IjiLocData(code=1122, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 6":  IjiLocData(code=1123, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 7":  IjiLocData(code=1124, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 8":  IjiLocData(code=1125, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 9":  IjiLocData(code=1126, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 10": IjiLocData(code=1127, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 11": IjiLocData(code=1128, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 12": IjiLocData(code=1129, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 13": IjiLocData(code=1130, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 14": IjiLocData(code=1131, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+    "Sector Y - Logbook 15": IjiLocData(code=1132, region="Sector Y", \
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed)
+}
+
+# location_doorsanity: IjiLocData = {2001->2999}
+
+# location_killsanity: IjiLocData = {10001->19999}
+
+#location_pickupsanity: IjiLocData = {20001->29999}
+
+location_table = {
+    **locations_sectorcomplete,
+    **locations_levelup,
+    **locations_specialtraits,
+    **locations_ribbon,
+    **locations_poster,
+    **locations_supercharge,
+    **locations_upgrades,
+    **locations_uniquebasicweapons,
+    **locations_sectorweapons,
+    **locations_allbasicweapons,
+    **locations_combinedweapons,
+    **locations_uniquespecialweapons,
+    **locations_logbooks,
+    **locations_logbooks_z,
+    **locations_logbooks_y
+}
+
+location_weapons_table = {
+    **locations_uniquebasicweapons,
+    **locations_sectorweapons,
+    **locations_allbasicweapons,
+    **locations_combinedweapons,
+    **locations_uniquespecialweapons
+}
