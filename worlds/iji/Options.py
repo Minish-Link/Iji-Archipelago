@@ -7,15 +7,15 @@ from Options import Range, Toggle, DeathLink, Choice, OptionDict, DefaultOnToggl
 if TYPE_CHECKING:
     from . import IjiWorld
 
-def get_compacted_stat_items(world: IjiWorld) -> Dict[str, int]:
+def get_compacted_stat_items(world: "IjiWorld") -> Dict[str, int]:
     compacted_items = {
-        "Health":       ceil(world.options.HealthItems.value    / world.options.CompactStatItems),  # Health Stat
-        "Attack":       ceil(world.options.AttackItems.value    / world.options.CompactStatItems),  # Attack Stat
-        "Assimilate":   ceil(world.options.AssimilateItems.value/ world.options.CompactStatItems),  # Assimilate Stat
-        "Strength":     ceil(world.options.StrengthItems.value  / world.options.CompactStatItems),  # Strength Stat
-        "Crack":        ceil(world.options.CrackItems.value     / world.options.CompactStatItems),  # Crack Stat
-        "Tasen":        ceil(world.options.TasenItems.value     / world.options.CompactStatItems),  # Tasen Stat
-        "Komato":       ceil(world.options.KomatoItems.value    / world.options.CompactStatItems)   # Komato Stat
+        "Health Stat":       ceil(world.options.HealthItems.value    / world.options.CompactStatItems),  # Health Stat
+        "Attack Stat":       ceil(world.options.AttackItems.value    / world.options.CompactStatItems),  # Attack Stat
+        "Assimilate Stat":   ceil(world.options.AssimilateItems.value/ world.options.CompactStatItems),  # Assimilate Stat
+        "Strength Stat":     ceil(world.options.StrengthItems.value  / world.options.CompactStatItems),  # Strength Stat
+        "Crack Stat":        ceil(world.options.CrackItems.value     / world.options.CompactStatItems),  # Crack Stat
+        "Tasen Stat":        ceil(world.options.TasenItems.value     / world.options.CompactStatItems),  # Tasen Stat
+        "Komato Stat":       ceil(world.options.KomatoItems.value    / world.options.CompactStatItems)   # Komato Stat
     }
 
     return compacted_items

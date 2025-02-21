@@ -2,7 +2,7 @@ from math import floor
 from BaseClasses import Item, ItemClassification
 from .Locations import get_total_locations
 from .Options import get_compacted_stat_items
-from typing import List, Dict, TYPE_CHECKING
+from typing import List, Dict, TYPE_CHECKING, NamedTuple
 
 
 if TYPE_CHECKING:
@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class IjiItem(Item):
     game = "Iji"
 
-class IjiItemData:
+class IjiItemData(NamedTuple):
     code: int
     progtype: ItemClassification = ItemClassification.filler,
     weight: int = 1
@@ -112,7 +112,7 @@ def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     return fillerlist
 
 def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
-    traplist = List[Item] = []
+    traplist: List[Item] = []
 
     trapweights: Dict[str, int] = {}
 
@@ -121,7 +121,7 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
     trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
     trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
     trapweights["Nap Trap"] = world.options.NapTrapWeight.value
-    trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.values
+    trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
 
     for i in range(count):
         traplist.append(world.create_item(

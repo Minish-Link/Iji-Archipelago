@@ -232,54 +232,7 @@ def create_region(world: "IjiWorld", name: str) -> Region:
     region = Region(name, world.player, world.multiworld)
 
     for name, data in location_table.items():
-        if data.valid(world) and data.region == region.name:
+        if data.valid(world) and data.region == name:
             region.locations.append(IjiLocation(world.player, name, data.code, region))
 
     return region
-
-class IjiRegionAccess(NamedTuple):
-    exits: List[str] = []
-    access_rule: CollectionRule = lambda state: True
-
-
-region_table: Dict[str, IjiRegionAccess] = {
-    "Menu": IjiRegionAccess(exits=["Global", "Sector 1"]),
-    "Global": IjiRegionAccess(),
-    "Sector 1": IjiRegionAccess(
-        exits=["Sector 1 Restricted Area", "Sector 1 Poster", "Sector 2", "Sector Z"]
-    ),
-    "Sector 1 Restricted Area": IjiRegionAccess(),
-    "Sector 1 Poster": IjiRegionAccess(),
-    "Sector 2": IjiRegionAccess(exits=["Sector 2 Storage Transport Top", "Sector 2 Poster", "Sector 3"]),
-    "Sector 2 Restricted Area": IjiRegionAccess(),
-    "Sector 2 Poster": IjiRegionAccess(),
-    "Sector 3": IjiRegionAccess(exits=["Sector 3 Restricted Area", "Sector 3 Poster", "Sector 4"]),
-    "Sector 3 Restricted Area": IjiRegionAccess(),
-    "Sector 3 Poster": IjiRegionAccess(),
-    "Sector 4": IjiRegionAccess(exits=["Sector 4 Surveillance Control", "Sector 4 Top of Main Storage", "Sector 4 Poster", "Sector 5"]),
-    "Sector 4 Surveillance Control": IjiRegionAccess(),
-    "Sector 4 Top of Main Storage": IjiRegionAccess(),
-    "Sector 4 Poster": IjiRegionAccess(),
-    "Sector 5": IjiRegionAccess(exits=["Sector 5 Poster", "Sector 6"]),
-    "Sector 5 Poster": IjiRegionAccess(),
-    "Sector 6": IjiRegionAccess(exits=["Sector 6 Poster", "Sector 7"]),
-    "Sector 6 Poster": IjiRegionAccess(),
-    "Sector 7": IjiRegionAccess(exits=["Sector 7 Heavy Weapon Armory", "Sector 7 Hyper Turret Logbooks", "Sector 7 Crackers' Hideout", "Sector 7 Poster", "Sector 8"]),
-    "Sector 7 Heavy Weapon Armory": IjiRegionAccess(),
-    "Sector 7 Hyper Turret Logbooks": IjiRegionAccess(),
-    "Sector 7 Crackers' Hideout": IjiRegionAccess(),
-    "Sector 7 Poster": IjiRegionAccess(),
-    "Sector 8": IjiRegionAccess(exits=["Sector 8 Staff Storage Return Trip", "Sector 8 Poster", "Sector 9"]),
-    "Sector 8 Staff Storage Return Trip": IjiRegionAccess(),
-    "Sector 8 Poster": IjiRegionAccess(),
-    "Sector 9": IjiRegionAccess(exits=["Sector 9 Poster", "Sector 9 Deep Sector", "Sector X"]),
-    "Sector 9 Poster": IjiRegionAccess(),
-    "Sector 9 Deep Sector": IjiRegionAccess(),
-    "Sector X": IjiRegionAccess(exits=["Sector X Ventilation Shaft", "Sector X Ultimate Charge Terminal", "Sector Y"]),
-    "Sector X Ventilation Shaft": IjiRegionAccess(exits=["Sector X Poster"]),
-    "Sector X Poster": IjiRegionAccess(),
-    "Sector X Maximum Charge Terminal": IjiRegionAccess(),
-    "Sector Z": IjiRegionAccess(exits=["Sector Z Inner Prey"]),
-    "Sector Z Inner Prey": IjiRegionAccess(),
-    "Sector Y": IjiRegionAccess()
-}

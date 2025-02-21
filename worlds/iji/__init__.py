@@ -168,14 +168,14 @@ class IjiWorld(World):
                     continue
             elif name == "Sector 6 - MPFB Devastator 2/2":
                 try:
-                    set_rule(self.get_locations("Sector 6 - MPFB Devastator 2/2"),
+                    set_rule(self.get_location("Sector 6 - MPFB Devastator 2/2"),
                              lambda state: has_weapon_stats(state, "MPFB Devastator", self.player) and
                              state.has("Crack Stat", self.player, 3))
                 except KeyError:
                     continue
             elif name == "Sector 6 - Cyclic Fusion Ignition System":
                 try:
-                    set_rule(self.get_locations("Sector 6 - Cyclic Fusion Ignition System"),
+                    set_rule(self.get_location("Sector 6 - Cyclic Fusion Ignition System"),
                              lambda state: has_weapon_stats(state, "CFIS", self.player) and
                              state.has("Crack Stat", self.player, 3))
                 except KeyError:
