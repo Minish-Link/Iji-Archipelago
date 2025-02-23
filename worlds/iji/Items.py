@@ -89,43 +89,43 @@ def create_ribbon_items(world: "IjiWorld") -> List[Item]:
 def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     fillerlist: List[Item] = []
 
-    trapitemcount: int = 0
-    if world.options.RocketTrapWeight.value > 0 or world.options.BlitsTrapWeight.value > 0 or \
-        world.options.NullDriveTrapWeight.value > 0 or world.options.TurboTrapWeight.value > 0 or \
-        world.options.NapTrapWeight.value > 0 or world.options.ClownShoesWeight.value > 0:
-
-        trapitemcount = floor((world.options.TrapPercentage.value / 100.0) * count)
-
-    filleritemcount: int = count - trapitemcount
-
-    fillerweights: Dict[str, int] = {}
-
-    for name, filler in items_filler.items():
-        fillerweights[name] = filler.weight
-
-    for i in range(filleritemcount):
-        fillerlist.append(world.create_item(
-            world.random.choices(list(fillerweights.keys()), weights=list(fillerweights.values()), k=1)[0]))
-
-    fillerlist += create_trap_items(world, trapitemcount)
+    #trapitemcount: int = 0
+    #if world.options.RocketTrapWeight.value > 0 or world.options.BlitsTrapWeight.value > 0 or \
+    #    world.options.NullDriveTrapWeight.value > 0 or world.options.TurboTrapWeight.value > 0 or \
+    #    world.options.NapTrapWeight.value > 0 or world.options.ClownShoesWeight.value > 0:
+    #
+    #    trapitemcount = floor((world.options.TrapPercentage.value / 100.0) * count)
+    #
+    #filleritemcount: int = count - trapitemcount
+    #
+    #fillerweights: Dict[str, int] = {}
+    #
+    #for name, filler in items_filler.items():
+    #    fillerweights[name] = filler.weight
+    #
+    #for i in range(filleritemcount):
+    #    fillerlist += [create_item(world,
+    #        world.random.choices(list(fillerweights.keys()), weights=list(fillerweights.values()), k=1)[0])]
+    #
+    #fillerlist += create_trap_items(world, trapitemcount)
 
     return fillerlist
 
 def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
     traplist: List[Item] = []
 
-    trapweights: Dict[str, int] = {}
-
-    trapweights["Rocket to the Face Trap"] = world.options.RocketTrapWeight.value
-    trapweights["Blits Trap"] = world.options.BlitsTrapWeight.value
-    trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
-    trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
-    trapweights["Nap Trap"] = world.options.NapTrapWeight.value
-    trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
-
-    for i in range(count):
-        traplist.append(world.create_item(
-            world.random.choices(list(trapweights.keys()), weights=list(trapweights.values()), k=1)[0]))
+    #trapweights: Dict[str, int] = {}
+    #
+    #trapweights["Rocket to the Face Trap"] = world.options.RocketTrapWeight.value
+    #trapweights["Blits Trap"] = world.options.BlitsTrapWeight.value
+    #trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
+    #trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
+    #trapweights["Nap Trap"] = world.options.NapTrapWeight.value
+    #trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
+    #
+    #for i in range(count):
+    #    traplist += [create_item(world,
+    #        world.random.choices(list(trapweights.keys()), weights=list(trapweights.values()), k=1)[0])]
 
     return traplist
 
@@ -229,7 +229,7 @@ items_progressiveweapons: Dict[str, IjiItemData] = {
 ### End of unimplemented section.
 
 item_groups_table = {
-    "Stats": items_primary.keys()[1:],
+    "Stats": items_primary.keys(),
     "Traits": items_traits.keys(),
     "Weapons": {
         **items_weapons,

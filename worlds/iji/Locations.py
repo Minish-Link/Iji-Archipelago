@@ -12,72 +12,75 @@ class IjiLocation(Location):
 class IjiLocData(NamedTuple):
     code: int
     region: str
-    valid: Callable[["IjiWorld"], bool] = lambda world: True,
+    valid: Callable[["IjiWorld"], bool] = lambda world: True
     weapon: str = ""
 
 def get_total_locations(world: "IjiWorld") -> int:
-    total = 59 # Sector Completes (1-9) and Level Ups (1-50)
-    
-    sectorzlocations: bool = False
-    sectorylocations: bool = False
-
-    world.multiworld.completion_condition
-
-    if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
-        world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
-        sectorzlocations = True
-        total += 1 # Sector Complete
-
-    if world.options.EndGoal.value == world.options.EndGoal.option_sector_y or \
-        world.options.PostGameLocations.value == world.options.PostGameLocations.option_sector_y:
-        sectorylocations = True
-        total += 1 # Sector Complete
-
-    
-
-    if world.options.RibbonLocations.value == True:
-        total += 10
-
-    if world.options.PosterLocations.value == True:
-        total += 10
-        if sectorzlocations:
-            total += 1
-        if sectorylocations:
-            total += 1
-
-    if world.options.SuperchargeLocations.value == True:
-        total += 10
-
-    if world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_only or \
-        world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
-        total += len(locations_specialtraits)
-        
-    if world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_time:
-        total += len(locations_uniquebasicweapons)
-    elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_per_sector:
-        total += len(locations_sectorweapons)
-    elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_all_instances:
-        total += len(locations_allbasicweapons)
-    
-    if world.options.UniqueWeaponLocations.value == True:
-        total += 2
-        if sectorzlocations and \
-            (world.options.NullDriverPosterRequirementType.value != 0 or \
-            world.options.NullDriverRibbonRequirementType.value != 0):
-            total += 1
-
-    if world.options.CombinedWeaponLocations.value == True:
-        total += len(locations_combinedweapons)
-
-    if world.options.UpgradeLocations.value == True:
-        total += len(locations_upgrades)
-
-    if world.options.LogbookLocations.value == True:
-        total += len(locations_logbooks)
-        if sectorzlocations:
-            total += len(locations_logbooks_z)
-        if sectorylocations:
-            total += len(locations_logbooks_y)
+    #total = 59 # Sector Completes (1-9) and Level Ups (1-50)
+    #
+    #sectorzlocations: bool = False
+    #sectorylocations: bool = False
+    #
+    #world.multiworld.completion_condition
+    #
+    #if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
+    #    world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
+    #    sectorzlocations = True
+    #    total += 1 # Sector Complete
+    #
+    #if world.options.EndGoal.value == world.options.EndGoal.option_sector_y or \
+    #    world.options.PostGameLocations.value == world.options.PostGameLocations.option_sector_y:
+    #    sectorylocations = True
+    #    total += 1 # Sector Complete
+    #
+    #
+    #
+    #if world.options.RibbonLocations.value == True:
+    #    total += 10
+    #
+    #if world.options.PosterLocations.value == True:
+    #    total += 10
+    #    if sectorzlocations:
+    #        total += 1
+    #    if sectorylocations:
+    #        total += 1
+    #
+    #if world.options.SuperchargeLocations.value == True:
+    #    total += 10
+    #
+    #if world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_only or \
+    #    world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
+    #    total += len(locations_specialtraits)
+    #    
+    #if world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_time:
+    #    total += len(locations_uniquebasicweapons)
+    #elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_per_sector:
+    #    total += len(locations_sectorweapons)
+    #elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_all_instances:
+    #    total += len(locations_allbasicweapons)
+    #
+    #if world.options.UniqueWeaponLocations.value == True:
+    #    total += 2
+    #    if sectorzlocations and \
+    #        (world.options.NullDriverPosterRequirementType.value != 0 or \
+    #        world.options.NullDriverRibbonRequirementType.value != 0):
+    #        total += 1
+    #
+    #if world.options.CombinedWeaponLocations.value == True:
+    #    total += len(locations_combinedweapons)
+    #
+    #if world.options.UpgradeLocations.value == True:
+    #    total += len(locations_upgrades)
+    #
+    #if world.options.LogbookLocations.value == True:
+    #    total += len(locations_logbooks)
+    #    if sectorzlocations:
+    #        total += len(locations_logbooks_z)
+    #    if sectorylocations:
+    #        total += len(locations_logbooks_y)
+    total: int = 0
+    for loc in world.multiworld.get_locations(world.player):
+        total += 1
 
     return total
 
@@ -248,32 +251,25 @@ locations_supercharge: Dict[str,IjiLocData] = {
 locations_uniquebasicweapons: Dict[str, IjiLocData] = {
     "Obtain Machine Gun":                   IjiLocData(code=241, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon="Machine Gun"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain Rocket Launcher":               IjiLocData(code=242, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "Rocket Launcher"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain MPFB Devastator":               IjiLocData(code=243, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "MPFB Devastator"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain Resonance Detonator":           IjiLocData(code=244, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "Resonance Detonator"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain Pulse Cannon":                  IjiLocData(code=245, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "Pulse Cannon"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain Shocksplinter":                 IjiLocData(code=246, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "Shocksplinter"),
+        world.options.BasicWeaponLocations.option_first_time),
     "Obtain Cyclic Fusion Ignition System": IjiLocData(code=247, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time, \
-        weapon = "CFIS")
+        world.options.BasicWeaponLocations.option_first_time)
 }
 
 locations_uniquespecialweapons: Dict[str, IjiLocData] = {
@@ -284,35 +280,27 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.UniqueWeaponLocations, \
         weapon = "Massacre"),
     "Obtain Null Driver":   IjiLocData(code=250, region="Sector Z Inner Prey", \
-        valid=lambda world: world.options.UniqueWeaponLocations and world.null_driver_allowed, \
+        valid=lambda world: world.options.UniqueWeaponLocations and world.null_driver_allowed(), \
         weapon = "Null Driver")
 }
 
 locations_combinedweapons: Dict[str,IjiLocData] = {
     "Obtain Buster Gun":            IjiLocData(code=251, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Buster Gun"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Splintergun":           IjiLocData(code=252, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Splintergun"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Spread Rockets":        IjiLocData(code=253, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Spread Rockets"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Nuke":                  IjiLocData(code=254, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Nuke"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Resonance Reflector":   IjiLocData(code=255, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Resonance Reflector"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Hyper Pulse Cannon":    IjiLocData(code=256, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Hyper Pulse Cannon"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Plasma Cannon":         IjiLocData(code=257, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Plasma Cannon"),
+        valid=lambda world: world.options.CombinedWeaponLocations),
     "Obtain Velocithor V2-10":      IjiLocData(code=258, region="Global", \
-        valid=lambda world: world.options.CombinedWeaponLocations, \
-        weapon = "Velocithor")
+        valid=lambda world: world.options.CombinedWeaponLocations)
 }
 
 locations_upgrades: Dict[str, IjiLocData] = {
@@ -363,8 +351,7 @@ locations_sectorweapons: Dict[str, IjiLocData] = {
         weapon = "Resonance Detonator"),
     "Sector 3 - Pulse Cannon":                  IjiLocData(code=335, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value >= \
-        world.options.BasicWeaponLocations.option_first_per_sector, \
-        weapon = "Pulse Cannon"),
+        world.options.BasicWeaponLocations.option_first_per_sector),
     "Sector 4 - Machine Gun":                   IjiLocData(code=341, region="Sector 4", \
         valid=lambda world: world.options.BasicWeaponLocations.value >= \
         world.options.BasicWeaponLocations.option_first_per_sector, \
@@ -435,8 +422,7 @@ locations_sectorweapons: Dict[str, IjiLocData] = {
         weapon = "Shocksplinter"),
     "Sector 6 - Cyclic Fusion Ignition System": IjiLocData(code=367, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value >= \
-        world.options.BasicWeaponLocations.option_first_per_sector, \
-        weapon = "CFIS"),
+        world.options.BasicWeaponLocations.option_first_per_sector),
     "Sector 7 - Machine Gun":                   IjiLocData(code=371, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_first_per_sector, \
@@ -551,289 +537,381 @@ locations_sectorweapons: Dict[str, IjiLocData] = {
         weapon = "CFIS"),
     "Sector X - Resonance Reflector":           IjiLocData(code=308, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value >= \
-        world.options.BasicWeaponLocations.option_first_per_sector)
+        world.options.BasicWeaponLocations.option_first_per_sector, \
+        weapon = "Resonance Reflector")
 }
 
 locations_allbasicweapons: Dict[str, IjiLocData] = {
     "Sector 3 - Machine Gun 1/3":                   IjiLocData(code=3311, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 3 - Machine Gun 2/3":                   IjiLocData(code=3312, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 3 - Machine Gun 3/3":                   IjiLocData(code=3313, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 3 - Rocket Launcher 1/2":               IjiLocData(code=3321, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 3 - Rocket Launcher 2/2":               IjiLocData(code=3322, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 4 - Rocket Launcher 1/2":               IjiLocData(code=3421, region="Sector 4", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 4 - Rocket Launcher 2/2":               IjiLocData(code=3422, region="Sector 4", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 5 - Machine Gun 1/2":                   IjiLocData(code=3511, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 5 - Machine Gun 2/2":                   IjiLocData(code=3512, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 5 - Rocket Launcher 1/2":               IjiLocData(code=3521, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 5 - Rocket Launcher 2/2":               IjiLocData(code=3522, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 5 - Pulse Cannon 1/3":                  IjiLocData(code=3551, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 5 - Pulse Cannon 2/3":                  IjiLocData(code=3552, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 5 - Pulse Cannon 3/3":                  IjiLocData(code=3553, region="Sector 5", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 6 - Machine Gun 1/2":                   IjiLocData(code=3611, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 6 - Machine Gun 2/2":                   IjiLocData(code=3612, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 6 - Rocket Launcher 1/2":               IjiLocData(code=3621, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 6 - Rocket Launcher 2/2":               IjiLocData(code=3622, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 6 - MPFB Devastator 1/2":               IjiLocData(code=3631, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector 6 - MPFB Devastator 2/2":               IjiLocData(code=3632, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances),
     "Sector 6 - Pulse Cannon 1/2":                  IjiLocData(code=3651, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 6 - Pulse Cannon 2/2":                  IjiLocData(code=3652, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 6 - Shocksplinter 1/3":                 IjiLocData(code=3661, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 6 - Shocksplinter 2/3":                 IjiLocData(code=3662, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 6 - Shocksplinter 3/3":                 IjiLocData(code=3663, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 7 - Rocket Launcher 1/3":               IjiLocData(code=3721, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 7 - Rocket Launcher 2/3":               IjiLocData(code=3722, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 7 - Rocket Launcher 3/3":               IjiLocData(code=3723, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 7 - Resonance Detonator 1/2":           IjiLocData(code=3741, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 7 - Resonance Detonator 2/2":           IjiLocData(code=3742, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 7 - Pulse Cannon 1/2":                  IjiLocData(code=3751, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 7 - Pulse Cannon 2/2":                  IjiLocData(code=3752, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 7 - Shocksplinter 1/3":                 IjiLocData(code=3761, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 7 - Shocksplinter 2/3":                 IjiLocData(code=3762, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 7 - Shocksplinter 3/3":                 IjiLocData(code=3763, region="Sector 7", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 8 - Rocket Launcher 1/3":               IjiLocData(code=3821, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 8 - Rocket Launcher 2/3":               IjiLocData(code=3822, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 8 - Rocket Launcher 3/3":               IjiLocData(code=3823, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 8 - Pulse Cannon 1/2":                  IjiLocData(code=3851, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 8 - Pulse Cannon 2/2":                  IjiLocData(code=3852, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 8 - Shocksplinter 1/2":                 IjiLocData(code=3861, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 8 - Shocksplinter 2/2":                 IjiLocData(code=3862, region="Sector 8", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 9 - Machine Gun 1/4":                   IjiLocData(code=3911, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 9 - Machine Gun 2/4":                   IjiLocData(code=3912, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 9 - Machine Gun 3/4":                   IjiLocData(code=3913, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 9 - Machine Gun 4/4":                   IjiLocData(code=3914, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector 9 - Rocket Launcher 1/5":               IjiLocData(code=3921, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 9 - Rocket Launcher 2/5":               IjiLocData(code=3922, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 9 - Rocket Launcher 3/5":               IjiLocData(code=3923, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 9 - Rocket Launcher 4/5":               IjiLocData(code=3924, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 9 - Rocket Launcher 5/5":               IjiLocData(code=3925, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector 9 - MPFB Devastator 1/4":               IjiLocData(code=3931, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector 9 - MPFB Devastator 2/4":               IjiLocData(code=3932, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector 9 - MPFB Devastator 3/4":               IjiLocData(code=3933, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector 9 - MPFB Devastator 4/4":               IjiLocData(code=3934, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector 9 - Resonance Detonator 1/4":           IjiLocData(code=3941, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 9 - Resonance Detonator 2/4":           IjiLocData(code=3942, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 9 - Resonance Detonator 3/4":           IjiLocData(code=3943, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 9 - Resonance Detonator 4/4":           IjiLocData(code=3944, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector 9 - Pulse Cannon 1/4":                  IjiLocData(code=3951, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 9 - Pulse Cannon 2/4":                  IjiLocData(code=3952, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 9 - Pulse Cannon 3/4":                  IjiLocData(code=3953, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 9 - Pulse Cannon 4/4":                  IjiLocData(code=3954, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector 9 - Shocksplinter 1/4":                 IjiLocData(code=3961, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 9 - Shocksplinter 2/4":                 IjiLocData(code=3962, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 9 - Shocksplinter 3/4":                 IjiLocData(code=3963, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 9 - Shocksplinter 4/4":                 IjiLocData(code=3964, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector 9 - Cyclic Fusion Ignition System 1/3": IjiLocData(code=3971, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector 9 - Cyclic Fusion Ignition System 2/3": IjiLocData(code=3972, region="Sector 9", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector 9 - Cyclic Fusion Ignition System 3/3": IjiLocData(code=3973, region="Sector 9 Poster", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector X - Machine Gun 1/3":                   IjiLocData(code=3011, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector X - Machine Gun 2/3":                   IjiLocData(code=3012, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector X - Machine Gun 3/3":                   IjiLocData(code=3013, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Machine Gun"),
     "Sector X - Rocket Launcher 1/3":               IjiLocData(code=3021, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector X - Rocket Launcher 2/3":               IjiLocData(code=3022, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector X - Rocket Launcher 3/3":               IjiLocData(code=3023, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
     "Sector X - MPFB Devastator 1/4":               IjiLocData(code=3031, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector X - MPFB Devastator 2/4":               IjiLocData(code=3032, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector X - MPFB Devastator 3/4":               IjiLocData(code=3033, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "MPFB Devastator"),
     "Sector X - MPFB Devastator 4/4":               IjiLocData(code=3034, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances),
     "Sector X - Resonance Detonator 1/2":           IjiLocData(code=3041, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector X - Resonance Detonator 2/2":           IjiLocData(code=3042, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Resonance Detonator"),
     "Sector X - Pulse Cannon 1/4":                  IjiLocData(code=3051, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector X - Pulse Cannon 2/4":                  IjiLocData(code=3052, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector X - Pulse Cannon 3/4":                  IjiLocData(code=3053, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector X - Pulse Cannon 4/4":                  IjiLocData(code=3054, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Pulse Cannon"),
     "Sector X - Shocksplinter 1/3":                 IjiLocData(code=3061, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector X - Shocksplinter 2/3":                 IjiLocData(code=3062, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector X - Shocksplinter 3/3":                 IjiLocData(code=3063, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Shocksplinter"),
     "Sector X - Cyclic Fusion Ignition System 1/4": IjiLocData(code=3071, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector X - Cyclic Fusion Ignition System 2/4": IjiLocData(code=3072, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector X - Cyclic Fusion Ignition System 3/4": IjiLocData(code=3073, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances),
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS"),
     "Sector X - Cyclic Fusion Ignition System 4/4": IjiLocData(code=3074, region="Sector X", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_all_instances)
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "CFIS")
 }
 
 locations_logbooks: Dict[str, IjiLocData] = {
@@ -1176,35 +1254,35 @@ locations_logbooks_z: Dict[str, IjiLocData] = {
 
 locations_logbooks_y: Dict[str, IjiLocData] = {
     "Sector Y - Logbook 1":  IjiLocData(code=1118, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 2":  IjiLocData(code=1119, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 3":  IjiLocData(code=1120, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 4":  IjiLocData(code=1121, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 5":  IjiLocData(code=1122, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 6":  IjiLocData(code=1123, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 7":  IjiLocData(code=1124, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 8":  IjiLocData(code=1125, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 9":  IjiLocData(code=1126, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 10": IjiLocData(code=1127, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 11": IjiLocData(code=1128, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 12": IjiLocData(code=1129, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 13": IjiLocData(code=1130, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 14": IjiLocData(code=1131, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed),
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed()),
     "Sector Y - Logbook 15": IjiLocData(code=1132, region="Sector Y", \
-        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed)
+        valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed())
 }
 
 # location_doorsanity: IjiLocData = {2001->2999}
