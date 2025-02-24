@@ -241,11 +241,11 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
 def create_region(world: "IjiWorld", name: str) -> Region:
     region = Region(name, world.player, world.multiworld)
 
-    for name, data in location_table.items():
-        region.add_locations({
-            location_name: location_data.code for location_name, location_data in location_table.items()
-            if location_data.region==region.name and location_data.valid(world)
-        }, IjiLocation)
+    
+    region.add_locations({
+        location_name: location_data.code for location_name, location_data in location_table.items()
+        if location_data.region==region.name and location_data.valid(world)
+    }, IjiLocation)
 
 
     return region

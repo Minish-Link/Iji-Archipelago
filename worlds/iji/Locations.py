@@ -16,68 +16,6 @@ class IjiLocData(NamedTuple):
     weapon: str = ""
 
 def get_total_locations(world: "IjiWorld") -> int:
-    #total = 59 # Sector Completes (1-9) and Level Ups (1-50)
-    #
-    #sectorzlocations: bool = False
-    #sectorylocations: bool = False
-    #
-    #world.multiworld.completion_condition
-    #
-    #if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
-    #    world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
-    #    sectorzlocations = True
-    #    total += 1 # Sector Complete
-    #
-    #if world.options.EndGoal.value == world.options.EndGoal.option_sector_y or \
-    #    world.options.PostGameLocations.value == world.options.PostGameLocations.option_sector_y:
-    #    sectorylocations = True
-    #    total += 1 # Sector Complete
-    #
-    #
-    #
-    #if world.options.RibbonLocations.value == True:
-    #    total += 10
-    #
-    #if world.options.PosterLocations.value == True:
-    #    total += 10
-    #    if sectorzlocations:
-    #        total += 1
-    #    if sectorylocations:
-    #        total += 1
-    #
-    #if world.options.SuperchargeLocations.value == True:
-    #    total += 10
-    #
-    #if world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_only or \
-    #    world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
-    #    total += len(locations_specialtraits)
-    #    
-    #if world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_time:
-    #    total += len(locations_uniquebasicweapons)
-    #elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_first_per_sector:
-    #    total += len(locations_sectorweapons)
-    #elif world.options.BasicWeaponLocations.value == world.options.BasicWeaponLocations.option_all_instances:
-    #    total += len(locations_allbasicweapons)
-    #
-    #if world.options.UniqueWeaponLocations.value == True:
-    #    total += 2
-    #    if sectorzlocations and \
-    #        (world.options.NullDriverPosterRequirementType.value != 0 or \
-    #        world.options.NullDriverRibbonRequirementType.value != 0):
-    #        total += 1
-    #
-    #if world.options.CombinedWeaponLocations.value == True:
-    #    total += len(locations_combinedweapons)
-    #
-    #if world.options.UpgradeLocations.value == True:
-    #    total += len(locations_upgrades)
-    #
-    #if world.options.LogbookLocations.value == True:
-    #    total += len(locations_logbooks)
-    #    if sectorzlocations:
-    #        total += len(locations_logbooks_z)
-    #    if sectorylocations:
-    #        total += len(locations_logbooks_y)
     total: int = 0
     for loc in world.multiworld.get_locations(world.player):
         total += 1

@@ -13,7 +13,7 @@ class IjiItem(Item):
 
 class IjiItemData(NamedTuple):
     code: int
-    progtype: ItemClassification = ItemClassification.filler,
+    progtype: ItemClassification
     weight: int = 1
 
 def create_itempool(world: "IjiWorld") -> List[Item]:
@@ -89,43 +89,43 @@ def create_ribbon_items(world: "IjiWorld") -> List[Item]:
 def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     fillerlist: List[Item] = []
 
-    #trapitemcount: int = 0
-    #if world.options.RocketTrapWeight.value > 0 or world.options.BlitsTrapWeight.value > 0 or \
-    #    world.options.NullDriveTrapWeight.value > 0 or world.options.TurboTrapWeight.value > 0 or \
-    #    world.options.NapTrapWeight.value > 0 or world.options.ClownShoesWeight.value > 0:
-    #
-    #    trapitemcount = floor((world.options.TrapPercentage.value / 100.0) * count)
-    #
-    #filleritemcount: int = count - trapitemcount
-    #
-    #fillerweights: Dict[str, int] = {}
-    #
-    #for name, filler in items_filler.items():
-    #    fillerweights[name] = filler.weight
-    #
-    #for i in range(filleritemcount):
-    #    fillerlist += [create_item(world,
-    #        world.random.choices(list(fillerweights.keys()), weights=list(fillerweights.values()), k=1)[0])]
-    #
-    #fillerlist += create_trap_items(world, trapitemcount)
+    trapitemcount: int = 0
+    if world.options.RocketTrapWeight.value > 0 or world.options.BlitsTrapWeight.value > 0 or \
+        world.options.NullDriveTrapWeight.value > 0 or world.options.TurboTrapWeight.value > 0 or \
+        world.options.NapTrapWeight.value > 0 or world.options.ClownShoesWeight.value > 0:
+    
+        trapitemcount = floor((world.options.TrapPercentage.value / 100.0) * count)
+    
+    filleritemcount: int = count - trapitemcount
+    
+    fillerweights: Dict[str, int] = {}
+    
+    for name, filler in items_filler.items():
+        fillerweights[name] = filler.weight
+    
+    for i in range(filleritemcount):
+        fillerlist += [create_item(world,
+            world.random.choices(list(fillerweights.keys()), weights=list(fillerweights.values()), k=1)[0])]
+    
+    fillerlist += create_trap_items(world, trapitemcount)
 
     return fillerlist
 
 def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
     traplist: List[Item] = []
 
-    #trapweights: Dict[str, int] = {}
-    #
-    #trapweights["Rocket to the Face Trap"] = world.options.RocketTrapWeight.value
-    #trapweights["Blits Trap"] = world.options.BlitsTrapWeight.value
-    #trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
-    #trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
-    #trapweights["Nap Trap"] = world.options.NapTrapWeight.value
-    #trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
-    #
-    #for i in range(count):
-    #    traplist += [create_item(world,
-    #        world.random.choices(list(trapweights.keys()), weights=list(trapweights.values()), k=1)[0])]
+    trapweights: Dict[str, int] = {}
+    
+    trapweights["Rocket to the Face Trap"] = world.options.RocketTrapWeight.value
+    trapweights["Blits Trap"] = world.options.BlitsTrapWeight.value
+    trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
+    trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
+    trapweights["Nap Trap"] = world.options.NapTrapWeight.value
+    trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
+    
+    for i in range(count):
+        traplist += [create_item(world,
+            world.random.choices(list(trapweights.keys()), weights=list(trapweights.values()), k=1)[0])]
 
     return traplist
 
@@ -159,16 +159,16 @@ items_traits: Dict[str, IjiItemData] = {
 
 # Filler
 items_filler: Dict[str, IjiItemData] = {
-    "Health Pickup":    IjiItemData(code=201, weight=16),
-    "Armor Pickup":     IjiItemData(code=202, weight=4),
-    "Nano Pickup":      IjiItemData(code=203, weight=6),
-    "Machine Ammo":     IjiItemData(code=204, weight=8),
-    "Rocket Ammo":      IjiItemData(code=205, weight=4),
-    "MPFB Ammo":        IjiItemData(code=206, weight=2),
-    "Pulse Ammo":       IjiItemData(code=207, weight=6),
-    "Shock Ammo":       IjiItemData(code=208, weight=3),
-    "CFIS Ammo":        IjiItemData(code=209, weight=1),
-    "Nano Overload":    IjiItemData(code=210, weight=10),
+    "Health Pickup":    IjiItemData(code=201, progtype=ItemClassification.filler, weight=16),
+    "Armor Pickup":     IjiItemData(code=202, progtype=ItemClassification.filler, weight=4),
+    "Nano Pickup":      IjiItemData(code=203, progtype=ItemClassification.filler, weight=6),
+    "Machine Ammo":     IjiItemData(code=204, progtype=ItemClassification.filler, weight=8),
+    "Rocket Ammo":      IjiItemData(code=205, progtype=ItemClassification.filler, weight=4),
+    "MPFB Ammo":        IjiItemData(code=206, progtype=ItemClassification.filler, weight=2),
+    "Pulse Ammo":       IjiItemData(code=207, progtype=ItemClassification.filler, weight=6),
+    "Shock Ammo":       IjiItemData(code=208, progtype=ItemClassification.filler, weight=3),
+    "CFIS Ammo":        IjiItemData(code=209, progtype=ItemClassification.filler, weight=1),
+    "Nano Overload":    IjiItemData(code=210, progtype=ItemClassification.filler, weight=10),
 }
 
 # Traps
