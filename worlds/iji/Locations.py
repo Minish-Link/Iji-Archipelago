@@ -189,7 +189,8 @@ locations_supercharge: Dict[str,IjiLocData] = {
 locations_uniquebasicweapons: Dict[str, IjiLocData] = {
     "Obtain Machine Gun":                   IjiLocData(code=241, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
-        world.options.BasicWeaponLocations.option_first_time),
+        world.options.BasicWeaponLocations.option_first_time, \
+        weapon="Machine Gun"),
     "Obtain Rocket Launcher":               IjiLocData(code=242, region="Global", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_first_time),

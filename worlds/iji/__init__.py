@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from BaseClasses import Item, ItemClassification, Location, MultiWorld
 from worlds.generic.Rules import add_rule, set_rule
 from worlds.iji.Rules import can_kill_annihilators, can_rocket_boost, has_weapon_stats, set_rules
@@ -38,6 +39,19 @@ class IjiWorld(World):
 
     def get_filler_item_name(self) -> str:
         return "Health Pickup"
+
+    def fill_slot_data(self) -> Dict[str, Any]:
+        return {
+            "DeathLink": self.options.IjiDeathLink.value,
+            "DeathLinkDamage": self.options.DeathLinkDamage.value,
+            "Goal": self.options.EndGoal.value,
+            "Compactment": self.options.CompactStatItems.value,
+            "SpecialTraits": self.options.SpecialTraitItems.value,
+            "NullDriveFactor": self.options.NullDriveFactor.value,
+            "SuperchargeHandling": self.options.SuperchargePointHandling.value
+            # TODO: Sector Z and Null Driver Requirements
+        }
+
 
     def sector_z_allowed(self) -> bool:
         return self.options.EndGoal.value >= self.options.EndGoal.option_sector_z or \
