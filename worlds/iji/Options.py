@@ -9,13 +9,13 @@ if TYPE_CHECKING:
 
 def get_compacted_stat_items(world: "IjiWorld") -> Dict[str, int]:
     compacted_items = {
-        "Health Stat":       ceil(world.options.HealthItems.value    // world.options.CompactStatItems),  # Health Stat
-        "Attack Stat":       ceil(world.options.AttackItems.value    // world.options.CompactStatItems),  # Attack Stat
-        "Assimilate Stat":   ceil(world.options.AssimilateItems.value// world.options.CompactStatItems),  # Assimilate Stat
-        "Strength Stat":     ceil(world.options.StrengthItems.value  // world.options.CompactStatItems),  # Strength Stat
-        "Crack Stat":        ceil(world.options.CrackItems.value     // world.options.CompactStatItems),  # Crack Stat
-        "Tasen Stat":        ceil(world.options.TasenItems.value     // world.options.CompactStatItems),  # Tasen Stat
-        "Komato Stat":       ceil(world.options.KomatoItems.value    // world.options.CompactStatItems)   # Komato Stat
+        "Health Stat":       ceil(world.options.HealthItems.value    / world.options.CompactStatItems),  # Health Stat
+        "Attack Stat":       ceil(world.options.AttackItems.value    / world.options.CompactStatItems),  # Attack Stat
+        "Assimilate Stat":   ceil(world.options.AssimilateItems.value/ world.options.CompactStatItems),  # Assimilate Stat
+        "Strength Stat":     ceil(world.options.StrengthItems.value  / world.options.CompactStatItems),  # Strength Stat
+        "Crack Stat":        ceil(world.options.CrackItems.value     / world.options.CompactStatItems),  # Crack Stat
+        "Tasen Stat":        ceil(world.options.TasenItems.value     / world.options.CompactStatItems),  # Tasen Stat
+        "Komato Stat":       ceil(world.options.KomatoItems.value    / world.options.CompactStatItems)   # Komato Stat
     }
 
     return compacted_items
@@ -38,86 +38,58 @@ class EndGoal(Choice):
     option_sector_z = 2
     option_sector_y = 3
 
-class SectorZRequirements(Range):
+class SectorZPosterLocationsRequired(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing,
-    and Sector Z will also be inaccessible.
-    How many Posters are required to enter the Sector Z portal.
+    If Sector Z locations are not included in your world, this option does nothing, and Sector Z will also be inaccessible.
+    How many Poster locations you need to reach to enter the Sector Z portal.
     """
     display_name = "Sector Z Posters Required"
     default = 10
     range_start = 0
     range_end = 10
 
-class SectorZRequirementType(Choice):
+class SectorZRibbonItemsRequired(Range):
+    """
+    If Sector Z locations are not included in your world, this option does nothing, and Ribbon items will not be shuffled into the item pool.
+    How many Ribbon items are required to enter the Sector Z portal.
+    """
+    display_name = "Sector Z Ribbons Required"
+    default = 0
+    range_start = 0
+    range_end = 10
+
+class NullDriverPosterLocationsRequired(Range):
     """
     If Sector Z locations are not included in your world, this option does nothing.
-    Poster Locations: The requirement to enter Sector Z requires reaching that many Poster locations in the world.
+    How many Poster locations you need to reach to enter the portal leading to the Null Driver.
 
-    Poster Items: The requirement to enter Sector Z requires obtaining that many Poster Items.
-    This option also shuffles 10 Poster items into the item pool.
-    """
-    display_name = "Sector Z Requirement Type"
-    option_poster_locations = 1
-    option_poster_items = 2
-    default = 1
-
-class NullDriverPosterRequirement(Range):
-    """
-    If Sector Z locations are not included in your world, this option does nothing.
-    How many Posters are required to access the portal to the Null Driver in Sector Z.
     """
     display_name = "Null Driver Posters Required"
     default = 10
     range_start = 0
     range_end = 10
 
-class NullDriverPosterRequirementType(Choice):
+class NullDriverRibbonItemsRequired(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing.
-    Disabled: The Null Driver has no Poster requirement.
-    If Ribbon Requirement Type is also set to Disabled, the Null Driver will be inaccessible,
-    unless Sector Y is your goal, in which case the Null Driver can be freely accessed from Sector Z.
-
-    Poster Locations: The requirement to access the Null Driver portal requires reaching that many Poster locations in the world.
-    
-    Poster Items: The requirement to access the Null Driver portal requires obtaining that many Poster Items.
-    This option also shuffles 10 Poster items into the item pool.
-    (Unless Sector Z Requirement Type is also set to items, in which case no more additional Posters will be added.)
-    """
-    display_name = "Null Driver Poster Requirement Type"
-    option_disabled = 0
-    option_poster_locations = 1
-    option_poster_items = 2
-    default = 1
-
-class NullDriverRibbonRequirement(Range):
-    """
-    If Sector Z locations are not included in your world, this option does nothing.
-    How many Ribbons are required to access the portal to the Null Driver in Sector Z.
+    If Sector Z locations are not included in your world, this options does nothing.
+    How many Ribbon locations you need to enter the portal leading to the Null Driver.
     """
     display_name = "Null Driver Ribbons Required"
     default = 10
     range_start = 0
     range_end = 10
 
-class NullDriverRibbonRequirementType(Choice):
+class RibbonItemCount(Range):
     """
     If Sector Z locations are not included in your world, this option does nothing.
-    Disabled: The Null Driver has no Ribbon requirement.
-    If Ribbon Requirement Type is also set to Disabled, the Null Driver will be inaccessible,
-    unless Sector Y is your goal, in which case the Null Driver can be freely accessed from Sector Z.
-
-    Ribbon Locations: The requirement to access the Null Driver portal requires reaching that many Ribbon locations in the world.
-    
-    Ribbon Items: The requirement to access the Null Driver portal requires obtaining that many Ribbon Items.
-    This option also shuffles 10 Ribbon items into the item pool.
+    How many total Ribbon items to shuffle into the item pool. If the number of Ribbons added is fewer than the number required
+    to access Sector Z or the Null Driver, extra Ribbons will be added to meet the minimum.
+    If Sector Z or the Null Driver require no ribbons to enter, no Ribbon items will be added to the pool.
     """
-    display_name = "Null Driver Ribbon Requirement Type"
-    option_disabled = 0
-    option_ribbon_locations = 1
-    option_ribbon_items = 2
-    default = 1
+    display_name = "Total Ribbon Items"
+    default = 10
+    range_start = 0
+    range_end = 20
 
 class PostGameLocations(Choice):
     """
@@ -139,26 +111,6 @@ class PostGameLocations(Choice):
     option_sector_z = 1
     option_sector_y = 2
     default = 0
-
-class ExtraPosterItems(Range):
-    """
-    If Poster Items are set as a requirement for Sector Z and/or Null Driver,
-    this option will add extra Poster items to the item pool.
-    """
-    display_name = "Extra Poster Items"
-    default = 0
-    range_start = 0
-    range_end = 10
-
-class ExtraRibbonItems(Range):
-    """
-    If Ribbon Items are set as a requirement for the Null Driver,
-    this option add extra Ribbon items to the item pool.
-    """
-    display_name = "Extra Ribbon Items"
-    default = 0
-    range_start = 0
-    range_end = 10
 
 class RibbonLocations(DefaultOnToggle):
     """
@@ -216,6 +168,13 @@ class LogbookLocations(Toggle):
     If enabled, each logbook in the game is a check
     """
     display_name = "Logbook Locations"
+
+class PacifistLocations(Toggle):
+    """
+    If disabled, locations that require the player to be pacifist to some extent will not be added.
+    This includes the Deep Sector Logbooks and Supercharge in Sector 9, and the Massacre in Sector X.
+    """
+    display_name = "Pacifist Locations"
 
 class SectorAccessItems(Range):
     """
@@ -485,15 +444,12 @@ class LogicDifficulty(Choice):
 @dataclass
 class IjiOptions(PerGameCommonOptions):
     EndGoal:                            EndGoal
-    SectorZRequirements:                SectorZRequirements
-    SectorZRequirementType:             SectorZRequirementType
-    NullDriverPosterRequirement:        NullDriverPosterRequirement
-    NullDriverPosterRequirementType:    NullDriverPosterRequirementType
-    NullDriverRibbonRequirement:        NullDriverRibbonRequirement
-    NullDriverRibbonRequirementType:    NullDriverRibbonRequirementType
+    SectorZPosterLocationsRequired:     SectorZPosterLocationsRequired
+    SectorZRibbonItemsRequired:         SectorZRibbonItemsRequired
+    NullDriverPosterLocationsRequired:  NullDriverPosterLocationsRequired
+    NullDriverRibbonItemsRequired:      NullDriverRibbonItemsRequired
+    RibbonItemCount:                    RibbonItemCount
     PostGameLocations:                  PostGameLocations
-    ExtraPosterItems:                   ExtraPosterItems
-    ExtraRibbonItems:                   ExtraRibbonItems
 
     RibbonLocations:                    RibbonLocations
     PosterLocations:                    PosterLocations
@@ -503,6 +459,7 @@ class IjiOptions(PerGameCommonOptions):
     UniqueWeaponLocations:              UniqueWeaponLocations
     UpgradeLocations:                   UpgradeLocations
     LogbookLocations:                   LogbookLocations
+    PacifistLocations:                  PacifistLocations
 
     SectorAccessItems:                  SectorAccessItems
     HealthItems:                        HealthItems
@@ -512,6 +469,7 @@ class IjiOptions(PerGameCommonOptions):
     CrackItems:                         CrackItems
     TasenItems:                         TasenItems
     KomatoItems:                        KomatoItems
+    CompactStatItems:                   CompactStatItems
     SpecialTraitItems:                  SpecialTraitItems
     ExtraSupercharges:                  ExtraSupercharges
 
@@ -526,7 +484,6 @@ class IjiOptions(PerGameCommonOptions):
 
     HealthBalancing:                    HealthBalancing
     SuperchargePointHandling:           SuperchargePointHandling
-    CompactStatItems:                   CompactStatItems
     IjiDeathLink:                       IjiDeathLink
     DeathLinkDamage:                    DeathLinkDamage
     LogicDifficulty:                    LogicDifficulty
@@ -534,15 +491,12 @@ class IjiOptions(PerGameCommonOptions):
 iji_option_groups = [
     OptionGroup("Goal Options", [
         EndGoal,
-        SectorZRequirements,
-        SectorZRequirementType,
-        NullDriverPosterRequirement,
-        NullDriverPosterRequirementType,
-        NullDriverRibbonRequirement,
-        NullDriverRibbonRequirementType,
-        PostGameLocations,
-        ExtraPosterItems,
-        ExtraRibbonItems
+        SectorZPosterLocationsRequired,
+        SectorZRibbonItemsRequired,
+        NullDriverPosterLocationsRequired,
+        NullDriverRibbonItemsRequired,
+        RibbonItemCount,
+        PostGameLocations
     ]),
     OptionGroup("Locations", [
         RibbonLocations,
@@ -552,7 +506,8 @@ iji_option_groups = [
         CombinedWeaponLocations,
         UniqueWeaponLocations,
         UpgradeLocations,
-        LogbookLocations
+        LogbookLocations,
+        PacifistLocations
     ]),
     OptionGroup("Items", [
         SectorAccessItems, 
@@ -563,6 +518,7 @@ iji_option_groups = [
         CrackItems,
         TasenItems,
         KomatoItems,
+        CompactStatItems,
         SpecialTraitItems,
         ExtraSupercharges
     ]),
@@ -579,7 +535,6 @@ iji_option_groups = [
     OptionGroup("Miscellaneous", [
         HealthBalancing,
         SuperchargePointHandling,
-        CompactStatItems,
         IjiDeathLink,
         DeathLinkDamage,
         LogicDifficulty

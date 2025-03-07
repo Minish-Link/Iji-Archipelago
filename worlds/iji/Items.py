@@ -36,7 +36,7 @@ def create_itempool(world: "IjiWorld") -> List[Item]:
         for name in items_traits.keys():
             itempool += create_multiple_items(world, name, 1)
 
-    itempool += create_poster_items(world)
+    #itempool += create_poster_items(world)
     itempool += create_ribbon_items(world)
 
     itempool += create_filler_items(world, get_total_locations(world) - len(itempool))
@@ -56,33 +56,17 @@ def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item
 
     return itemlist
 
-def create_poster_items(world: "IjiWorld") -> List[Item]:
-    itemlist: List[Item] = []
-    
-    if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
-        world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
-
-        if (world.options.SectorZRequirementType == world.options.SectorZRequirementType.option_poster_items and \
-            world.options.SectorZRequirements.value > 0) or \
-            (world.options.NullDriverPosterRequirementType.value == \
-            world.options.NullDriverPosterRequirementType.option_poster_items and \
-            world.options.NullDriverPosterRequirement > 0):
-
-            itemlist += create_multiple_items(world, "Poster", 10)
-
-    return itemlist
-
 def create_ribbon_items(world: "IjiWorld") -> List[Item]:
     itemlist: List[Item] = []
 
     if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
         world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
-
-        if world.options.NullDriverRibbonRequirementType.value == \
-            world.options.NullDriverRibbonRequirementType.option_ribbon_items and \
-            world.options.NullDriverRibbonRequirement.value > 0:
-
-            itemlist += create_multiple_items(world, "Ribbon", 10)
+        ribbonsneeded = max(world.options.SectorZRibbonItemsRequired.value,
+                            world.options.NullDriverRibbonItemsRequired.value)
+        if ribbonsneeded == 0:
+            return itemlist
+        else:
+            itemlist += create_multiple_items(world, "Ribbon", max(ribbonsneeded,world.options.RibbonItemCount.value))
 
     return itemlist
 

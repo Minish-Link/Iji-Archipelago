@@ -201,38 +201,24 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
     region_sectorz = create_region(world, "Sector Z")
     region_sector1.connect(region_sectorz, "Sector 1 -> Sector Z",
                            lambda state: can_reach_sector_z(state, world.player, world, \
-                               world.options.SectorZRequirements.value, \
-                               world.options.SectorZRequirementType.value == \
-                               world.options.SectorZRequirementType.option_poster_locations, \
+                               world.options.SectorZPosterLocationsRequired.value, \
+                               world.options.SectorZRibbonItemsRequired.value, \
                                world.options.CompactStatItems.value))
     world.multiworld.regions.append(region_sectorz)
 
     region_sectorz_ip = create_region(world, "Sector Z Inner Prey")
     region_sectorz.connect(region_sectorz_ip, "Sector Z -> Inner Prey",
                            lambda state: can_reach_nulldriver(state, world.player, world, \
-                               world.options.NullDriverPosterRequirement.value, \
-                               world.options.NullDriverPosterRequirementType.value == \
-                               world.options.NullDriverPosterRequirementType.option_poster_locations, \
-                               world.options.NullDriverRibbonRequirement.value, \
-                               world.options.NullDriverRibbonRequirementType.value == \
-                               world.options.NullDriverRibbonRequirementType.option_ribbon_locations, \
+                               world.options.NullDriverPosterLocationsRequired.value, \
+                               world.options.NullDriverRibbonItemsRequired.value, \
                                world.options.CompactStatItems.value))
     world.multiworld.regions.append(region_sectorz_ip)
 
     region_sectory = create_region(world, "Sector Y")
     region_sectorx.connect(region_sectory, "Sector X -> Sector Y",
-                           lambda state: can_reach_sector_z(state, world.player, world, \
-                               world.options.SectorZRequirements.value, \
-                               world.options.SectorZRequirementType.value == \
-                               world.options.SectorZRequirementType.option_poster_locations, \
-                               world.options.CompactStatItems.value)
-                               and can_reach_nulldriver(state, world.player, world, \
-                               world.options.NullDriverPosterRequirement.value, \
-                               world.options.NullDriverPosterRequirementType.value == \
-                               world.options.NullDriverPosterRequirementType.option_poster_locations, \
-                               world.options.NullDriverRibbonRequirement.value, \
-                               world.options.NullDriverRibbonRequirementType.value == \
-                               world.options.NullDriverRibbonRequirementType.option_ribbon_locations, \
+                           lambda state: can_reach_nulldriver(state, world.player, world, \
+                               world.options.NullDriverPosterLocationsRequired.value, \
+                               world.options.NullDriverRibbonItemsRequired.value, \
                                world.options.CompactStatItems.value))
     world.multiworld.regions.append(region_sectory)
 

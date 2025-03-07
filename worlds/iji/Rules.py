@@ -154,33 +154,16 @@ def can_kill_annihilators(state: CollectionState, player: int, compactment: int)
 def can_reach_poster_nine(state: CollectionState, player: int, suppressionshuffle: bool, compactment: int) -> bool:
     return has_stats(state, "Health Stat", player, 9, compactment) and (suppressionshuffle == False or state.has("SUPPRESSION", player))
 
-def can_reach_sector_z(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, posterlocations: bool, compactment: int) -> bool:
-    if posterlocations:
-        return has_stats(state, "Strength Stat", player, 3, compactment) and posterrequirement <= get_poster_location_count(state, player, world, compactment)
-    else:
-        return has_stats(state, "Strength Stat", player, 3, compactment) and state.has("Poster", player, posterrequirement)
+def can_reach_sector_z(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
+    return (has_stats(state, "Strength Stat", player, 3, compactment)
+            and posterrequirement <= get_poster_location_count(state, player, world, compactment) 
+            and state.has("Ribbon", player, ribbonrequirement))
 
-def can_reach_nulldriver(state: CollectionState, player: int, world: "IjiWorld",
-                         posterrequirement: int, posterlocations: bool,
-                         ribbonrequirement: int, ribbonlocations: bool,
-                         compactment: int) -> bool:
-    if posterlocations:
-        if ribbonlocations:
-            return posterrequirement <= get_poster_location_count(state, player, world, compactment) and \
-                state.has("Sector Access", player, max(0, ribbonrequirement - 1))
-        else:
-            return posterrequirement <= get_poster_location_count(state, player, world, compactment) and \
-                state.has("Ribbon", player, ribbonrequirement)
-    else:
-        if ribbonlocations:
-            return state.has("Poster", player, posterrequirement) and \
-                state.has("Sector Access", player, max(0, ribbonrequirement - 1))
-        else:
-            return state.has("Poster", player, posterrequirement) and \
-                state.has("Ribbon", player, ribbonrequirement)
-
-#def can_reach_poster1(state: CollectionState, player: int, world: "IjiWorld", compactment: int) -> bool
-#
+def can_reach_nulldriver(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
+    return (can_reach_sector_z(state, player, world, world.options.SectorZPosterLocationsRequired.value,
+                               world.options.SectorZRibbonItemsRequired.value, compactment) and
+            posterrequirement <= get_poster_location_count(state,player, world, compactment) and
+            state.has("Ribbon", player, ribbonrequirement))
 
 def get_poster_location_count(state: CollectionState, player: int, world: "IjiWorld", compactment: int) -> int:
     poster_total: int = 0

@@ -35,11 +35,12 @@ locations_sectorcomplete: Dict[str,IjiLocData] = {
     "Sector 7 - Sector Complete":   IjiLocData(code=7,  region="Sector 7"),
     "Sector 8 - Sector Complete":   IjiLocData(code=8,  region="Sector 8"),
     "Sector 9 - Sector Complete":   IjiLocData(code=9,  region="Sector 9"),
-    "Sector X - Sector Complete":   IjiLocData(code=10, region="Sector X"),
+    "Sector X - Sector Complete":   IjiLocData(code=10, region="Sector X", \
+        valid=lambda world: world.options.EndGoal.value != 1),
     "Sector Z - Sector Complete":   IjiLocData(code=11, region="Sector Z", \
-        valid=lambda world: world.sector_z_allowed()),
+        valid=lambda world: (world.sector_z_allowed() and world.options.EndGoal.value != 2)),
     "Sector Y - Sector Complete":   IjiLocData(code=12, region="Sector Y", \
-        valid=lambda world: world.sector_y_allowed())
+        valid=lambda world: (world.sector_y_allowed() and world.options.EndGoal.value != 3))
 }
 
 # levelup regions change based on difficulty (Whenever that is implemented)
@@ -181,7 +182,7 @@ locations_supercharge: Dict[str,IjiLocData] = {
     "Sector 8 - Supercharge":   IjiLocData(code=238, region="Sector 8 Staff Storage Return Trip", \
         valid=lambda world: world.options.SuperchargeLocations),
     "Sector 9 - Supercharge":   IjiLocData(code=239, region="Sector 9 Deep Sector", \
-        valid=lambda world: world.options.SuperchargeLocations),
+        valid=lambda world: (world.options.SuperchargeLocations) and world.options.PacifistLocations),
     "Sector X - Supercharge":   IjiLocData(code=240, region="Sector X", \
         valid=lambda world: world.options.SuperchargeLocations)
 }
@@ -216,7 +217,7 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.UniqueWeaponLocations, \
         weapon = "Banana Gun"),
     "Obtain Massacre":      IjiLocData(code=249, region="Sector X", \
-        valid=lambda world: world.options.UniqueWeaponLocations, \
+        valid=lambda world: (world.options.UniqueWeaponLocations and world.options.PacifistLocations), \
         weapon = "Massacre"),
     "Obtain Null Driver":   IjiLocData(code=250, region="Sector Z Inner Prey", \
         valid=lambda world: world.options.UniqueWeaponLocations and world.null_driver_allowed(), \
@@ -545,12 +546,16 @@ locations_allbasicweapons: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
         weapon = "Machine Gun"),
-    "Sector 6 - Rocket Launcher 1/2":               IjiLocData(code=3621, region="Sector 6", \
+    "Sector 6 - Rocket Launcher 1/3":               IjiLocData(code=3621, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
         weapon = "Rocket Launcher"),
-    "Sector 6 - Rocket Launcher 2/2":               IjiLocData(code=3622, region="Sector 6", \
+    "Sector 6 - Rocket Launcher 2/3":               IjiLocData(code=3622, region="Sector 6", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
+        world.options.BasicWeaponLocations.option_all_instances, \
+        weapon = "Rocket Launcher"),
+    "Sector 6 - Rocket Launcher 3/3":               IjiLocData(code=3623, region="Sector6", \
+        valid=lambda world: world.options.BasicWeaponLocations.value== \
         world.options.BasicWeaponLocations.option_all_instances, \
         weapon = "Rocket Launcher"),
     "Sector 6 - MPFB Devastator 1/2":               IjiLocData(code=3631, region="Sector 6", \
@@ -1125,13 +1130,13 @@ locations_logbooks: Dict[str, IjiLocData] = {
     "Sector 9 - Logbook 15": IjiLocData(code=1915, region="Sector 9", \
         valid=lambda world: world.options.LogbookLocations),
     "Sector 9 - Logbook 16": IjiLocData(code=1916, region="Sector 9 Deep Sector", \
-        valid=lambda world: world.options.LogbookLocations),
+        valid=lambda world: world.options.LogbookLocations ),
     "Sector 9 - Logbook 17": IjiLocData(code=1917, region="Sector 9 Deep Sector", \
-        valid=lambda world: world.options.LogbookLocations),
+        valid=lambda world: (world.options.LogbookLocations and world.options.PacifistLocations)),
     "Sector 9 - Logbook 18": IjiLocData(code=1918, region="Sector 9 Deep Sector", \
-        valid=lambda world: world.options.LogbookLocations),
+        valid=lambda world: (world.options.LogbookLocations and world.options.PacifistLocations)),
     "Sector 9 - Logbook 19": IjiLocData(code=1919, region="Sector 9 Deep Sector", \
-        valid=lambda world: world.options.LogbookLocations),
+        valid=lambda world: (world.options.LogbookLocations and world.options.PacifistLocations)),
     "Sector X - Logbook 1":  IjiLocData(code=1001, region="Sector X", \
         valid=lambda world: world.options.LogbookLocations),
     "Sector X - Logbook 2":  IjiLocData(code=1002, region="Sector X", \

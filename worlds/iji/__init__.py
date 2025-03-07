@@ -42,14 +42,19 @@ class IjiWorld(World):
 
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
+            "ModVersion": 1,
+            "Goal": self.options.EndGoal.value,
             "DeathLink": self.options.IjiDeathLink.value,
             "DeathLinkDamage": self.options.DeathLinkDamage.value,
-            "Goal": self.options.EndGoal.value,
             "Compactment": self.options.CompactStatItems.value,
             "SpecialTraits": self.options.SpecialTraitItems.value,
             "NullDriveFactor": self.options.NullDriveFactor.value,
-            "SuperchargeHandling": self.options.SuperchargePointHandling.value
-            # TODO: Sector Z and Null Driver Requirements
+            "SuperchargeHandling": self.options.SuperchargePointHandling.value,
+            "SectorZPosters": self.options.SectorZPosterLocationsRequired.value,
+            "SectorZRibbons": self.options.SectorZRibbonItemsRequired.value,
+            "NullDriverPosters": self.options.NullDriverPosterLocationsRequired.value,
+            "NullDriverRibbons": self.options.NullDriverRibbonItemsRequired.value,
+            "SectorZAvailable": sector_z_available(self)
         }
 
 
@@ -83,3 +88,10 @@ class IjiWorld(World):
         elif self.options.EndGoal.value == self.options.EndGoal.option_sector_y:
             self.multiworld.completion_condition[self.player] = lambda state: \
                 state.can_reach_region("Sector Y", self.player)
+
+def sector_z_available(world: "IjiWorld") -> int:
+    if (world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z) or \
+        (world.options.EndGoal.value >= world.options.EndGoal.option_sector_z):
+        return 1
+    else:
+        return 0
