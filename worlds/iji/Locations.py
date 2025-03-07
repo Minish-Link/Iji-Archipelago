@@ -220,7 +220,7 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
         valid=lambda world: (world.options.UniqueWeaponLocations and world.options.PacifistLocations), \
         weapon = "Massacre"),
     "Obtain Null Driver":   IjiLocData(code=250, region="Sector Z Inner Prey", \
-        valid=lambda world: world.options.UniqueWeaponLocations and world.null_driver_allowed(), \
+        valid=lambda world: world.options.UniqueWeaponLocations and world.sector_z_allowed(), \
         weapon = "Null Driver")
 }
 
