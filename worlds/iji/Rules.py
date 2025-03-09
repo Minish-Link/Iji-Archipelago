@@ -1,7 +1,7 @@
 from typing import Dict, TYPE_CHECKING
+import copy
 
 from worlds.generic.Rules import set_rule
-from .Locations import location_table
 
 from BaseClasses import CollectionState
 
@@ -191,90 +191,3 @@ def get_poster_location_count(state: CollectionState, player: int, world: "IjiWo
         poster_total += 1
 
     return poster_total
-
-def set_rules(world: "IjiWorld"):
-    compactment: int = world.options.CompactStatItems.value
-    for loc in world.multiworld.get_locations(world.player):
-        if location_table[loc.name].weapon != "":
-            set_rule(loc, lambda state: has_weapon_stats(state, location_table[loc.name].weapon,
-                                                        world.player, compactment))
-        if location_table[loc.name].stat != "":
-            set_rule(loc, lambda state: has_stats(state, location_table[loc.name].stat, world.player, 
-                                                  location_table[loc.name].statcount, compactment))
-        #elif loc.name == "Reach Health Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Health Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Attack Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Attack Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Assimilate Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Assimilate Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Strength Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Crack Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Crack Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Tasen Level 10":
-        #    set_rule(loc, lambda state: has_stats(state, "Tasen Stat", world.player, 9, compactment))
-        #elif loc.name == "Reach Komato Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Komato Stat", world.player, 9, compactment))
-        elif loc.name == "Sector 2 - Supercharge":
-            set_rule(loc, lambda state: has_weapon_stats(state, "Rocket Launcher", world.player, compactment))
-        elif loc.name == "Sector 3 - Supercharge":
-            set_rule(loc, lambda state: has_weapon_stats(state, "Hyper Pulse Cannon", world.player, compactment))
-        elif loc.name == "Sector 5 - Supercharge":
-            set_rule(loc, lambda state: has_weapon_stats(state, "Nuke", world.player, compactment))
-        elif loc.name == "Sector 6 - Supercharge":
-            set_rule(loc, lambda state: can_reach_superchargesix(state, world, compactment))
-        elif loc.name == "Sector 7 - Supercharge":
-            set_rule(loc, lambda state: can_destroy_sentinel_proxima(state, world))
-        elif loc.name == "Sector 8 - Supercharge":
-            set_rule(loc, lambda state: can_kill_annihilators(state, world.player, compactment))
-        elif loc.name == "Sector X - Supercharge":
-            set_rule(loc, lambda state: has_weapon_stats(state, "Velocithor", world.player, compactment))
-        elif loc.name == "Sector 3 - Logbook 15":
-            set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 1, compactment))
-        elif loc.name == "Sector 4 - Logbook 12":
-            set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 5, compactment))
-        elif loc.name == "Sector 8 - Logbook 15":
-            set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 4, compactment))
-        elif loc.name == "Sector 9 - Logbook 15":
-            set_rule(loc, lambda state: (has_weapon_stats(state, "Hyper Pulse Cannon", world.player, compactment) and
-                                         has_stats(state, "Strength Stat", world.player, 4, compactment)))
-        elif loc.name == "Obtain Rocket Launcher":
-            set_rule(loc, lambda state: can_reach_rocketlauncher(state, world.player, compactment))
-        elif loc.name == "Obtain MPFB Devastator":
-            set_rule(loc, lambda state: can_reach_mpfbdevastator(state, world.player, compactment))
-        elif loc.name == "Obtain Resonance Detonator":
-            set_rule(loc, lambda state: can_reach_resonancedetonator(state, world.player, compactment))
-        elif loc.name == "Obtain Pulse Cannon":
-            set_rule(loc, lambda state: can_reach_pulsecannon(state, world.player, compactment))
-        elif loc.name == "Obtain Shocksplinter":
-            set_rule(loc, lambda state: can_reach_shocksplinter(state, world.player, compactment))
-        elif loc.name == "Obtain Cyclic Fusion Ignition System":
-            set_rule(loc, lambda state: can_reach_cfis(state, world.player, compactment))
-        elif loc.name == "Obtain Buster Gun":
-            set_rule(loc, lambda state: can_make_bustergun(state, world.player, compactment))
-        elif loc.name == "Obtain Splintergun":
-            set_rule(loc, lambda state: can_make_splintergun(state, world.player, compactment))
-        elif loc.name == "Obtain Spread Rockets":
-            set_rule(loc, lambda state: can_make_spreadrockets(state, world.player, compactment))
-        elif loc.name == "Obtain Nuke":
-            set_rule(loc, lambda state: can_make_nuke(state, world.player, compactment))
-        elif loc.name == "Obtain Resonance Reflector":
-            set_rule(loc, lambda state: can_make_resonancereflector(state, world.player, compactment))
-        elif loc.name == "Obtain Hyper Pulse Cannon":
-            set_rule(loc, lambda state: can_make_hyperpulse(state, world.player, compactment))
-        elif loc.name == "Obtain Plasma Cannon":
-            set_rule(loc, lambda state: can_make_plasmacannon(state, world.player, compactment))
-        elif loc.name == "Obtain Velocithor V2-10":
-            set_rule(loc, lambda state: can_make_velocithor(state, world.player, compactment))
-        elif loc.name == "Sector 3 - Pulse Cannon":
-            set_rule(loc, lambda state: (has_weapon_stats(state, "Pulse Cannon", world.player, compactment) and \
-                has_stats(state, "Crack Stat", world.player, 1, compactment)))
-        elif loc.name == "Sector 6 - MPFB Devastator 2/2":
-            set_rule(loc, lambda state: (has_weapon_stats(state, "MPFB Devastator", world.player, compactment) and \
-                has_stats(state, "Crack Stat", world.player, 3, compactment)))
-        elif loc.name == "Sector 6 - Cyclic Fusion Ignition System":
-            set_rule(loc, lambda state: (has_weapon_stats(state, "CFIS", world.player, compactment) and \
-                has_stats(state, "Crack Stat", world.player, 3, compactment)))
-        elif loc.name == "Sector X - MPFB Devastator 4/4":
-            set_rule(loc, lambda state: (has_weapon_stats(state, "MPFB Devastator", world.player, compactment) and \
-                has_stats(state, "Strength Stat", world.player, 6, compactment)))

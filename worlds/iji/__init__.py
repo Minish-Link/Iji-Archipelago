@@ -2,9 +2,8 @@ import logging
 from typing import Any, Dict
 from BaseClasses import Item, ItemClassification, Location, MultiWorld
 from worlds.generic.Rules import add_rule, set_rule
-from worlds.iji.Rules import can_kill_annihilators, can_rocket_boost, has_weapon_stats, set_rules
 from .Items import item_table, create_itempool, create_item, item_groups_table
-from .Locations import location_table, location_weapons_table, location_groups_table
+from .Locations import location_table, location_groups_table
 from .Regions import create_regions
 from .Options import IjiOptions, get_compacted_stat_items
 from worlds.AutoWorld import World, CollectionState
@@ -44,7 +43,7 @@ class IjiWorld(World):
 
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
-            "ModVersion": 1,
+            "ModVersion": 2,
             "Goal": self.options.EndGoal.value,
             "DeathLink": self.options.IjiDeathLink.value,
             "DeathLinkDamage": self.options.DeathLinkDamage.value,
@@ -67,12 +66,12 @@ class IjiWorld(World):
         return self.options.EndGoal.value == self.options.EndGoal.option_sector_y or \
             self.options.PostGameLocations.value == self.options.PostGameLocations.option_sector_y
 
-    #def special_trait_locations(self) -> bool:
-    #    return self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_only or \
-    #        self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_and_items
-
     def set_rules(self):
-        set_rules(self)
+        
+        compactment: int = self.options.CompactStatItems.value
+        for loc in self.multiworld.get_locations(self.player):
+            set_rule(loc, lambda state, temploc=loc: location_table[temploc.name].logic(self, state))
+
         if self.options.EndGoal.value == self.options.EndGoal.option_sector_x:
             self.multiworld.completion_condition[self.player] = lambda state: \
                 state.can_reach_region("Sector X", self.player)
