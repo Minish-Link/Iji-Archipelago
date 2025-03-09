@@ -184,7 +184,7 @@ class SectorAccessItems(Range):
     display_name = "Sector Access Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class HealthItems(Range):
     """
@@ -194,7 +194,7 @@ class HealthItems(Range):
     display_name = "Health Stat items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class AttackItems(Range):
     """
@@ -204,7 +204,7 @@ class AttackItems(Range):
     display_name = "Attack Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class AssimilateItems(Range):
     """
@@ -214,7 +214,7 @@ class AssimilateItems(Range):
     display_name = "Assimilate Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class StrengthItems(Range):
     """
@@ -224,7 +224,7 @@ class StrengthItems(Range):
     display_name = "Strength Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class CrackItems(Range):
     """
@@ -234,7 +234,7 @@ class CrackItems(Range):
     display_name = "Crack Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class TasenItems(Range):
     """
@@ -244,7 +244,7 @@ class TasenItems(Range):
     display_name = "Tasen Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
 class KomatoItems(Range):
     """
@@ -254,27 +254,13 @@ class KomatoItems(Range):
     display_name = "Komato Stat Items"
     default = 9
     range_start = 9
-    range_end = 20
+    range_end = 15
 
-class SpecialTraitItems(Choice):
+class SpecialTraitItems(Toggle):
     """
-    If the Special Traits from maxing out stats should be locations and/or items.
-    Off: Special Traits keep their vanilla behavior.
-    
-    Locations Only: Reaching Level 10 in a Stat sends a check.
-    
-    Items Only: Shuffles the 7 Special Traits as Items into the item pool.
-    Reaching Level 10 in a Stat no longer awards a special trait.
-    
-    Locations and Items: Shuffles the 7 Special Traits as Items into the item pool,
-    and reaching Level 10 in a Stat sends a check instead of awarding a special trait.
+    If enabled, the Special Trait items will be shuffled into the item pool.
     """
     display_name = "Special Traits"
-    option_off = 0
-    option_locations_only = 1
-    option_items_only = 2
-    option_locations_and_items = 3
-    default = 0
 
 class SuperchargePointHandling(Choice):
     """
@@ -300,7 +286,7 @@ class ExtraSupercharges(Range):
     display_name = "Extra Supercharges"
     default = 0
     range_start = 0
-    range_end = 20
+    range_end = 10
 
 class TrapPercentage(Range):
     """

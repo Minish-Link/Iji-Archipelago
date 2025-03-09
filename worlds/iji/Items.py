@@ -31,15 +31,17 @@ def create_itempool(world: "IjiWorld") -> List[Item]:
 
     itempool += create_multiple_items(world, "Supercharge", superchargecount)
 
-    if world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_items_only or \
-       world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
+    if world.options.SpecialTraitItems.value:# == world.options.SpecialTraitItems.option_items_only or \
+       #world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
         for name in items_traits.keys():
             itempool += create_multiple_items(world, name, 1)
 
-    #itempool += create_poster_items(world)
     itempool += create_ribbon_items(world)
 
     itempool += create_filler_items(world, get_total_locations(world) - len(itempool))
+
+    #if (world.options.LogbookLocations.value == False):
+    #    world.multiworld.get_location("Sector 1 - Sector Complete", world.player).place_locked_item(create_item(world, "Sector Access"))
 
     return itempool
 
@@ -127,7 +129,6 @@ items_primary: Dict[str,IjiItemData] = {
 
 items_other: Dict[str, IjiItemData] = {
     "Supercharge":  IjiItemData(code=9,  progtype = ItemClassification.useful),
-    "Poster":       IjiItemData(code=10, progtype = ItemClassification.progression),
     "Ribbon":       IjiItemData(code=11, progtype = ItemClassification.progression)
 }
 

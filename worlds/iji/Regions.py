@@ -13,156 +13,124 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
     region_menu = create_region(world, "Menu")
 
     region_global = create_region(world, "Global")
+    region_sector1 = create_region(world, "Sector 1")
+    region_sector1_ra = create_region(world, "Sector 1 Restricted Area")
+    region_sector1_p = create_region(world, "Sector 1 Poster")
+    region_sector2 = create_region(world, "Sector 2")
+    region_sector2_st = create_region(world, "Sector 2 Storage Transport Top")
+    region_sector2_p = create_region(world, "Sector 2 Poster")
+    region_sector3 = create_region(world, "Sector 3")
+    region_sector3_ra = create_region(world, "Sector 3 Restricted Area")
+    region_sector3_p = create_region(world, "Sector 3 Poster")
+    region_sector4 = create_region(world, "Sector 4")
+    region_sector4_sc = create_region(world, "Sector 4 Surveillance Control")
+    region_sector4_ms = create_region(world, "Sector 4 Top of Main Storage")
+    region_sector4_p = create_region(world, "Sector 4 Poster")
+    region_sector5 = create_region(world, "Sector 5")
+    region_sector5_p = create_region(world, "Sector 5 Poster")
+    region_sector6 = create_region(world, "Sector 6")
+    region_sector6_p = create_region(world, "Sector 6 Poster")
+    region_sector7 = create_region(world, "Sector 7")
+    region_sector7_hw = create_region(world, "Sector 7 Heavy Weapon Armory")
+    region_sector7_ht = create_region(world, "Sector 7 Hyper Turret Logbooks")
+    region_sector7_ch = create_region(world, "Sector 7 Crackers' Hideout")
+    region_sector7_p = create_region(world, "Sector 7 Poster")
+    region_sector8 = create_region(world, "Sector 8")
+    region_sector8_ss = create_region(world, "Sector 8 Staff Storage Return Trip")
+    region_sector8_p = create_region(world, "Sector 8 Poster")
+    region_sector9 = create_region(world, "Sector 9")
+    region_sector9_p = create_region(world, "Sector 9 Poster")
+    region_sector9_ds = create_region(world, "Sector 9 Deep Sector")
+    region_sectorx = create_region(world, "Sector X")
+    region_sectorx_vs = create_region(world, "Sector X Ventilation Shaft")
+    region_sectorx_p = create_region(world, "Sector X Poster")
+    region_sectorx_mc = create_region(world, "Sector X Maximum Charge Terminal")
+    region_sectorz = create_region(world, "Sector Z")
+    region_sectorz_ip = create_region(world, "Sector Z Inner Prey")
+    region_sectory = create_region(world, "Sector Y")
+
     region_menu.connect(region_global, "Menu -> Global",
                         lambda state: True)
-
-    region_sector1 = create_region(world, "Sector 1")
     region_menu.connect(region_sector1, "Menu -> Sector 1",
                         lambda state: True)
-
-    region_sector1_ra = create_region(world, "Sector 1 Restricted Area")
     region_sector1.connect(region_sector1_ra, "Sector 1 -> Restricted Area",
                            lambda state: has_stats(state, "Strength Stat", world.player, 3, compactment))
-
-    region_sector1_p = create_region(world, "Sector 1 Poster")
     region_sector1.connect(region_sector1_p, "Sector 1 -> Poster",
                            lambda state: has_stats(state, "Strength Stat", world.player, 1, compactment))
-
-    region_sector2 = create_region(world, "Sector 2")
     region_sector1.connect(region_sector2, "Sector 1 -> Sector 2",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 2, compactment))
-
-    region_sector2_st = create_region(world, "Sector 2 Storage Transport Top")
     region_sector2.connect(region_sector2_st, "Sector 2 -> Storage Transport Top",
                            lambda state: can_rocket_boost(state, world.player))
-
-    region_sector2_p = create_region(world, "Sector 2 Poster")
     region_sector2.connect(region_sector2_p, "Sector 2 -> Poster",
                            lambda state: (has_stats(state, "Strength Stat", world.player, 3, compactment) or \
                                has_weapon_stats(state, "Machine Gun", world.player, compactment) or \
                                world.options.LogicDifficulty.value >= \
                                world.options.LogicDifficulty.option_obscure_logic))
-
-    region_sector3 = create_region(world, "Sector 3")
     region_sector2.connect(region_sector3, "Sector 2 -> Sector 3",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 3, compactment))
-
-    region_sector3_ra = create_region(world, "Sector 3 Restricted Area")
     region_sector3.connect(region_sector3_ra, "Sector 3 -> Restricted Area",
                            lambda state: has_multiple_stats(state, {"Strength Stat": 9, "Crack Stat": 9}, world.player, compactment))
-
-    region_sector3_p = create_region(world, "Sector 3 Poster")
     region_sector3.connect(region_sector3_p, "Sector 3 -> Poster",
                            lambda state: (can_rocket_boost(state, world.player) and \
                                has_stats(state, "Strength Stat", world.player, 3, compactment)))
-
-    region_sector4 = create_region(world, "Sector 4")
     region_sector3.connect(region_sector4, "Sector 3 -> Sector 4",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 4, compactment))
-
-    region_sector4_sc = create_region(world, "Sector 4 Surveillance Control")
     region_sector4.connect(region_sector4, "Sector 4 -> Surveillance Control",
                            lambda state: has_weapon_stats(state, "Rocket Launcher", world.player, compactment))
-
-    region_sector4_ms = create_region(world, "Sector 4 Top of Main Storage")
     region_sector4.connect(region_sector4, "Sector 4 -> Top of Main Storage",
                             lambda state: (has_weapon_stats(state, "Rocket Launcher", world.player, compactment) or # Rocket Method
                                 can_rocket_boost(state, world.player) or # Rocket Boost Method
                                 has_stats(state, "Strength Stat", world.player, 3, compactment))) # Kick the Door Method
-
-    region_sector4_p = create_region(world, "Sector 4 Poster")
     region_sector4.connect(region_sector4_p, "Sector 4 -> Poster",
                            lambda state: (has_weapon_stats(state, "Rocket Launcher", world.player, compactment) or # Rocket Launcher
                            has_stats(state, "Strength Stat", world.player, 3, compactment) or # Kick the Tasen Soldier
                            world.options.LogicDifficulty.value >= # Use the Tasen Shredder
                            world.options.LogicDifficulty.option_obscure_logic))
-
-    region_sector5 = create_region(world, "Sector 5")
     region_sector4.connect(region_sector5, "Sector 4 -> Sector 5",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 5, compactment))
-
-    region_sector5_p = create_region(world, "Sector 5 Poster")
     region_sector5.connect(region_sector5_p, "Sector 5 -> Poster",
                            lambda state: (has_weapon_stats(state, "Nuke", world.player, compactment) or \
                                (has_weapon_stats(state, "MPFB Devastator", world.player, compactment) and \
                                world.options.LogicDifficulty.value >= world.options.LogicDifficulty.option_obscure_logic)))
-
-    region_sector6 = create_region(world, "Sector 6")
     region_sector5.connect(region_sector6, "Sector 5 -> Sector 6",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 6, compactment))
-
-    region_sector6_p = create_region(world, "Sector 6 Poster")
     region_sector6.connect(region_sector6_p, "Sector 6 -> Poster",
                            lambda state: has_weapon_stats(state, "Velocithor", world.player, compactment))
-
-    region_sector7 = create_region(world, "Sector 7")
     region_sector6.connect(region_sector7, "Sector 6 -> Sector 7",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 7, compactment))
-
-    region_sector7_hw = create_region(world, "Sector 7 Heavy Weapon Armory")
     region_sector7.connect(region_sector7_hw, "Sector 7 -> Heavy Weapon Armory",
                            lambda state: has_stats(state, "Strength Stat", world.player, 2, compactment))
-
-    region_sector7_ht = create_region(world, "Sector 7 Hyper Turret Logbooks")
     region_sector7.connect(region_sector7_ht, "Sector 7 -> Hyper Turret Logbooks",
                            lambda state: has_stats(state, "Crack Stat", world.player, 2, compactment))
-
-    region_sector7_ch = create_region(world, "Sector 7 Crackers' Hideout")
     region_sector7.connect(region_sector7_ch, "Sector 7 -> Crackers' Hideout",
                            lambda state: (has_weapon_stats(state, "Rocket Launcher", world.player, compactment) or
                            has_weapon_stats(state, "Shocksplinter", world.player, compactment)))
-
-    region_sector7_p = create_region(world, "Sector 7 Poster")
     region_sector7.connect(region_sector7_p, "Sector 7 -> Poster",
                            lambda state: (has_weapon_stats(state, "CFIS", world.player, compactment) and
                            has_weapon_stats(state, "Nuke", world.player, compactment) and
                            has_stats(state, "Attack Stat", world.player, 2, compactment)))
-
-    region_sector8 = create_region(world, "Sector 8")
     region_sector7.connect(region_sector8, "Sector 7 -> Sector 8",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 8, compactment))
-
-    region_sector8_ss = create_region(world, "Sector 8 Staff Storage Return Trip")
     region_sector8.connect(region_sector8_ss, "Sector 8 -> Staff Storage Return Trip",
                             lambda state: has_stats(state, "Crack Stat", world.player, 4, compactment))
-
-    region_sector8_p = create_region(world, "Sector 8 Poster")
     region_sector8.connect(region_sector8_p, "Sector 8 -> Poster",
                            lambda state: can_rocket_boost(state, world.player))
-
-    region_sector9 = create_region(world, "Sector 9")
     region_sector8.connect(region_sector9, "Sector 8 -> Sector 9",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 9, compactment))
-
-    region_sector9_p = create_region(world, "Sector 9 Poster")
     region_sector9.connect(region_sector9_p, "Sector 9 -> Poster",
                            lambda state: can_reach_poster_nine(state, world.player, \
-                               (world.options.SpecialTraitItems.value == \
-                               world.options.SpecialTraitItems.option_items_only or \
-                               world.options.SpecialTraitItems.value == \
-                               world.options.SpecialTraitItems.option_locations_and_items), \
+                               world.options.SpecialTraitItems.value, \
                                world.options.CompactStatItems.value))
-
-    region_sector9_ds = create_region(world, "Sector 9 Deep Sector")
     region_sector9.connect(region_sector9_ds, "Sector 9 -> Deep Sector",
                            lambda state: True) # No requirements... for now
-
-    region_sectorx = create_region(world, "Sector X")
     region_sector9.connect(region_sectorx, "Sector 9 -> Sector X",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 10, compactment))
-
-    region_sectorx_vs = create_region(world, "Sector X Ventilation Shaft")
     region_sectorx.connect(region_sectorx_vs, "Sector X -> Ventilation Shaft",
                            lambda state: has_weapon_stats(state, "Nuke", world.player, compactment))
-
-    region_sectorx_p = create_region(world, "Sector X Poster")
     region_sectorx_vs.connect(region_sectorx_p, "Sector X Ventilation Shaft -> Poster",
                               lambda state: has_weapon_stats(state, "Splintergun", world.player, compactment))
-
-    region_sectorx_mc = create_region(world, "Sector X Maximum Charge Terminal")
     region_sectorx.connect(region_sectorx_mc, "Sector X -> Maximum Charge Terminal",
                            lambda state: True) # No requirements... for now
-
     world.multiworld.regions.append(region_menu)
     world.multiworld.regions.append(region_global)
     world.multiworld.regions.append(region_sector1)
@@ -198,7 +166,6 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
     world.multiworld.regions.append(region_sectorx_p)
     world.multiworld.regions.append(region_sectorx_mc)
 
-    region_sectorz = create_region(world, "Sector Z")
     region_sector1.connect(region_sectorz, "Sector 1 -> Sector Z",
                            lambda state: can_reach_sector_z(state, world.player, world, \
                                world.options.SectorZPosterLocationsRequired.value, \
@@ -206,7 +173,6 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
                                world.options.CompactStatItems.value))
     world.multiworld.regions.append(region_sectorz)
 
-    region_sectorz_ip = create_region(world, "Sector Z Inner Prey")
     region_sectorz.connect(region_sectorz_ip, "Sector Z -> Inner Prey",
                            lambda state: can_reach_nulldriver(state, world.player, world, \
                                world.options.NullDriverPosterLocationsRequired.value, \
@@ -214,7 +180,6 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
                                world.options.CompactStatItems.value))
     world.multiworld.regions.append(region_sectorz_ip)
 
-    region_sectory = create_region(world, "Sector Y")
     region_sectorx.connect(region_sectory, "Sector X -> Sector Y",
                            lambda state: can_reach_nulldriver(state, world.player, world, \
                                world.options.NullDriverPosterLocationsRequired.value, \

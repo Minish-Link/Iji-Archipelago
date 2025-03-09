@@ -1,4 +1,4 @@
-from typing import Callable, Dict, Mapping, NamedTuple, TYPE_CHECKING
+from typing import Callable, Dict, Mapping, NamedTuple, Optional, TYPE_CHECKING
 
 from BaseClasses import CollectionState, Location
 from worlds.generic.Rules import CollectionRule
@@ -14,6 +14,8 @@ class IjiLocData(NamedTuple):
     region: str
     valid: Callable[["IjiWorld"], bool] = lambda world: True
     weapon: str = ""
+    stat: str = ""
+    statcount: Optional[int] = None
 
 def get_total_locations(world: "IjiWorld") -> int:
     total: int = 0
@@ -97,22 +99,104 @@ locations_levelup: Dict[str, IjiLocData] = {
     "Level 50": IjiLocData(code=150, region="Sector X"),
 }
 
-locations_specialtraits: Dict[str, IjiLocData] = {
-    "Reach Health Level 10":        IjiLocData(code=151, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Attack Level 10":        IjiLocData(code=152, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Assimilate Level 10":    IjiLocData(code=153, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Strength Level 10":      IjiLocData(code=154, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Crack Level 10":         IjiLocData(code=155, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Tasen Level 10":         IjiLocData(code=156, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations()),
-    "Reach Komato Level 10":        IjiLocData(code=157, region="Sector 2", \
-        valid=lambda world: world.special_trait_locations())
+locations_tutorialpages: Dict[str, IjiLocData] = {
+    "Tutorial Page 1":              IjiLocData(code=161, region="Sector 1"),
+    "Tutorial Page 2":              IjiLocData(code=162, region="Sector 1"),
+    "Tutorial Page 3":              IjiLocData(code=163, region="Sector 1"),
+    "Tutorial Page 4":              IjiLocData(code=164, region="Sector 1"),
+    "Tutorial Page 5":              IjiLocData(code=165, region="Sector 1"),
+    "Tutorial Page 6":              IjiLocData(code=166, region="Sector 1"),
 }
+
+locations_statlevels: Dict[str, IjiLocData] = {
+    "Reach Health Level 2":         IjiLocData(code = 411, region = "Sector 1", stat = "Health Stat", statcount = 1),
+    "Reach Health Level 3":         IjiLocData(code = 412, region = "Sector 1", stat = "Health Stat", statcount = 2),
+    "Reach Health Level 4":         IjiLocData(code = 413, region = "Sector 1", stat = "Health Stat", statcount = 3),
+    "Reach Health Level 5":         IjiLocData(code = 414, region = "Sector 1", stat = "Health Stat", statcount = 4),
+    "Reach Health Level 6":         IjiLocData(code = 415, region = "Sector 1", stat = "Health Stat", statcount = 5),
+    "Reach Health Level 7":         IjiLocData(code = 416, region = "Sector 2", stat = "Health Stat", statcount = 6),
+    "Reach Health Level 8":         IjiLocData(code = 417, region = "Sector 2", stat = "Health Stat", statcount = 7),
+    "Reach Health Level 9":         IjiLocData(code = 418, region = "Sector 2", stat = "Health Stat", statcount = 8),
+    "Reach Health Level 10":        IjiLocData(code = 419, region = "Sector 2", stat = "Health Stat", statcount = 9),
+
+    "Reach Attack Level 2":         IjiLocData(code = 421, region = "Sector 1", stat = "Attack Stat", statcount = 1),
+    "Reach Attack Level 3":         IjiLocData(code = 422, region = "Sector 1", stat = "Attack Stat", statcount = 2),
+    "Reach Attack Level 4":         IjiLocData(code = 423, region = "Sector 1", stat = "Attack Stat", statcount = 3),
+    "Reach Attack Level 5":         IjiLocData(code = 424, region = "Sector 1", stat = "Attack Stat", statcount = 4),
+    "Reach Attack Level 6":         IjiLocData(code = 425, region = "Sector 1", stat = "Attack Stat", statcount = 5),
+    "Reach Attack Level 7":         IjiLocData(code = 426, region = "Sector 2", stat = "Attack Stat", statcount = 6),
+    "Reach Attack Level 8":         IjiLocData(code = 427, region = "Sector 2", stat = "Attack Stat", statcount = 7),
+    "Reach Attack Level 9":         IjiLocData(code = 428, region = "Sector 2", stat = "Attack Stat", statcount = 8),
+    "Reach Attack Level 10":        IjiLocData(code = 429, region = "Sector 2", stat = "Attack Stat", statcount = 9),
+
+    "Reach Assimilate Level 2":     IjiLocData(code = 431, region = "Sector 1", stat = "Assimilate Stat", statcount = 1),
+    "Reach Assimilate Level 3":     IjiLocData(code = 432, region = "Sector 1", stat = "Assimilate Stat", statcount = 2),
+    "Reach Assimilate Level 4":     IjiLocData(code = 433, region = "Sector 1", stat = "Assimilate Stat", statcount = 3),
+    "Reach Assimilate Level 5":     IjiLocData(code = 434, region = "Sector 1", stat = "Assimilate Stat", statcount = 4),
+    "Reach Assimilate Level 6":     IjiLocData(code = 435, region = "Sector 1", stat = "Assimilate Stat", statcount = 5),
+    "Reach Assimilate Level 7":     IjiLocData(code = 436, region = "Sector 2", stat = "Assimilate Stat", statcount = 6),
+    "Reach Assimilate Level 8":     IjiLocData(code = 437, region = "Sector 2", stat = "Assimilate Stat", statcount = 7),
+    "Reach Assimilate Level 9":     IjiLocData(code = 438, region = "Sector 2", stat = "Assimilate Stat", statcount = 8),
+    "Reach Assimilate Level 10":    IjiLocData(code = 439, region = "Sector 2", stat = "Assimilate Stat", statcount = 9),
+
+    "Reach Strength Level 2":       IjiLocData(code = 441, region = "Sector 1", stat = "Strength Stat", statcount = 1),
+    "Reach Strength Level 3":       IjiLocData(code = 442, region = "Sector 1", stat = "Strength Stat", statcount = 2),
+    "Reach Strength Level 4":       IjiLocData(code = 443, region = "Sector 1", stat = "Strength Stat", statcount = 3),
+    "Reach Strength Level 5":       IjiLocData(code = 444, region = "Sector 1", stat = "Strength Stat", statcount = 4),
+    "Reach Strength Level 6":       IjiLocData(code = 445, region = "Sector 1", stat = "Strength Stat", statcount = 5),
+    "Reach Strength Level 7":       IjiLocData(code = 446, region = "Sector 2", stat = "Strength Stat", statcount = 6),
+    "Reach Strength Level 8":       IjiLocData(code = 447, region = "Sector 2", stat = "Strength Stat", statcount = 7),
+    "Reach Strength Level 9":       IjiLocData(code = 448, region = "Sector 2", stat = "Strength Stat", statcount = 8),
+    "Reach Strength Level 10":      IjiLocData(code = 449, region = "Sector 2", stat = "Strength Stat", statcount = 9),
+
+    "Reach Crack Level 2":          IjiLocData(code = 451, region = "Sector 1", stat = "Crack Stat", statcount = 1),
+    "Reach Crack Level 3":          IjiLocData(code = 452, region = "Sector 1", stat = "Crack Stat", statcount = 2),
+    "Reach Crack Level 4":          IjiLocData(code = 453, region = "Sector 1", stat = "Crack Stat", statcount = 3),
+    "Reach Crack Level 5":          IjiLocData(code = 454, region = "Sector 1", stat = "Crack Stat", statcount = 4),
+    "Reach Crack Level 6":          IjiLocData(code = 455, region = "Sector 1", stat = "Crack Stat", statcount = 5),
+    "Reach Crack Level 7":          IjiLocData(code = 456, region = "Sector 2", stat = "Crack Stat", statcount = 6),
+    "Reach Crack Level 8":          IjiLocData(code = 457, region = "Sector 2", stat = "Crack Stat", statcount = 7),
+    "Reach Crack Level 9":          IjiLocData(code = 458, region = "Sector 2", stat = "Crack Stat", statcount = 8),
+    "Reach Crack Level 10":         IjiLocData(code = 459, region = "Sector 2", stat = "Crack Stat", statcount = 9),
+
+    "Reach Tasen Level 2":          IjiLocData(code = 461, region = "Sector 1", stat = "Tasen Stat", statcount = 1),
+    "Reach Tasen Level 3":          IjiLocData(code = 462, region = "Sector 1", stat = "Tasen Stat", statcount = 2),
+    "Reach Tasen Level 4":          IjiLocData(code = 463, region = "Sector 1", stat = "Tasen Stat", statcount = 3),
+    "Reach Tasen Level 5":          IjiLocData(code = 464, region = "Sector 1", stat = "Tasen Stat", statcount = 4),
+    "Reach Tasen Level 6":          IjiLocData(code = 465, region = "Sector 1", stat = "Tasen Stat", statcount = 5),
+    "Reach Tasen Level 7":          IjiLocData(code = 466, region = "Sector 2", stat = "Tasen Stat", statcount = 6),
+    "Reach Tasen Level 8":          IjiLocData(code = 467, region = "Sector 2", stat = "Tasen Stat", statcount = 7),
+    "Reach Tasen Level 9":          IjiLocData(code = 468, region = "Sector 2", stat = "Tasen Stat", statcount = 8),
+    "Reach Tasen Level 10":         IjiLocData(code = 469, region = "Sector 2", stat = "Tasen Stat", statcount = 9),
+
+    "Reach Komato Level 2":         IjiLocData(code = 471, region = "Sector 1", stat = "Komato Stat", statcount = 1),
+    "Reach Komato Level 3":         IjiLocData(code = 472, region = "Sector 1", stat = "Komato Stat", statcount = 2),
+    "Reach Komato Level 4":         IjiLocData(code = 473, region = "Sector 1", stat = "Komato Stat", statcount = 3),
+    "Reach Komato Level 5":         IjiLocData(code = 474, region = "Sector 1", stat = "Komato Stat", statcount = 4),
+    "Reach Komato Level 6":         IjiLocData(code = 475, region = "Sector 1", stat = "Komato Stat", statcount = 5),
+    "Reach Komato Level 7":         IjiLocData(code = 476, region = "Sector 2", stat = "Komato Stat", statcount = 6),
+    "Reach Komato Level 8":         IjiLocData(code = 477, region = "Sector 2", stat = "Komato Stat", statcount = 7),
+    "Reach Komato Level 9":         IjiLocData(code = 478, region = "Sector 2", stat = "Komato Stat", statcount = 8),
+    "Reach Komato Level 10":        IjiLocData(code = 479, region = "Sector 2", stat = "Komato Stat", statcount = 9),
+
+}
+
+#locations_specialtraits: Dict[str, IjiLocData] = {
+#    "Reach Health Level 10":        IjiLocData(code=151, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Attack Level 10":        IjiLocData(code=152, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Assimilate Level 10":    IjiLocData(code=153, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Strength Level 10":      IjiLocData(code=154, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Crack Level 10":         IjiLocData(code=155, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Tasen Level 10":         IjiLocData(code=156, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations()),
+#    "Reach Komato Level 10":        IjiLocData(code=157, region="Sector 2", \
+#        valid=lambda world: world.special_trait_locations())
+#}
 
 locations_poster: Dict[str, IjiLocData] = {
     "Sector 1 - Poster":            IjiLocData(code=201, region="Sector 1 Poster", \
@@ -1233,12 +1317,12 @@ locations_logbooks_y: Dict[str, IjiLocData] = {
 
 # location_killsanity: IjiLocData = {10001->19999}
 
-#location_pickupsanity: IjiLocData = {20001->29999}
-
 location_table = {
     **locations_sectorcomplete,
     **locations_levelup,
-    **locations_specialtraits,
+    **locations_tutorialpages,
+    **locations_statlevels,
+    #**locations_specialtraits,
     **locations_ribbon,
     **locations_poster,
     **locations_supercharge,

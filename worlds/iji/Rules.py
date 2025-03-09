@@ -20,8 +20,10 @@ def has_multiple_stats(state: CollectionState, itemsneeded: Dict[str, int], play
     return True
 
 def can_access_sector(state: CollectionState, player: int, healthbalancing: bool, targetsector: int, compactment: int) -> bool:
+    if targetsector == 1:
+        return True
     return state.has("Sector Access", player, targetsector-1) and \
-        (healthbalancing == False or has_stats(state, "Health Stat", player, targetsector-1, compactment))#("Health Stat", player, targetsector-1))
+        (healthbalancing == False or has_stats(state, "Health Stat", player, targetsector-1, compactment))
 
 def can_rocket_boost(state: CollectionState, player: int) -> bool: 
     return state.has("Health Stat", player) or state.has("SUPPRESSION", player)
@@ -195,20 +197,23 @@ def set_rules(world: "IjiWorld"):
     for loc in world.multiworld.get_locations(world.player):
         if location_table[loc.name].weapon != "":
             set_rule(loc, lambda state: has_weapon_stats(state, location_table[loc.name].weapon,
-                                                        world.player, world.options.CompactStatItems.value))
-        elif loc.name == "Reach Health Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Health Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Attack Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Attack Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Assimilate Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Assimilate Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Strength Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Crack Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Crack Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Tasen Level 10":
-            set_rule(loc, lambda state: has_stats(state, "Tasen Stat", world.player, 9, compactment))
-        elif loc.name == "Reach Komato Level 10":
+                                                        world.player, compactment))
+        if location_table[loc.name].stat != "":
+            set_rule(loc, lambda state: has_stats(state, location_table[loc.name].stat, world.player, 
+                                                  location_table[loc.name].statcount, compactment))
+        #elif loc.name == "Reach Health Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Health Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Attack Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Attack Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Assimilate Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Assimilate Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Strength Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Strength Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Crack Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Crack Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Tasen Level 10":
+        #    set_rule(loc, lambda state: has_stats(state, "Tasen Stat", world.player, 9, compactment))
+        #elif loc.name == "Reach Komato Level 10":
             set_rule(loc, lambda state: has_stats(state, "Komato Stat", world.player, 9, compactment))
         elif loc.name == "Sector 2 - Supercharge":
             set_rule(loc, lambda state: has_weapon_stats(state, "Rocket Launcher", world.player, compactment))

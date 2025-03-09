@@ -25,6 +25,7 @@ class IjiWorld(World):
     location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
+    explicit_indirect_conditions = False
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -66,9 +67,9 @@ class IjiWorld(World):
         return self.options.EndGoal.value == self.options.EndGoal.option_sector_y or \
             self.options.PostGameLocations.value == self.options.PostGameLocations.option_sector_y
 
-    def special_trait_locations(self) -> bool:
-        return self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_only or \
-            self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_and_items
+    #def special_trait_locations(self) -> bool:
+    #    return self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_only or \
+    #        self.options.SpecialTraitItems.value == self.options.SpecialTraitItems.option_locations_and_items
 
     def set_rules(self):
         set_rules(self)
@@ -105,38 +106,47 @@ class IjiWorld(World):
                     self.options.ExtraSupercharges.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.HealthItems.value > 9:
                     self.options.HealthItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.AttackItems.value > 9:
                     self.options.AttackItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.AssimilateItems.value > 9:
                     self.options.AssimilateItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.StrengthItems.value > 9:
                     self.options.StrengthItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.CrackItems.value > 9:
                     self.options.CrackItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.TasenItems.value > 9:
                     self.options.TasenItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.KomatoItems.value > 9:
                     self.options.KomatoItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if self.options.SectorAccessItems.value > 9:
                     self.options.SectorAccessItems.value -= 1
                     removeditem = True
                     logremoved = True
+                    totalitems -= 1
                 if sector_z_available(self) and self.options.RibbonItemCount.value > \
                                                 max(self.options.SectorZRibbonItemsRequired.value,
                                                     self.options.NullDriverRibbonItemsRequired.value):
@@ -145,10 +155,7 @@ class IjiWorld(World):
                     removeditem = True
                     logremoved = True
 
-
-            if removeditem:
-                totalitems = get_early_total_items(self)
-            else:
+            if not removeditem:
                 removalfailed = True
                 logging.error(f"{self.multiworld.player_name[self.player]} had more progression items in their pool than locations, and the issue couldn't be resolved.")
                 break
@@ -181,7 +188,7 @@ def get_early_total_items(world: "IjiWorld") -> int:
     if world.options.SuperchargePointHandling.value == 2:
         totalitems += 10
     totalitems += world.options.ExtraSupercharges.value
-    if world.options.SpecialTraitItems.value >= 2:
+    if world.options.SpecialTraitItems.value:
         totalitems += 7
     if sector_z_available(world) and (world.options.SectorZRibbonItemsRequired.value > 0 or world.options.NullDriverRibbonItemsRequired.value > 0):
         totalitems += max(world.options.SectorZRibbonItemsRequired.value, world.options.NullDriverRibbonItemsRequired.value, world.options.RibbonItemCount)
