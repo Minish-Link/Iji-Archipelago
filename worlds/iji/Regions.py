@@ -1,6 +1,6 @@
 
 from typing import Callable, Dict, List, TYPE_CHECKING, NamedTuple
-from BaseClasses import MultiWorld, Region, Entrance
+from BaseClasses import MultiWorld, Region, Entrance, CollectionState
 from worlds.generic.Rules import CollectionRule
 from worlds.iji.Rules import can_access_sector, can_reach_nulldriver, can_reach_poster_nine, can_reach_sector_z, can_rocket_boost, has_stats, has_multiple_stats, has_weapon_stats
 from .Locations import IjiLocation, location_table
@@ -201,43 +201,54 @@ def create_region(world: "IjiWorld", name: str) -> Region:
 
     return region
 
+class IjiRegionData(NamedTuple):
+    exits: Dict[str, Callable[["IjiWorld", CollectionState], bool]]
+    valid: Callable[["IjiWorld"], bool] = lambda world: True
 
-region_exit_table: Dict[str, List[str]] = { # unused, currently
-    "Menu": ["Global", "Sector 1"],
-    "Global": [],
-    "Sector 1": ["Sector 1 Restricted Area", "Sector 1 Poster", "Sector 2", "Sector Z"],
-    "Sector 1 Restricted Area": [],
-    "Sector 1 Poster": [],
-    "Sector 2": ["Sector 2 Storage Transport Top", "Sector 2 Poster", "Sector 3"],
-    "Sector 2 Storage Transport Top": [],
-    "Sector 2 Poster": [],
-    "Sector 3": ["Sector 3 Restricted Area", "Sector 3 Poster", "Sector 4"],
-    "Sector 3 Restricted Area": [],
-    "Sector 3 Poster": [],
-    "Sector 4": ["Sector 4 Surveillance Control", "Sector 4 Top of Main Storage", "Sector 4 Poster", "Sector 5"],
-    "Sector 4 Surveillance Control": [],
-    "Sector 4 Top of Main Storage": [],
-    "Sector 4 Poster": [],
-    "Sector 5": ["Sector 5 Poster", "Sector 6"],
-    "Sector 5 Poster": [],
-    "Sector 6": ["Sector 6 Poster", "Sector 7"],
-    "Sector 6 Poster": [],
-    "Sector 7": ["Sector 7 Heavy Weapon Armory", "Sector 7 Hyper Turret Logbooks", "Sector 7 Crackers' Hideout", "Sector 7 Poster", "Sector 8"],
-    "Sector 7 Heavy Weapon Armory": [],
-    "Sector 7 Hyper Turret Logbooks": [],
-    "Sector 7 Crackers' Hideout": [],
-    "Sector 7 Poster": [],
-    "Sector 8": ["Sector 8 Staff Storage Return Trip", "Sector 8 Poster", "Sector 9"],
-    "Sector 8 Staff Storage Return Trip": [],
-    "Sector 8 Poster": [],
-    "Sector 9": ["Sector 9 Poster", "Sector 9 Deep Sector", "Sector X"],
-    "Sector 9 Poster": [],
-    "Sector 9 Deep Sector": [],
-    "Sector X": ["Sector X Ventilation Shaft", "Sector X Ultimate Charge Terminal", "Sector Y"],
-    "Sector X Ventilation Shaft": ["Sector X Poster"],
-    "Sector X Poster": [],
-    "Sector X Maximum Charge Terminal": [],
-    "Sector Z": ["Sector Z Inner Prey"],
-    "Sector Z Inner Prey": [],
-    "Sector Y": []
+region_exit_table: Dict[str, IjiRegionData] = { # unused, currently
+    "Menu": IjiRegionData(exits = {"Global": lambda world: True, "Sector 1 Start": lambda world: True}),
+    "Global": IjiRegionData(),
+    # Sector 1
+    "Sector 1 Start": IjiRegionData(),
+    "Sector 1 Poster": IjiRegionData(),
+    "Sector 1 Used Materials Access": IjiRegionData(),
+    "Sector 1 Guard Post": IjiRegionData(),
+    "Sector 1 Emergency Armory": IjiRegionData(),
+    "Sector 1 Medical Surplus": IjiRegionData(),
+    "Sector 1 Restricted Area": IjiRegionData(),
+    # Sector 2
+    "Sector 2 Start": IjiRegionData(),
+    "Sector 2 Storage Transport": IjiRegionData(),
+    "Sector 2 Supplies A": IjiRegionData(),
+    "Sector 2 Doctors' Offices": IjiRegionData(),
+    "Sector 2 Medical Bay": IjiRegionData(),
+    "Sector 2 Head Doctors' Office": IjiRegionData(),
+    "Sector 2 Storage Transport Top": IjiRegionData(),
+    "Sector 2 Medical Access Top": IjiRegionData(),
+    "Sector 2 Security Station": IjiRegionData(),
+    "Sector 2 Break Room": IjiRegionData(),
+    "Sector 2 Storeroom": IjiRegionData(),
+    "Sector 2 Poster": IjiRegionData(),
+    #Sector 3
+    "Sector 3 Start": IjiRegionData(),
+    "Sector 3 Software Development Left": IjiRegionData(),
+    "Sector 3 Software Development Right": IjiRegionData(),
+    "Sector 3 Storeroom Right": IjiRegionData(),
+    "Sector 3 Storage A Top": IjiRegionData(),
+    "Sector 3 Storage Elevator": IjiRegionData(),
+    "Sector 3 Storage B Interim": IjiRegionData(),
+    "Sector 3 Storage B": IjiRegionData(),
+    "Sector 3 Restricted Area Interim": IjiRegionData(),
+    "Sector 3 Restricted Area": IjiRegionData(),
+    "Sector 3 Reception": IjiRegionData(),
+    "Sector 3 Guards' Quarters": IjiRegionData(),
+    "Sector 3 Pulse Cannon Sideroom": IjiRegionData(),
+    "Sector 3 Heavy Weapons Storage Interim": IjiRegionData(),
+    "Sector 3 Heapons Storage": IjiRegionData(),
+    "Sector 3 Maeja's Post": IjiRegionData(),
+    "Sector 3 Outside Guard Tower": IjiRegionData(),
+    "Sector 3 Poster": IjiRegionData(),
+    # Sector 4
+    "Sector 4": IjiRegionData()
+    ##TODO
 }

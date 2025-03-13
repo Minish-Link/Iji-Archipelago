@@ -24,7 +24,8 @@ class IjiWorld(World):
     location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
-    explicit_indirect_conditions = False
+    topology_present = True
+    #explicit_indirect_conditions = False
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)

@@ -129,7 +129,7 @@ items_primary: Dict[str,IjiItemData] = {
 
 items_other: Dict[str, IjiItemData] = {
     "Supercharge":  IjiItemData(code=9,  progtype = ItemClassification.useful),
-    "Ribbon":       IjiItemData(code=11, progtype = ItemClassification.progression)
+    "Ribbon":       IjiItemData(code=11, progtype = ItemClassification.progression),
 }
 
 items_traits: Dict[str, IjiItemData] = {
@@ -166,12 +166,162 @@ items_traps: Dict[str,IjiItemData] = {
     "Clown Shoes Trap":         IjiItemData(code=406, progtype=ItemClassification.trap)
 }
 
+items_debug: Dict[str, IjiItemData] = {
+    "Fire While Ducking":                           IjiItemData(code=39, progtype=ItemClassification.useful),
+    "Fire While Midair":                            IjiItemData(code=40, progtype=ItemClassification.progression)
+}
+
+
+items_doors_1: Dict[str, IjiItemData] = {
+    "Sector 1 Door - After Tutorial":               IjiItemData(code=501, progtype=ItemClassification.progression),
+    "Sector 1 Door - Left of Start":                IjiItemData(code=502, progtype=ItemClassification.progression),
+    "Sector 1 Door - Tutorial Sideroom":            IjiItemData(code=503, progtype=ItemClassification.filler),
+    ## Yes, I accidentally skipped 4. Point and laugh at me.
+    "Sector 1 Door - Guard Post":                   IjiItemData(code=505, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 1 Door - Next to Ribbon":               IjiItemData(code=506, progtype=ItemClassification.filler),
+    "Sector 1 Door - Emergency Armory":             IjiItemData(code=507, progtype=ItemClassification.progression),
+    "Sector 1 Door - Medical Surplus":              IjiItemData(code=508, progtype=ItemClassification.progression)
+}
+
+items_doors_2: Dict[str, IjiItemData] = {
+    "Sector 2 Door - Tutorial":                     IjiItemData(code=509, progtype=ItemClassification.progression),
+    "Sector 2 Door - Supplies A":                   IjiItemData(code=510, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 2 Door - Doctors' Offices":             IjiItemData(code=511, progtype=ItemClassification.progression),
+    "Sector 2 Door - Medical Bay":                  IjiItemData(code=512, progtype=ItemClassification.progression),
+    "Sector 2 Door - Break Room":                   IjiItemData(code=513, progtype=ItemClassification.progression),
+    "Sector 2 Door - Security Station":             IjiItemData(code=514, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 2 Door - Ventilation":                  IjiItemData(code=515, progtype=ItemClassification.useful),
+    "Sector 2 Door - Storeroom":                    IjiItemData(code=516, progtype=ItemClassification.progression_skip_balancing)
+}
+
+items_doors_3: Dict[str, IjiItemData] = {
+    "Sector 3 Door - Software Development Top Left":\
+                                                    IjiItemData(code=517, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Software Development Bottom Left":\
+                                                    IjiItemData(code=518, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Software Development Top Right":\
+                                                    IjiItemData(code=519, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Software Development Bottom Right":\
+                                                    IjiItemData(code=520, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Storeroom Left":               IjiItemData(code=521, progtype=ItemClassification.useful),
+    "Sector 3 Door - Storeroom Right":              IjiItemData(code=522, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Storage Elevator":             IjiItemData(code=523, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Storage B 1/2":                IjiItemData(code=524, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Storage B 2/2":                IjiItemData(code=525, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Restricted Area 1/2":          IjiItemData(code=526, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Restricted Area 2/2":          IjiItemData(code=527, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Main Entrance Left":           IjiItemData(code=528, progtype=ItemClassification.useful),
+    "Sector 3 Door - Outside Left":                 IjiItemData(code=529, progtype=ItemClassification.filler),
+    "Sector 3 Door - Outside Right":                IjiItemData(code=530, progtype=ItemClassification.filler),
+    "Sector 3 Door - Reception Bottom":             IjiItemData(code=531, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Reception Top":                IjiItemData(code=532, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Teleporter":                   IjiItemData(code=533, progtype=ItemClassification.progression),
+    "Sector 3 Door - Pulse Cannon":                 IjiItemData(code=534, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Supercharge 1/2":              IjiItemData(code=535, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - Supercharge 2/2":              IjiItemData(code=536, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 3 Door - To Krotera":                   IjiItemData(code=537, progtype=ItemClassification.progression),
+    "Sector 3 Door - Poster":                       IjiItemData(code=538, progtype=ItemClassification.progression)
+}
+
+items_doors_4: Dict[str, IjiItemData] = {
+    "Sector 4 Door - Surveillance Control":         IjiItemData(code=539, progtype=ItemClassification.filler),
+    "Sector 4 Door - Main Storage":                 IjiItemData(code=540, progtype=ItemClassification.progression),
+    "Sector 4 Door - Main Storage Hub":             IjiItemData(code=541, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 4 Door - Main Storage Top":             IjiItemData(code=542, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 4 Door - Main Storage Overload":        IjiItemData(code=543, progtype=ItemClassification.useful),
+    "Sector 4 Door - Restricted Storage Access 1/2":IjiItemData(code=544, progtype=ItemClassification.progression),
+    "Sector 4 Door - Restricted Storage Access 2/2":IjiItemData(code=545, progtype=ItemClassification.progression),
+    "Sector 4 Door - Guard Post":                   IjiItemData(code=546, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 4 Door - Reactor Core":                 IjiItemData(code=547, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 4 Door - Classified Materials Access":  IjiItemData(code=548, progtype=ItemClassification.progression),
+    "Sector 4 Door - Communicator":                 IjiItemData(code=549, progtype=ItemClassification.progression)
+}
+
+items_doors_5: Dict[str, IjiItemData] = {
+    "Sector 5 Door - Storeroom 1":                  IjiItemData(code=550, progtype=ItemClassification.filler),
+    "Sector 5 Door - Storeroom 2":                  IjiItemData(code=551, progtype=ItemClassification.filler),
+    "Sector 5 Door - Storage Control":              IjiItemData(code=552, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 5 Door - Incoming Goods":               IjiItemData(code=553, progtype=ItemClassification.filler),
+    "Sector 5 Door - Shocksplinter":                IjiItemData(code=554, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 5 Door - Elevator":                     IjiItemData(code=555, progtype=ItemClassification.filler),
+    "Sector 5 Door - Tasen vs Komato":              IjiItemData(code=556, progtype=ItemClassification.useful),
+    "Sector 5 Door - Classified Materials 1/2":     IjiItemData(code=557, progtype=ItemClassification.progression),
+    "Sector 5 Door - Classified Materials 2/2":     IjiItemData(code=558, progtype=ItemClassification.progression),
+    "Sector 5 Door - Classified Materials Storage": IjiItemData(code=559, progtype=ItemClassification.progression),
+    "Sector 5 Door - Storeroom 3":                  IjiItemData(code=560, progtype=ItemClassification.filler),
+    "Sector 5 Door - Below Jump Upgrade":           IjiItemData(code=561, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 5 Door - Jump Upgrade":                 IjiItemData(code=562, progtype=ItemClassification.progression),
+    "Sector 5 Door - Classified Materials Storage Crack Boxes":\
+                                                    IjiItemData(code=563, progtype=ItemClassification.filler),
+    "Sector 5 Door - Classified Materials Storage Sideroom":\
+                                                    IjiItemData(code=564, progtype=ItemClassification.filler)
+}
+
+items_doors_6: Dict[str, IjiItemData] = {
+    "Sector 6 Door - Shipping Bay":                 IjiItemData(code=565, progtype=ItemClassification.filler),
+    "Sector 6 Door - Ventilation Shaft":            IjiItemData(code=566, progtype=ItemClassification.progression),
+    "Sector 6 Door - Ventilation Shaft Shocksplinter":\
+                                                    IjiItemData(code=567, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Ventilation Shaft Below Shocksplinter":\
+                                                    IjiItemData(code=568, progtype=ItemClassification.useful),
+    "Sector 6 Door - Main Elevator Bottom":         IjiItemData(code=569, progtype=ItemClassification.progression),
+    "Sector 6 Door - Poster":                       IjiItemData(code=570, progtype=ItemClassification.progression),
+    "Sector 6 Door - Main Elevator Top":            IjiItemData(code=571, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Storeroom":                    IjiItemData(code=572, progtype=ItemClassification.useful),
+    "Sector 6 Door - Elevator Shocksplinter":       IjiItemData(code=573, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Genetic Research Access":      IjiItemData(code=574, progtype=ItemClassification.progression),
+    "Sector 6 Door - Genetic Research Exit":        IjiItemData(code=575, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Left of CFIS":                 IjiItemData(code=576, progtype=ItemClassification.progression),
+    "Sector 6 Door - Right of CFIS":                IjiItemData(code=577, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Elevator Exit":                IjiItemData(code=578, progtype=ItemClassification.progression),
+    "Sector 6 Door - Neoweapons Research Sideroom": IjiItemData(code=579, progtype=ItemClassification.useful),
+    "Sector 6 Door - Dark Room":                    IjiItemData(code=580, progtype=ItemClassification.progression),
+    "Sector 6 Door - Neoweapons Research MPFB":     IjiItemData(code=581, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Black Ops Left":               IjiItemData(code=582, progtype=ItemClassification.progression),
+    "Sector 6 Door - Black Ops Right":              IjiItemData(code=583, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - End Shaft Right":              IjiItemData(code=584, progtype=ItemClassification.progression),
+    "Sector 6 Door - End Shaft Left":               IjiItemData(code=585, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - Shortcut to End":              IjiItemData(code=586, progtype=ItemClassification.progression_skip_balancing),
+    "Sector 6 Door - End Shaft Top":                IjiItemData(code=587, progtype=ItemClassification.progression)
+}
+
+items_doors_7: Dict[str, IjiItemData] = {
+    
+}
+
+items_doors_8: Dict[str, IjiItemData] = {
+    
+}
+
+items_doors_9: Dict[str, IjiItemData] = {
+    
+}
+
+items_doors_x: Dict[str, IjiItemData] = {
+    
+}
+
+items_doors = {
+    **items_doors_1,
+    **items_doors_2,
+    **items_doors_3,
+    **items_doors_4,
+    **items_doors_5,
+    **items_doors_6,
+    **items_doors_7,
+    **items_doors_8,
+    **items_doors_9,
+    **items_doors_x
+}
+
 item_table = {
     **items_primary,
     **items_other,
     **items_traits,
     **items_filler,
-    **items_traps
+    **items_traps,
+    **items_debug,
+    **items_doors
 }
 
 #####
@@ -209,13 +359,14 @@ items_progressiveweapons: Dict[str, IjiItemData] = {
     "Progressive Cyclic Fusion Ignition System":    IjiItemData(code=38, progtype=ItemClassification.progression)
 }
 
-# items_doors: IjiItemData = {}
+
 
 ### End of unimplemented section.
 
 item_groups_table = {
     "Stats": items_primary.keys(),
     "Traits": items_traits.keys(),
+    "Doors": items_doors.key(),
     "Weapons": {
         **items_weapons,
         **items_specialweapons,

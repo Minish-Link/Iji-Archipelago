@@ -37,11 +37,46 @@ class EndGoal(Choice):
     option_sector_x = 1
     option_sector_z = 2
     option_sector_y = 3
+    option_sector_3 = 4
+    option_sector_5 = 5
+    option_sector_7 = 6
+    option_sector_9 = 7
+
+class GoalPosterLocationsRequired(Range):
+    """
+    If Sector Z or Sector Y are your goal, this option will be ignored in favor of the Sector Z and Null Driver requirements below.
+
+    How many Poster locations you need to reach in your world to access the boss at the end of your chosen goal.
+    If you choose a value that is higher than the number of posters before your goal, the value will be lowered for you upon generation.
+    """
+    display_name = "Goal Posters Required"
+    default = 0
+    range_start = 0
+    range_end = 10
+
+class GoalRibbonItemsRequired(Range):
+    """
+    If Sector Z or Sector Y are your goal, this option will be ignored in favor of the Sector Z and Null Driver requirements below.
+
+    How many Ribbon items you need to get to access the boss at the end of your chosen goal.
+    """
+    display_name = ""
+
+class SectorZSectorsAllowed(Range):
+    """
+    If Sector Z is NOT chosen as your goal, this option does nothing.
+    How many Sectors outside of Sector Z the player is allowed to access.
+    """
+    display_name = "Sectors Allowed for Sector Z"
+    default = 10
+    range_start = 1
+    range_end = 10
 
 class SectorZPosterLocationsRequired(Range):
     """
     If Sector Z locations are not included in your world, this option does nothing, and Sector Z will also be inaccessible.
     How many Poster locations you need to reach to enter the Sector Z portal.
+    If Sector Z is your goal, and this value is higher than the number of allowed Sectors, this value will be automatically reduced to match.
     """
     display_name = "Sector Z Posters Required"
     default = 10
@@ -62,7 +97,7 @@ class NullDriverPosterLocationsRequired(Range):
     """
     If Sector Z locations are not included in your world, this option does nothing.
     How many Poster locations you need to reach to enter the portal leading to the Null Driver.
-
+    Note: The Poster in Sector Z does not count.
     """
     display_name = "Null Driver Posters Required"
     default = 10
@@ -81,10 +116,9 @@ class NullDriverRibbonItemsRequired(Range):
 
 class RibbonItemCount(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing.
     How many total Ribbon items to shuffle into the item pool. If the number of Ribbons added is fewer than the number required
-    to access Sector Z or the Null Driver, extra Ribbons will be added to meet the minimum.
-    If Sector Z or the Null Driver require no ribbons to enter, no Ribbon items will be added to the pool.
+    to access your goal, Sector Z, or the Null Driver, extra Ribbons will be added to meet the minimum.
+    If the chosen goal, Sector Z or the Null Driver require no ribbons, no Ribbon items will be added to the pool.
     """
     display_name = "Total Ribbon Items"
     default = 10
@@ -93,39 +127,51 @@ class RibbonItemCount(Range):
 
 class PostGameLocations(Choice):
     """
-    Whether to include Sector Z and/or Sector Y locations to the pool.
-    (Contains Posters, Logbooks, and the Null Driver)
-    Intended for worlds that do not release on completion,
-    or if Sector Z can be accessed earlier than Sector X
+    Whether to include locations in Sectors that are after your goal.
+    Intended for worlds that do not release on completion
     
     None: Do not add post game locations to the pool.
     
-    Sector Z: Adds Sector Z locations to the pool. 
-    If your goal is to complete Sector Z or Sector Y, this option does nothing.
+    Sector 5: Adds Sector 4 and Sector 5 locations to the pool.
+    If your goal is to complete Sector 5, 7, 9, X, or Y, this option does nothing.
+
+    Sector 7: 
     
-    Sector Y: Adds Sector Y locations to the pool.
+    Sector Y: Adds Sector Y locations to the pool. This will also force Sector Z locations to be enabled.
     If your goal is to complete Sector Y, this option does nothing.
     """
     display_name = "Post Game Locations"
     option_none = 0
-    option_sector_z = 1
-    option_sector_y = 2
+    option_sector_5 = 1
+    option_sector_7 = 2
+    option_sector_9 = 3
+    option_sector_x = 4
+    option_sector_y = 5
     default = 0
+
+class PostGameSectorZ(Toggle):
+    """
+    Whether to include Sector Z locations to your world.
+    """
+    display_name = "Sector Z Locations"
 
 class RibbonLocations(DefaultOnToggle):
     """
     If enabled, Finding ribbons sends checks.
     """
+    display_name = "Ribbon Locations"
 
 class PosterLocations(DefaultOnToggle):
     """
     If enabled, Finding posters sends checks.
     """
+    display_name = "Poster Locations"
 
 class SuperchargeLocations(Toggle):
     """
     If enabled, Finding supercharges sends checks.
     """
+    display_name = "Supercharge Locations"
 
 class BasicWeaponLocations(Choice):
     """
@@ -169,6 +215,13 @@ class LogbookLocations(Toggle):
     """
     display_name = "Logbook Locations"
 
+class Doorsanity(Toggle):
+    """
+    If enabled, attempting to open doors will send checks, and every openable door will be added as an item.
+    Doors won't actually open unless its respective item is obtained.
+    """
+    display_name = "Doorsanity"
+
 class PacifistLocations(Toggle):
     """
     If disabled, locations that require the player to be pacifist to some extent will not be added.
@@ -183,7 +236,7 @@ class SectorAccessItems(Range):
     """
     display_name = "Sector Access Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class HealthItems(Range):
@@ -193,7 +246,7 @@ class HealthItems(Range):
     """
     display_name = "Health Stat items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class AttackItems(Range):
@@ -203,7 +256,7 @@ class AttackItems(Range):
     """
     display_name = "Attack Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class AssimilateItems(Range):
@@ -213,7 +266,7 @@ class AssimilateItems(Range):
     """
     display_name = "Assimilate Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class StrengthItems(Range):
@@ -223,7 +276,7 @@ class StrengthItems(Range):
     """
     display_name = "Strength Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class CrackItems(Range):
@@ -233,7 +286,7 @@ class CrackItems(Range):
     """
     display_name = "Crack Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class TasenItems(Range):
@@ -243,7 +296,7 @@ class TasenItems(Range):
     """
     display_name = "Tasen Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class KomatoItems(Range):
@@ -253,7 +306,7 @@ class KomatoItems(Range):
     """
     display_name = "Komato Stat Items"
     default = 9
-    range_start = 9
+    range_start = 0
     range_end = 15
 
 class SpecialTraitItems(Toggle):
@@ -261,6 +314,86 @@ class SpecialTraitItems(Toggle):
     If enabled, the Special Trait items will be shuffled into the item pool.
     """
     display_name = "Special Traits"
+
+class NanoweaponItems(Choice):
+    """
+    Whether or not weapons need to be obtained as items before they can be used.
+
+    Progressive: Each weapon has 3 progressive items:
+    The first gives you access to the passive version of the weapon.
+    The second gives you access to the default active version of the weapon.
+    The third gives you access to the combined version of the weapon.
+
+    Progressive Skip Passive: Same as Progressive, but each weapon has 2 progressive items
+    and the first item gives you both the passive and active version.
+
+    Progressive Skip Combined: Same as Progressive, but each weapon has 2 progressive items
+    and the second item gives you both the active and combined version.
+
+    Nonprogressive: Each weapon item gives you access to all versions of the weapon.
+
+    Split: Each weapon's 3 versions are their own separate items, and they can be obtained out of order.
+    """
+    display_name = "Nanoweapon Items"
+    option_off: 0
+    option_progressive: 1
+    option_progressive_skip_passive: 2
+    option_progressive_skip_combined: 3
+    option_nonprogressive: 4
+    option_split: 5
+
+class NeedToPickUpNanoweapons(DefaultOnToggle):
+    """
+    If the Nanoweapon Items option is enabled, this option determines whether or not
+    you still need to find the respective weapon in a Sector in order to use it.
+
+    If this option is disabled, then you will automatically be given the respective weapon
+    as soon as you meet the Tasen/Komato/Crack stat requirements for it.
+    This applies even in Sectors where you wouldn't normally have access to that weapon.
+    """
+    display_name = "Need to Pick Up Nanoweapons"
+
+class ShotgunItem(Toggle):
+    """
+    If the Nanoweapon Items option is enabled, this option determines whether or not the Shotgun is affected.
+    """
+    display_name = "Shotgun Item"
+
+class SpecialNanoweaponItems(Toggle):
+    """
+    If the Nanoweapon Items option is enabled, this option determines whether or not the Special Nanoweapons
+    such as the Massacre, Banana Gun, and Null Driver should be affected.
+    If this is not enabled, they will keep their vanilla behavior and won't be added as items.
+    """
+    display_name = "Special Nanoweapon Items"
+
+class JumpUpgradeItems(Choice):
+    """
+    Whether or not Jump upgrades should be added as items
+
+    Off: Jump upgrades keep their vanilla behavior. You will always get a jump upgrade from picking one up,
+    and you will always start with 1 Jump upgrade from Sectors 3 onward, and 2 Jump upgrades
+    """
+    display_name = "Jump Upgrade Items"
+    option_off = 0
+    option_restricted = 1
+    option_full = 2
+
+class ArmorUpgradeItems(Choice):
+    """
+    Whether or not Armor upgrades should be added as items
+    """
+    option_off = 0
+    option_restricted = 1
+    option_full = 2
+
+class DebugItems(Toggle):
+    """
+    If enabled, then certain debug features will be added as items. This includes:
+    - Being able to shoot while ducking
+    - Being able to shoot while midair
+    """
+    display_name = "Debug Items"
 
 class SuperchargePointHandling(Choice):
     """
@@ -445,6 +578,7 @@ class IjiOptions(PerGameCommonOptions):
     UniqueWeaponLocations:              UniqueWeaponLocations
     UpgradeLocations:                   UpgradeLocations
     LogbookLocations:                   LogbookLocations
+    Doorsanity:                         Doorsanity
     PacifistLocations:                  PacifistLocations
 
     SectorAccessItems:                  SectorAccessItems
@@ -457,6 +591,11 @@ class IjiOptions(PerGameCommonOptions):
     KomatoItems:                        KomatoItems
     CompactStatItems:                   CompactStatItems
     SpecialTraitItems:                  SpecialTraitItems
+    NanoweaponItems:                    NanoweaponItems
+    NeedToPickUpNanoweapons:            NeedToPickUpNanoweapons
+    ShotgunItem:                        ShotgunItem
+    SpecialNanoweaponItems:             SpecialNanoweaponItems
+    DebugItems:                         DebugItems
     ExtraSupercharges:                  ExtraSupercharges
 
     TrapPercentage:                     TrapPercentage
@@ -506,6 +645,11 @@ iji_option_groups = [
         KomatoItems,
         CompactStatItems,
         SpecialTraitItems,
+        NanoweaponItems,
+        NeedToPickUpNanoweapons,
+        ShotgunItem,
+        SpecialNanoweaponItems,
+        DebugItems,
         ExtraSupercharges
     ]),
     OptionGroup("Traps", [

@@ -1393,9 +1393,146 @@ locations_logbooks_y: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed())
 }
 
-# location_doorsanity: IjiLocData = {2001->2999}
+# location_doorsanity: IjiLocData = {501->699}
+locations_doors: Dict[str, IjiLocData] ={
+    "Sector 1 - Kick Door After Tutorial":                      IjiLocData(code=501, region = "Sector 1 Start"),
+    "Sector 1 - Kick Door Left of Start (2 Strength)":          IjiLocData(code=502, region = "Sector 1 Start"),
+    "Sector 1 - Kick Door to Tutorial Sideroom":                IjiLocData(code=503, region = "Sector 1 Used Materials Access"),
+    "Sector 1 - Kick Door to Guard Post":                       IjiLocData(code=505, region = "Sector 1 Used Materials Access"),
+    "Sector 1 - Kick Door Next to Ribbon":                      IjiLocData(code=506, region = "Sector 1 Used Materials Access"),
+    "Sector 1 - Kick Door to Emergency Armory":                 IjiLocData(code=507, region = "Sector 1 Used Materials Access"),
+    "Sector 1 - Kick Door to Medical Surplus":                  IjiLocData(code=508, region = "Sector 1 Emergency Armory"),
 
-# location_killsanity: IjiLocData = {10001->19999}
+    "Sector 2 - Crack Door at Start":                           IjiLocData(code=509, region = "Sector 2 Start"),
+    "Sector 2 - Kick Door to Supplies A (2 Strength)":          IjiLocData(code=510, region = "Sector 2 Storage Transport"),
+    "Sector 2 - Kick Door to Doctors' Offices":                 IjiLocData(code=511, region = "Sector 2 Storage Transport"),
+    "Sector 2 - Activate Medical Bay Door Terminal":            IjiLocData(code=512, region = "Sector 2 Doctors' Offices"),
+    "Sector 2 - Crack Door to Security Station (3 Crack)":      IjiLocData(code=513, region = "Sector 2 Medical Access Top"),
+    "Sector 2 - Crack Door to Ventilation":                     IjiLocData(code=514, region = "Sector 2 Security Station"),
+    "Sector 2 - Activate Break Room Door Terminal":             IjiLocData(code=515, region = "Sector 2 Medical Access Top"),
+    "Sector 2 - Kick Door to Storeroom":                        IjiLocData(code=516, region = "Sector 2 Break Room"),
+
+    "Sector 3 - Kick Top Left Software Development Door":       IjiLocData(code=517, region = "Sector 3 Start"),
+    "Sector 3 - Kick Bottom Left Software Development Door":    IjiLocData(code=518, region = "Sector 3 Start"),
+    "Sector 3 - Kick Top Right Software Development Door (2 Strength)":\
+                                                                IjiLocData(code=519, region = "Sector 3 Start"),
+    "Sector 3 - Kick Bottom Right Software Development Door (2 Strength)":\
+                                                                IjiLocData(code=520, region = "Sector 3 Start"),
+    "Sector 3 - Crack Door to Storeroom Left (3 Crack)":        IjiLocData(code=521, region = "Sector 3 Software Development Left"),
+    "Sector 3 - Kick Door to Storeroom Right (2 Strength)":     IjiLocData(code=522, region = "Sector 3 Software Development Right"),
+    "Sector 3 - Kick Door to Storage Elevator":                 IjiLocData(code=523, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick First Door to Storage B (2 Strength)":     IjiLocData(code=524, region = "Sector 3 Storage Elevator"),
+    "Sector 3 - Crack Second Door to Storage B (2 Crack)":      IjiLocData(code=525, region = "Sector 3 Storage B Interim"),
+    "Sector 3 - Kick First Door to Restricted Area (10 Strength)":\
+                                                                IjiLocData(code=526, region = "Sector 3 Storage Elevator"),
+    "Sector 3 - Crack Second Door to Restricted Area (10 Crack)":\
+                                                                IjiLocData(code=527, region = "Sector 3 Restricted Area Interim"),
+    "Sector 3 - Kick Door to Main Entrance from Elevator":      IjiLocData(code=528, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick Left Outside Door":                        IjiLocData(code=529, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick Right Outside Door":                       IjiLocData(code=530, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick Bottom Door to Reception (4 Strength)":    IjiLocData(code=531, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick Top Door to Reception (4 Strength)":       IjiLocData(code=532, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Kick Door to Teleporter":                       IjiLocData(code=533, region = "Sector 3 Storage A Top"),
+    "Sector 3 - Crack Door to Pulse Cannon (2 Crack)":          IjiLocData(code=534, region = "Sector 3 Guards' Quarters"),
+    "Sector 3 - Hyper Pulse First Door to Supercharge":         IjiLocData(code=535, region = "Sector 3 Guards' Quarters"),
+    "Sector 3 - Kick Second Door to Supercharge":               IjiLocData(code=536, region = "Sector 3 Heavy Weapons Storage Interim"),
+    "Sector 3 - Kick Door to Krotera":                          IjiLocData(code=537, region = "Sector 3 Guards' Quarters"),
+    "Sector 3 - Crack Door to Poster":                          IjiLocData(code=538, region = "Sector 3 Outside Guard Tower"),
+
+    "Sector 4 - Crack Door in Surveillance Control":            IjiLocData(code=539, region = "Sector 4 Surveillance Control"),
+    "Sector 4 - Activate Main Storage Door Terminal":           IjiLocData(code=540, region = "Sector 4 Start"),
+    "Sector 4 - Kick Door to Storage Hub Right (4 Strength)":   IjiLocData(code=541, region = "Sector 4 Start"),
+    "Sector 4 - Break Door at Top of Main Storage (Shredder)":  IjiLocData(code=542, region = "Sector 4 Main Storage Top Shredders"),
+    "Sector 4 - Crack Door to Main Storage Overload (3 Crack)": IjiLocData(code=543, region = "Sector 4 Main Storage"),
+    "Sector 4 - Activate First Main Storage Door Terminal":     IjiLocData(code=544, region = "Sector 4 Shaft to Terminals"),
+    "Sector 4 - Activate Second Main Storage Door Terminal":    IjiLocData(code=545, region = "Sector 4 Shaft to Terminals"),
+    "Sector 4 - Kick Door to Guard Post (6 Strength)":          IjiLocData(code=546, region = "Sector 4 Shaft to Terminals"),
+    "Sector 4 - Kick Door to Reactor Core":                     IjiLocData(code=547, region = "Sector 4 Restricted Storage Access"),
+    "Sector 4 - Activate Terminal next to Reactor Core":        IjiLocData(code=548, region = "Sector 4 Reactor Core"),
+    "Sector 4 - Activate Door to Communicator Terminal":        IjiLocData(code=549, region = "Sector 4 Final Terminal"),
+
+    "Sector 5 - Kick Door to First Storeroom":                  IjiLocData(code=550, region = "Sector 5 Start"),
+    "Sector 5 - Crack Door to Second Storeroom (3 Crack)":      IjiLocData(code=551, region = "Sector 5 Main Region"),
+    "Sector 5 - Kick Door to Storage Control Sideroom (7 Strength)":\
+                                                                IjiLocData(code=552, region = "Sector 5 Main Region"),
+    "Sector 5 - Kick Door to Incoming Goods Sideroom (5 Strength)":\
+                                                                IjiLocData(code=553, region = "Sector 5 Main Region"),
+    "Sector 5 - Kick Door to Shocksplinter (3 Strength)":       IjiLocData(code=554, region = "Sector 5 Main Region"),
+    "Sector 5 - Kick Door Right of Komato Assault Carrier (8 Strength)":\
+                                                                IjiLocData(code=555, region = "Sector 5 Main Region"),
+    "Sector 5 - Active Door between Tasen and Komato Terminal": IjiLocData(code=556, region = "Sector 5 Main Region"),
+    "Sector 5 - Activate Terminal on Floor 9":                  IjiLocData(code=557, region = "Sector 5 Main Region"),
+    "Sector 5 - Activate Terminal on Floor 6":                  IjiLocData(code=558, region = "Sector 5 Main Region"),
+    "Sector 5 - Activate Terminal on Floor 3":                  IjiLocData(code=559, region = "Sector 5 Classified Materials Control"),
+    "Sector 5 - Kick Door to Third Storeroom":                  IjiLocData(code=560, region = "Sector 5 Classified Materials Control"),
+    "Sector 5 - Kick Door Below Jump Upgrade":                  IjiLocData(code=561, region = "Sector 5 Classified Materials Storage"),
+    "Sector 5 - Kick Door to Jump Upgrade":                     IjiLocData(code=562, region = "Sector 5 Classified Materials Storage"),
+    "Sector 5 - Crack Door to Classified Materials Storage Crack Boxes (4 Crack)":\
+                                                                IjiLocData(code=563, region = "Sector 5 Classified Materials Storage"),
+    "Sector 5 - Kick Door to Sideroom below Classified Materials Storage Crack Boxes (4 Strength)":\
+                                                                IjiLocData(code=564, region = "Sector 5 Classified Materials Storage"),
+
+    "Sector 6 - Crack Door to First Sideroom (3 Crack)":        IjiLocData(code=565, region = "Sector 6 Start"),
+    "Sector 6 - Kick Door to Ventilation Shaft":                IjiLocData(code=566, region = "Sector 6 Start"),
+    "Sector 6 - Kick Door to Ventilation Shaft Shocksplinter":  IjiLocData(code=567, region = "Sector 6 Ventilation Shaft"),
+    "Sector 6 - Break Door to Ventilation Shaft Sideroom (Shredder)":\
+                                                                IjiLocData(code=568, region = "Sector 6 Ventilation Shaft"),
+    "Sector 6 - Activate Terminal Left of Assassin":            IjiLocData(code=569, region = "Sector 6 Neoweapons Storage"),
+    "Sector 6 - Activate Terminal below Poster Door":           IjiLocData(code=570, region = "Sector 6 Security Network Admin"),
+    "Sector 6 - Crack Door below Poster Door (10 Crack)":       IjiLocData(code=571, region = "Sector 6 Security Network Admin"),
+    "Sector 6 - Kick Door at Bottom of Main Elevator":          IjiLocData(code=572, region = "Sector 6 Main Sector Elevator"),
+    "Sector 6 - Kick Door to Elevator Shocksplinter":           IjiLocData(code=573, region = "Sector 6 Main Sector Elevator"),
+    "Sector 6 - Crack Door at Top of Elevator (4 Crack)":       IjiLocData(code=574, region = "Sector 6 Main Sector Elevator"),
+    "Sector 6 - Kick Door to Exit CFIS Room":                   IjiLocData(code=575, region = "Sector 6 Genetic Research"),
+    "Sector 6 - Kick Door Left of CFIS":                        IjiLocData(code=576, region = "Sector 6 Genetic Research"),
+    "Sector 6 - Kick Door Right of CFIS":                       IjiLocData(code=577, region = "Sector 6 Genetic Research"),
+    "Sector 6 - Activate Terminal Between Two Turrets":         IjiLocData(code=578, region = "Sector 6 Main Elevator"),
+    "Sector 6 - Kick Door to Neoweapons Research A Sideroom (2 Strength)":\
+                                                                IjiLocData(code=579, region = "Sector 6 Main Elevtor")
+
+}
+
+
+## location_killsanity: IjiLocData = {4001->4999}
+#locations_killsanity: Dict[str, IjiLocData] = {
+#    # Sector 1 Tasen
+#    "Kill Tasen Scout Tuva":                    IjiLocData(code=4001),
+#    "Kill Tasen Scout Ogrensie Tayu":           IjiLocData(code=4002),
+#    "Kill Tasen Scout Favi Savakrie":           IjiLocData(code=4003),
+#    "Kill Tasen Scout Zonrak":                  IjiLocData(code=4004),
+#    "Kill Tasen Scout Xutei":                   IjiLocData(code=4005),
+#    "Kill Tasen Soldier Iri":                   IjiLocData(code=4006),
+#    "Kill Tasen Soldier Elsa Haukti":           IjiLocData(code=4007),
+#    "Kill Tasen Scout Lofeito Hel":             IjiLocData(code=4008),
+#    "Kill Tasen Scout Shohaka":                 IjiLocData(code=4009),
+#    "Kill Tasen Scout Uzon":                    IjiLocData(code=4010),
+#    "Kill Tasen Soldier Tajasun":               IjiLocData(code=4011),
+#    "Kill Tasen Scout Jao Viy":                 IjiLocData(code=4012),
+#    "Kill Tasen Scout Sunsak":                  IjiLocData(code=4013),
+#    "Kill Tasen Scout Mari":                    IjiLocData(code=4014),
+#    "Kill Tasen Scout Fahel":                   IjiLocData(code=4015),
+#    "Kill Tasen Soldier Tusun Tuvaxu":          IjiLocData(code=4016),
+#    # Sector 2 Tasen
+#    # Sector 3 Tasen
+#    "Kill Tasen Elite Krotera":                 IjiLocData(code=4095),
+#    # Sector 4 Tasen
+#    # Sector 5 Tasen
+#    # Sector 6 Tasen
+#    # Sector 7 Tasen
+#    # Sector 8 Tasen
+#    # Sector 9 Tasen
+#    # Sector 3 Komato
+#    # Sector 5 Komato
+#    # Sector 6 Komato
+#    # Sector 7 Komato
+#    # Sector 8 Komato
+#    # Sector 9 Komato
+#    "Kill Komato Annihilator Iosa Sakera":      IjiLocData(code=4720),
+#    # Sector X Komato
+#    "Kill Komato Annhilator Saejao Buhastahel": IjiLocData(code=4771),
+#    "Kill Komato Assassin Asha":                IjiLocData(code=4755),
+#    "Kill Komato General Tor":                  IjiLocData(code=4798)
+#}
 
 location_table = {
     **locations_sectorcomplete,
