@@ -154,7 +154,7 @@ def can_kill_annihilators(state: CollectionState, player: int, compactment: int)
         has_stats(state, "Attack Stat", player, 4, compactment)
 
 def can_reach_poster_nine(state: CollectionState, player: int, suppressionshuffle: bool, compactment: int) -> bool:
-    return has_stats(state, "Health Stat", player, 9, compactment) and (suppressionshuffle == False or state.has("SUPPRESSION", player))
+    return has_stats(state, "Health Stat", player, 9, compactment) and (suppressionshuffle == False or state.has("SUPPRESSION", player)) and has_weapon_stats(state, "MPFB Devastator", player, compactment)
 
 def can_reach_sector_z(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
     return (has_stats(state, "Strength Stat", player, 3, compactment)

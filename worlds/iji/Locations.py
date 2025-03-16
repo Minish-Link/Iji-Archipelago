@@ -14,7 +14,6 @@ class IjiLocData(NamedTuple):
     code: int
     region: str
     valid: Callable[["IjiWorld"], bool] = lambda world: True
-    weapon: str = ""
     logic: Callable[["IjiWorld", CollectionState], bool] = lambda world, state: True
 
 def get_total_locations(world: "IjiWorld") -> int:
@@ -1137,7 +1136,7 @@ locations_logbooks: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.LogbookLocations),
     "Sector 4 - Logbook 10": IjiLocData(code=1410, region="Sector 4 Surveillance Control", \
         valid=lambda world: world.options.LogbookLocations),
-    "Sector 4 - Logbook 11": IjiLocData(code=1411, region="Sector 4 Top of Main Storage", \
+    "Sector 4 - Logbook 11": IjiLocData(code=1411, region="Sector 4", \
         valid=lambda world: world.options.LogbookLocations),
     "Sector 4 - Logbook 12": IjiLocData(code=1412, region="Sector 4", \
         valid=lambda world: world.options.LogbookLocations,\

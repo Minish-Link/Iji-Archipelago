@@ -75,9 +75,9 @@ def create_regions(world: "IjiWorld", healthbalancing: bool, compactment: int):
                                has_stats(state, "Strength Stat", world.player, 3, compactment)))
     region_sector3.connect(region_sector4, "Sector 3 -> Sector 4",
                            lambda state: can_access_sector(state, world.player, healthbalancing, 4, compactment))
-    region_sector4.connect(region_sector4, "Sector 4 -> Surveillance Control",
+    region_sector4.connect(region_sector4_sc, "Sector 4 -> Surveillance Control",
                            lambda state: has_weapon_stats(state, "Rocket Launcher", world.player, compactment))
-    region_sector4.connect(region_sector4, "Sector 4 -> Top of Main Storage",
+    region_sector4.connect(region_sector4_ms, "Sector 4 -> Top of Main Storage",
                             lambda state: (has_weapon_stats(state, "Rocket Launcher", world.player, compactment) or # Rocket Method
                                 can_rocket_boost(state, world.player) or # Rocket Boost Method
                                 has_stats(state, "Strength Stat", world.player, 3, compactment))) # Kick the Door Method
