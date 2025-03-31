@@ -28,217 +28,310 @@ def get_location_names() -> Dict[str, int]:
 
 locations_sectorcomplete: Dict[str,IjiLocData] = {
     "Sector 1 - Sector Complete":   IjiLocData(code=1,  region="Sector 1"),
-    "Sector 2 - Sector Complete":   IjiLocData(code=2,  region="Sector 2"),
-    "Sector 3 - Sector Complete":   IjiLocData(code=3,  region="Sector 3"),
-    "Sector 4 - Sector Complete":   IjiLocData(code=4,  region="Sector 4"),
-    "Sector 5 - Sector Complete":   IjiLocData(code=5,  region="Sector 5"),
-    "Sector 6 - Sector Complete":   IjiLocData(code=6,  region="Sector 6"),
-    "Sector 7 - Sector Complete":   IjiLocData(code=7,  region="Sector 7"),
-    "Sector 8 - Sector Complete":   IjiLocData(code=8,  region="Sector 8"),
-    "Sector 9 - Sector Complete":   IjiLocData(code=9,  region="Sector 9"),
+    "Sector 2 - Sector Complete":   IjiLocData(code=2,  region="Sector 2",\
+        valid=lambda world: world.max_stats["Sector Access"] >= 1),
+    "Sector 3 - Sector Complete":   IjiLocData(code=3,  region="Sector 3",\
+        valid=lambda world: (world.options.EndGoal.value != 3 and world.max_stats["Sector Access"] >= 2)),
+    "Sector 4 - Sector Complete":   IjiLocData(code=4,  region="Sector 4",\
+        valid=lambda world: world.max_stats["Sector Access"] >= 3),
+    "Sector 5 - Sector Complete":   IjiLocData(code=5,  region="Sector 5",\
+        valid=lambda world: (world.options.EndGoal.value != 5 and world.max_stats["Sector Access"] >= 4)),
+    "Sector 6 - Sector Complete":   IjiLocData(code=6,  region="Sector 6",\
+        valid=lambda world: world.max_stats["Sector Access"] >= 5),
+    "Sector 7 - Sector Complete":   IjiLocData(code=7,  region="Sector 7",\
+        valid=lambda world: (world.options.EndGoal.value != 7 and world.max_stats["Sector Access"] >= 6)),
+    "Sector 8 - Sector Complete":   IjiLocData(code=8,  region="Sector 8",\
+        valid=lambda world: world.max_stats["Sector Access"] >= 7),
+    "Sector 9 - Sector Complete":   IjiLocData(code=9,  region="Sector 9",\
+        valid=lambda world: world.max_stats["Sector Access"] >= 8),
     "Sector X - Sector Complete":   IjiLocData(code=10, region="Sector X", \
-        valid=lambda world: world.options.EndGoal.value != 1),
+        valid=lambda world: (world.options.EndGoal.value != 10 and world.max_stats["Sector Access"] >= 9)),
     "Sector Z - Sector Complete":   IjiLocData(code=11, region="Sector Z", \
-        valid=lambda world: (world.sector_z_allowed() and world.options.EndGoal.value != 2)),
+        valid=lambda world: (world.sector_z_allowed() and world.options.EndGoal.value != 11)),
     "Sector Y - Sector Complete":   IjiLocData(code=12, region="Sector Y", \
-        valid=lambda world: (world.sector_y_allowed() and world.options.EndGoal.value != 3))
+        valid=lambda world: (world.sector_y_allowed() and
+                             world.options.EndGoal.value != 0 and
+                             world.max_stats["Sector Access"] >= 9))
 }
 
 # levelup regions change based on difficulty (Whenever that is implemented)
 locations_levelup: Dict[str, IjiLocData] = {
-    "Level 1":  IjiLocData(code=101, region="Sector 1"),
-    "Level 2":  IjiLocData(code=102, region="Sector 1"),
-    "Level 3":  IjiLocData(code=103, region="Sector 1"),
-    "Level 4":  IjiLocData(code=104, region="Sector 1"),
-    "Level 5":  IjiLocData(code=105, region="Sector 1"),
-    "Level 6":  IjiLocData(code=106, region="Sector 2"),
-    "Level 7":  IjiLocData(code=107, region="Sector 2"),
-    "Level 8":  IjiLocData(code=108, region="Sector 2"),
-    "Level 9":  IjiLocData(code=109, region="Sector 2"),
-    "Level 10": IjiLocData(code=110, region="Sector 2"),
-    "Level 11": IjiLocData(code=111, region="Sector 3"),
-    "Level 12": IjiLocData(code=112, region="Sector 3"),
-    "Level 13": IjiLocData(code=113, region="Sector 3"),
-    "Level 14": IjiLocData(code=114, region="Sector 3"),
-    "Level 15": IjiLocData(code=115, region="Sector 3"),
-    "Level 16": IjiLocData(code=116, region="Sector 4"),
-    "Level 17": IjiLocData(code=117, region="Sector 4"),
-    "Level 18": IjiLocData(code=118, region="Sector 4"),
-    "Level 19": IjiLocData(code=119, region="Sector 4"),
-    "Level 20": IjiLocData(code=120, region="Sector 4"),
-    "Level 21": IjiLocData(code=121, region="Sector 5"),
-    "Level 22": IjiLocData(code=122, region="Sector 5"),
-    "Level 23": IjiLocData(code=123, region="Sector 5"),
-    "Level 24": IjiLocData(code=124, region="Sector 5"),
-    "Level 25": IjiLocData(code=125, region="Sector 5"),
-    "Level 26": IjiLocData(code=126, region="Sector 6"),
-    "Level 27": IjiLocData(code=127, region="Sector 6"),
-    "Level 28": IjiLocData(code=128, region="Sector 6"),
-    "Level 29": IjiLocData(code=129, region="Sector 6"),
-    "Level 30": IjiLocData(code=130, region="Sector 6"),
-    "Level 31": IjiLocData(code=131, region="Sector 7"),
-    "Level 32": IjiLocData(code=132, region="Sector 7"),
-    "Level 33": IjiLocData(code=133, region="Sector 7"),
-    "Level 34": IjiLocData(code=134, region="Sector 7"),
-    "Level 35": IjiLocData(code=135, region="Sector 7"),
-    "Level 36": IjiLocData(code=136, region="Sector 8"),
-    "Level 37": IjiLocData(code=137, region="Sector 8"),
-    "Level 38": IjiLocData(code=138, region="Sector 8"),
-    "Level 39": IjiLocData(code=139, region="Sector 8"),
-    "Level 40": IjiLocData(code=140, region="Sector 8"),
-    "Level 41": IjiLocData(code=141, region="Sector 9"),
-    "Level 42": IjiLocData(code=142, region="Sector 9"),
-    "Level 43": IjiLocData(code=143, region="Sector 9"),
-    "Level 44": IjiLocData(code=144, region="Sector 9"),
-    "Level 45": IjiLocData(code=145, region="Sector 9"),
-    "Level 46": IjiLocData(code=146, region="Sector X"),
-    "Level 47": IjiLocData(code=147, region="Sector X"),
-    "Level 48": IjiLocData(code=148, region="Sector X"),
-    "Level 49": IjiLocData(code=149, region="Sector X"),
-    "Level 50": IjiLocData(code=150, region="Sector X"),
+    "Level 1":  IjiLocData(code=101, region=""),
+    "Level 2":  IjiLocData(code=102, region=""),
+    "Level 3":  IjiLocData(code=103, region=""),
+    "Level 4":  IjiLocData(code=104, region=""),
+    "Level 5":  IjiLocData(code=105, region=""),
+    "Level 6":  IjiLocData(code=106, region=""),
+    "Level 7":  IjiLocData(code=107, region=""),
+    "Level 8":  IjiLocData(code=108, region=""),
+    "Level 9":  IjiLocData(code=109, region=""),
+    "Level 10": IjiLocData(code=110, region=""),
+    "Level 11": IjiLocData(code=111, region=""),
+    "Level 12": IjiLocData(code=112, region=""),
+    "Level 13": IjiLocData(code=113, region=""),
+    "Level 14": IjiLocData(code=114, region=""),
+    "Level 15": IjiLocData(code=115, region=""),
+    "Level 16": IjiLocData(code=116, region=""),
+    "Level 17": IjiLocData(code=117, region=""),
+    "Level 18": IjiLocData(code=118, region=""),
+    "Level 19": IjiLocData(code=119, region=""),
+    "Level 20": IjiLocData(code=120, region=""),
+    "Level 21": IjiLocData(code=121, region=""),
+    "Level 22": IjiLocData(code=122, region=""),
+    "Level 23": IjiLocData(code=123, region=""),
+    "Level 24": IjiLocData(code=124, region=""),
+    "Level 25": IjiLocData(code=125, region=""),
+    "Level 26": IjiLocData(code=126, region=""),
+    "Level 27": IjiLocData(code=127, region=""),
+    "Level 28": IjiLocData(code=128, region=""),
+    "Level 29": IjiLocData(code=129, region=""),
+    "Level 30": IjiLocData(code=130, region=""),
+    "Level 31": IjiLocData(code=131, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 32": IjiLocData(code=132, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 33": IjiLocData(code=133, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 34": IjiLocData(code=134, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 35": IjiLocData(code=135, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 36": IjiLocData(code=136, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 37": IjiLocData(code=137, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 38": IjiLocData(code=138, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 39": IjiLocData(code=139, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 40": IjiLocData(code=140, region="",\
+        valid=lambda world: world.options.GameDifficulty.value <= world.options.GameDifficulty.option_hard),
+    "Level 41": IjiLocData(code=141, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 42": IjiLocData(code=142, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 43": IjiLocData(code=143, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 44": IjiLocData(code=144, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 45": IjiLocData(code=145, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 46": IjiLocData(code=146, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 47": IjiLocData(code=147, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 48": IjiLocData(code=148, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 49": IjiLocData(code=149, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
+    "Level 50": IjiLocData(code=150, region="",\
+        valid=lambda world: world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal),
 }
 
-locations_tutorialpages: Dict[str, IjiLocData] = {
-    "Tutorial Page 1":              IjiLocData(code=161, region="Sector 1"),
-    "Tutorial Page 2":              IjiLocData(code=162, region="Sector 1"),
-    "Tutorial Page 3":              IjiLocData(code=163, region="Sector 1"),
-    "Tutorial Page 4":              IjiLocData(code=164, region="Sector 1"),
-    "Tutorial Page 5":              IjiLocData(code=165, region="Sector 1"),
-    "Tutorial Page 6":              IjiLocData(code=166, region="Sector 1"),
+locations_tutorialpages: Dict[str, IjiLocData] = { # TODO
+    "Tutorial Page 1":              IjiLocData(code=161, region="Sector 1", valid = lambda world: False),
+    "Tutorial Page 2":              IjiLocData(code=162, region="Sector 1", valid = lambda world: False),
+    "Tutorial Page 3":              IjiLocData(code=163, region="Sector 1", valid = lambda world: False),
+    "Tutorial Page 4":              IjiLocData(code=164, region="Sector 1", valid = lambda world: False),
+    "Tutorial Page 5":              IjiLocData(code=165, region="Sector 1", valid = lambda world: False),
+    "Tutorial Page 6":              IjiLocData(code=166, region="Sector 1", valid = lambda world: False),
 }
 
 locations_statlevels: Dict[str, IjiLocData] = {
-    "Reach Health Level 2":         IjiLocData(code = 411, region = "Sector 1",\
+    "Reach Health Level 2":         IjiLocData(code = 411, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Health Level 3":         IjiLocData(code = 412, region = "Sector 1",\
+    "Reach Health Level 3":         IjiLocData(code = 412, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Health Level 4":         IjiLocData(code = 413, region = "Sector 1",\
+    "Reach Health Level 4":         IjiLocData(code = 413, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Health Level 5":         IjiLocData(code = 414, region = "Sector 1",\
+    "Reach Health Level 5":         IjiLocData(code = 414, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Health Level 6":         IjiLocData(code = 415, region = "Sector 1",\
+    "Reach Health Level 6":         IjiLocData(code = 415, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Health Level 7":         IjiLocData(code = 416, region = "Sector 2",\
+    "Reach Health Level 7":         IjiLocData(code = 416, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Health Level 8":         IjiLocData(code = 417, region = "Sector 2",\
+    "Reach Health Level 8":         IjiLocData(code = 417, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Health Level 9":         IjiLocData(code = 418, region = "Sector 2",\
+    "Reach Health Level 9":         IjiLocData(code = 418, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Health Level 10":        IjiLocData(code = 419, region = "Sector 2",\
+    "Reach Health Level 10":        IjiLocData(code = 419, region = "",\
+        valid=lambda world: world.max_stats["Health Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Health Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Attack Level 2":         IjiLocData(code = 421, region = "Sector 1",\
+    "Reach Attack Level 2":         IjiLocData(code = 421, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Attack Level 3":         IjiLocData(code = 422, region = "Sector 1",\
+    "Reach Attack Level 3":         IjiLocData(code = 422, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Attack Level 4":         IjiLocData(code = 423, region = "Sector 1",\
+    "Reach Attack Level 4":         IjiLocData(code = 423, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Attack Level 5":         IjiLocData(code = 424, region = "Sector 1",\
+    "Reach Attack Level 5":         IjiLocData(code = 424, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Attack Level 6":         IjiLocData(code = 425, region = "Sector 1",\
+    "Reach Attack Level 6":         IjiLocData(code = 425, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Attack Level 7":         IjiLocData(code = 426, region = "Sector 2",\
+    "Reach Attack Level 7":         IjiLocData(code = 426, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Attack Level 8":         IjiLocData(code = 427, region = "Sector 2",\
+    "Reach Attack Level 8":         IjiLocData(code = 427, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Attack Level 9":         IjiLocData(code = 428, region = "Sector 2",\
+    "Reach Attack Level 9":         IjiLocData(code = 428, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Attack Level 10":        IjiLocData(code = 429, region = "Sector 2",\
+    "Reach Attack Level 10":        IjiLocData(code = 429, region = "",\
+        valid=lambda world: world.max_stats["Attack Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Attack Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Assimilate Level 2":     IjiLocData(code = 431, region = "Sector 1",\
+    "Reach Assimilate Level 2":     IjiLocData(code = 431, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 3":     IjiLocData(code = 432, region = "Sector 1",\
+    "Reach Assimilate Level 3":     IjiLocData(code = 432, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 4":     IjiLocData(code = 433, region = "Sector 1",\
+    "Reach Assimilate Level 4":     IjiLocData(code = 433, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 5":     IjiLocData(code = 434, region = "Sector 1",\
+    "Reach Assimilate Level 5":     IjiLocData(code = 434, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 6":     IjiLocData(code = 435, region = "Sector 1",\
+    "Reach Assimilate Level 6":     IjiLocData(code = 435, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 7":     IjiLocData(code = 436, region = "Sector 2",\
+    "Reach Assimilate Level 7":     IjiLocData(code = 436, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 8":     IjiLocData(code = 437, region = "Sector 2",\
+    "Reach Assimilate Level 8":     IjiLocData(code = 437, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 9":     IjiLocData(code = 438, region = "Sector 2",\
+    "Reach Assimilate Level 9":     IjiLocData(code = 438, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Assimilate Level 10":    IjiLocData(code = 439, region = "Sector 2",\
+    "Reach Assimilate Level 10":    IjiLocData(code = 439, region = "",\
+        valid=lambda world: world.max_stats["Assimilate Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Assimilate Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Strength Level 2":       IjiLocData(code = 441, region = "Sector 1",\
+    "Reach Strength Level 2":       IjiLocData(code = 441, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Strength Level 3":       IjiLocData(code = 442, region = "Sector 1",\
+    "Reach Strength Level 3":       IjiLocData(code = 442, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Strength Level 4":       IjiLocData(code = 443, region = "Sector 1",\
+    "Reach Strength Level 4":       IjiLocData(code = 443, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Strength Level 5":       IjiLocData(code = 444, region = "Sector 1",\
+    "Reach Strength Level 5":       IjiLocData(code = 444, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Strength Level 6":       IjiLocData(code = 445, region = "Sector 1",\
+    "Reach Strength Level 6":       IjiLocData(code = 445, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Strength Level 7":       IjiLocData(code = 446, region = "Sector 2",\
+    "Reach Strength Level 7":       IjiLocData(code = 446, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Strength Level 8":       IjiLocData(code = 447, region = "Sector 2",\
+    "Reach Strength Level 8":       IjiLocData(code = 447, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Strength Level 9":       IjiLocData(code = 448, region = "Sector 2",\
+    "Reach Strength Level 9":       IjiLocData(code = 448, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Strength Level 10":      IjiLocData(code = 449, region = "Sector 2",\
+    "Reach Strength Level 10":      IjiLocData(code = 449, region = "",\
+        valid=lambda world: world.max_stats["Strength Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Strength Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Crack Level 2":          IjiLocData(code = 451, region = "Sector 1",\
+    "Reach Crack Level 2":          IjiLocData(code = 451, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Crack Level 3":          IjiLocData(code = 452, region = "Sector 1",\
+    "Reach Crack Level 3":          IjiLocData(code = 452, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Crack Level 4":          IjiLocData(code = 453, region = "Sector 1",\
+    "Reach Crack Level 4":          IjiLocData(code = 453, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Crack Level 5":          IjiLocData(code = 454, region = "Sector 1",\
+    "Reach Crack Level 5":          IjiLocData(code = 454, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Crack Level 6":          IjiLocData(code = 455, region = "Sector 1",\
+    "Reach Crack Level 6":          IjiLocData(code = 455, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Crack Level 7":          IjiLocData(code = 456, region = "Sector 2",\
+    "Reach Crack Level 7":          IjiLocData(code = 456, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Crack Level 8":          IjiLocData(code = 457, region = "Sector 2",\
+    "Reach Crack Level 8":          IjiLocData(code = 457, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Crack Level 9":          IjiLocData(code = 458, region = "Sector 2",\
+    "Reach Crack Level 9":          IjiLocData(code = 458, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Crack Level 10":         IjiLocData(code = 459, region = "Sector 2",\
+    "Reach Crack Level 10":         IjiLocData(code = 459, region = "",\
+        valid=lambda world: world.max_stats["Crack Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Crack Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Tasen Level 2":          IjiLocData(code = 461, region = "Sector 1",\
+    "Reach Tasen Level 2":          IjiLocData(code = 461, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 3":          IjiLocData(code = 462, region = "Sector 1",\
+    "Reach Tasen Level 3":          IjiLocData(code = 462, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 4":          IjiLocData(code = 463, region = "Sector 1",\
+    "Reach Tasen Level 4":          IjiLocData(code = 463, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 5":          IjiLocData(code = 464, region = "Sector 1",\
+    "Reach Tasen Level 5":          IjiLocData(code = 464, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 6":          IjiLocData(code = 465, region = "Sector 1",\
+    "Reach Tasen Level 6":          IjiLocData(code = 465, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 7":          IjiLocData(code = 466, region = "Sector 2",\
+    "Reach Tasen Level 7":          IjiLocData(code = 466, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 8":          IjiLocData(code = 467, region = "Sector 2",\
+    "Reach Tasen Level 8":          IjiLocData(code = 467, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 9":          IjiLocData(code = 468, region = "Sector 2",\
+    "Reach Tasen Level 9":          IjiLocData(code = 468, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Tasen Level 10":         IjiLocData(code = 469, region = "Sector 2",\
+    "Reach Tasen Level 10":         IjiLocData(code = 469, region = "",\
+        valid=lambda world: world.max_stats["Tasen Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Tasen Stat", world.player, 9, world.options.CompactStatItems.value)),
 
-    "Reach Komato Level 2":         IjiLocData(code = 471, region = "Sector 1",\
+    "Reach Komato Level 2":         IjiLocData(code = 471, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 1,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 1, world.options.CompactStatItems.value)),
-    "Reach Komato Level 3":         IjiLocData(code = 472, region = "Sector 1",\
+    "Reach Komato Level 3":         IjiLocData(code = 472, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 2,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 2, world.options.CompactStatItems.value)),
-    "Reach Komato Level 4":         IjiLocData(code = 473, region = "Sector 1",\
+    "Reach Komato Level 4":         IjiLocData(code = 473, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 3,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 3, world.options.CompactStatItems.value)),
-    "Reach Komato Level 5":         IjiLocData(code = 474, region = "Sector 1",\
+    "Reach Komato Level 5":         IjiLocData(code = 474, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 4,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 4, world.options.CompactStatItems.value)),
-    "Reach Komato Level 6":         IjiLocData(code = 475, region = "Sector 1",\
+    "Reach Komato Level 6":         IjiLocData(code = 475, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 5,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 5, world.options.CompactStatItems.value)),
-    "Reach Komato Level 7":         IjiLocData(code = 476, region = "Sector 2",\
+    "Reach Komato Level 7":         IjiLocData(code = 476, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 6,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 6, world.options.CompactStatItems.value)),
-    "Reach Komato Level 8":         IjiLocData(code = 477, region = "Sector 2",\
+    "Reach Komato Level 8":         IjiLocData(code = 477, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 7,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 7, world.options.CompactStatItems.value)),
-    "Reach Komato Level 9":         IjiLocData(code = 478, region = "Sector 2",\
+    "Reach Komato Level 9":         IjiLocData(code = 478, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 8,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 8, world.options.CompactStatItems.value)),
-    "Reach Komato Level 10":        IjiLocData(code = 479, region = "Sector 2",\
+    "Reach Komato Level 10":        IjiLocData(code = 479, region = "",\
+        valid=lambda world: world.max_stats["Komato Stat"] >= 9,\
         logic=lambda world, state: has_stats(state, "Komato Stat", world.player, 9, world.options.CompactStatItems.value)),
 
 }
@@ -265,9 +358,9 @@ locations_poster: Dict[str, IjiLocData] = {
     "Sector X - Poster":            IjiLocData(code=210, region="Sector X Poster", \
         valid=lambda world: world.options.PosterLocations),
     "Sector Z - Epic Poster":       IjiLocData(code=211, region="Sector Z", \
-        valid=lambda world: world.options.PosterLocations and world.sector_z_allowed()),
+        valid=lambda world: world.options.PosterLocations),
     "Sector Y - Poster of Doom":    IjiLocData(code=212, region="Sector Y", \
-        valid=lambda world: world.options.PosterLocations and world.sector_y_allowed())
+        valid=lambda world: world.options.PosterLocations)
 }
 
 locations_ribbon: Dict[str, IjiLocData] = {
@@ -295,13 +388,13 @@ locations_ribbon: Dict[str, IjiLocData] = {
 
 locations_supercharge: Dict[str,IjiLocData] = {
     "Sector 1 - Supercharge":   IjiLocData(code=231, region="Sector 1 Restricted Area", \
-        valid=lambda world: world.options.SuperchargeLocations,\
-        logic=lambda world, state: has_weapon_stats(state, "Rocket Launcher", world.player, world.options.CompactStatItems.value)),
+        valid=lambda world: world.options.SuperchargeLocations),
     "Sector 2 - Supercharge":   IjiLocData(code=232, region="Sector 2 Storage Transport Top", \
         valid=lambda world: world.options.SuperchargeLocations,\
-        logic=lambda world, state: has_weapon_stats(state, "Hyper Pulse Cannon", world.player, world.options.CompactStatItems.value)),
+        logic=lambda world, state: has_weapon_stats(state, "Rocket Launcher", world.player, world.options.CompactStatItems.value)),
     "Sector 3 - Supercharge":   IjiLocData(code=233, region="Sector 3", \
-        valid=lambda world: world.options.SuperchargeLocations),
+        valid=lambda world: world.options.SuperchargeLocations,\
+        logic=lambda world, state: has_weapon_stats(state, "Hyper Pulse", world.player, world.options.CompactStatItems.value)),
     "Sector 4 - Supercharge":   IjiLocData(code=234, region="Sector 4 Top of Main Storage", \
         valid=lambda world: world.options.SuperchargeLocations),
     "Sector 5 - Supercharge":   IjiLocData(code=235, region="Sector 5", \
@@ -382,7 +475,7 @@ locations_combinedweapons: Dict[str,IjiLocData] = {
     "Obtain Resonance Reflector":   IjiLocData(code=255, region="Global", \
         valid=lambda world: world.options.CombinedWeaponLocations,\
         logic=lambda world, state: can_make_resonancereflector(state, world.player, world.options.CompactStatItems.value)),
-    "Obtain Hyper Pulse Cannon":    IjiLocData(code=256, region="Global", \
+    "Obtain Hyper Pulse":           IjiLocData(code=256, region="Global", \
         valid=lambda world: world.options.CombinedWeaponLocations,\
         logic=lambda world, state: can_make_hyperpulse(state, world.player, world.options.CompactStatItems.value)),
     "Obtain Plasma Cannon":         IjiLocData(code=257, region="Global", \
@@ -651,7 +744,7 @@ locations_allbasicweapons: Dict[str, IjiLocData] = {
     "Sector 3 - Rocket Launcher 1/2":               IjiLocData(code=3321, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
-        logic=lambda world, state: has_weapon_stats(state,"Machine Gun",world.player,world.options.CompactStatItems.value)),
+        logic=lambda world, state: has_weapon_stats(state,"Rocket Launcher",world.player,world.options.CompactStatItems.value)),
     "Sector 3 - Rocket Launcher 2/2":               IjiLocData(code=3322, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
@@ -1290,7 +1383,7 @@ locations_logbooks: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.LogbookLocations),
     "Sector 9 - Logbook 15": IjiLocData(code=1915, region="Sector 9", \
         valid=lambda world: world.options.LogbookLocations,\
-        logic=lambda world, state: (has_weapon_stats(state, "Hyper Pulse Cannon", world.player, world.options.CompactStatItems.value) and
+        logic=lambda world, state: (has_weapon_stats(state, "Hyper Pulse", world.player, world.options.CompactStatItems.value) and
                                     has_stats(state, "Strength Stat", world.player, 4, world.options.CompactStatItems.value))),
     "Sector 9 - Logbook 16": IjiLocData(code=1916, region="Sector 9 Deep Sector", \
         valid=lambda world: world.options.LogbookLocations ),

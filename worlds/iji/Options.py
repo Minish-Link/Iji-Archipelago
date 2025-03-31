@@ -7,36 +7,69 @@ from Options import Range, Toggle, DeathLink, Choice, OptionDict, DefaultOnToggl
 if TYPE_CHECKING:
     from . import IjiWorld
 
-def get_compacted_stat_items(world: "IjiWorld") -> Dict[str, int]:
-    compacted_items = {
-        "Health Stat":       ceil(world.options.HealthItems.value    / world.options.CompactStatItems),  # Health Stat
-        "Attack Stat":       ceil(world.options.AttackItems.value    / world.options.CompactStatItems),  # Attack Stat
-        "Assimilate Stat":   ceil(world.options.AssimilateItems.value/ world.options.CompactStatItems),  # Assimilate Stat
-        "Strength Stat":     ceil(world.options.StrengthItems.value  / world.options.CompactStatItems),  # Strength Stat
-        "Crack Stat":        ceil(world.options.CrackItems.value     / world.options.CompactStatItems),  # Crack Stat
-        "Tasen Stat":        ceil(world.options.TasenItems.value     / world.options.CompactStatItems),  # Tasen Stat
-        "Komato Stat":       ceil(world.options.KomatoItems.value    / world.options.CompactStatItems)   # Komato Stat
-    }
-
-    return compacted_items
-
-
-
 class EndGoal(Choice):
     """
-    Sector X: Reach the end of Sector X and defeat General Tor.
+    Sector X: Reach the end of Sector X and defeat General Tor (Vanilla Ending)
     
     Sector Z: Enter and complete Sector Z.
     The requirements to enter Sector Z can be adjusted via the settings below.
     
     Sector Y: Obtain the Null Driver from Sector Z, defeat General Tor with it, then reach the end of Sector Y.
     The requirements to enter Sector Z, and to obtain the Null Driver, can be adjusted via the settings below.
+
+    Sector 3: Reach the end of Sector 3 and defeat Elite Krotera.
+
+    Sector 5: Reach the end of Sector 5 and defeat Assassin Asha
+
+    Sector 7: Reach the end of Sector 7 and defeat Sentinel Proxima
+
+    Sector 9: Reach the end of Sector 9 and defeat Annihilator Iosa
     """
     display_name = "End Goal"
-    default = 1
-    option_sector_x = 1
-    option_sector_z = 2
-    option_sector_y = 3
+    default = 10
+    option_sector_x = 10
+    option_sector_z = 0
+    option_sector_y = 11
+    option_sector_3 = 3
+    option_sector_5 = 5
+    option_sector_7 = 7
+    option_sector_9 = 9
+
+class GameDifficulty(Choice):
+    """
+    What game difficulty this world will be played on
+
+    Normal: The standard option. 5 Levels per Sector, reduced enemy count
+
+    Hard: 4 Levels per Sector, increased enemy count
+
+    Extreme: 3 Levels per Sector, harder enemies
+
+    Ultimortal: same as Extreme, but also a time limit in each Sector, no stats other than Health, and no Armor or Health pickups.
+    Incompatible with Sector Z and Sector Y. If those goals are chosen with Ultimortal, Sector X will be the goal instead.
+    """
+    display_name = "Game Difficulty"
+    option_normal = 1
+    option_hard = 2
+    option_extreme = 3
+    option_ultimortal = 4
+
+class GoalPosterLocationsRequired(Range):
+    """
+    How many Poster Locations you need to reach to complete your goal.
+    If there are fewer reachable Posters in your world than this value, this value will be automatically lowered to match.
+    If Sector Z or Sector Y is your goal, this option is ignored in favor of the Sector Z and Null Driver requirements below.
+    """
+    display_name = "Goal Posters Required"
+    default = 0
+    range_start = 0
+    range_end = 10
+
+class GoalRibbonItemsRequired(Range):
+    display_name = "Goal Ribbons Required"
+    default = 0
+    range_start = 0
+    range_end = 10
 
 class SectorZPosterLocationsRequired(Range):
     """
@@ -91,26 +124,31 @@ class RibbonItemCount(Range):
     range_start = 0
     range_end = 20
 
-class PostGameLocations(Choice):
+#class AllowSectorZLocations(Toggle):
+#    """
+#    Whether Sector Z locations should be included in the world.
+#    If your goal is to complete Sector Z or Sector Y, this option does nothing
+#    """
+#    display_name = "Sector Z Locations"
+
+class SectorsAllowedForSectorZ(Range):
     """
-    Whether to include Sector Z and/or Sector Y locations to the pool.
-    (Contains Posters, Logbooks, and the Null Driver)
-    Intended for worlds that do not release on completion,
-    or if Sector Z can be accessed earlier than Sector X
-    
-    None: Do not add post game locations to the pool.
-    
-    Sector Z: Adds Sector Z locations to the pool. 
-    If your goal is to complete Sector Z or Sector Y, this option does nothing.
-    
-    Sector Y: Adds Sector Y locations to the pool.
-    If your goal is to complete Sector Y, this option does nothing.
+    If Sector Z is your goal, this option determines how many other Sectors (from 1 to X) are included in your world.
+    This will also determine how many maximum Poster locations can exist in your world.
+
+    If Sector Z is not your goal, this option is ignored.
     """
-    display_name = "Post Game Locations"
-    option_none = 0
-    option_sector_z = 1
-    option_sector_y = 2
-    default = 0
+    display_name = "Allowed Sectors for Sector Z"
+    default = 10
+    range_start = 1
+    range_end = 10
+
+class MustCompleteSectors(DefaultOnToggle):
+    """
+    If enabled, you must reach the end of a Sector before you can access the next one.
+    Otherwise, you may play Sectors as soon as you have enough Sector Access items.
+    """
+    display_name = "Must Complete Sectors to Progress"
 
 class RibbonLocations(DefaultOnToggle):
     """
@@ -122,10 +160,18 @@ class PosterLocations(DefaultOnToggle):
     If enabled, Finding posters sends checks.
     """
 
-class SuperchargeLocations(Toggle):
+class Supercharges(Choice):
     """
-    If enabled, Finding supercharges sends checks.
+    Vanilla: Finding supercharges gives 1 point when obtained and then 1 point at the start of each Sector
+
+    Locations Only: Supercharges function the same as Vanilla, and also send items when found
+
+    Locations and Items: Reachable Supercharges send items and give no points when obtained. That many Supercharge items are also added to the item pool.
     """
+    display_name = "Supercharge Locations"
+    option_vanilla = 0
+    option_locations_only = 1
+    option_locations_and_items = 2
 
 class BasicWeaponLocations(Choice):
     """
@@ -169,12 +215,12 @@ class LogbookLocations(Toggle):
     """
     display_name = "Logbook Locations"
 
-class PacifistLocations(Toggle):
-    """
-    If disabled, locations that require the player to be pacifist to some extent will not be added.
-    This includes the Deep Sector Logbooks and Supercharge in Sector 9, and the Massacre in Sector X.
-    """
-    display_name = "Pacifist Locations"
+#class PacifistLocations(Toggle):
+#    """
+#    If disabled, locations that require the player to be pacifist to some extent will not be added.
+#    This includes the Deep Sector Logbooks and Supercharge in Sector 9, and the Massacre in Sector X.
+#    """
+#    display_name = "Pacifist Locations"
 
 class SectorAccessItems(Range):
     """
@@ -261,22 +307,6 @@ class SpecialTraitItems(Toggle):
     If enabled, the Special Trait items will be shuffled into the item pool.
     """
     display_name = "Special Traits"
-
-class SuperchargePointHandling(Choice):
-    """
-    Off: Supercharges behave normally, only granting 1 Stat point for the current Sector when collected.
-
-    Progressive: Supercharges grant 1 Stat point when collected,
-    and also grant 1 Stat point at the start of each Sector that comes after the Sector it was collected in.
-    
-    Shuffled: Supercharges no longer grant Stat points when collected.
-    Instead, 10 Supercharge items are shuffled into the item pool that each grant 1 Stat point at the start of each Sector.
-    """
-    display_name = "Supercharge Points"
-    option_off = 0
-    option_progressive = 1
-    option_shuffled = 2
-    default = 1
 
 class ExtraSupercharges(Range):
     """
@@ -383,18 +413,18 @@ class HealthBalancing(DefaultOnToggle):
     """
     display_name = "Health Progression Balancing"
 
-class CompactStatItems(Range):
-    """
-    Determines how many levels each Stat item should raise its respective level cap by.
-    Higher values will reduce the number of Stat items shuffled into the pool to keep the total value of stats, rounded up
-    i.e. if there would be 15 Health Stat items to start, and they are compacted to give 4 each,
-    There will be 4 Health Stat items shuffled into the final pool, for a total of 16 levels
-    Useful for worlds that want to have fewer location counts.
-    """
-    display_name = "Compact Stat Items"
-    default = 1
-    range_start = 1
-    range_end = 9
+#class CompactStatItems(Range):
+#    """
+#    Determines how many levels each Stat item should raise its respective level cap by.
+#    Higher values will reduce the number of Stat items shuffled into the pool to keep the total value of stats, rounded up
+#    i.e. if there would be 15 Health Stat items to start, and they are compacted to give 4 each,
+#    There will be 4 Health Stat items shuffled into the final pool, for a total of 16 levels
+#    Useful for worlds that want to have fewer location counts.
+#    """
+#    display_name = "Compact Stat Items"
+#    default = 1
+#    range_start = 1
+#    range_end = 9
 
 class IjiDeathLink(DeathLink):
     """
@@ -430,16 +460,21 @@ class LogicDifficulty(Choice):
 @dataclass
 class IjiOptions(PerGameCommonOptions):
     EndGoal:                            EndGoal
+    GameDifficulty:                     GameDifficulty
+    GoalPosterLocationsRequired:        GoalPosterLocationsRequired
+    GoalRibbonItemsRequired:            GoalRibbonItemsRequired
     SectorZPosterLocationsRequired:     SectorZPosterLocationsRequired
     SectorZRibbonItemsRequired:         SectorZRibbonItemsRequired
     NullDriverPosterLocationsRequired:  NullDriverPosterLocationsRequired
     NullDriverRibbonItemsRequired:      NullDriverRibbonItemsRequired
     RibbonItemCount:                    RibbonItemCount
-    PostGameLocations:                  PostGameLocations
+    #AllowSectorZLocations:              AllowSectorZLocations
+    SectorsAllowedForSectorZ:           SectorsAllowedForSectorZ
+    MustCompleteSectors:                MustCompleteSectors
 
     RibbonLocations:                    RibbonLocations
     PosterLocations:                    PosterLocations
-    SuperchargeLocations:               SuperchargeLocations
+    Supercharges:                       Supercharges
     BasicWeaponLocations:               BasicWeaponLocations
     CombinedWeaponLocations:            CombinedWeaponLocations
     UniqueWeaponLocations:              UniqueWeaponLocations
@@ -455,7 +490,7 @@ class IjiOptions(PerGameCommonOptions):
     CrackItems:                         CrackItems
     TasenItems:                         TasenItems
     KomatoItems:                        KomatoItems
-    CompactStatItems:                   CompactStatItems
+    #CompactStatItems:                   CompactStatItems
     SpecialTraitItems:                  SpecialTraitItems
     ExtraSupercharges:                  ExtraSupercharges
 
@@ -469,7 +504,6 @@ class IjiOptions(PerGameCommonOptions):
     ClownShoesWeight:                   ClownShoesWeight
 
     HealthBalancing:                    HealthBalancing
-    SuperchargePointHandling:           SuperchargePointHandling
     IjiDeathLink:                       IjiDeathLink
     DeathLinkDamage:                    DeathLinkDamage
     LogicDifficulty:                    LogicDifficulty
@@ -477,17 +511,22 @@ class IjiOptions(PerGameCommonOptions):
 iji_option_groups = [
     OptionGroup("Goal Options", [
         EndGoal,
+        GameDifficulty,
+        GoalPosterLocationsRequired,
+        GoalRibbonItemsRequired,
         SectorZPosterLocationsRequired,
         SectorZRibbonItemsRequired,
         NullDriverPosterLocationsRequired,
         NullDriverRibbonItemsRequired,
         RibbonItemCount,
-        PostGameLocations
+        #AllowSectorZLocations,
+        SectorsAllowedForSectorZ,
+        MustCompleteSectors
     ]),
     OptionGroup("Locations", [
         RibbonLocations,
         PosterLocations,
-        SuperchargeLocations,
+        Supercharges,
         BasicWeaponLocations,
         CombinedWeaponLocations,
         UniqueWeaponLocations,
@@ -504,7 +543,7 @@ iji_option_groups = [
         CrackItems,
         TasenItems,
         KomatoItems,
-        CompactStatItems,
+        #CompactStatItems,
         SpecialTraitItems,
         ExtraSupercharges
     ]),
@@ -520,7 +559,6 @@ iji_option_groups = [
     ]),
     OptionGroup("Miscellaneous", [
         HealthBalancing,
-        SuperchargePointHandling,
         IjiDeathLink,
         DeathLinkDamage,
         LogicDifficulty

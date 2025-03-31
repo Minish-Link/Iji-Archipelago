@@ -216,16 +216,16 @@ items_progressiveweapons: Dict[str, IjiItemData] = {
 item_groups_table = {
     "Stats": items_primary.keys(),
     "Traits": items_traits.keys(),
-    "Weapons": {
-        **items_weapons,
-        **items_specialweapons,
-        **items_progressiveweapons,
-    },
-    "Normal Weapons": {
-        **items_weapons,
-        **items_progressiveweapons,
-    },
-    "Special Weapons": items_specialweapons.keys(),
+    #"Weapons": {
+    #    **items_weapons,
+    #    **items_specialweapons,
+    #    **items_progressiveweapons,
+    #},
+    #"Normal Weapons": {
+    #    **items_weapons,
+    #    **items_progressiveweapons,
+    #},
+    #"Special Weapons": items_specialweapons.keys(),
     # Not sure this one's useful. I'll leave it here but comment it out for now.
     # "Collectibles": {
     #     "Poster",

@@ -19,11 +19,27 @@ def has_multiple_stats(state: CollectionState, itemsneeded: Dict[str, int], play
 
     return True
 
-def can_access_sector(state: CollectionState, player: int, healthbalancing: bool, targetsector: int, compactment: int) -> bool:
+def get_supercharge_count(world: "IjiWorld", state: CollectionState):
+    return state.count("Supercharge", world.player)
+
+def get_sector_max_level(world: "IjiWorld", state: CollectionState, sector: int):
+    if world.options.GameDifficulty.value == world.options.GameDifficulty.option_normal:
+        return (5 * sector) + get_supercharge_count(world, state)
+    elif world.options.GameDifficulty.value == world.options.GameDifficulty.option_hard:
+        return (4 * sector) + get_supercharge_count(world, state)
+    else:
+        return (3 * sector) + get_supercharge_count(world, state)
+
+def get_max_level(world: "IjiWorld", state: CollectionState):
+    get_sector_max_level(world, state, min(state.count("Sector Access", world.player)+1, 9))
+
+def can_access_sector(world: "IjiWorld", state: CollectionState, targetsector: int) -> bool:
     if targetsector == 1:
         return True
-    return state.has("Sector Access", player, targetsector-1) and \
-        (healthbalancing == False or has_stats(state, "Health Stat", player, targetsector-1, compactment))
+    return state.has("Sector Access", world.player, targetsector-1) and \
+        (not world.options.HealthBalancing or\
+        has_stats(state, "Health Stat", world.player,
+                  min(targetsector-1,world.max_stats["Health Stat"]), world.options.CompactStatItems.value))
 
 def can_rocket_boost(state: CollectionState, player: int) -> bool: 
     return state.has("Health Stat", player) or state.has("SUPPRESSION", player)
@@ -69,7 +85,7 @@ def has_weapon_stats(state: CollectionState, weaponname: str, player: int, compa
         return has_multiple_stats(state, {"Tasen Stat": 9, "Crack Stat": 8}, player, compactment)
     elif weaponname == "Resonance Reflector":
         return has_stats(state, "Crack Stat", player, 3, compactment)
-    elif weaponname == "Hyper Pulse Cannon":
+    elif weaponname == "Hyper Pulse":
         return has_multiple_stats(state, {"Komato Stat": 2, "Crack Stat": 5}, player, compactment)
     elif weaponname == "Plasma Cannon":
         return has_multiple_stats(state, {"Komato Stat": 5, "Crack Stat": 7}, player, compactment)
@@ -136,7 +152,7 @@ def can_make_resonancereflector(state: CollectionState, player: int, compactment
         state.can_reach_region("Sector X", player) # Could you imagine having Sector X access before having 4 Crack
 
 def can_make_hyperpulse(state: CollectionState, player: int, compactment: int) -> bool:
-    return has_weapon_stats(state, "Hyper Pulse Cannon", player, compactment) and \
+    return has_weapon_stats(state, "Hyper Pulse", player, compactment) and \
         can_reach_pulsecannon(state, player, compactment)
 
 def can_make_plasmacannon(state: CollectionState, player: int, compactment: int) -> bool:
@@ -150,18 +166,22 @@ def can_make_velocithor(state: CollectionState, player: int, compactment: int) -
 
 
 def can_kill_annihilators(state: CollectionState, player: int, compactment: int) -> bool:
-    return (has_weapon_stats(state, "Rocket Launcher", player, compactment) or has_weapon_stats(state, "Shocksplinter", player, compactment)) and \
+    return (has_weapon_stats(state, "Rocket Launcher", player, compactment) or\
+        has_weapon_stats(state, "Shocksplinter", player, compactment)) and \
         has_stats(state, "Attack Stat", player, 4, compactment)
 
 def can_reach_poster_nine(state: CollectionState, player: int, suppressionshuffle: bool, compactment: int) -> bool:
-    return has_stats(state, "Health Stat", player, 9, compactment) and (suppressionshuffle == False or state.has("SUPPRESSION", player)) and has_weapon_stats(state, "MPFB Devastator", player, compactment)
+    return has_stats(state, "Health Stat", player, 9, compactment) and\
+        (suppressionshuffle == False or state.has("SUPPRESSION", player)) and\
+        has_weapon_stats(state, "MPFB Devastator", player, compactment)
 
-def can_reach_sector_z(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
-    return (has_stats(state, "Strength Stat", player, 3, compactment)
-            and posterrequirement <= get_poster_location_count(state, player, world, compactment) 
-            and state.has("Ribbon", player, ribbonrequirement))
+def can_reach_sector_z(state: CollectionState, player: int, world: "IjiWorld",
+                       posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
+    return (posterrequirement <= get_poster_location_count(state, player, world, compactment) and\
+        state.has("Ribbon", player, ribbonrequirement))
 
-def can_reach_nulldriver(state: CollectionState, player: int, world: "IjiWorld", posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
+def can_reach_nulldriver(state: CollectionState, player: int, world: "IjiWorld",
+                         posterrequirement: int, ribbonrequirement: int, compactment: int) -> bool:
     return (can_reach_sector_z(state, player, world, world.options.SectorZPosterLocationsRequired.value,
                                world.options.SectorZRibbonItemsRequired.value, compactment) and
             posterrequirement <= get_poster_location_count(state,player, world, compactment) and
