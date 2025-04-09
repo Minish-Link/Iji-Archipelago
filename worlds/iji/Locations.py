@@ -295,13 +295,13 @@ locations_ribbon: Dict[str, IjiLocData] = {
 
 locations_supercharge: Dict[str,IjiLocData] = {
     "Sector 1 - Supercharge":   IjiLocData(code=231, region="Sector 1 Restricted Area", \
-        valid=lambda world: world.options.SuperchargeLocations,\
-        logic=lambda world, state: has_weapon_stats(state, "Rocket Launcher", world.player, world.options.CompactStatItems.value)),
+        valid=lambda world: world.options.SuperchargeLocations),
     "Sector 2 - Supercharge":   IjiLocData(code=232, region="Sector 2 Storage Transport Top", \
         valid=lambda world: world.options.SuperchargeLocations,\
-        logic=lambda world, state: has_weapon_stats(state, "Hyper Pulse Cannon", world.player, world.options.CompactStatItems.value)),
+        logic=lambda world, state: has_weapon_stats(state, "Rocket Launcher", world.player, world.options.CompactStatItems.value)),
     "Sector 3 - Supercharge":   IjiLocData(code=233, region="Sector 3", \
-        valid=lambda world: world.options.SuperchargeLocations),
+        valid=lambda world: world.options.SuperchargeLocations,\
+        logic=lambda world, state: has_weapon_stats(state, "Hyper Pulse Cannon", world.player, world.options.CompactStatItems.value)),
     "Sector 4 - Supercharge":   IjiLocData(code=234, region="Sector 4 Top of Main Storage", \
         valid=lambda world: world.options.SuperchargeLocations),
     "Sector 5 - Supercharge":   IjiLocData(code=235, region="Sector 5", \
