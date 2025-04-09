@@ -651,7 +651,7 @@ locations_allbasicweapons: Dict[str, IjiLocData] = {
     "Sector 3 - Rocket Launcher 1/2":               IjiLocData(code=3321, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
-        logic=lambda world, state: has_weapon_stats(state,"Machine Gun",world.player,world.options.CompactStatItems.value)),
+        logic=lambda world, state: has_weapon_stats(state,"Rocket Launcher",world.player,world.options.CompactStatItems.value)),
     "Sector 3 - Rocket Launcher 2/2":               IjiLocData(code=3322, region="Sector 3", \
         valid=lambda world: world.options.BasicWeaponLocations.value == \
         world.options.BasicWeaponLocations.option_all_instances, \
