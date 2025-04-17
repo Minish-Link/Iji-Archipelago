@@ -24,7 +24,7 @@ class IjiWorld(World):
     location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
-    explicit_indirect_conditions = False
+    max_stats: Dict[str, int]
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -36,7 +36,7 @@ class IjiWorld(World):
         return create_item(self, name)
 
     def create_regions(self):
-        create_regions(self, self.options.HealthBalancing.value, self.options.CompactStatItems.value)
+        create_regions(self)
 
     def get_filler_item_name(self) -> str:
         return "Health Pickup"

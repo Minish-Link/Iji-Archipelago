@@ -427,6 +427,13 @@ class LogicDifficulty(Choice):
     option_extreme_logic = 3
     default = 1
 
+class Doorsanity(Toggle):
+    """
+    If enabled, Attempting to open Doors will be location checks,
+    Doors will be shuffled into the item pool, and doors won't open until their corresponding item is received
+    """
+    display_name = "Door Shuffle"
+
 @dataclass
 class IjiOptions(PerGameCommonOptions):
     EndGoal:                            EndGoal
@@ -470,9 +477,10 @@ class IjiOptions(PerGameCommonOptions):
 
     HealthBalancing:                    HealthBalancing
     SuperchargePointHandling:           SuperchargePointHandling
-    IjiDeathLink:                       IjiDeathLink
+    DeathLink:                          IjiDeathLink
     DeathLinkDamage:                    DeathLinkDamage
     LogicDifficulty:                    LogicDifficulty
+    Doorsanity:                         Doorsanity
 
 iji_option_groups = [
     OptionGroup("Goal Options", [
@@ -523,6 +531,7 @@ iji_option_groups = [
         SuperchargePointHandling,
         IjiDeathLink,
         DeathLinkDamage,
-        LogicDifficulty
+        LogicDifficulty,
+        Doorsanity
     ])
 ]

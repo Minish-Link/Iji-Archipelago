@@ -4,7 +4,6 @@ from .Locations import get_total_locations
 from .Options import get_compacted_stat_items
 from typing import List, Dict, TYPE_CHECKING, NamedTuple
 
-
 if TYPE_CHECKING:
     from . import IjiWorld
 
@@ -18,7 +17,7 @@ class IjiItemData(NamedTuple):
 
 def create_itempool(world: "IjiWorld") -> List[Item]:
     itempool: List[Item] = []
-
+    
     statitems = get_compacted_stat_items(world)
     for name, count in statitems.items():
         itempool += create_multiple_items(world, name, count)

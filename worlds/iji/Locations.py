@@ -1392,7 +1392,13 @@ locations_logbooks_y: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.LogbookLocations and world.sector_y_allowed())
 }
 
-# location_doorsanity: IjiLocData = {2001->2999}
+## location_doorsanity: IjiLocData = {2001->2999}
+#locations_doors: Dict[str, IjiLocData] = {
+#    "Sector 1 - First Door (Strength: 1)":              IjiLocData(code=501, region="Sector 1 Start",\
+#        valid=lambda world: world.options.Doorsanity),
+#    "Sector 1 - Door Left of Start (Strength: 2)":      IjiLocData(code=502, region="Sector 1 Start"),
+#    "Sector 1 - Sideroom After Tutorial (Strength: 1)": IjiLocData(code=503, region="Sector 1 Used Materials Access")
+#}
 
 # location_killsanity: IjiLocData = {10001->19999}
 
