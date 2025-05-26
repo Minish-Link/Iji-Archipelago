@@ -2,11 +2,17 @@ import logging
 from typing import Any, Dict
 from BaseClasses import Item, ItemClassification, Location, MultiWorld
 from worlds.generic.Rules import add_rule, set_rule
-from .Items import item_table, create_itempool, create_item, item_groups_table
-from .Locations import location_table, location_groups_table
+from .Items import create_itempool, create_item #, item_groups_table
+from .Locations import location_groups_table, events_and_locations
+from .Data.LocData import location_table
+from .Data.ItemData import item_table
 from .Regions import create_regions
-from .Options import IjiOptions, get_compacted_stat_items
+from .Names import RegNames
+from .Options import IjiOptions
 from worlds.AutoWorld import World, CollectionState
+from Utils import visualize_regions
+
+from .Names import ItemNames
 
 class IjiWorld(World):
     """
@@ -20,7 +26,7 @@ class IjiWorld(World):
     game="Iji"
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}
-    item_name_groups = item_groups_table
+    #item_name_groups = item_groups_table
     location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
@@ -36,167 +42,75 @@ class IjiWorld(World):
         return create_item(self, name)
 
     def create_regions(self):
-        create_regions(self, self.options.HealthBalancing.value, self.options.CompactStatItems.value)
+        create_regions(self)
+        for loc in self.multiworld.get_locations(self.player):
+            if events_and_locations[loc.name].locked_item(self) != None:
+                loc.place_locked_item(create_item(self, events_and_locations[loc.name].locked_item(self)))
 
     def get_filler_item_name(self) -> str:
-        return "Health Pickup"
+        return ItemNames.Filler[0]
 
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
-            "ModVersion": 2,
-            "Goal": self.options.EndGoal.value,
-            "DeathLink": self.options.IjiDeathLink.value,
-            "DeathLinkDamage": self.options.DeathLinkDamage.value,
-            "Compactment": self.options.CompactStatItems.value,
-            "SpecialTraits": self.options.SpecialTraitItems.value,
-            "NullDriveFactor": self.options.NullDriveFactor.value,
-            "SuperchargeHandling": self.options.SuperchargePointHandling.value,
-            "SectorZPosters": self.options.SectorZPosterLocationsRequired.value,
-            "SectorZRibbons": self.options.SectorZRibbonItemsRequired.value,
-            "NullDriverPosters": self.options.NullDriverPosterLocationsRequired.value,
-            "NullDriverRibbons": self.options.NullDriverRibbonItemsRequired.value,
-            "SectorZAvailable": sector_z_available(self)
+            "ModVersion": 3,
+            "ModSemantic": "1.2.0",
+            "Goal": self.options.end_goal.value,
+            "GoalRibbons": self.options.goal_ribbons.value,
+            "GoalPosters": self.options.goal_posters.value,
+            "DeathLink": self.options.deathlink.value,
+            "DeathLinkDamage": self.options.deathlink_damage.value,
+            "SpecialTraits": self.options.special_trait_items.value,
+            "SuperchargeLocations": self.options.supercharge_locations.value,
+            "NullDriveFactor": self.options.null_drive_factor.value,
+            "MusicShuffle": self.options.music_shuffle.value,
+            # For Poptracker
+            "LogicDifficulty": self.options.logic_difficulty.value,
+            "HealthBalancing": self.options.health_balancing.value,
+            "PosterLocations": self.options.poster_locations.value,
+            "BasicWeaponLocations": self.options.basic_weapon_locations.value,
+            "LogbookLocations": self.options.logbook_locations.value,
+            "CrackboxLocations": self.options.security_box_locations.value,
+            "OverloadLocations": self.options.nano_overload_locations.value
         }
 
-    def sector_z_allowed(self) -> bool:
-        return self.options.EndGoal.value >= self.options.EndGoal.option_sector_z or \
-            self.options.PostGameLocations.value >= self.options.PostGameLocations.option_sector_z
+    def generate_early(self):
+        if (self.options.goal_posters.value > self.options.end_goal.value):
+            self.options.goal_posters.value = self.options.end_goal.value
+            logging.warning(f"{self.player_name} required more posters than available sectors.")
+            logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
 
-    def sector_y_allowed(self) -> bool:
-        return self.options.EndGoal.value == self.options.EndGoal.option_sector_y or \
-            self.options.PostGameLocations.value == self.options.PostGameLocations.option_sector_y
+    def post_fill(self):
+        visualize_regions(self.multiworld.get_region(self.origin_region_name, self.player), "ijiregions.puml")
 
     def set_rules(self):
-        
-        compactment: int = self.options.CompactStatItems.value
         for loc in self.multiworld.get_locations(self.player):
-            set_rule(loc, lambda state, temploc=loc: location_table[temploc.name].logic(self, state))
+            set_rule(loc, lambda state, temploc=loc: events_and_locations[temploc.name].logic(self, state))
 
-        if self.options.EndGoal.value == self.options.EndGoal.option_sector_x:
-            self.multiworld.completion_condition[self.player] = lambda state: \
-                state.can_reach_region("Sector X", self.player)
-        elif self.options.EndGoal.value == self.options.EndGoal.option_sector_z:
-            self.multiworld.completion_condition[self.player] = lambda state: \
-                state.can_reach_region("Sector Z", self.player)
-        elif self.options.EndGoal.value == self.options.EndGoal.option_sector_y:
-            self.multiworld.completion_condition[self.player] = lambda state: \
-                state.can_reach_region("Sector Y", self.player)
-    
-    def generate_early(self):
-
-        totalitems: int = get_early_total_items(self)
-        totallocations: int = get_early_total_locations(self)
-
-        logcompacted = False
-        logremoved = False
-        removalfailed = False
-
-        while (totalitems > totallocations):
-            removeditem = False
-
-            if self.options.CompactStatItems.value < 9:
-                self.options.CompactStatItems.value += 1
-                removeditem = True
-                logcompacted = True
-                totalitems = get_early_total_items(self)
-
-            if (totalitems > totallocations):
-                if self.options.ExtraSupercharges.value > 0:
-                    self.options.ExtraSupercharges.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.HealthItems.value > 9:
-                    self.options.HealthItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.AttackItems.value > 9:
-                    self.options.AttackItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.AssimilateItems.value > 9:
-                    self.options.AssimilateItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.StrengthItems.value > 9:
-                    self.options.StrengthItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.CrackItems.value > 9:
-                    self.options.CrackItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.TasenItems.value > 9:
-                    self.options.TasenItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.KomatoItems.value > 9:
-                    self.options.KomatoItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if self.options.SectorAccessItems.value > 9:
-                    self.options.SectorAccessItems.value -= 1
-                    removeditem = True
-                    logremoved = True
-                    totalitems -= 1
-                if sector_z_available(self) and self.options.RibbonItemCount.value > \
-                                                max(self.options.SectorZRibbonItemsRequired.value,
-                                                    self.options.NullDriverRibbonItemsRequired.value):
-
-                    self.options.RibbonItemCount.value -= 1
-                    removeditem = True
-                    logremoved = True
-
-            if not removeditem:
-                removalfailed = True
-                logging.error(f"{self.multiworld.player_name[self.player]} had more progression items in their pool than locations, and the issue couldn't be resolved.")
-                break
-
-        if logcompacted and not removalfailed:
-            logging.warning(f"{self.multiworld.player_name[self.player]} had more progression items than locations, so their Stat items have been compacted to make room.")
-
-        if logremoved and not removalfailed:
-            logging.warning(f"{self.multiworld.player_name[self.player]} had more progression items than locations, so some of their excess items have been removed to make room.")
-
-
-def sector_z_available(world: "IjiWorld") -> int:
-    if (world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z) or \
-        (world.options.EndGoal.value >= world.options.EndGoal.option_sector_z):
-        return 1
-    else:
-        return 0
-
-def get_early_total_items(world: "IjiWorld") -> int:
-    totalitems: int = 0
-    statitems: Dict[str,int] = get_compacted_stat_items(world)
-    totalitems += statitems["Health Stat"]
-    totalitems += statitems["Attack Stat"]
-    totalitems += statitems["Assimilate Stat"]
-    totalitems += statitems["Strength Stat"]
-    totalitems += statitems["Crack Stat"]
-    totalitems += statitems["Tasen Stat"]
-    totalitems += statitems["Komato Stat"]
-    totalitems += world.options.SectorAccessItems.value
-    if world.options.SuperchargePointHandling.value == 2:
-        totalitems += 10
-    totalitems += world.options.ExtraSupercharges.value
-    if world.options.SpecialTraitItems.value:
-        totalitems += 7
-    if sector_z_available(world) and (world.options.SectorZRibbonItemsRequired.value > 0 or world.options.NullDriverRibbonItemsRequired.value > 0):
-        totalitems += max(world.options.SectorZRibbonItemsRequired.value, world.options.NullDriverRibbonItemsRequired.value, world.options.RibbonItemCount)
-    return totalitems
-
-def get_early_total_locations(world: "IjiWorld") -> int:
-    totallocations: int = 0
-    for data in location_table.values():
-        if (data.valid(world)):
-            totallocations+=1
-
-    return totallocations
+        if self.options.end_goal.value == 3:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.Sector3_Main[4], self.player)
+            )
+        elif self.options.end_goal.value == 5:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.Sector5_Main[8], self.player)
+            )
+        elif self.options.end_goal.value == 7:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.Sector7_Main[11], self.player)
+            )
+        elif self.options.end_goal.value == 9:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.Sector9_Main[14], self.player)
+            )
+        elif self.options.end_goal.value == 10:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.SectorX_Final[6], self.player)
+            )
+        elif self.options.end_goal.value == 11:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.SectorZ, self.player)
+            )
+        elif self.options.end_goal.value == 12:
+            self.multiworld.completion_condition[self.player] = lambda state: (
+                state.can_reach_region(RegNames.SectorY, self.player)
+            )

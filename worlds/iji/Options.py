@@ -7,130 +7,88 @@ from Options import Range, Toggle, DeathLink, Choice, OptionDict, DefaultOnToggl
 if TYPE_CHECKING:
     from . import IjiWorld
 
-def get_compacted_stat_items(world: "IjiWorld") -> Dict[str, int]:
-    compacted_items = {
-        "Health Stat":       ceil(world.options.HealthItems.value    / world.options.CompactStatItems),  # Health Stat
-        "Attack Stat":       ceil(world.options.AttackItems.value    / world.options.CompactStatItems),  # Attack Stat
-        "Assimilate Stat":   ceil(world.options.AssimilateItems.value/ world.options.CompactStatItems),  # Assimilate Stat
-        "Strength Stat":     ceil(world.options.StrengthItems.value  / world.options.CompactStatItems),  # Strength Stat
-        "Crack Stat":        ceil(world.options.CrackItems.value     / world.options.CompactStatItems),  # Crack Stat
-        "Tasen Stat":        ceil(world.options.TasenItems.value     / world.options.CompactStatItems),  # Tasen Stat
-        "Komato Stat":       ceil(world.options.KomatoItems.value    / world.options.CompactStatItems)   # Komato Stat
-    }
-
-    return compacted_items
-
-
 
 class EndGoal(Choice):
     """
-    Sector X: Reach the end of Sector X and defeat General Tor.
+    Sector 3: Reach the end of Sector 3 and defeat Elite Krotera. Sectors 4-X will be excluded.
+
+    Sector 5: Reach the end of Sector 5 and defeat Assassin Asha. Sectors 6-X will be excluded.
+
+    Sector 7: Reach the end of Sector 7 and defeat Sentinel Proxima. Sectors 8-X will be excluded.
+
+    Sector 9: Reach the end of Sector 9 and defeat Annihilator Iosa. Sector X will be excluded.
+
+    Sector X: Reach the end of Sector X and defeat General Tor. The vanilla ending of the game.
     
-    Sector Z: Enter and complete Sector Z.
-    The requirements to enter Sector Z can be adjusted via the settings below.
+    Sector Z: Enter and reach the end of Sector Z. Sectors 1-X are included.
     
     Sector Y: Obtain the Null Driver from Sector Z, defeat General Tor with it, then reach the end of Sector Y.
-    The requirements to enter Sector Z, and to obtain the Null Driver, can be adjusted via the settings below.
     """
     display_name = "End Goal"
-    default = 1
-    option_sector_x = 1
-    option_sector_z = 2
-    option_sector_y = 3
-
-class SectorZPosterLocationsRequired(Range):
-    """
-    If Sector Z locations are not included in your world, this option does nothing, and Sector Z will also be inaccessible.
-    How many Poster locations you need to reach to enter the Sector Z portal.
-    """
-    display_name = "Sector Z Posters Required"
     default = 10
-    range_start = 0
-    range_end = 10
+    option_sector_3 = 3
+    option_sector_5 = 5
+    option_sector_7 = 7
+    option_sector_9 = 9
+    option_sector_x = 10
+    option_sector_z = 11
+    option_sector_y = 12
 
-class SectorZRibbonItemsRequired(Range):
+class GoalPosterLocations(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing, and Ribbon items will not be shuffled into the item pool.
-    How many Ribbon items are required to enter the Sector Z portal.
+    How many Poster locations you are required to find before being able to complete your goal.
+    If you chose Sector X as your goal, the elevator at the end of the sector will be deactivated until you find them.
+    If you chose Sector Y or Sector Z as your goal, you won't be able to enter Sector Z until you find them.
     """
-    display_name = "Sector Z Ribbons Required"
+    display_name = "Poster Locations Required for Goal"
     default = 0
     range_start = 0
     range_end = 10
 
-class NullDriverPosterLocationsRequired(Range):
+class GoalRibbonItems(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing.
-    How many Poster locations you need to reach to enter the portal leading to the Null Driver.
+    How many Ribbon items you are required to obtain before being able to complete your goal.
+    This many Ribbon items will be added to the item pool.
 
+    If you chose Sector X as your goal, the elevator at the end of the sector will be deactivated until you get them.
+    If you chose Sector Y or Sector Z as your goal, you won't be able to enter Sector Z until you get them.
     """
-    display_name = "Null Driver Posters Required"
-    default = 10
-    range_start = 0
-    range_end = 10
-
-class NullDriverRibbonItemsRequired(Range):
-    """
-    If Sector Z locations are not included in your world, this options does nothing.
-    How many Ribbon locations you need to enter the portal leading to the Null Driver.
-    """
-    display_name = "Null Driver Ribbons Required"
-    default = 10
+    display_name = "Ribbon Items Required for Goal"
+    default = 0
     range_start = 0
     range_end = 10
 
 class RibbonItemCount(Range):
     """
-    If Sector Z locations are not included in your world, this option does nothing.
-    How many total Ribbon items to shuffle into the item pool. If the number of Ribbons added is fewer than the number required
-    to access Sector Z or the Null Driver, extra Ribbons will be added to meet the minimum.
-    If Sector Z or the Null Driver require no ribbons to enter, no Ribbon items will be added to the pool.
+    How many extra Ribbon items should be added to the item pool.
+    If your goal requires zero ribbons, this option will do nothing.
     """
-    display_name = "Total Ribbon Items"
-    default = 10
-    range_start = 0
-    range_end = 20
-
-class PostGameLocations(Choice):
-    """
-    Whether to include Sector Z and/or Sector Y locations to the pool.
-    (Contains Posters, Logbooks, and the Null Driver)
-    Intended for worlds that do not release on completion,
-    or if Sector Z can be accessed earlier than Sector X
-    
-    None: Do not add post game locations to the pool.
-    
-    Sector Z: Adds Sector Z locations to the pool. 
-    If your goal is to complete Sector Z or Sector Y, this option does nothing.
-    
-    Sector Y: Adds Sector Y locations to the pool.
-    If your goal is to complete Sector Y, this option does nothing.
-    """
-    display_name = "Post Game Locations"
-    option_none = 0
-    option_sector_z = 1
-    option_sector_y = 2
+    display_name = "Extra Ribbon Items"
     default = 0
-
-class RibbonLocations(DefaultOnToggle):
-    """
-    If enabled, Finding ribbons sends checks.
-    """
+    range_start = 0
+    range_end = 10
 
 class PosterLocations(DefaultOnToggle):
     """
     If enabled, Finding posters sends checks.
     """
+    display_name = "Poster Locations"
 
-class SuperchargeLocations(Toggle):
+class SuperchargeLocations(Choice):
     """
-    If enabled, Finding supercharges sends checks.
+    Whether or not collecting Supercharges are checks.
+    Off: Supercharges are not locations.
+    Locations Only: Supercharges are locations and award a stat point as normal
+    Locations and Items: Supercharges are locations, and do NOT award stat points. Instead, 10 Supercharge items will be added.
     """
+    display_name = "Supercharge Locations"
+    option_off = 0
+    option_locations_only = 1
+    option_locations_and_items = 2
 
 class BasicWeaponLocations(Choice):
     """
-    Determines if collecting Basic Nanoweapons send checks.
-    Off: Basic Nanoweapons are not locations.
+    How obtaining new weapons will send checks.
 
     First Time: Assimilating a basic Nanoweapon sends a check, one per type of weapon.
 
@@ -139,29 +97,10 @@ class BasicWeaponLocations(Choice):
     All Instances: All instances of basic Nanoweapons in the game send checks
     """
     display_name = "Basic Weapon Locations"
-    option_off = 0
     option_first_time = 1
     option_first_per_sector = 2
     option_all_instances = 3
     default = 1
-
-class CombinedWeaponLocations(DefaultOnToggle):
-    """
-    If enabled, combining two Nanoweapons together sends a check, one per combination.
-    """
-    display_name = "Combined Weapon Locations"
-
-class UniqueWeaponLocations(Toggle):
-    """
-    If enabled, obtaining special Nanoweapons sends checks.
-    Includes Banana Gun, Massacre, and Null Driver.
-    Null Driver will not be a location if Sector Z locations are not included in the world.
-    """
-
-class UpgradeLocations(DefaultOnToggle):
-    """
-    If enabled, obtaining Jump and Armor Upgrades sends checks
-    """
 
 class LogbookLocations(Toggle):
     """
@@ -169,92 +108,77 @@ class LogbookLocations(Toggle):
     """
     display_name = "Logbook Locations"
 
-class PacifistLocations(Toggle):
-    """
-    If disabled, locations that require the player to be pacifist to some extent will not be added.
-    This includes the Deep Sector Logbooks and Supercharge in Sector 9, and the Massacre in Sector X.
-    """
-    display_name = "Pacifist Locations"
-
 class SectorAccessItems(Range):
     """
-    How many Sector Access items to add to the item pool.
-    9 of them are required to beat the game, and obtaining any more than that has no effect
+    How many extra Sector Access items to add to the item pool.
     """
-    display_name = "Sector Access Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Sector Access Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class HealthItems(Range):
     """
-    How many Health Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Health Stat items to add to the item pool.
     """
-    display_name = "Health Stat items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Health Stat items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class AttackItems(Range):
     """
-    How many Attack Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Attack Stat items to add to the item pool.
     """
-    display_name = "Attack Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Attack Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class AssimilateItems(Range):
     """
-    How many Assimilate Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Assimilate Stat items to add to the item pool.
     """
-    display_name = "Assimilate Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Assimilate Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class StrengthItems(Range):
     """
-    How many Strength Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Strength Stat items to add to the item pool.
     """
-    display_name = "Strength Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Strength Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class CrackItems(Range):
     """
-    How many Crack Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Crack Stat items to add to the item pool.
     """
-    display_name = "Crack Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Crack Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class TasenItems(Range):
     """
-    How many Tasen Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Tasen Stat items to add to the item pool.
     """
-    display_name = "Tasen Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Tasen Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class KomatoItems(Range):
     """
-    How many Komato Stat items to add to the item pool.
-    Obtaining more than 9 has no effect.
+    How many extra Komato Stat items to add to the item pool.
     """
-    display_name = "Komato Stat Items"
-    default = 9
-    range_start = 9
-    range_end = 15
+    display_name = "Extra Komato Stat Items"
+    default = 0
+    range_start = 0
+    range_end = 20
 
 class SpecialTraitItems(Toggle):
     """
@@ -262,31 +186,14 @@ class SpecialTraitItems(Toggle):
     """
     display_name = "Special Traits"
 
-class SuperchargePointHandling(Choice):
-    """
-    Off: Supercharges behave normally, only granting 1 Stat point for the current Sector when collected.
-
-    Progressive: Supercharges grant 1 Stat point when collected,
-    and also grant 1 Stat point at the start of each Sector that comes after the Sector it was collected in.
-    
-    Shuffled: Supercharges no longer grant Stat points when collected.
-    Instead, 10 Supercharge items are shuffled into the item pool that each grant 1 Stat point at the start of each Sector.
-    """
-    display_name = "Supercharge Points"
-    option_off = 0
-    option_progressive = 1
-    option_shuffled = 2
-    default = 1
-
 class ExtraSupercharges(Range):
     """
     Adds extra Supercharge items to the pool that each grant 1 Stat point at the start of each Sector.
-    (If Supercharge Points are shuffled in the above option, this option stacks on top of it.)
     """
     display_name = "Extra Supercharges"
     default = 0
     range_start = 0
-    range_end = 10
+    range_end = 20
 
 class TrapPercentage(Range):
     """
@@ -363,6 +270,17 @@ class NapTrapWeight(Range):
     range_start = 0
     range_end = 100
 
+class BananaTrapWeight(Range):
+    """
+    How weighted Banana traps are to be chosen, if traps are shuffled.
+    Spawns a banana.
+    0 Disables Banana traps
+    """
+    display_name = "Banana Weight"
+    default = 20
+    range_start = 0
+    range_end = 100
+
 class ClownShoesWeight(Range):
     """
     How weighted Clown Shoe traps are to be chosen, if traps are shuffled.
@@ -383,31 +301,20 @@ class HealthBalancing(DefaultOnToggle):
     """
     display_name = "Health Progression Balancing"
 
-class CompactStatItems(Range):
-    """
-    Determines how many levels each Stat item should raise its respective level cap by.
-    Higher values will reduce the number of Stat items shuffled into the pool to keep the total value of stats, rounded up
-    i.e. if there would be 15 Health Stat items to start, and they are compacted to give 4 each,
-    There will be 4 Health Stat items shuffled into the final pool, for a total of 16 levels
-    Useful for worlds that want to have fewer location counts.
-    """
-    display_name = "Compact Stat Items"
-    default = 1
-    range_start = 1
-    range_end = 9
-
 class IjiDeathLink(DeathLink):
     """
     When you die, everyone dies. The reverse is also true.
     
     If DeathLinkDamage is set below 20, you will instead take damage when sent a death
     """
+    display_name = "Death Link"
 
 class DeathLinkDamage(Range):
     """
     How much HP damage you take when receiving a death from another player.
     If set to 20, receiving a death instantly kills you instead.
     """
+    display_name = "Death Link Damage"
     default = 20
     range_start = 1
     range_end = 20
@@ -416,86 +323,170 @@ class LogicDifficulty(Choice):
     """
     Normal Logic: Expects the player to reach locations in the normal, dev-intended ways
 
-    Obscure Logic: Expects the player to reach locations that are technically possible to reach, albeit in obscure or unintended ways.
-    Note: I haven't (yet) documented any of these logic skips, so choose this at your own risk
+    Hard Logic: Expects the player to utilize methods needed to reach posters and supercharges, but in other locations.
 
-    Extreme Logic: The cursed option. Includes obscure logic skips plus a few other terrible ones.
+    Extreme Logic: 
+
+    Ultimortal Logic: 
+
+    reallyjoel's Dad Logic: Anything goes. If it's technically possible, it's in logic.
     """
     display_name = "Logic Difficulty"
-    option_normal_logic = 1
-    option_obscure_logic = 2
-    option_extreme_logic = 3
-    default = 1
+    option_normal_logic = 0
+    option_hard_logic = 1
+    option_extreme_logic = 2
+    option_ultimortal_logic = 3
+    option_reallyjoelsdad_logic = 4
+    default = 0
+
+class MusicShuffle(Choice):
+    """
+    Whether or not to randomly reassign music tracks.
+    Off: No shuffled music
+    Levels Only: Only Level Music gets shuffled amongst each other.
+    Full Shuffle: All Looping music tracks get shuffled amongst each other
+    """
+    display_name = "Music Shuffle"
+    option_off = 0
+    option_levels_only = 1
+    option_full_shuffle = 2
+    default = 0
+
+class OutOfOrderSectors(Toggle):
+    """
+    If enabled, Sector Access Items will give access to a specific sector, and Sectors may be accessed outside their intended order.
+    If there are extra Sector Access Items are in the pool, the extras will choose a semi-random Sector to grant access to.
+
+    If disabled, Sector Access Items will instead be progressive, giving access to Sectors in their vanilla order.
+    """
+    display_name = "Out of Order Sectors"
+
+class Levelsanity(Toggle):
+    """
+    If enabled, Leveling up will no longer award stat points.
+    Instead, 50 Supercharge items will be added to the multiworld.
+    """
+    display_name = "Levelsanity"
+
+class JumpUpgrades(Choice):
+    """
+    How Jump upgrade items should be handled.
+
+    Vanilla: Jump Upgrade items can be found in their vanilla locations
+
+    Shuffle: Jump Upgrade items can be found anywhere in the multiworld.
+    """
+    display_name = "Jump Upgrades"
+    option_vanilla = 0
+    option_shuffle = 1
+    default = 0
+
+class ArmorUpgrades(Choice):
+    """
+    How armor upgrade items and locations should be handled.
+
+    Vanilla: Armor Upgrade items will be found in their vanilla locations.
+
+    Shuffle: Armor Upgrade items can be found anywhere in the multiworld.
+
+    Cursed: The player starts with only 1/4 of their Armor bar.
+        The first three armor upgrades found give an additional 1/4 of the bar,
+        and the last two increase the Armor stat as normal.
+    """
+    display_name = "Armor Upgrades"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_vanilla_cursed = 2
+    option_shuffle_cursed = 3
+    default = 0
+
+class CrackBoxLocations(Toggle):
+    """
+    If enabled, opening the locked Security Boxes will be checks.
+    """
+    display_name = "Security Box Locations"
+
+class OverloadLocations(Toggle):
+    """
+    If enabled, picking up Nano Overloads will be checks.
+    """
+    display_name = "Nano Overload Locations"
+
+class DebugAbilities(Choice):
+    """
+    This option adds the 'Fire Anytime' from the vanilla game's debug options as an item to your world.
+    This item allows you to fire your weapon even while ducking or in midair.
+    It is an extremely powerful item, and opens up a ton of skips in late-game sectors,
+    almost all of which are currently NOT accounted for in logic (But they will be in the future.)
+    This option will also add the AREYOUSERIOUS logbook in Sector 7 as a location, which is inaccessible without this item.
+    """
+    display_name = "Fire Anytime Item"
+    option_off = 0
+    option_shuffle = 1
+    option_starting_item = 2
+    default = 0
 
 @dataclass
 class IjiOptions(PerGameCommonOptions):
-    EndGoal:                            EndGoal
-    SectorZPosterLocationsRequired:     SectorZPosterLocationsRequired
-    SectorZRibbonItemsRequired:         SectorZRibbonItemsRequired
-    NullDriverPosterLocationsRequired:  NullDriverPosterLocationsRequired
-    NullDriverRibbonItemsRequired:      NullDriverRibbonItemsRequired
-    RibbonItemCount:                    RibbonItemCount
-    PostGameLocations:                  PostGameLocations
+    end_goal:                       EndGoal
+    goal_posters:                   GoalPosterLocations
+    goal_ribbons:                   GoalRibbonItems
+    extra_ribbons:                  RibbonItemCount
+    out_of_order_sectors:           OutOfOrderSectors
 
-    RibbonLocations:                    RibbonLocations
-    PosterLocations:                    PosterLocations
-    SuperchargeLocations:               SuperchargeLocations
-    BasicWeaponLocations:               BasicWeaponLocations
-    CombinedWeaponLocations:            CombinedWeaponLocations
-    UniqueWeaponLocations:              UniqueWeaponLocations
-    UpgradeLocations:                   UpgradeLocations
-    LogbookLocations:                   LogbookLocations
-    PacifistLocations:                  PacifistLocations
+    poster_locations:               PosterLocations
+    supercharge_locations:          SuperchargeLocations
+    basic_weapon_locations:         BasicWeaponLocations
+    logbook_locations:              LogbookLocations
+    security_box_locations:         CrackBoxLocations
+    nano_overload_locations:        OverloadLocations
 
-    SectorAccessItems:                  SectorAccessItems
-    HealthItems:                        HealthItems
-    AttackItems:                        AttackItems
-    AssimilateItems:                    AssimilateItems
-    StrengthItems:                      StrengthItems
-    CrackItems:                         CrackItems
-    TasenItems:                         TasenItems
-    KomatoItems:                        KomatoItems
-    CompactStatItems:                   CompactStatItems
-    SpecialTraitItems:                  SpecialTraitItems
-    ExtraSupercharges:                  ExtraSupercharges
+    special_trait_items:            SpecialTraitItems
+    extra_sector_access:            SectorAccessItems
+    extra_health:                   HealthItems
+    extra_attack:                   AttackItems
+    extra_assimilate:               AssimilateItems
+    extra_strength:                 StrengthItems
+    extra_crack:                    CrackItems
+    extra_tasen:                    TasenItems
+    extra_komato:                   KomatoItems
+    jump_upgrades:                  JumpUpgrades
+    armor_upgrades:                 ArmorUpgrades
+    extra_supercharges:             ExtraSupercharges
+    levelsanity:                    Levelsanity
 
-    TrapPercentage:                     TrapPercentage
-    RocketTrapWeight:                   RocketTrapWeight
-    BlitsTrapWeight:                    BlitsTrapWeight
-    NullDriveTrapWeight:                NullDriveTrapWeight
-    NullDriveFactor:                    NullDriveFactor
-    TurboTrapWeight:                    TurboTrapWeight
-    NapTrapWeight:                      NapTrapWeight
-    ClownShoesWeight:                   ClownShoesWeight
+    trap_percentage:                TrapPercentage
+    rocket_trap_weight:             RocketTrapWeight
+    banana_trap_weight:             BananaTrapWeight
+    blits_trap_weight:              BlitsTrapWeight
+    null_drive_trap_weight:         NullDriveTrapWeight
+    null_drive_factor:              NullDriveFactor
+    turbo_trap_weight:              TurboTrapWeight
+    nap_trap_weight:                NapTrapWeight
+    clown_shoes_weight:             ClownShoesWeight
 
-    HealthBalancing:                    HealthBalancing
-    SuperchargePointHandling:           SuperchargePointHandling
-    IjiDeathLink:                       IjiDeathLink
-    DeathLinkDamage:                    DeathLinkDamage
-    LogicDifficulty:                    LogicDifficulty
+    health_balancing:               HealthBalancing
+    deathlink:                      IjiDeathLink
+    deathlink_damage:               DeathLinkDamage
+    logic_difficulty:               LogicDifficulty
+    music_shuffle:                  MusicShuffle
+    debug_item:                     DebugAbilities
 
 iji_option_groups = [
     OptionGroup("Goal Options", [
         EndGoal,
-        SectorZPosterLocationsRequired,
-        SectorZRibbonItemsRequired,
-        NullDriverPosterLocationsRequired,
-        NullDriverRibbonItemsRequired,
         RibbonItemCount,
-        PostGameLocations
+        OutOfOrderSectors
     ]),
     OptionGroup("Locations", [
-        RibbonLocations,
         PosterLocations,
         SuperchargeLocations,
         BasicWeaponLocations,
-        CombinedWeaponLocations,
-        UniqueWeaponLocations,
-        UpgradeLocations,
         LogbookLocations,
-        PacifistLocations
+        CrackBoxLocations
     ]),
     OptionGroup("Items", [
+        SpecialTraitItems,
         SectorAccessItems, 
         HealthItems,
         AttackItems,
@@ -504,13 +495,15 @@ iji_option_groups = [
         CrackItems,
         TasenItems,
         KomatoItems,
-        CompactStatItems,
-        SpecialTraitItems,
-        ExtraSupercharges
+        JumpUpgrades,
+        ArmorUpgrades,
+        ExtraSupercharges,
+        Levelsanity
     ]),
     OptionGroup("Traps", [
         TrapPercentage,
         RocketTrapWeight,
+        BananaTrapWeight,
         BlitsTrapWeight,
         NullDriveTrapWeight,
         NullDriveFactor,
@@ -520,9 +513,10 @@ iji_option_groups = [
     ]),
     OptionGroup("Miscellaneous", [
         HealthBalancing,
-        SuperchargePointHandling,
         IjiDeathLink,
         DeathLinkDamage,
-        LogicDifficulty
+        LogicDifficulty,
+        MusicShuffle,
+        DebugAbilities
     ])
 ]

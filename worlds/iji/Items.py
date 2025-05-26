@@ -1,9 +1,12 @@
+import logging
 from math import floor
 from BaseClasses import Item, ItemClassification
-from .Locations import get_total_locations
-from .Options import get_compacted_stat_items
+from .Locations import get_remaining_locations
 from typing import List, Dict, TYPE_CHECKING, NamedTuple
+from .Data.ItemData import item_table, items_filler
+from .Data.EventData import event_item_table
 
+from .Names import ItemNames
 
 if TYPE_CHECKING:
     from . import IjiWorld
@@ -16,37 +19,79 @@ class IjiItemData(NamedTuple):
     progtype: ItemClassification
     weight: int = 1
 
+items_and_events = {
+    **item_table,
+    **event_item_table
+}
+
 def create_itempool(world: "IjiWorld") -> List[Item]:
     itempool: List[Item] = []
 
-    statitems = get_compacted_stat_items(world)
-    for name, count in statitems.items():
-        itempool += create_multiple_items(world, name, count)
+    itempool += create_multiple_items(world, ItemNames.Stat_Health, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Attack, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Assimilate, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Strength, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Crack, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Tasen, 9)
+    itempool += create_multiple_items(world, ItemNames.Stat_Komato, 9)
 
-    itempool += create_multiple_items(world, "Sector Access", world.options.SectorAccessItems.value)
+    sector_count: int = min(10, world.options.end_goal.value)
 
-    superchargecount = world.options.ExtraSupercharges.value
-    if world.options.SuperchargePointHandling.value == world.options.SuperchargePointHandling.option_shuffled:
-        superchargecount += 10
+    if world.options.levelsanity:
+        itempool += create_multiple_items(world, ItemNames.Supercharge, 5 * sector_count)
 
-    itempool += create_multiple_items(world, "Supercharge", superchargecount)
+    if world.options.out_of_order_sectors:
+        for i in range(1, sector_count + 1):
+            itempool.append(create_item(world, ItemNames.Sector_Access[i]))
+    else:
+        itempool += create_multiple_items(world, ItemNames.Sector_Access[0], sector_count - 1)
 
-    if world.options.SpecialTraitItems.value:# == world.options.SpecialTraitItems.option_items_only or \
-       #world.options.SpecialTraitItems.value == world.options.SpecialTraitItems.option_locations_and_items:
-        for name in items_traits.keys():
-            itempool += create_multiple_items(world, name, 1)
+    if world.options.special_trait_items:
+        itempool.append(create_item(world, ItemNames.Special_Health))
+        itempool.append(create_item(world, ItemNames.Special_Attack))
+        itempool.append(create_item(world, ItemNames.Special_Assimilate))
+        itempool.append(create_item(world, ItemNames.Special_Strength))
+        itempool.append(create_item(world, ItemNames.Special_Crack))
+        itempool.append(create_item(world, ItemNames.Special_Tasen))
+        itempool.append(create_item(world, ItemNames.Special_Komato))
 
-    itempool += create_ribbon_items(world)
+    if world.options.debug_item:
+        itempool.append(create_item(world, ItemNames.Debug))
 
-    itempool += create_filler_items(world, get_total_locations(world) - len(itempool))
+    if world.options.jump_upgrades.value == 1:
+        if sector_count >= 5:
+            itempool += create_multiple_items(world, ItemNames.Upgrade_Jump, 2)
+        else:
+            itempool.append(create_item(world, ItemNames.Upgrade_Jump))
 
-    #if (world.options.LogbookLocations.value == False):
-    #    world.multiworld.get_location("Sector 1 - Sector Complete", world.player).place_locked_item(create_item(world, "Sector Access"))
+    if world.options.armor_upgrades.value & 1 == 1:
+        if sector_count >= 10:
+            itempool += create_multiple_items(world, ItemNames.Upgrade_Armor, 5)
+        elif sector_count == 9:
+            itempool += create_multiple_items(world, ItemNames.Upgrade_Armor, 4)
+        elif sector_count == 8:
+            itempool += create_multiple_items(world, ItemNames.Upgrade_Armor, 3)
+        elif sector_count == 7:
+            itempool += create_multiple_items(world, ItemNames.Upgrade_Armor, 2)
+        else:
+            itempool.append(create_item(world, ItemNames.Upgrade_Armor))
+
+    if world.options.supercharge_locations.value == 2:
+        itempool += create_multiple_items(world, ItemNames.Supercharge, sector_count)
+
+    unfilled_locations = get_remaining_locations(world)
+
+    if world.options.goal_ribbons.value > 0:
+        itempool += create_ribbon_items(world, unfilled_locations - len(itempool))
+
+    itempool += create_duplicate_items(world, unfilled_locations - len(itempool))
+
+    itempool += create_filler_items(world, unfilled_locations - len(itempool))
 
     return itempool
 
 def create_item(world: "IjiWorld", name: str) -> Item:
-    data = item_table[name]
+    data = items_and_events[name]
     return IjiItem(name, data.progtype, data.code, world.player)
 
 def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item]:
@@ -58,17 +103,52 @@ def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item
 
     return itemlist
 
-def create_ribbon_items(world: "IjiWorld") -> List[Item]:
+def create_ribbon_items(world: "IjiWorld", maximum: int) -> List[Item]:
     itemlist: List[Item] = []
 
-    if world.options.EndGoal.value >= world.options.EndGoal.option_sector_z or \
-        world.options.PostGameLocations.value >= world.options.PostGameLocations.option_sector_z:
-        ribbonsneeded = max(world.options.SectorZRibbonItemsRequired.value,
-                            world.options.NullDriverRibbonItemsRequired.value)
-        if ribbonsneeded == 0:
-            return itemlist
-        else:
-            itemlist += create_multiple_items(world, "Ribbon", max(ribbonsneeded,world.options.RibbonItemCount.value))
+    if world.options.goal_ribbons.value > maximum:
+        world.options.goal_ribbons.value = maximum
+        logging.warning(f"{world.player_name} did not have enough locations for their ribbon requirement")
+        logging.warning(f"Their ribbon requirement has been reduced to {world.options.goal_ribbons.value}")
+
+    itemlist += create_multiple_items(world, ItemNames.Ribbon, world.options.goal_ribbons.value)
+
+    return itemlist
+
+def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
+    itemlist: List[Item] = []
+
+    sector_count: int = min(10, world.options.end_goal.value)
+
+    dupe_amounts: List[int] = []
+
+    dupe_amounts.append(world.options.extra_sector_access)  # 0
+    dupe_amounts.append(world.options.extra_ribbons)        # 1
+    dupe_amounts.append(world.options.extra_supercharges)   # 2
+    dupe_amounts.append(world.options.extra_health)         # 3
+    dupe_amounts.append(world.options.extra_crack)          # 4
+    dupe_amounts.append(world.options.extra_strength)       # 5
+    dupe_amounts.append(world.options.extra_tasen)          # 6
+    dupe_amounts.append(world.options.extra_komato)         # 7
+    dupe_amounts.append(world.options.extra_attack)         # 8
+    dupe_amounts.append(world.options.extra_assimilate)     # 9
+
+    dupe_count: int = 0
+    for i in range(len(dupe_amounts)):
+        dupe_count += dupe_amounts[i]
+
+    dupe_count = min(dupe_count, maximum)
+
+    while dupe_count > 0:
+        for i in range(len(dupe_amounts)):
+            if dupe_amounts[i] > 0 and dupe_count > 0:
+                if i == 0 and world.options.out_of_order_sectors:
+                    sector: int = (dupe_amounts[0] % (sector_count - 1)) + 2
+                    itemlist.append(create_item(world, ItemNames.Sector_Access[sector]))
+                else:
+                    itemlist.append(create_item(world, dupe_array[i]))
+                dupe_amounts[i] -= 1
+                dupe_count -= 1
 
     return itemlist
 
@@ -76,11 +156,12 @@ def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     fillerlist: List[Item] = []
 
     trapitemcount: int = 0
-    if world.options.RocketTrapWeight.value > 0 or world.options.BlitsTrapWeight.value > 0 or \
-        world.options.NullDriveTrapWeight.value > 0 or world.options.TurboTrapWeight.value > 0 or \
-        world.options.NapTrapWeight.value > 0 or world.options.ClownShoesWeight.value > 0:
+    if world.options.rocket_trap_weight.value > 0 or world.options.blits_trap_weight.value > 0 or \
+        world.options.null_drive_trap_weight.value > 0 or world.options.turbo_trap_weight.value > 0 or \
+        world.options.nap_trap_weight.value > 0 or world.options.clown_shoes_weight.value > 0 or \
+        world.options.banana_trap_weight.value > 0:
     
-        trapitemcount = floor((world.options.TrapPercentage.value / 100.0) * count)
+        trapitemcount = floor((world.options.trap_percentage.value / 100.0) * count)
     
     filleritemcount: int = count - trapitemcount
     
@@ -102,12 +183,13 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
 
     trapweights: Dict[str, int] = {}
     
-    trapweights["Rocket to the Face Trap"] = world.options.RocketTrapWeight.value
-    trapweights["Blits Trap"] = world.options.BlitsTrapWeight.value
-    trapweights["Null Drive Trap"] = world.options.NullDriveTrapWeight.value
-    trapweights["Turbo Trap"] = world.options.TurboTrapWeight.value
-    trapweights["Nap Trap"] = world.options.NapTrapWeight.value
-    trapweights["Clown Shoes Trap"] = world.options.ClownShoesWeight.value
+    trapweights[ItemNames.Traps[0]] = world.options.rocket_trap_weight.value
+    trapweights[ItemNames.Traps[1]] = world.options.blits_trap_weight.value
+    trapweights[ItemNames.Traps[2]] = world.options.null_drive_trap_weight.value
+    trapweights[ItemNames.Traps[3]] = world.options.turbo_trap_weight.value
+    trapweights[ItemNames.Traps[4]] = world.options.nap_trap_weight.value
+    trapweights[ItemNames.Traps[5]] = world.options.clown_shoes_weight.value
+    trapweights[ItemNames.Traps[6]] = world.options.banana_trap_weight.value
     
     for i in range(count):
         traplist += [create_item(world,
@@ -115,120 +197,35 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
 
     return traplist
 
-# Sectors and Stats
-items_primary: Dict[str,IjiItemData] = {
-    "Sector Access":    IjiItemData(code=1, progtype=ItemClassification.progression),
-    "Health Stat":      IjiItemData(code=2, progtype=ItemClassification.progression),
-    "Attack Stat":      IjiItemData(code=3, progtype=ItemClassification.progression),
-    "Assimilate Stat":  IjiItemData(code=4, progtype=ItemClassification.progression),
-    "Strength Stat":    IjiItemData(code=5, progtype=ItemClassification.progression),
-    "Crack Stat":       IjiItemData(code=6, progtype=ItemClassification.progression),
-    "Tasen Stat":       IjiItemData(code=7, progtype=ItemClassification.progression),
-    "Komato Stat":      IjiItemData(code=8, progtype=ItemClassification.progression)
-}
+dupe_array: List[str] = [
+    ItemNames.Sector_Access[0],
+    ItemNames.Ribbon,
+    ItemNames.Supercharge,
+    ItemNames.Stat_Health,
+    ItemNames.Stat_Crack,
+    ItemNames.Stat_Strength,
+    ItemNames.Stat_Tasen,
+    ItemNames.Stat_Komato,
+    ItemNames.Stat_Attack,
+    ItemNames.Stat_Assimilate
+]
 
-items_other: Dict[str, IjiItemData] = {
-    "Supercharge":  IjiItemData(code=9,  progtype = ItemClassification.useful),
-    "Ribbon":       IjiItemData(code=11, progtype = ItemClassification.progression)
-}
-
-items_traits: Dict[str, IjiItemData] = {
-    "SUPPRESSION":          IjiItemData(code=12, progtype=ItemClassification.progression),
-    "IMPROVED AUTOLOADING": IjiItemData(code=13, progtype=ItemClassification.useful),
-    "ADVANCED RECOVERY":    IjiItemData(code=14, progtype=ItemClassification.useful),
-    "CYBERNETIC ENDURANCE": IjiItemData(code=15, progtype=ItemClassification.useful),
-    "ELECTRONIC MASTERY":   IjiItemData(code=16, progtype=ItemClassification.useful),
-    "VENGEANCE":            IjiItemData(code=17, progtype=ItemClassification.useful),
-    "GLORY":                IjiItemData(code=18, progtype=ItemClassification.useful)
-}
-
-# Filler
-items_filler: Dict[str, IjiItemData] = {
-    "Health Pickup":    IjiItemData(code=201, progtype=ItemClassification.filler, weight=16),
-    "Armor Pickup":     IjiItemData(code=202, progtype=ItemClassification.filler, weight=4),
-    "Nano Pickup":      IjiItemData(code=203, progtype=ItemClassification.filler, weight=6),
-    "Machine Ammo":     IjiItemData(code=204, progtype=ItemClassification.filler, weight=8),
-    "Rocket Ammo":      IjiItemData(code=205, progtype=ItemClassification.filler, weight=4),
-    "MPFB Ammo":        IjiItemData(code=206, progtype=ItemClassification.filler, weight=2),
-    "Pulse Ammo":       IjiItemData(code=207, progtype=ItemClassification.filler, weight=6),
-    "Shock Ammo":       IjiItemData(code=208, progtype=ItemClassification.filler, weight=3),
-    "CFIS Ammo":        IjiItemData(code=209, progtype=ItemClassification.filler, weight=1),
-    "Nano Overload":    IjiItemData(code=210, progtype=ItemClassification.filler, weight=10),
-}
-
-# Traps
-items_traps: Dict[str,IjiItemData] = {
-    "Rocket to the Face Trap":  IjiItemData(code=401, progtype=ItemClassification.trap),
-    "Blits Trap":               IjiItemData(code=402, progtype=ItemClassification.trap),
-    "Null Drive Trap":          IjiItemData(code=403, progtype=ItemClassification.trap),
-    "Turbo Trap":               IjiItemData(code=404, progtype=ItemClassification.trap),
-    "Nap Trap":                 IjiItemData(code=405, progtype=ItemClassification.trap),
-    "Clown Shoes Trap":         IjiItemData(code=406, progtype=ItemClassification.trap)
-}
-
-item_table = {
-    **items_primary,
-    **items_other,
-    **items_traits,
-    **items_filler,
-    **items_traps
-}
-
-#####
-#####
-##### ALL ITEMS BELOW THIS COMMENT ARE (CURRENTLY) UNIMPLEMENTED
-#####
-#####
-
-
-items_weapons: Dict[str, IjiItemData] = {
-    "Shotgun":                          IjiItemData(code=20, progtype=ItemClassification.progression),
-    "Machine Gun":                      IjiItemData(code=21, progtype=ItemClassification.progression),
-    "Rocket Launcher":                  IjiItemData(code=22, progtype=ItemClassification.progression),
-    "MPFB Devastator":                  IjiItemData(code=23, progtype=ItemClassification.progression),
-    "Resonance Detonator":              IjiItemData(code=24, progtype=ItemClassification.progression),
-    "Pulse Cannon":                     IjiItemData(code=25, progtype=ItemClassification.progression),
-    "Shocksplinter":                    IjiItemData(code=26, progtype=ItemClassification.progression),
-    "Cyclic Fusion Ignition System":    IjiItemData(code=27, progtype=ItemClassification.progression)
-}
-
-items_specialweapons: Dict[str, IjiItemData] = {
-    "Banana Gun":   IjiItemData(code=28, progtype=ItemClassification.progression),
-    "Massacre":     IjiItemData(code=29, progtype=ItemClassification.progression),
-    "Null Driver":  IjiItemData(code=30, progtype=ItemClassification.progression)
-}
-
-items_progressiveweapons: Dict[str, IjiItemData] = {
-    "Progressive Shotgun":                          IjiItemData(code=31, progtype=ItemClassification.progression),
-    "Progressive Machine Gun":                      IjiItemData(code=32, progtype=ItemClassification.progression),
-    "Progressive Rocket Launcher":                  IjiItemData(code=33, progtype=ItemClassification.progression),
-    "Progressive MPFB Devastator":                  IjiItemData(code=34, progtype=ItemClassification.progression),
-    "Progressive Resonance Detonator":              IjiItemData(code=35, progtype=ItemClassification.progression),
-    "Progressive Pulse Cannon":                     IjiItemData(code=36, progtype=ItemClassification.progression),
-    "Progressive Shocksplinter":                    IjiItemData(code=37, progtype=ItemClassification.progression),
-    "Progressive Cyclic Fusion Ignition System":    IjiItemData(code=38, progtype=ItemClassification.progression)
-}
-
-# items_doors: IjiItemData = {}
-
-### End of unimplemented section.
-
-item_groups_table = {
-    "Stats": items_primary.keys(),
-    "Traits": items_traits.keys(),
-    "Weapons": {
-        **items_weapons,
-        **items_specialweapons,
-        **items_progressiveweapons,
-    },
-    "Normal Weapons": {
-        **items_weapons,
-        **items_progressiveweapons,
-    },
-    "Special Weapons": items_specialweapons.keys(),
-    # Not sure this one's useful. I'll leave it here but comment it out for now.
-    # "Collectibles": {
-    #     "Poster",
-    #     "Ribbon"
-    # }
-}
+#item_groups_table = {
+#    "Stats": items_primary.keys(),
+#    "Traits": items_traits.keys(),
+#    "Weapons": {
+#        **items_weapons,
+#        **items_specialweapons,
+#        **items_progressiveweapons,
+#    },
+#    "Normal Weapons": {
+#        **items_weapons,
+#        **items_progressiveweapons,
+#    },
+#    "Special Weapons": items_specialweapons.keys(),
+#    # Not sure this one's useful. I'll leave it here but comment it out for now.
+#    # "Collectibles": {
+#    #     "Poster",
+#    #     "Ribbon"
+#    # }
+#}
