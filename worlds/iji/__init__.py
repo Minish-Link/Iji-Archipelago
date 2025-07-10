@@ -1,6 +1,6 @@
 import logging
-from typing import Any, Dict
-from BaseClasses import Item, ItemClassification, Location, MultiWorld
+from typing import Any, Dict, List
+from BaseClasses import Item, ItemClassification, Location, MultiWorld, Tutorial
 from worlds.generic.Rules import add_rule, set_rule
 from .Items import create_itempool, create_item #, item_groups_table
 from .Locations import location_groups_table, events_and_locations
@@ -8,11 +8,23 @@ from .Data.LocData import location_table
 from .Data.ItemData import item_table
 from .Regions import create_regions
 from .Names import RegNames
-from .Options import IjiOptions
-from worlds.AutoWorld import World, CollectionState
-from Utils import visualize_regions
+from .Options import IjiOptions, iji_option_groups, define_health_balancing
+from worlds.AutoWorld import WebWorld, World, CollectionState
+#from Utils import visualize_regions
 
 from .Names import ItemNames
+
+class IjiWeb(WebWorld):
+    theme = "dirt"
+    tutorials = [Tutorial(
+        "Multiworld Setup Guide",
+        "A guide to setting up the Iji randomizer connected to an Archipelago Multiworld",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["Minish"]
+    )]
+    option_groups = iji_option_groups
 
 class IjiWorld(World):
     """
@@ -31,6 +43,9 @@ class IjiWorld(World):
     options_dataclass = IjiOptions
     options: IjiOptions
     explicit_indirect_conditions = False
+    web = IjiWeb()
+
+    health_balancing_values: List[int]
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -55,32 +70,47 @@ class IjiWorld(World):
             "ModVersion": 3,
             "ModSemantic": "1.2.0",
             "Goal": self.options.end_goal.value,
-            "GoalRibbons": self.options.goal_ribbons.value,
+            "GoalRibbons": self.options.ribbon_items.value * (self.options.goal_ribbons.value / 100.0),
             "GoalPosters": self.options.goal_posters.value,
             "DeathLink": self.options.deathlink.value,
             "DeathLinkDamage": self.options.deathlink_damage.value,
             "SpecialTraits": self.options.special_trait_items.value,
+            "ArmorUpgrades": self.options.armor_upgrades.value,
             "SuperchargeLocations": self.options.supercharge_locations.value,
             "NullDriveFactor": self.options.null_drive_factor.value,
             "MusicShuffle": self.options.music_shuffle.value,
+            "Levelsanity": self.options.levelsanity.value,
             # For Poptracker
             "LogicDifficulty": self.options.logic_difficulty.value,
-            "HealthBalancing": self.options.health_balancing.value,
+            "HealthBalancing": self.health_balancing_values,
             "PosterLocations": self.options.poster_locations.value,
             "BasicWeaponLocations": self.options.basic_weapon_locations.value,
             "LogbookLocations": self.options.logbook_locations.value,
-            "CrackboxLocations": self.options.security_box_locations.value,
+            "CrackBoxLocations": self.options.security_box_locations.value,
             "OverloadLocations": self.options.nano_overload_locations.value
         }
 
     def generate_early(self):
-        if (self.options.goal_posters.value > self.options.end_goal.value):
+        if self.options.goal_posters.value > self.options.end_goal.value:
             self.options.goal_posters.value = self.options.end_goal.value
             logging.warning(f"{self.player_name} required more posters than available sectors.")
             logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
 
-    def post_fill(self):
-        visualize_regions(self.multiworld.get_region(self.origin_region_name, self.player), "ijiregions.puml")
+        # Universal Tracker stuff
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if "Iji" in self.multiworld.re_gen_passthrough:
+                passthrough = self.multiworld.re_gen_passthrough["Iji"]
+                self.health_balancing_values = passthrough["HealthBalancing"]
+        else:
+            # If not using Universal Tracker
+            self.health_balancing_values = define_health_balancing()
+
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        return slot_data
+
+    #def post_fill(self):
+    #    visualize_regions(self.multiworld.get_region(self.origin_region_name, self.player), f"ijiregions\\{self.player}_{self.player_name}.puml")
 
     def set_rules(self):
         for loc in self.multiworld.get_locations(self.player):

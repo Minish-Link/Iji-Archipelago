@@ -1,6 +1,7 @@
 from typing import List
 
 Menu = "Menu"
+Global = "Global"
 
 Sector1_Main: List[str] = [
     "Sector 1 Start",

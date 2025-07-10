@@ -1165,7 +1165,6 @@ events_weapons: Dict[str, IjiLocData] = {
     EventNames.Weapons[12]: IjiLocData(
         region=RegNames.Menu,
         locked_item=lambda world: EventNames.Weapons[12],
-        
         valid=lambda world: location_table[LocNames.Weapons_Combined[3]].valid(world),
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[3]].logic(world, state)
     ),
@@ -1199,13 +1198,13 @@ events_weapons: Dict[str, IjiLocData] = {
 
     EventNames.Weapon_Locations[0][0][0]: IjiLocData(
         region=RegNames.Sector1_Main[2],
-        locked_item=lambda world: EventNames.Weapons[1],
+        locked_item=lambda world: EventNames.Weapons[2],
         logic=lambda world, state: location_table[LocNames.Weapons_Per_Sector[0][0]].logic(world, state)
     ),
 
     EventNames.Weapon_Locations[1][0][0]: IjiLocData(
         region=RegNames.Sector2_Main[2],
-        locked_item=lambda world: EventNames.Weapons[1],
+        locked_item=lambda world: EventNames.Weapons[2],
         logic=lambda world, state: location_table[LocNames.Weapons_Per_Sector[1][0]].logic(world, state)
     ),
     EventNames.Weapon_Locations[1][1][0]: IjiLocData(
@@ -1221,7 +1220,7 @@ events_weapons: Dict[str, IjiLocData] = {
 
     EventNames.Weapon_Locations[2][0][0]: IjiLocData(
         region=RegNames.Sector3_Main[0],
-        locked_item=lambda world: EventNames.Weapons[1],
+        locked_item=lambda world: EventNames.Weapons[2],
         logic=lambda world, state: location_table[LocNames.Weapons_All_Instances[0][0][0]].logic(world, state)
     ),
     EventNames.Weapon_Locations[2][0][1]: IjiLocData(

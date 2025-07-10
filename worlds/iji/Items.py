@@ -106,12 +106,12 @@ def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item
 def create_ribbon_items(world: "IjiWorld", maximum: int) -> List[Item]:
     itemlist: List[Item] = []
 
-    if world.options.goal_ribbons.value > maximum:
-        world.options.goal_ribbons.value = maximum
-        logging.warning(f"{world.player_name} did not have enough locations for their ribbon requirement")
-        logging.warning(f"Their ribbon requirement has been reduced to {world.options.goal_ribbons.value}")
+    if world.options.ribbon_items.value > maximum:
+        world.options.ribbon_items.value = maximum
+        logging.warning(f"{world.player_name} selected more ribbons than available locations")
+        logging.warning(f"Their ribbon count has been reduced to {world.options.ribbon_items.value}")
 
-    itemlist += create_multiple_items(world, ItemNames.Ribbon, world.options.goal_ribbons.value)
+    itemlist += create_multiple_items(world, ItemNames.Ribbon, world.options.ribbon_items.value)
 
     return itemlist
 
@@ -123,15 +123,14 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
     dupe_amounts: List[int] = []
 
     dupe_amounts.append(world.options.extra_sector_access)  # 0
-    dupe_amounts.append(world.options.extra_ribbons)        # 1
-    dupe_amounts.append(world.options.extra_supercharges)   # 2
-    dupe_amounts.append(world.options.extra_health)         # 3
-    dupe_amounts.append(world.options.extra_crack)          # 4
-    dupe_amounts.append(world.options.extra_strength)       # 5
-    dupe_amounts.append(world.options.extra_tasen)          # 6
-    dupe_amounts.append(world.options.extra_komato)         # 7
-    dupe_amounts.append(world.options.extra_attack)         # 8
-    dupe_amounts.append(world.options.extra_assimilate)     # 9
+    dupe_amounts.append(world.options.extra_supercharges)   # 1
+    dupe_amounts.append(world.options.extra_health)         # 2
+    dupe_amounts.append(world.options.extra_crack)          # 3
+    dupe_amounts.append(world.options.extra_strength)       # 4
+    dupe_amounts.append(world.options.extra_tasen)          # 5
+    dupe_amounts.append(world.options.extra_komato)         # 6
+    dupe_amounts.append(world.options.extra_attack)         # 7
+    dupe_amounts.append(world.options.extra_assimilate)     # 8
 
     dupe_count: int = 0
     for i in range(len(dupe_amounts)):
@@ -199,7 +198,6 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
 
 dupe_array: List[str] = [
     ItemNames.Sector_Access[0],
-    ItemNames.Ribbon,
     ItemNames.Supercharge,
     ItemNames.Stat_Health,
     ItemNames.Stat_Crack,

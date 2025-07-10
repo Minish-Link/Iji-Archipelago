@@ -8,20 +8,22 @@ from .Names import RegNames, ItemNames, EventNames
 if TYPE_CHECKING:
     from . import IjiWorld
 
-def can_access_sector(state: CollectionState, world: "IjiWorld",targetsector: int) -> bool:
+def can_access_sector(state: CollectionState, world: "IjiWorld", targetsector: int) -> bool:
     if targetsector == 1:
         return True
     elif world.options.out_of_order_sectors:
-        return state.has(ItemNames.Sector_Access[targetsector], world.player) and \
-            (world.options.health_balancing == False or has_stats(state, world, ItemNames.Stat_Health, targetsector-1))
+        return (state.has(ItemNames.Sector_Access[targetsector], world.player) and 
+                has_stats(state, world, ItemNames.Stat_Health,
+                          world.health_balancing_values[targetsector - 2]))
     else:
-        return state.has(ItemNames.Sector_Access[0], world.player, targetsector-1) and \
-            (world.options.health_balancing == False or has_stats(state, world, ItemNames.Stat_Health, targetsector-1))
+        return (state.has(ItemNames.Sector_Access[0], world.player, targetsector-1) and 
+                has_stats(state, world, ItemNames.Stat_Health,
+                          world.health_balancing_values[targetsector - 2]))
 
 def meets_goal_req(state: CollectionState, world: "IjiWorld") -> bool:
+    ribbons_needed = world.options.ribbon_items.value * (world.options.goal_ribbons.value / 100.0)
     return state.has_all_counts({EventNames.Posters[0]: world.options.goal_posters.value,
-                                 ItemNames.Ribbon: world.options.goal_ribbons.value}, world.player)
-    pass
+                                 ItemNames.Ribbon: ribbons_needed}, world.player)
 
 def has_xp(state: CollectionState, world: "IjiWorld", sector: int, level: int) -> bool:
     current_xp: int = 0
@@ -128,37 +130,46 @@ def has_weapon_stats(state: CollectionState, weaponname: str, world: "IjiWorld",
     elif weaponname == ItemNames.Weapons[8]:
         return state.has(ItemNames.Stat_Komato, world.player, 9) and has_enough_points(state, world, 9 + extra_points)
     elif weaponname == ItemNames.Weapons[9]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 2,
-                                     ItemNames.Stat_Crack: 2}, world.player) and has_enough_points(state, world, 4 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 2,
+                                      ItemNames.Stat_Crack: 2}, world.player)
+                and has_enough_points(state, world, 4 + extra_points))
     elif weaponname == ItemNames.Weapons[10]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 2,
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 2,
                                      ItemNames.Stat_Komato: 5,
-                                     ItemNames.Stat_Crack: 6}, world.player) and has_enough_points(state, world, 13 + extra_points)
+                                     ItemNames.Stat_Crack: 6}, world.player)
+                and has_enough_points(state, world, 13 + extra_points))
     elif weaponname == ItemNames.Weapons[11]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 5,
-                                     ItemNames.Stat_Crack: 4}, world.player) and has_enough_points(state, world, 9 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 5,
+                                     ItemNames.Stat_Crack: 4}, world.player)
+                and has_enough_points(state, world, 9 + extra_points))
     elif weaponname == ItemNames.Weapons[12]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 9,
-                                     ItemNames.Stat_Crack: 8}, world.player) and has_enough_points(state, world, 17 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 9,
+                                     ItemNames.Stat_Crack: 8}, world.player)
+                and has_enough_points(state, world, 17 + extra_points))
     elif weaponname == ItemNames.Weapons[13]:
         return state.has(ItemNames.Stat_Crack, world.player, 3) and has_enough_points(state, world, 3 + extra_points)
     elif weaponname == ItemNames.Weapons[14]:
-        return state.has_all_counts({ItemNames.Stat_Komato: 2,
-                                     ItemNames.Stat_Crack: 5}, world.player) and has_enough_points(state, world, 7 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Komato: 2,
+                                     ItemNames.Stat_Crack: 5}, world.player)
+                and has_enough_points(state, world, 7 + extra_points))
     elif weaponname == ItemNames.Weapons[15]:
-        return state.has_all_counts({ItemNames.Stat_Komato: 5,
-                                     ItemNames.Stat_Crack: 7}, world.player) and has_enough_points(state, world, 12 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Komato: 5,
+                                     ItemNames.Stat_Crack: 7}, world.player)
+                and has_enough_points(state, world, 12 + extra_points))
     elif weaponname == ItemNames.Weapons[16]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 9,
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 9,
                                      ItemNames.Stat_Komato: 9,
-                                     ItemNames.Stat_Crack: 9}, world.player) and has_enough_points(state, world, 27 + extra_points)
+                                     ItemNames.Stat_Crack: 9}, world.player)
+                and has_enough_points(state, world, 27 + extra_points))
     elif weaponname == ItemNames.Weapons[17]:
-        return state.has_all_counts({ItemNames.Stat_Tasen: 9,
-                                     ItemNames.Stat_Komato: 9}, world.player) and has_enough_points(state, world, 18 + extra_points)
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 9,
+                                     ItemNames.Stat_Komato: 9}, world.player)
+                and has_enough_points(state, world, 18 + extra_points))
     elif weaponname == ItemNames.Weapons[18]: # requires using a Velocithor V2-10 to obtain
-        return state.has_all_counts({ItemNames.Stat_Tasen: 9,
+        return (state.has_all_counts({ItemNames.Stat_Tasen: 9,
                                      ItemNames.Stat_Komato: 9,
-                                     ItemNames.Stat_Crack: 9}, world.player) and has_enough_points(state, world, 27 + extra_points)
+                                     ItemNames.Stat_Crack: 9}, world.player)
+                and has_enough_points(state, world, 27 + extra_points))
     elif weaponname == ItemNames.Weapons[0]:
         return True
     else:

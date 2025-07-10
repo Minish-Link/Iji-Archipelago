@@ -2,11 +2,27 @@ from math import ceil
 from typing import List, TYPE_CHECKING, Dict
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, DeathLink, Choice, OptionDict, DefaultOnToggle, OptionGroup
+from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList
 
 if TYPE_CHECKING:
     from . import IjiWorld
 
+def define_health_balancing(world: "IjiWorld") -> List[int]:
+    value_list = world.options.health_balancing.value
+    while (len(value_list) < 9):
+        value_list.append(0)
+
+    for i in range(9):
+        if value_list[i] < 0:
+            value_list[i] = get_random_health_balance_value(world, value_list[i])
+        if value_list[i] > 9:
+            value_list[i] = 9
+    
+    return value_list[:8]
+
+
+def get_random_health_balance_value(world: "IjiWorld", value: int) -> int:
+    return world.random.randint(0, abs(value))
 
 class EndGoal(Choice):
     """
@@ -47,26 +63,27 @@ class GoalPosterLocations(Range):
 
 class GoalRibbonItems(Range):
     """
-    How many Ribbon items you are required to obtain before being able to complete your goal.
-    This many Ribbon items will be added to the item pool.
-
-    If you chose Sector X as your goal, the elevator at the end of the sector will be deactivated until you get them.
-    If you chose Sector Y or Sector Z as your goal, you won't be able to enter Sector Z until you get them.
+    What percentage of your Ribbon items you need to obtain to complete your goal.
+    If you chose Sector 3, 5, 7, or 9 as your goal, the boss arena in that Sector will be blocked by a door until you get enough.
+    If you chose Sector X as your goal, the elevator at the end of the sector will be deactivated until you get enough.
+    If you chose Sector Y or Sector Z as your goal, you won't be able to enter Sector Z until you get enough.
     """
-    display_name = "Ribbon Items Required for Goal"
+    display_name = "Ribbon Percentage Required for Goal"
     default = 0
     range_start = 0
-    range_end = 10
+    range_end = 100
 
 class RibbonItemCount(Range):
     """
-    How many extra Ribbon items should be added to the item pool.
-    If your goal requires zero ribbons, this option will do nothing.
+    How many Ribbon items to add to the item pool.
+    If there are fewer available locations than this number,
+    a number of ribbons equal to the number of remaining locations will be added instead.
+    If your goal requires zero ribbons, no ribbons will be added.
     """
-    display_name = "Extra Ribbon Items"
-    default = 0
+    display_name = "Maximum Ribbon Items"
+    default = 10
     range_start = 0
-    range_end = 10
+    range_end = 500
 
 class PosterLocations(DefaultOnToggle):
     """
@@ -292,14 +309,22 @@ class ClownShoesWeight(Range):
     range_start = 0
     range_end = 100
 
-class HealthBalancing(DefaultOnToggle):
+class HealthBalancing(OptionList):
     """
-    If enabled, Sectors will logically require Health Stat items.
-    This should force Health Stat items to be forced into earlier spheres.
-    Each Sector beyond Sector 1 requires 1 more Health item than the previous,
-    up to Sector X logically requiring 9 Health Stat items
+    To help push health stat items into earlier locations in the multiworld,
+    and to ensure that you don't have to play late game sectors with low health,
+    this option will force Sectors to require having a minimum number of Health Stat items to be in logic.
+    It won't physically lock you out of the Sectors, so you can still play Sectors out of logic if you want.
+
+    Should have nine values, representing Sectors 2 through X (Sector 1 never requires Health)
+    Values range from 0 to 9.
+    Alternatively, you can also enter negative numbers to choose a random value for that sector.
+    The absolute value of a negative number determines the maximum range for that random value.
+    e.g. a value of -9 will allow any number between 0 and 9 to be chosen,
+    and a value of -3 will choose a number between 0 and 3.
     """
-    display_name = "Health Progression Balancing"
+    display_name = "Health Balancing Values"
+    default = [1,2,3,4,5,6,7,8,9]
 
 class IjiDeathLink(DeathLink):
     """
@@ -426,12 +451,42 @@ class DebugAbilities(Choice):
     option_starting_item = 2
     default = 0
 
+class DoorShuffle(Toggle):
+    """
+    Unused Placeholder option for now
+    """
+    display_name = "Door Shuffle"
+
+class ShieldDoorShuffleType(Choice):
+    """
+    Unused Placeholder option for now
+    """
+    display_name = "Shield Door Shuffle Type"
+    option_individual_doors = 1
+    option_progressive_resistance = 2
+
+class SecuredDoorShuffleType(Choice):
+    """
+    Unused Placeholder option for now
+    """
+    display_name = "Secured Door Shuffle Type"
+    option_individual_doors = 1
+    option_progressive_security = 2
+
+class TerminalDoorShuffleType(Choice):
+    """
+    Unused Placeholder option for now
+    """
+    display_name = "Terminal Door Shuffle Type"
+    option_individual_doors = 1
+    option_sector_doors = 2
+
 @dataclass
 class IjiOptions(PerGameCommonOptions):
     end_goal:                       EndGoal
     goal_posters:                   GoalPosterLocations
     goal_ribbons:                   GoalRibbonItems
-    extra_ribbons:                  RibbonItemCount
+    ribbon_items:                   RibbonItemCount
     out_of_order_sectors:           OutOfOrderSectors
 
     poster_locations:               PosterLocations
@@ -475,19 +530,21 @@ class IjiOptions(PerGameCommonOptions):
 iji_option_groups = [
     OptionGroup("Goal Options", [
         EndGoal,
-        RibbonItemCount,
-        OutOfOrderSectors
+        GoalPosterLocations,
+        GoalRibbonItems,
+        RibbonItemCount
     ]),
-    OptionGroup("Locations", [
+    OptionGroup("Location Options", [
         PosterLocations,
         SuperchargeLocations,
         BasicWeaponLocations,
         LogbookLocations,
-        CrackBoxLocations
+        CrackBoxLocations,
+        OverloadLocations
     ]),
-    OptionGroup("Items", [
+    OptionGroup("Item Options", [
         SpecialTraitItems,
-        SectorAccessItems, 
+        SectorAccessItems,
         HealthItems,
         AttackItems,
         AssimilateItems,
@@ -498,9 +555,10 @@ iji_option_groups = [
         JumpUpgrades,
         ArmorUpgrades,
         ExtraSupercharges,
-        Levelsanity
+        Levelsanity,
+        DebugAbilities
     ]),
-    OptionGroup("Traps", [
+    OptionGroup("Trap Options", [
         TrapPercentage,
         RocketTrapWeight,
         BananaTrapWeight,
@@ -511,12 +569,12 @@ iji_option_groups = [
         NapTrapWeight,
         ClownShoesWeight
     ]),
-    OptionGroup("Miscellaneous", [
+    OptionGroup("Miscellaneous Options", [
         HealthBalancing,
+        LogicDifficulty,
+        OutOfOrderSectors,
         IjiDeathLink,
         DeathLinkDamage,
-        LogicDifficulty,
-        MusicShuffle,
-        DebugAbilities
+        MusicShuffle
     ])
 ]

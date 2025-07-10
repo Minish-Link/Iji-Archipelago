@@ -12,6 +12,7 @@ class ExitData(NamedTuple):
 
 region_exit_table: Dict[str, Dict[str, ExitData]] = {
     RegNames.Menu: {
+        RegNames.Global: ExitData(),
         RegNames.Sector1_Main[0]: ExitData(
             logic=lambda world, state: can_access_sector(state, world, 1)
         ),
@@ -50,6 +51,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: can_access_sector(state, world, 10)
         )
     },
+    RegNames.Global: {},
     # Sector 1
     # Main Path
     RegNames.Sector1_Main[0]: {
