@@ -9,15 +9,15 @@ if TYPE_CHECKING:
 
 
 hb_sector_indices: List[str] = [
-    "Sector_2",
-    "Sector_3",
-    "Sector_4",
-    "Sector_5",
-    "Sector_6",
-    "Sector_7",
-    "Sector_8",
-    "Sector_9",
-    "Sector_X"
+    "Sector 2",
+    "Sector 3",
+    "Sector 4",
+    "Sector 5",
+    "Sector 6",
+    "Sector 7",
+    "Sector 8",
+    "Sector 9",
+    "Sector X"
 ]
 
 def define_health_balancing(world: "IjiWorld") -> List[int]:
@@ -71,7 +71,7 @@ def get_shuffled_music(world: "IjiWorld") -> Dict[str, str]:
 
     temp_music_list = music_list[:song_shuffle_count]
     for i in range(song_shuffle_count):
-        music_dict[music_list[i]] = temp_music_list.pop(world.random.randrage(0, len(temp_music_list)))
+        music_dict[music_list[i]] = temp_music_list.pop(world.random.randrange(0, len(temp_music_list)))
 
     return music_dict
 
@@ -450,15 +450,15 @@ class HealthBalancing(OptionDict):
     """
     display_name = "Health Balancing Values"
     default = {
-        "Sector_2": 1,
-        "Sector_3": 2,
-        "Sector_4": 3,
-        "Sector_5": 4,
-        "Sector_6": 5,
-        "Sector_7": 6,
-        "Sector_8": 7,
-        "Sector_9": 8,
-        "Sector_X": 9
+        "Sector 2": 1,
+        "Sector 3": 2,
+        "Sector 4": 3,
+        "Sector 5": 4,
+        "Sector 6": 5,
+        "Sector 7": 6,
+        "Sector 8": 7,
+        "Sector 9": 8,
+        "Sector X": 9
     }
 
 class IjiDeathLink(DeathLink):

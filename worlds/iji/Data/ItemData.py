@@ -93,37 +93,37 @@ items_traits: Dict[str, IjiItemData] = {
 
 items_filler: Dict[str, IjiItemData] = {
     ItemNames.Filler[0]: IjiItemData(
-        code=201, progtype=ItemClassification.filler, weight=10
+        code=201, progtype=ItemClassification.filler, weight=15
     ),
     ItemNames.Filler[1]: IjiItemData(
-        code=202, progtype=ItemClassification.filler, weight=4
+        code=202, progtype=ItemClassification.filler, weight=3
     ),
     ItemNames.Filler[2]: IjiItemData(
-        code=203, progtype=ItemClassification.filler, weight=12
+        code=203, progtype=ItemClassification.filler, weight=8
     ),
     ItemNames.Filler[3]: IjiItemData(
-        code=204, progtype=ItemClassification.filler, weight=5
+        code=204, progtype=ItemClassification.filler, weight=4
     ),
     ItemNames.Filler[4]: IjiItemData(
-        code=205, progtype=ItemClassification.filler, weight=4
+        code=205, progtype=ItemClassification.filler, weight=3
     ),
     ItemNames.Filler[5]: IjiItemData(
-        code=206, progtype=ItemClassification.filler, weight=3
+        code=206, progtype=ItemClassification.filler, weight=2
     ),
     ItemNames.Filler[6]: IjiItemData(
-        code=207, progtype=ItemClassification.filler, weight=4
+        code=207, progtype=ItemClassification.filler, weight=3
     ),
     ItemNames.Filler[7]: IjiItemData(
-        code=208, progtype=ItemClassification.filler, weight=3
+        code=208, progtype=ItemClassification.filler, weight=2
     ),
     ItemNames.Filler[8]: IjiItemData(
-        code=209, progtype=ItemClassification.filler, weight=2
+        code=209, progtype=ItemClassification.filler, weight=1
     ),
     ItemNames.Filler[9]: IjiItemData(
-        code=210, progtype=ItemClassification.filler, weight=8
+        code=210, progtype=ItemClassification.filler, weight=5
     ),
     ItemNames.Filler[10]: IjiItemData(
-        code=211, progtype=ItemClassification.filler, weight=10
+        code=211, progtype=ItemClassification.filler, weight=6
     )
 }
 
