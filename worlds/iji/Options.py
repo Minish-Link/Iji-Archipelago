@@ -2,42 +2,88 @@ from math import ceil
 from typing import List, TYPE_CHECKING, Dict
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList
+from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList, OptionDict
 
 if TYPE_CHECKING:
     from . import IjiWorld
 
+
+hb_sector_indices: List[str] = [
+    "Sector_2",
+    "Sector_3",
+    "Sector_4",
+    "Sector_5",
+    "Sector_6",
+    "Sector_7",
+    "Sector_8",
+    "Sector_9",
+    "Sector_X"
+]
+
 def define_health_balancing(world: "IjiWorld") -> List[int]:
-    value_list = world.options.health_balancing.value
-    while (len(value_list) < 9):
-        value_list.append(0)
+    value_list: List[int] = []
 
     for i in range(9):
-        if value_list[i] < 0:
-            value_list[i] = get_random_health_balance_value(world, value_list[i])
-        if value_list[i] > 9:
-            value_list[i] = 9
-    
-    return value_list[:8]
+        if hb_sector_indices[i] in world.options.health_balancing.value:
+            cur_val: int = world.options.health_balancing.value[hb_sector_indices[i]]
+            if cur_val < 0:
+                value_list.append(get_random_health_balance_value(world, cur_val))
+            else:
+                value_list.append(min(9, cur_val))
+        else:
+            value_list.append(i + 1)
 
+        world.options.health_balancing.value[hb_sector_indices[i]] = value_list[i]
+    
+    return value_list
 
 def get_random_health_balance_value(world: "IjiWorld", value: int) -> int:
-    return world.random.randint(0, abs(value))
+    return min(9, world.random.randint(0, abs(value)))
+
+def get_shuffled_music(world: "IjiWorld") -> Dict[str, str]:
+    music_list: List[str] = [
+        "secintro.mp3",
+        "sec1.mp3",
+        "sec2.mp3",
+        "sec3.mp3",
+        "sec4.mp3",
+        "sec5.mp3",
+        "boss.mp3",
+        "tor.mp3",
+        "ending.mp3",
+        "mainmenu.mp3",
+        "clear.mp3",
+        "calm.mp3",
+        "dark.mp3",
+        "sad.mp3",
+        "asha.mp3",
+        "hero3d.mp3"
+    ]
+    music_dict: Dict[str, str] = {}
+    for name in music_list:
+        music_dict[name] = name
+
+    song_shuffle_count = 0
+    if world.options.music_shuffle == 1:
+        song_shuffle_count = 6
+    elif world.options.music_shuffle == 2:
+        song_shuffle_count = 15
+
+    temp_music_list = music_list[:song_shuffle_count]
+    for i in range(song_shuffle_count):
+        music_dict[music_list[i]] = temp_music_list.pop(world.random.randrage(0, len(temp_music_list)))
+
+    return music_dict
+
 
 class EndGoal(Choice):
     """
     Sector 3: Reach the end of Sector 3 and defeat Elite Krotera. Sectors 4-X will be excluded.
-
     Sector 5: Reach the end of Sector 5 and defeat Assassin Asha. Sectors 6-X will be excluded.
-
     Sector 7: Reach the end of Sector 7 and defeat Sentinel Proxima. Sectors 8-X will be excluded.
-
     Sector 9: Reach the end of Sector 9 and defeat Annihilator Iosa. Sector X will be excluded.
-
     Sector X: Reach the end of Sector X and defeat General Tor. The vanilla ending of the game.
-    
     Sector Z: Enter and reach the end of Sector Z. Sectors 1-X are included.
-    
     Sector Y: Obtain the Null Driver from Sector Z, defeat General Tor with it, then reach the end of Sector Y.
     """
     display_name = "End Goal"
@@ -106,11 +152,8 @@ class SuperchargeLocations(Choice):
 class BasicWeaponLocations(Choice):
     """
     How obtaining new weapons will send checks.
-
     First Time: Assimilating a basic Nanoweapon sends a check, one per type of weapon.
-
     First Per Sector: Assimilating a basic Nanoweapon sends a check, one per type of weapon per Sector.
-
     All Instances: All instances of basic Nanoweapons in the game send checks
     """
     display_name = "Basic Weapon Locations"
@@ -124,6 +167,63 @@ class LogbookLocations(Toggle):
     If enabled, each logbook in the game is a check
     """
     display_name = "Logbook Locations"
+
+class ExtraItemCount(OptionDict):
+    """
+    How many duplicates of each major item to add to the pool.
+    Negative numbers will choose a random number between 0 and the absolute value of that number.
+    e.g. -7 will choose a random value between 0 and 7.
+
+    If you choose to have extra sector accesses with out of order sectors enabled,
+    an even split of the sector accesses will be added.
+
+    Duplicates of Special Trait items (The ones in capital letters) will only be added
+    if Special Trait Items are enabled
+
+    Duplicate Jump and Armor upgrades can appear anywhere in the multiworld,
+    even if vanilla locations are chosen for the respective original items.
+
+    Note: If there aren't enough locations to fit all the duplicates, it will instead add
+    as much as it can, leaving no room for filler or traps.
+    Also, Duplicates are created after Ribbons, so if your chosen Ribbon count fills up all
+    remaining locations in your world, no duplicate items will be created at all.
+    """
+    display_name = "Extra Items"
+    default = {
+        "Sector Access": 0,
+        "Supercharge": 0,
+        "Health Stat": 0,
+        "Attack Stat": 0,
+        "Assimilate Stat": 0,
+        "Strength Stat": 0,
+        "Crack Stat": 0,
+        "Tasen Stat": 0,
+        "Komato Stat": 0,
+        "Jump Upgrade": 0,
+        "Armor Upgrade": 0,
+        "SUPPRESSION": 0,
+        "IMPROVED AUTOLOADING": 0,
+        "ADVANCED RECOVERY": 0,
+        "CYBERNETIC ENDURANCE": 0,
+        "ELECTRONIC MASTERY": 0,
+        "VENGEANCE": 0,
+        "GLORY": 0
+    }
+
+class MaximumStatAllowed(OptionDict):
+    """
+    Placeholder
+    """
+    display_name = "Maximum Allowed Stats"
+    default = {
+        "Health": 10,
+        "Attack": 10,
+        "Assimilate": 10,
+        "Strength": 10,
+        "CracK": 10,
+        "Tasen": 10,
+        "Komato": 10
+    }
 
 class SectorAccessItems(Range):
     """
@@ -221,6 +321,29 @@ class TrapPercentage(Range):
     range_start = 0
     range_end = 100
 
+class TrapWeights(OptionDict):
+    """
+    How likely each trap is to be chosen when creating a trap item.
+    Choosing 0 disables a trap entirely.
+    Rocket to the Face spawns a rocket projectile that flies toward Iji.
+    Banana spawns an exploding banana projectile at Iji's position.
+    Blits Nest spawns a handful of Blit enemies at Iji's position.
+    Turbo Mode doubles the game speed for 20 seconds.
+    Clown Shoes makes Iji's footsteps squeaky for 1 minute.
+    Power Nap knocks Iji down for 10 seconds (or until damaged)
+    Null Drive randomly swaps around background textures, effect persists until the game is closed.
+    """
+    display_name = "Trap Weights"
+    default = {
+        "Rocket to the Face": 20,
+        "Banana": 20,
+        "Blits Nest": 20,
+        "Turbo Mode": 10,
+        "Clown Shoes": 10,
+        "Power Nap": 20,
+        "Null Drive": 0
+    }
+
 class RocketTrapWeight(Range):
     """
     How weighted Rocket to the Face traps are to be chosen, if traps are shuffled.
@@ -309,22 +432,34 @@ class ClownShoesWeight(Range):
     range_start = 0
     range_end = 100
 
-class HealthBalancing(OptionList):
+class HealthBalancing(OptionDict):
     """
     To help push health stat items into earlier locations in the multiworld,
     and to ensure that you don't have to play late game sectors with low health,
     this option will force Sectors to require having a minimum number of Health Stat items to be in logic.
     It won't physically lock you out of the Sectors, so you can still play Sectors out of logic if you want.
 
-    Should have nine values, representing Sectors 2 through X (Sector 1 never requires Health)
-    Values range from 0 to 9.
+    Values should range from 0 to 9.
     Alternatively, you can also enter negative numbers to choose a random value for that sector.
     The absolute value of a negative number determines the maximum range for that random value.
     e.g. a value of -9 will allow any number between 0 and 9 to be chosen,
     and a value of -3 will choose a number between 0 and 3.
+
+    NOTE: Later sectors can be brutally difficult with low health,
+    only mess around with this if you are absolutely confident in your abilities.
     """
     display_name = "Health Balancing Values"
-    default = [1,2,3,4,5,6,7,8,9]
+    default = {
+        "Sector_2": 1,
+        "Sector_3": 2,
+        "Sector_4": 3,
+        "Sector_5": 4,
+        "Sector_6": 5,
+        "Sector_7": 6,
+        "Sector_8": 7,
+        "Sector_9": 8,
+        "Sector_X": 9
+    }
 
 class IjiDeathLink(DeathLink):
     """
@@ -348,11 +483,13 @@ class LogicDifficulty(Choice):
     """
     Normal Logic: Expects the player to reach locations in the normal, dev-intended ways
 
-    Hard Logic: Expects the player to utilize methods needed to reach posters and supercharges, but in other locations.
+    Hard Logic: Expects the player to utilize vanilla methods that would be needed to
+    reach posters and supercharges in order to reach all locations.
 
-    Extreme Logic: 
+    Extreme Logic: Same as Hard Logic, but some locations may require more setup and/or longer chains of skips
 
-    Ultimortal Logic: 
+    Ultimortal Logic: Expects more unorthodox skips from the player
+    using techniques that would otherwise never be required.
 
     reallyjoel's Dad Logic: Anything goes. If it's technically possible, it's in logic.
     """
@@ -362,6 +499,16 @@ class LogicDifficulty(Choice):
     option_extreme_logic = 2
     option_ultimortal_logic = 3
     option_reallyjoelsdad_logic = 4
+    default = 0
+
+class GameDifficulty(Choice):
+    """
+    Placeholder
+    """
+    display_name = "Game Difficulty"
+    option_normal = 0
+    option_hard = 1
+    option_extreme = 2
     default = 0
 
 class MusicShuffle(Choice):
@@ -448,7 +595,7 @@ class DebugAbilities(Choice):
     display_name = "Fire Anytime Item"
     option_off = 0
     option_shuffle = 1
-    option_starting_item = 2
+    #option_starting_item = 2
     default = 0
 
 class DoorShuffle(Toggle):
@@ -497,35 +644,21 @@ class IjiOptions(PerGameCommonOptions):
     nano_overload_locations:        OverloadLocations
 
     special_trait_items:            SpecialTraitItems
-    extra_sector_access:            SectorAccessItems
-    extra_health:                   HealthItems
-    extra_attack:                   AttackItems
-    extra_assimilate:               AssimilateItems
-    extra_strength:                 StrengthItems
-    extra_crack:                    CrackItems
-    extra_tasen:                    TasenItems
-    extra_komato:                   KomatoItems
+    extra_items:                    ExtraItemCount
     jump_upgrades:                  JumpUpgrades
     armor_upgrades:                 ArmorUpgrades
-    extra_supercharges:             ExtraSupercharges
     levelsanity:                    Levelsanity
+    debug_item:                     DebugAbilities
 
     trap_percentage:                TrapPercentage
-    rocket_trap_weight:             RocketTrapWeight
-    banana_trap_weight:             BananaTrapWeight
-    blits_trap_weight:              BlitsTrapWeight
-    null_drive_trap_weight:         NullDriveTrapWeight
+    trap_weights:                   TrapWeights
     null_drive_factor:              NullDriveFactor
-    turbo_trap_weight:              TurboTrapWeight
-    nap_trap_weight:                NapTrapWeight
-    clown_shoes_weight:             ClownShoesWeight
 
     health_balancing:               HealthBalancing
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
     logic_difficulty:               LogicDifficulty
     music_shuffle:                  MusicShuffle
-    debug_item:                     DebugAbilities
 
 iji_option_groups = [
     OptionGroup("Goal Options", [
@@ -544,30 +677,16 @@ iji_option_groups = [
     ]),
     OptionGroup("Item Options", [
         SpecialTraitItems,
-        SectorAccessItems,
-        HealthItems,
-        AttackItems,
-        AssimilateItems,
-        StrengthItems,
-        CrackItems,
-        TasenItems,
-        KomatoItems,
+        ExtraItemCount,
         JumpUpgrades,
         ArmorUpgrades,
-        ExtraSupercharges,
         Levelsanity,
         DebugAbilities
     ]),
     OptionGroup("Trap Options", [
         TrapPercentage,
-        RocketTrapWeight,
-        BananaTrapWeight,
-        BlitsTrapWeight,
-        NullDriveTrapWeight,
-        NullDriveFactor,
-        TurboTrapWeight,
-        NapTrapWeight,
-        ClownShoesWeight
+        TrapWeights,
+        NullDriveFactor
     ]),
     OptionGroup("Miscellaneous Options", [
         HealthBalancing,

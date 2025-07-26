@@ -1,0 +1,80 @@
+﻿[
+    {
+        "name": "Sector1",
+        "img": "Sector_1.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector2",
+        "img": "Sector_2.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector3",
+        "img": "Sector_3.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector4",
+        "img": "Sector_4.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector5",
+        "img": "Sector_5.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector6",
+        "img": "Sector_6.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector7",
+        "img": "Sector_7.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector8",
+        "img": "Sector_8.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Sector9",
+        "img": "Sector_9.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "DeepSector",
+        "img": "Sector_9D.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "SectorX",
+        "img": "Sector_X.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "SectorZ",
+        "img": "Sector_Z.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "SectorY",
+        "img": "Sector_Y.png",
+        "location_size": 18,
+        "location_border_thickness": 2
+    }
+]

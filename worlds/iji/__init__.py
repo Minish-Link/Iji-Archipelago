@@ -8,8 +8,9 @@ from .Data.LocData import location_table
 from .Data.ItemData import item_table
 from .Regions import create_regions
 from .Names import RegNames
-from .Options import IjiOptions, iji_option_groups, define_health_balancing
+from .Options import IjiOptions, iji_option_groups, define_health_balancing, get_shuffled_music
 from worlds.AutoWorld import WebWorld, World, CollectionState
+from .Maps.map_page_index import map_page_index
 #from Utils import visualize_regions
 
 from .Names import ItemNames
@@ -47,6 +48,15 @@ class IjiWorld(World):
 
     health_balancing_values: List[int]
 
+    ut_can_gen_without_yaml = True
+
+    tracker_world = {
+        "map_page_folder": "Maps",
+        "map_page_maps": "maps.json",
+        "map_page_locations": "locations.json",
+        "map_page_index": map_page_index
+    }
+
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
 
@@ -69,44 +79,68 @@ class IjiWorld(World):
         return {
             "ModVersion": 3,
             "ModSemantic": "1.2.0",
+
             "Goal": self.options.end_goal.value,
-            "GoalRibbons": self.options.ribbon_items.value * (self.options.goal_ribbons.value / 100.0),
             "GoalPosters": self.options.goal_posters.value,
-            "DeathLink": self.options.deathlink.value,
-            "DeathLinkDamage": self.options.deathlink_damage.value,
-            "SpecialTraits": self.options.special_trait_items.value,
-            "ArmorUpgrades": self.options.armor_upgrades.value,
-            "SuperchargeLocations": self.options.supercharge_locations.value,
-            "NullDriveFactor": self.options.null_drive_factor.value,
-            "MusicShuffle": self.options.music_shuffle.value,
-            "Levelsanity": self.options.levelsanity.value,
-            # For Poptracker
-            "LogicDifficulty": self.options.logic_difficulty.value,
-            "HealthBalancing": self.health_balancing_values,
+            "GoalRibbons": self.options.goal_ribbons.value,
+            "RibbonCount": self.options.ribbon_items.value,
+
             "PosterLocations": self.options.poster_locations.value,
+            "SuperchargeLocations": self.options.supercharge_locations.value,
             "BasicWeaponLocations": self.options.basic_weapon_locations.value,
             "LogbookLocations": self.options.logbook_locations.value,
             "CrackBoxLocations": self.options.security_box_locations.value,
-            "OverloadLocations": self.options.nano_overload_locations.value
+            "OverloadLocations": self.options.nano_overload_locations.value,
+
+            "SpecialTraits": self.options.special_trait_items.value,
+            "ArmorUpgrades": self.options.armor_upgrades.value,
+            "Levelsanity": self.options.levelsanity.value,
+
+            "NullDriveFactor": self.options.null_drive_factor.value,
+
+            "HealthBalancing": self.health_balancing_values,
+            "DeathLink": self.options.deathlink.value,
+            "DeathLinkDamage": self.options.deathlink_damage.value,
+            "LogicDifficulty": self.options.logic_difficulty.value,
+            "MusicShuffle": self.options.music_shuffle.value,
+            "ShuffledSongs": get_shuffled_music(self)
         }
 
     def generate_early(self):
-        if self.options.goal_posters.value > self.options.end_goal.value:
-            self.options.goal_posters.value = self.options.end_goal.value
-            logging.warning(f"{self.player_name} required more posters than available sectors.")
-            logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
-
-        # Universal Tracker stuff
+        # If using Universal Tracker
         if hasattr(self.multiworld, "re_gen_passthrough"):
             if "Iji" in self.multiworld.re_gen_passthrough:
                 passthrough = self.multiworld.re_gen_passthrough["Iji"]
-                self.health_balancing_values = passthrough["HealthBalancing"]
+                self.options.end_goal.value = passthrough["Goal"]
+                self.options.goal_posters.value = passthrough["GoalPosters"]
+                self.options.goal_ribbons.value = passthrough["GoalRibbons"]
+                self.options.ribbon_items.value = passthrough["RibbonCount"]
+                
+                self.options.poster_locations.value = passthrough["PosterLocations"]
+                self.options.supercharge_locations.value = passthrough["SuperchargeLocations"]
+                self.options.basic_weapon_locations.value = passthrough["BasicWeaponLocations"]
+                self.options.logbook_locations.value = passthrough["LogbookLocations"]
+                self.options.security_box_locations.value = passthrough["CrackBoxLocations"]
+                self.options.nano_overload_locations.value = passthrough["OverloadLocations"]
+
+                self.options.special_trait_items.value = passthrough["SpecialTraits"]
+                self.options.armor_upgrades.value = passthrough["ArmorUpgrades"]
+                self.options.levelsanity.value = passthrough["Levelsanity"]
+
+                self.health_balancing_values = list(passthrough["HealthBalancing"])
+                self.options.logic_difficulty.value = passthrough["LogicDifficulty"]
         else:
             # If not using Universal Tracker
-            self.health_balancing_values = define_health_balancing()
+            self.health_balancing_values = define_health_balancing(self)
+            if self.options.goal_posters.value > self.options.end_goal.value:
+                self.options.goal_posters.value = self.options.end_goal.value
+                logging.warning(f"{self.player_name} required more posters than available sectors.")
+                logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
+
 
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+
         return slot_data
 
     #def post_fill(self):

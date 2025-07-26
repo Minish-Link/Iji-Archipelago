@@ -852,7 +852,7 @@ locations_uniquebasicweapons: Dict[str, IjiLocData] = {
 locations_uniquespecialweapons: Dict[str, IjiLocData] = {
     LocNames.Weapon_Banana: IjiLocData(
         code=248, region=RegNames.Sector9_Poster[3],
-        valid=lambda world: False,
+        valid=lambda world: True,
         logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[17],world)
     ),
     LocNames.Weapon_Massacre: IjiLocData(
@@ -862,13 +862,13 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
     ),
     LocNames.Weapon_Null: IjiLocData(
         code=250, region=RegNames.SectorZ_Null,
-        valid=lambda world: False,
+        valid=lambda world: True,
         logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[0],world)
     )
 }
 
 locations_combinedweapons: Dict[str,IjiLocData] = {
-    LocNames.Weapons_Combined[0]:   IjiLocData(
+    LocNames.Weapons_Combined[0]: IjiLocData(
         code=251, region=RegNames.Global,
         logic=lambda world, state: can_make_bustergun(state, world)
     ),

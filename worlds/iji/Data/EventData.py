@@ -1145,47 +1145,50 @@ events_weapons: Dict[str, IjiLocData] = {
         region=RegNames.SectorZ_Null,
         locked_item=lambda world: EventNames.Weapons[0]
     ),
-
+    EventNames.Weapons[1]: IjiLocData(
+        region=RegNames.Global,
+        locked_item=lambda world: EventNames.Weapons[1]
+    ),
     EventNames.Weapons[9]:  IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[9],
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[0]].logic(world, state)
     ),
     EventNames.Weapons[10]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[10],
         valid=lambda world: location_table[LocNames.Weapons_Combined[1]].valid(world),
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[1]].logic(world, state)
     ),
     EventNames.Weapons[11]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[11],
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[2]].logic(world, state)
     ),
     EventNames.Weapons[12]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[12],
         valid=lambda world: location_table[LocNames.Weapons_Combined[3]].valid(world),
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[3]].logic(world, state)
     ),
     EventNames.Weapons[13]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[13],
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[4]].logic(world, state)
     ),
     EventNames.Weapons[14]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[14],
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[5]].logic(world, state)
     ),
     EventNames.Weapons[15]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[15],
         valid=lambda world: location_table[LocNames.Weapons_Combined[6]].valid(world),
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[6]].logic(world, state)
     ),
     EventNames.Weapons[16]: IjiLocData(
-        region=RegNames.Menu,
+        region=RegNames.Global,
         locked_item=lambda world: EventNames.Weapons[16],
         valid=lambda world: location_table[LocNames.Weapons_Combined[7]].valid(world),
         logic=lambda world, state: location_table[LocNames.Weapons_Combined[7]].logic(world, state)

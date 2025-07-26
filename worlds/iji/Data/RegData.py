@@ -1086,6 +1086,11 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector9_Bulkhead[1]: ExitData(),
         RegNames.Sector9_Bulkhead[2]: ExitData(),
         RegNames.Sector9_Bulkhead[3]: ExitData(),
+        RegNames.Sector9_Side[2]: ExitData(
+            logic=lambda world, state: (
+                has_stats(state, world, ItemNames.Stat_Crack, 5)
+            )
+        ),
         RegNames.Sector9_Side[13]: ExitData(
             logic=lambda world, state: (
                 state.has_any([EventNames.Weapons[3], EventNames.Weapons[7]], world.player) or

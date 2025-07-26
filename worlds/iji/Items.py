@@ -41,7 +41,7 @@ def create_itempool(world: "IjiWorld") -> List[Item]:
         itempool += create_multiple_items(world, ItemNames.Supercharge, 5 * sector_count)
 
     if world.options.out_of_order_sectors:
-        for i in range(1, sector_count + 1):
+        for i in range(2, sector_count + 1):
             itempool.append(create_item(world, ItemNames.Sector_Access[i]))
     else:
         itempool += create_multiple_items(world, ItemNames.Sector_Access[0], sector_count - 1)
@@ -106,14 +106,40 @@ def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item
 def create_ribbon_items(world: "IjiWorld", maximum: int) -> List[Item]:
     itemlist: List[Item] = []
 
-    if world.options.ribbon_items.value > maximum:
-        world.options.ribbon_items.value = maximum
+    allowed_ribbons = maximum - get_post_goal_location_count(world)
+
+    if world.options.ribbon_items.value > allowed_ribbons:
+        world.options.ribbon_items.value = allowed_ribbons
         logging.warning(f"{world.player_name} selected more ribbons than available locations")
         logging.warning(f"Their ribbon count has been reduced to {world.options.ribbon_items.value}")
 
     itemlist += create_multiple_items(world, ItemNames.Ribbon, world.options.ribbon_items.value)
 
     return itemlist
+
+def get_post_goal_location_count(world: "IjiWorld") -> int:
+    count: int = 0
+
+    if world.options.end_goal.value == 12:
+        count += 2 # Null Driver location and Sector Z complete
+
+    if world.options.supercharge_locations.value > 0:
+        if (world.options.end_goal.value == 5 or world.options.end_goal.value == 7):
+            count += 1 # Asha/Proxima supercharge
+
+    if world.options.logbook_locations.value > 0:
+        if world.options.end_goal.value >= 11:
+            count += 2 # Sector Z logbooks
+        if world.options.end_goal.value == 12:
+            count += 15 # Sector Y logbooks
+
+    if world.options.poster_locations.value > 0:
+        if world.options.end_goal.value >= 11:
+            count += 1 # Epic Poster
+        if world.options.end_goal.value == 12:
+            count += 1 # Poster of Doom
+    
+    return count
 
 def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
     itemlist: List[Item] = []
@@ -122,15 +148,35 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
 
     dupe_amounts: List[int] = []
 
-    dupe_amounts.append(world.options.extra_sector_access)  # 0
-    dupe_amounts.append(world.options.extra_supercharges)   # 1
-    dupe_amounts.append(world.options.extra_health)         # 2
-    dupe_amounts.append(world.options.extra_crack)          # 3
-    dupe_amounts.append(world.options.extra_strength)       # 4
-    dupe_amounts.append(world.options.extra_tasen)          # 5
-    dupe_amounts.append(world.options.extra_komato)         # 6
-    dupe_amounts.append(world.options.extra_attack)         # 7
-    dupe_amounts.append(world.options.extra_assimilate)     # 8
+    dupe_array: List[str] = [
+    "Sector Access",
+    ItemNames.Upgrade_Jump,
+    ItemNames.Supercharge,
+    ItemNames.Stat_Health,
+    ItemNames.Stat_Crack,
+    ItemNames.Stat_Strength,
+    ItemNames.Stat_Tasen,
+    ItemNames.Stat_Komato,
+    ItemNames.Stat_Attack,
+    ItemNames.Stat_Assimilate,
+    ItemNames.Upgrade_Armor,
+    ItemNames.Special_Health,
+    ItemNames.Special_Attack,
+    ItemNames.Special_Assimilate,
+    ItemNames.Special_Strength,
+    ItemNames.Special_Crack,
+    ItemNames.Special_Tasen,
+    ItemNames.Special_Komato
+]
+
+    for item_name in dupe_array:
+        if item_name in world.options.extra_items.value.keys():
+            if world.options.extra_items.value[item_name] < 0:
+                dupe_amounts.append(world.random.randint(0, abs(world.options.extra_items.value[item_name])))
+            else:
+                dupe_amounts.append(world.options.extra_items.value[item_name])
+        else:
+            dupe_amounts.append(0)
 
     dupe_count: int = 0
     for i in range(len(dupe_amounts)):
@@ -141,26 +187,29 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
     while dupe_count > 0:
         for i in range(len(dupe_amounts)):
             if dupe_amounts[i] > 0 and dupe_count > 0:
-                if i == 0 and world.options.out_of_order_sectors:
-                    sector: int = (dupe_amounts[0] % (sector_count - 1)) + 2
-                    itemlist.append(create_item(world, ItemNames.Sector_Access[sector]))
-                else:
+                if i == 0:
+                    if world.options.out_of_order_sectors:
+                        sector: int = (dupe_amounts[0] % (sector_count - 1)) + 2
+                        itemlist.append(create_item(world, ItemNames.Sector_Access[sector]))
+                    else:
+                        itemlist.append(create_item(world, ItemNames.Sector_Access[0]))
+                elif (i < 11 or world.options.special_trait_items):
                     itemlist.append(create_item(world, dupe_array[i]))
                 dupe_amounts[i] -= 1
                 dupe_count -= 1
 
     return itemlist
 
+
 def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     fillerlist: List[Item] = []
 
     trapitemcount: int = 0
-    if world.options.rocket_trap_weight.value > 0 or world.options.blits_trap_weight.value > 0 or \
-        world.options.null_drive_trap_weight.value > 0 or world.options.turbo_trap_weight.value > 0 or \
-        world.options.nap_trap_weight.value > 0 or world.options.clown_shoes_weight.value > 0 or \
-        world.options.banana_trap_weight.value > 0:
     
-        trapitemcount = floor((world.options.trap_percentage.value / 100.0) * count)
+    for trap_name in ItemNames.Traps:
+        if (trap_name in world.options.trap_weights.value.keys() and world.options.trap_weights.value[trap_name] > 0):
+            trapitemcount = floor((world.options.trap_percentage.value / 100.0) * count)
+            break
     
     filleritemcount: int = count - trapitemcount
     
@@ -178,35 +227,22 @@ def create_filler_items(world: "IjiWorld", count: int) -> List[Item]:
     return fillerlist
 
 def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
-    traplist: List[Item] = []
+    trap_list: List[Item] = []
 
-    trapweights: Dict[str, int] = {}
+    trap_weights: Dict[str, int] = {}
     
-    trapweights[ItemNames.Traps[0]] = world.options.rocket_trap_weight.value
-    trapweights[ItemNames.Traps[1]] = world.options.blits_trap_weight.value
-    trapweights[ItemNames.Traps[2]] = world.options.null_drive_trap_weight.value
-    trapweights[ItemNames.Traps[3]] = world.options.turbo_trap_weight.value
-    trapweights[ItemNames.Traps[4]] = world.options.nap_trap_weight.value
-    trapweights[ItemNames.Traps[5]] = world.options.clown_shoes_weight.value
-    trapweights[ItemNames.Traps[6]] = world.options.banana_trap_weight.value
+    for trap_name in ItemNames.Traps:
+        if trap_name in world.options.trap_weights.value.keys():
+            trap_weights[trap_name] = max(0, world.options.trap_weights.value[trap_name])
+        else:
+            trap_weights[trap_name] = 0
     
     for i in range(count):
-        traplist += [create_item(world,
-            world.random.choices(list(trapweights.keys()), weights=list(trapweights.values()), k=1)[0])]
+        trap_list += [create_item(world,
+            world.random.choices(list(trap_weights.keys()), weights=list(trap_weights.values()), k=1)[0])]
 
-    return traplist
+    return trap_list
 
-dupe_array: List[str] = [
-    ItemNames.Sector_Access[0],
-    ItemNames.Supercharge,
-    ItemNames.Stat_Health,
-    ItemNames.Stat_Crack,
-    ItemNames.Stat_Strength,
-    ItemNames.Stat_Tasen,
-    ItemNames.Stat_Komato,
-    ItemNames.Stat_Attack,
-    ItemNames.Stat_Assimilate
-]
 
 #item_groups_table = {
 #    "Stats": items_primary.keys(),
