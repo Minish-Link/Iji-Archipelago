@@ -62,16 +62,22 @@ def get_shuffled_music(world: "IjiWorld") -> Dict[str, str]:
     music_dict: Dict[str, str] = {}
     for name in music_list:
         music_dict[name] = name
+    
 
-    song_shuffle_count = 0
-    if world.options.music_shuffle == 1:
-        song_shuffle_count = 6
-    elif world.options.music_shuffle == 2:
-        song_shuffle_count = 15
+    if world.options.music_shuffle == 3:
+        temp_track = music_list[world.random.randrange(0,len(music_list))]
+        for name in music_list:
+            music_dict[name] = temp_track
+    else:
+        song_shuffle_count = 0
+        if world.options.music_shuffle == 1:
+            song_shuffle_count = 6
+        elif world.options.music_shuffle == 2:
+            song_shuffle_count = 15
 
-    temp_music_list = music_list[:song_shuffle_count]
-    for i in range(song_shuffle_count):
-        music_dict[music_list[i]] = temp_music_list.pop(world.random.randrange(0, len(temp_music_list)))
+        temp_music_list = music_list[:song_shuffle_count]
+        for i in range(song_shuffle_count):
+            music_dict[music_list[i]] = temp_music_list.pop(world.random.randrange(0, len(temp_music_list)))
 
     return music_dict
 
@@ -183,6 +189,8 @@ class ExtraItemCount(OptionDict):
     Duplicate Jump and Armor upgrades can appear anywhere in the multiworld,
     even if vanilla locations are chosen for the respective original items.
 
+    Duplicates of Fire Anytime will only be added if debug_item is set to shuffle
+
     Note: If there aren't enough locations to fit all the duplicates, it will instead add
     as much as it can, leaving no room for filler or traps.
     Also, Duplicates are created after Ribbons, so if your chosen Ribbon count fills up all
@@ -201,6 +209,7 @@ class ExtraItemCount(OptionDict):
         "Komato Stat": 0,
         "Jump Upgrade": 0,
         "Armor Upgrade": 0,
+        "Fire Anytime": 0,
         "SUPPRESSION": 0,
         "IMPROVED AUTOLOADING": 0,
         "ADVANCED RECOVERY": 0,
@@ -517,11 +526,13 @@ class MusicShuffle(Choice):
     Off: No shuffled music
     Levels Only: Only Level Music gets shuffled amongst each other.
     Full Shuffle: All Looping music tracks get shuffled amongst each other
+    Singularity: All looping music tracks get replaced by one single track
     """
     display_name = "Music Shuffle"
     option_off = 0
     option_levels_only = 1
     option_full_shuffle = 2
+    option_singularity = 3
     default = 0
 
 class OutOfOrderSectors(Toggle):

@@ -127,7 +127,12 @@ class IjiWorld(World):
                 self.options.armor_upgrades.value = passthrough["ArmorUpgrades"]
                 self.options.levelsanity.value = passthrough["Levelsanity"]
 
-                self.health_balancing_values = list(passthrough["HealthBalancing"])
+                self.health_balancing_values = []
+                for i in list(passthrough["HealthBalancing"]):
+                    self.health_balancing_values.append(int(i))
+                while len(self.health_balancing_values) < 9:
+                    self.health_balancing_values.append(0)
+
                 self.options.logic_difficulty.value = passthrough["LogicDifficulty"]
         else:
             # If not using Universal Tracker

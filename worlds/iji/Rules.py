@@ -11,14 +11,12 @@ if TYPE_CHECKING:
 def can_access_sector(state: CollectionState, world: "IjiWorld", targetsector: int) -> bool:
     if targetsector == 1:
         return True
-    elif world.options.out_of_order_sectors:
-        return (state.has(ItemNames.Sector_Access[targetsector], world.player) and 
-                has_stats(state, world, ItemNames.Stat_Health,
-                          world.health_balancing_values[targetsector - 2]))
+    #elif world.options.out_of_order_sectors:
     else:
-        return (state.has(ItemNames.Sector_Access[0], world.player, targetsector-1) and 
-                has_stats(state, world, ItemNames.Stat_Health,
-                          world.health_balancing_values[targetsector - 2]))
+        return ((has_stats(state, world, ItemNames.Stat_Health,
+                          world.health_balancing_values[targetsector-2])) and
+                (state.has(ItemNames.Sector_Access[targetsector], world.player) or
+                 state.has(ItemNames.Sector_Access[0], world.player, targetsector-1)))
 
 def meets_goal_req(state: CollectionState, world: "IjiWorld") -> bool:
     ribbons_needed = world.options.ribbon_items.value * (world.options.goal_ribbons.value / 100.0)

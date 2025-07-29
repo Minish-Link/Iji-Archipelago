@@ -160,13 +160,14 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
     ItemNames.Stat_Attack,
     ItemNames.Stat_Assimilate,
     ItemNames.Upgrade_Armor,
-    ItemNames.Special_Health,
+    ItemNames.Special_Health, #11
     ItemNames.Special_Attack,
     ItemNames.Special_Assimilate,
     ItemNames.Special_Strength,
     ItemNames.Special_Crack,
     ItemNames.Special_Tasen,
-    ItemNames.Special_Komato
+    ItemNames.Special_Komato,
+    ItemNames.Debug # 18
 ]
 
     for item_name in dupe_array:
@@ -193,7 +194,7 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
                         itemlist.append(create_item(world, ItemNames.Sector_Access[sector]))
                     else:
                         itemlist.append(create_item(world, ItemNames.Sector_Access[0]))
-                elif (i < 11 or world.options.special_trait_items):
+                elif (i < 11 or (i < 18 and world.options.special_trait_items) or (i == 18 and world.options.debug_item)):
                     itemlist.append(create_item(world, dupe_array[i]))
                 dupe_amounts[i] -= 1
                 dupe_count -= 1
