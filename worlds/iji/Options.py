@@ -135,7 +135,23 @@ class RibbonItemCount(Range):
     display_name = "Maximum Ribbon Items"
     default = 10
     range_start = 0
-    range_end = 500
+    range_end = 100
+
+class AllowSectorZ(Choice):
+    """
+    Whether or not your world will be able to enter Sector Z, and whether or not you'll be able to reach the Null Driver
+    If your goal is Sector Z, this option won't do anything unless you choose to also enable the Null Driver
+    If your goal is Sector Y, this option won't do anything at all.
+    You can also additionally lock Sector Z behind the same ribbon/poster requirement as your goal
+    If your chosen goal allows you to reach Sector X, and you choose to allow getting the null driver here, Sector Y locations will also be added.
+    """
+    display_name = "Allow Sector Z Locations"
+    default = 0
+    option_off = 0
+    option_sector_z = 0b001
+    option_sector_z_and_nulldriver = 0b011
+    option_sector_z_with_goal_requirement = 0b101
+    option_sector_z_and_null_driver_with_goal_requirement = 0b111
 
 class PosterLocations(DefaultOnToggle):
     """
@@ -645,7 +661,7 @@ class IjiOptions(PerGameCommonOptions):
     goal_posters:                   GoalPosterLocations
     goal_ribbons:                   GoalRibbonItems
     ribbon_items:                   RibbonItemCount
-    out_of_order_sectors:           OutOfOrderSectors
+    allow_sector_z:                 AllowSectorZ
 
     poster_locations:               PosterLocations
     supercharge_locations:          SuperchargeLocations
@@ -666,9 +682,10 @@ class IjiOptions(PerGameCommonOptions):
     null_drive_factor:              NullDriveFactor
 
     health_balancing:               HealthBalancing
+    logic_difficulty:               LogicDifficulty
+    out_of_order_sectors:           OutOfOrderSectors
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
-    logic_difficulty:               LogicDifficulty
     music_shuffle:                  MusicShuffle
 
 iji_option_groups = [
@@ -676,7 +693,8 @@ iji_option_groups = [
         EndGoal,
         GoalPosterLocations,
         GoalRibbonItems,
-        RibbonItemCount
+        RibbonItemCount,
+        AllowSectorZ
     ]),
     OptionGroup("Location Options", [
         PosterLocations,

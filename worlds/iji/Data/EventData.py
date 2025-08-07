@@ -1703,6 +1703,11 @@ events_weapons: Dict[str, IjiLocData] = {
         locked_item=lambda world: EventNames.Weapons[3],
         logic=lambda world, state: location_table[LocNames.Weapons_All_Instances[7][1][2]].logic(world, state)
     ),
+    EventNames.Weapon_Locations[9][1][3]: IjiLocData(
+        region=RegNames.SectorX_Main[2],
+        locked_item=lambda world: EventNames.Weapons[3],
+        logic=lambda world, state: location_table[LocNames.Weapons_All_Instances[7][1][3]].logic(world, state)
+    ),
     EventNames.Weapon_Locations[9][2][0]: IjiLocData(
         region=RegNames.SectorX_Core[1],
         locked_item=lambda world: EventNames.Weapons[4],

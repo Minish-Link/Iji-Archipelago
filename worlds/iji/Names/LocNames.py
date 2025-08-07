@@ -161,6 +161,15 @@ Supercharges: List[str] = [
     "Sector X - Supercharge"
 ]
 
+Tutorial_Pages: List[str] = [
+    "Sector 1 - Tutorial Page 1",
+    "Sector 1 - Tutorial Page 2",
+    "Sector 1 - Tutorial Page 3",
+    "Sector 1 - Tutorial Page 4",
+    "Sector 1 - Tutorial Page 5",
+    "Sector 1 - Tutorial Page 6"
+]
+
 Upgrades_Jump: List[str] = [
     "Sector 2 - Jump Upgrade",
     "Sector 5 - Jump Upgrade"
@@ -283,7 +292,7 @@ Weapons_All_Instances: List[List[List[str]]] = [
  ["Sector 9 - Shocksplinter near Assassin Ambush","Sector 9 - Shocksplinter in Head Guards' Offices","Sector 9 - Shocksplinter in Bunker","Sector 9 - Shocksplinter near Poster"],
  ["Sector 9 - Cyclic Fusion Ignition System near Ribbon","Sector 9 - Cyclic Fusion Ignition System in Bunker","Sector 9 - Cyclic Fusion Ignition System near Poster"]],
 [["Sector X - Machine Gun at Top of First Area","Sector X - Machine Gun in Megacore Control","Sector X - Machine Gun before General Tor"],
- ["Sector X - Rocket Launcher in Megacore Control","Sector X - Rocket Launcher before Helios Labs","Sector X - Rocket Launcher before General Tor"],
+ ["Sector X - Rocket Launcher in Megacore Control","Sector X - Rocket Launcher before Helios Labs","Sector X - Rocket Launcher before General Tor", "Sector X - Rocket Launcher at Bottom of First Area"],
  ["Sector X - MPFB Devastator in Icarus Labs","Sector X - MPFB Devastator before Helios Labs","Sector X - MPFB Devastator before General Tor","Sector X - MPFB Devastator Right of Asha"],
  ["Sector X - Resonance Detonator in Icarus Labs","Sector X - Resonance Detonator Right of Asha"],
  ["Sector X - Pulse Cannon at Bottom of First Area","Sector X - Pulse Cannon in Megacore Control","Sector X - Pulse Cannon before Helios Labs","Sector X - Pulse Cannon before General Tor"],

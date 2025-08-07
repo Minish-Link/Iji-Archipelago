@@ -80,7 +80,7 @@ Weapon_Locations: List[List[List[str]]] = [
  ["Sector 9 - Got Cyclic Fusion Ignition System 1/3","Sector 9 - Got Cyclic Fusion Ignition System 2/3","Sector 9 - Got Cyclic Fusion Ignition System 3/3"]],
 
 [["Sector X - Got Machine Gun 1/3","Sector X - Got Machine Gun 2/3","Sector X - Got Machine Gun 3/3"],
- ["Sector X - Got Rocket Launcher 1/3","Sector X - Got Rocket Launcher 2/3","Sector X - Got Rocket Launcher 3/3"],
+ ["Sector X - Got Rocket Launcher 1/3","Sector X - Got Rocket Launcher 2/3","Sector X - Got Rocket Launcher 3/3","Sector X - Got Rocket Launcher 4"],
  ["Sector X - Got MPFB Devastator 1/4","Sector X - Got MPFB Devastator 2/4","Sector X - Got MPFB Devastator 3/4","Sector X - Got MPFB Devastator 4/4"],
  ["Sector X - Got Resonance Detonator 1/2","Sector X - Got Resonance Detonator 2/2"],
  ["Sector X - Got Pulse Cannon 1/4","Sector X - Got Pulse Cannon 2/4","Sector X - Got Pulse Cannon 3/4","Sector X - Got Pulse Cannon 4/4"],

@@ -84,6 +84,7 @@ class IjiWorld(World):
             "GoalPosters": self.options.goal_posters.value,
             "GoalRibbons": self.options.goal_ribbons.value,
             "RibbonCount": self.options.ribbon_items.value,
+            "SectorZPostGame": self.options.allow_sector_z.value,
 
             "PosterLocations": self.options.poster_locations.value,
             "SuperchargeLocations": self.options.supercharge_locations.value,
@@ -115,6 +116,8 @@ class IjiWorld(World):
                 self.options.goal_posters.value = passthrough["GoalPosters"]
                 self.options.goal_ribbons.value = passthrough["GoalRibbons"]
                 self.options.ribbon_items.value = passthrough["RibbonCount"]
+                if "SectorZPostGame" in passthrough.keys(): # remove this condition when the next major update is released
+                    self.options.allow_sector_z.value = passthrough["SectorZPostGame"]
                 
                 self.options.poster_locations.value = passthrough["PosterLocations"]
                 self.options.supercharge_locations.value = passthrough["SuperchargeLocations"]

@@ -1567,6 +1567,11 @@ locations_allbasicweapons: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.basic_weapon_locations.value == 3,
         logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[3],world)
     ),
+    LocNames.Weapons_All_Instances[7][1][3]: IjiLocData(
+        code=3024, region=RegNames.SectorX_Main[2],
+        valid=lambda world: world.options.basic_weapon_locations.value == 3,
+        logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[4],world)
+        ),
     LocNames.Weapons_All_Instances[7][2][0]: IjiLocData(
         code=3031, region=RegNames.SectorX_Core[1],
         valid=lambda world: world.options.basic_weapon_locations.value == 3,
@@ -2610,6 +2615,27 @@ locations_overloads: Dict[str, IjiLocData] = {
     )
 }
 
+locations_tutorialpages: Dict[str, IjiLocData] = {
+    LocNames.Tutorial_Pages[0]: IjiLocData(
+        code=25, region=RegNames.Sector1_Main[0]
+    ),
+    LocNames.Tutorial_Pages[1]: IjiLocData(
+        code=26, region=RegNames.Sector1_Main[0]
+    ),
+    LocNames.Tutorial_Pages[2]: IjiLocData(
+        code=27, region=RegNames.Sector1_Main[0]
+    ),
+    LocNames.Tutorial_Pages[2]: IjiLocData(
+        code=28, region=RegNames.Sector1_Main[0]
+    ),
+    LocNames.Tutorial_Pages[2]: IjiLocData(
+        code=29, region=RegNames.Sector1_Main[0]
+    ),
+    LocNames.Tutorial_Pages[2]: IjiLocData(
+        code=30, region=RegNames.Sector1_Main[1]
+    )
+}
+
 location_table = {
     **locations_sectorcomplete,
     **locations_levelup,
@@ -2627,4 +2653,5 @@ location_table = {
     **locations_checkpoints,
     **locations_crackboxes,
     **locations_overloads
+    #**locations_tutorialpages
 }

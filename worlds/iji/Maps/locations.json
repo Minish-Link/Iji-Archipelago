@@ -770,6 +770,19 @@
             "y": 121
           }
         ]
+      },
+      {
+        "name": "Sector 3 Outdoors Logbook",
+        "sections": [
+          { "name": "Sector 3 - Logbook in Outdoors Section" }
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 593,
+            "y": 574
+          }
+        ]
       }
     ]
   },
@@ -2782,7 +2795,10 @@
         "sections": [
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector X - Pulse Cannon" },
-          { "name": "Sector X - Pulse Cannon at Bottom of First Area" }
+          { "name": "Sector X - Pulse Cannon at Bottom of First Area" },
+          { "name": "Obtain Rocket Launcher" },
+          { "name": "Sector X - Rocket Launcher" },
+          { "name": "Sector X - Rocket Launcher at Bottom of First Area" }
         ],
         "map_locations": [
           {

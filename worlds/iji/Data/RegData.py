@@ -82,10 +82,11 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
     RegNames.Sector1_Super: {
         RegNames.SectorZ: ExitData(
             valid=lambda world: (
-                world.options.end_goal.value >= 11
+                (world.options.end_goal.value >= 11 or world.options.allow_sector_z.value > 0)
             ),
             logic=lambda world, state: (
-                meets_goal_req(state, world)
+                (meets_goal_req(state, world) or 
+                 (world.options.end_goal.value < 11 and world.options.allow_sector_z.value & 4 == 0))
             )
         )
     },
@@ -95,7 +96,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
     RegNames.SectorZ: {
         RegNames.SectorZ_Null: ExitData(
             valid=lambda world: (
-                world.options.end_goal.value == 12)
+                world.options.end_goal.value == 12 or world.options.allow_sector_z.value & 2 == 2)
         )
     },
     RegNames.SectorZ_Null: {},
@@ -1463,7 +1464,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
     RegNames.SectorX_Final[6]: {
         RegNames.SectorY: ExitData(
             valid=lambda world: (
-                world.options.end_goal.value == 12
+                (world.options.end_goal.value == 12 or world.options.allow_sector_z.value & 2 == 2)
             ),
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[0], world.player)

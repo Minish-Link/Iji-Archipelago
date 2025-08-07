@@ -1,5 +1,5 @@
 import logging
-from math import floor
+from math import ceil, floor
 from BaseClasses import Item, ItemClassification
 from .Locations import get_remaining_locations
 from typing import List, Dict, TYPE_CHECKING, NamedTuple
@@ -94,50 +94,58 @@ def create_item(world: "IjiWorld", name: str) -> Item:
     data = items_and_events[name]
     return IjiItem(name, data.progtype, data.code, world.player)
 
-def create_multiple_items(world: "IjiWorld", name: str, count: int) -> List[Item]:
+def create_multiple_items(world: "IjiWorld", name: str, count: int, progtype: ItemClassification = None) -> List[Item]:
     itemlist: List[Item] = []
     data = item_table[name]
 
     for i in range(count):
-        itemlist += [IjiItem(name, data.progtype, data.code, world.player)]
+        if progtype is not None:
+            itemlist += [IjiItem(name, progtype, data.code, world.player)]
+        else:
+            itemlist += [IjiItem(name, data.progtype, data.code, world.player)]
 
     return itemlist
 
 def create_ribbon_items(world: "IjiWorld", maximum: int) -> List[Item]:
     itemlist: List[Item] = []
 
-    allowed_ribbons = maximum - get_post_goal_location_count(world)
+    allowed_ribbons = max(0, maximum - get_post_goal_location_count(world) - world.options.end_goal.value)
 
     if world.options.ribbon_items.value > allowed_ribbons:
         world.options.ribbon_items.value = allowed_ribbons
         logging.warning(f"{world.player_name} selected more ribbons than available locations")
         logging.warning(f"Their ribbon count has been reduced to {world.options.ribbon_items.value}")
 
-    itemlist += create_multiple_items(world, ItemNames.Ribbon, world.options.ribbon_items.value)
+    progribbons: int = ceil(world.options.ribbon_items.value * (world.options.goal_ribbons.value / 100))
+    usefulribbons = world.options.ribbon_items.value - progribbons
+    itemlist += create_multiple_items(world, ItemNames.Ribbon, progribbons, ItemClassification.progression_skip_balancing)
+    itemlist += create_multiple_items(world, ItemNames.Ribbon, usefulribbons, ItemClassification.useful)
 
     return itemlist
 
 def get_post_goal_location_count(world: "IjiWorld") -> int:
     count: int = 0
 
-    if world.options.end_goal.value == 12:
-        count += 2 # Null Driver location and Sector Z complete
+    if (world.options.end_goal.value >= 11 or world.options.allow_sector_z.value & 4 == 4):
+        count += 1 # Sector Z Complete
+        if (world.options.end_goal.value == 12 or world.options.allow_sector_z.value & 2 == 2):
+            count += 1 # Null Driver location
+        if (world.options.logbook_locations):
+            count += 2 # Sector Z Logbooks
+        if (world.options.poster_locations):
+            count += 1 # Epic Poster
+    if (world.options.end_goal.value == 12 or
+        (world.options.end_goal.value >= 10 and world.options.allow_sector_z.value & 2 == 2)):
+        if (world.options.poster_locations):
+            count += 1 # Poster of Doom
+        if (world.options.logbook_locations):
+            count += 15 # Sector Y Logbooks
+        if (world.options.end_goal.value != 12):
+            count += 1 # Sector Y Complete
 
     if world.options.supercharge_locations.value > 0:
         if (world.options.end_goal.value == 5 or world.options.end_goal.value == 7):
             count += 1 # Asha/Proxima supercharge
-
-    if world.options.logbook_locations.value > 0:
-        if world.options.end_goal.value >= 11:
-            count += 2 # Sector Z logbooks
-        if world.options.end_goal.value == 12:
-            count += 15 # Sector Y logbooks
-
-    if world.options.poster_locations.value > 0:
-        if world.options.end_goal.value >= 11:
-            count += 1 # Epic Poster
-        if world.options.end_goal.value == 12:
-            count += 1 # Poster of Doom
     
     return count
 
@@ -188,14 +196,17 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
     while dupe_count > 0:
         for i in range(len(dupe_amounts)):
             if dupe_amounts[i] > 0 and dupe_count > 0:
+                
                 if i == 0:
                     if world.options.out_of_order_sectors:
                         sector: int = (dupe_amounts[0] % (sector_count - 1)) + 2
-                        itemlist.append(create_item(world, ItemNames.Sector_Access[sector]))
+                        data = item_table[ItemNames.Sector_Access[sector]]
+                        itemlist.append(IjiItem(data.name, ItemClassification.useful, data.code, world.player))
                     else:
                         itemlist.append(create_item(world, ItemNames.Sector_Access[0]))
                 elif (i < 11 or (i < 18 and world.options.special_trait_items) or (i == 18 and world.options.debug_item)):
-                    itemlist.append(create_item(world, dupe_array[i]))
+                    data = item_table[dupe_array[i]]
+                    itemlist.append(IjiItem(data.name, ItemClassification.useful, data.code, world.player))
                 dupe_amounts[i] -= 1
                 dupe_count -= 1
 
