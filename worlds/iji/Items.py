@@ -38,7 +38,7 @@ def create_itempool(world: "IjiWorld") -> List[Item]:
     sector_count: int = min(10, world.options.end_goal.value)
 
     if world.options.levelsanity:
-        itempool += create_multiple_items(world, ItemNames.Supercharge, 5 * sector_count)
+        itempool += create_multiple_items(world, ItemNames.Supercharge, world.options.game_difficulty * sector_count)
 
     if world.options.out_of_order_sectors:
         for i in range(2, sector_count + 1):

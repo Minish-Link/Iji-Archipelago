@@ -528,13 +528,19 @@ class LogicDifficulty(Choice):
 
 class GameDifficulty(Choice):
     """
-    Placeholder
+    What difficulty of the game the world will be played on.
+
+    Normal: 5 Levels per Sector, Reduced number of enemies, Health pickups restore 2 health
+
+    Hard: 4 Levels per Sector, Tougher bosses, Health pickups restore 1 health
+
+    Extreme: 3 Levels per Sector, Even tougher bosses. No nano overload pickups, unless Nano Overload locations are enabled.
     """
     display_name = "Game Difficulty"
-    option_normal = 0
-    option_hard = 1
-    option_extreme = 2
-    default = 0
+    option_normal = 5
+    option_hard = 4
+    option_extreme = 3
+    default = 5
 
 class MusicShuffle(Choice):
     """
@@ -622,7 +628,21 @@ class DebugAbilities(Choice):
     display_name = "Fire Anytime Item"
     option_off = 0
     option_shuffle = 1
-    #option_starting_item = 2
+    default = 0
+
+class Checkpointsanity(Choice):
+    """
+    This option lets you shuffle the ability to warp to any given checkpoint within a level.
+    If you reach a checkpoint normally, you will still be able to warp to that checkpoint,
+    regardless of whether or not you received it as an item.
+
+    You can also choose whether or not to allow warping to a checkpoint you receive,
+    even if you don't receive a Sector Access item to that sector.
+    You still won't be able to warp to the start of that sector until you receive a Sector Access item for it.
+    """
+    option_off = 0
+    option_sector_access_required = 1
+    option_sector_access_not_required = 2
     default = 0
 
 class DoorShuffle(Toggle):
@@ -631,21 +651,39 @@ class DoorShuffle(Toggle):
     """
     display_name = "Door Shuffle"
 
+# 0b1000 (8) -> individual
+# 0b0100 (4) -> per sector
+# 0b0011 (3) -> 1 for progressive, 2 for reverse progressive, 3 for separate levels
 class ShieldDoorShuffleType(Choice):
     """
     Unused Placeholder option for now
     """
     display_name = "Shield Door Shuffle Type"
-    option_individual_doors = 1
-    option_progressive_resistance = 2
+    option_none = 0
+    option_individual_doors = 0b1000
+    option_progressive_resistance = 0b0001
+    option_reverse_progressive_resistance = 0b0010
+    option_separate_resistances = 0b0011
+    option_progressive_resistance_per_sector = 0b0101
+    option_reverse_progressive_resistance_per_sector = 0b0110
+    option_separate_resistances_per_sector = 0b0111
+    default = 0
 
-class SecuredDoorShuffleType(Choice):
+
+class SecurityDoorShuffleType(Choice):
     """
     Unused Placeholder option for now
     """
     display_name = "Secured Door Shuffle Type"
-    option_individual_doors = 1
-    option_progressive_security = 2
+    option_none = 0
+    option_individual_doors = 0b1000
+    option_progressive_security = 0b0001
+    option_reverse_progressive_security = 0b0010
+    option_separate_securities = 0b0011
+    option_progressive_security_per_sector = 0b0101
+    option_reverse_progressive_security_per_sector = 0b0110
+    option_separate_securities_per_sector = 0b0111
+    default = 0
 
 class TerminalDoorShuffleType(Choice):
     """
@@ -653,7 +691,7 @@ class TerminalDoorShuffleType(Choice):
     """
     display_name = "Terminal Door Shuffle Type"
     option_individual_doors = 1
-    option_sector_doors = 2
+    option_terminal_doors_per_sector = 2
 
 @dataclass
 class IjiOptions(PerGameCommonOptions):
@@ -662,6 +700,11 @@ class IjiOptions(PerGameCommonOptions):
     goal_ribbons:                   GoalRibbonItems
     ribbon_items:                   RibbonItemCount
     allow_sector_z:                 AllowSectorZ
+
+    game_difficulty:                GameDifficulty
+    logic_difficulty:               LogicDifficulty
+    out_of_order_sectors:           OutOfOrderSectors
+    health_balancing:               HealthBalancing
 
     poster_locations:               PosterLocations
     supercharge_locations:          SuperchargeLocations
@@ -681,12 +724,14 @@ class IjiOptions(PerGameCommonOptions):
     trap_weights:                   TrapWeights
     null_drive_factor:              NullDriveFactor
 
-    health_balancing:               HealthBalancing
-    logic_difficulty:               LogicDifficulty
-    out_of_order_sectors:           OutOfOrderSectors
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
+    door_shuffle:                   DoorShuffle
+    strength_doors:                 ShieldDoorShuffleType
+    crack_doors:                    SecurityDoorShuffleType
+    terminal_doors:                 TerminalDoorShuffleType
     music_shuffle:                  MusicShuffle
+
 
 iji_option_groups = [
     OptionGroup("Goal Options", [
@@ -694,7 +739,13 @@ iji_option_groups = [
         GoalPosterLocations,
         GoalRibbonItems,
         RibbonItemCount,
-        AllowSectorZ
+        AllowSectorZ,
+    ]),
+    OptionGroup("Game Options", [
+        GameDifficulty,
+        LogicDifficulty,
+        OutOfOrderSectors,
+        HealthBalancing,
     ]),
     OptionGroup("Location Options", [
         PosterLocations,
@@ -718,11 +769,12 @@ iji_option_groups = [
         NullDriveFactor
     ]),
     OptionGroup("Miscellaneous Options", [
-        HealthBalancing,
-        LogicDifficulty,
-        OutOfOrderSectors,
         IjiDeathLink,
         DeathLinkDamage,
+        DoorShuffle,
+        ShieldDoorShuffleType,
+        SecurityDoorShuffleType,
+        TerminalDoorShuffleType,
         MusicShuffle
     ])
 ]
