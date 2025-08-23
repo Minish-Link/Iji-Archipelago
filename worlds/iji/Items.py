@@ -201,12 +201,13 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
                     if world.options.out_of_order_sectors:
                         sector: int = (dupe_amounts[0] % (sector_count - 1)) + 2
                         data = item_table[ItemNames.Sector_Access[sector]]
-                        itemlist.append(IjiItem(data.name, ItemClassification.useful, data.code, world.player))
+                        itemlist.append(IjiItem(ItemNames.Sector_Access[sector], ItemClassification.useful, data.code, world.player))
                     else:
-                        itemlist.append(create_item(world, ItemNames.Sector_Access[0]))
+                        data = item_table[ItemNames.Sector_Access[0]]
+                        itemlist.append(IjiItem(ItemNames.Sector_Access[0], ItemClassification.useful, data.code, world.player))
                 elif (i < 11 or (i < 18 and world.options.special_trait_items) or (i == 18 and world.options.debug_item)):
                     data = item_table[dupe_array[i]]
-                    itemlist.append(IjiItem(data.name, ItemClassification.useful, data.code, world.player))
+                    itemlist.append(IjiItem(dupe_array[i], ItemClassification.useful, data.code, world.player))
                 dupe_amounts[i] -= 1
                 dupe_count -= 1
 

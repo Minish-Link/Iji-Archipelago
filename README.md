@@ -21,6 +21,14 @@ Some of the locations in Iji can be very tricky to reach, especially if you are 
 
 This mod restricts what sectors you can access and how many points you are allowed to invest in the 7 stats until you obtain items that gradually remove these restrictions.
 Instead of playing through the campaign in a continuous playthrough, Sectors are accessed via a menu akin to the Single Sector Warp from the vanilla game.
+
+Accessing a level station while in Passive mode allows you to decrease your stats and refund points. You can also press Enter to switch to passive mode while already connected to a level station to switch to deleveling.
+
+You can bring your stats and any weapons you find to any sector, even allowing you to bring late game weapons into early sectors.
+
+Once you obtain a weapon, you will always have access to it, as long as you have the stats to use it. If you decrease your stats below the point where you can use a weapon you obtained, and then raise them back up again, you'll automatically receive the weapon again.
+
+Once you activate a checkpoint, you can warp directly to that checkpoint from the main menu to skip large portions of sectors on revisits.
 Visiting certain locations or doing certain things send checks. These include:
 
 * Leveling up
@@ -37,6 +45,7 @@ Visiting certain locations or doing certain things send checks. These include:
 * Opening Secured Boxes
 * Picking up Nano Overloads
 * Jump and Armor Upgrades
+
 
 
 In addition to the Sector and Stat items, this randomizer also optionally adds:
