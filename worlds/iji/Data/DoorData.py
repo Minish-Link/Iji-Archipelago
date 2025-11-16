@@ -136,8 +136,12 @@ Sector5_Progression_Strength: List[int] = [1,3,4,5,7,8]
 Sector5_Doors_Strength: List[Dict[int, DoorData]] = [
     {
         549: DoorData(strength = 1),
+<<<<<<< Updated upstream
         560: DoorData(strength = 1),
         561: DoorData(strength = 1)
+=======
+        560: DoorData(strength = 1)
+>>>>>>> Stashed changes
     },
     {
         553: DoorData(strength = 3),
@@ -157,9 +161,18 @@ Sector5_Doors_Strength: List[Dict[int, DoorData]] = [
     }
 ]
 
+<<<<<<< Updated upstream
 Sector5_Progression_Crack: List[int] = [2,4]
 Sector5_Doors_Crack: List[Dict[int, DoorData]] = [
     {
+=======
+Sector5_Progression_Crack: List[int] = [1,2,4]
+Sector5_Doors_Crack: List[Dict[int, DoorData]] = [
+    {
+        561: DoorData(crack = 1)
+    },
+    {
+>>>>>>> Stashed changes
         550: DoorData(crack = 2)
     },
     {

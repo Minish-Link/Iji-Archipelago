@@ -166,6 +166,9 @@ items_other: Dict[str, IjiItemData] = {
     ),
     ItemNames.Upgrade_Armor: IjiItemData(
         code=52, progtype=ItemClassification.useful
+    ),
+    ItemNames.Glitch: IjiItemData(
+        progtype=ItemClassification.progression
     )
 }
 

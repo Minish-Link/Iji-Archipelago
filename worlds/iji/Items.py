@@ -3,7 +3,7 @@ from math import ceil, floor
 from BaseClasses import Item, ItemClassification
 from .Locations import get_remaining_locations
 from typing import List, Dict, TYPE_CHECKING, NamedTuple
-from .Data.ItemData import item_table, items_filler
+from .Data.ItemData import item_table, items_filler, items_sectors, items_stats, items_traits
 from .Data.EventData import event_item_table
 
 from .Names import ItemNames
@@ -255,6 +255,16 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
 
     return trap_list
 
+
+item_groups_table = {
+    "Stat": items_stats.keys(),
+    "Weapon Stat": {
+        ItemNames.Stat_Tasen,
+        ItemNames.Stat_Komato
+        },
+    "Sector Access": items_sectors.keys(),
+    "Special Trait": items_traits.keys()
+}
 
 #item_groups_table = {
 #    "Stats": items_primary.keys(),

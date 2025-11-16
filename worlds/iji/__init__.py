@@ -2,8 +2,8 @@ import logging
 from typing import Any, Dict, List
 from BaseClasses import Item, ItemClassification, Location, MultiWorld, Tutorial
 from worlds.generic.Rules import add_rule, set_rule
-from .Items import create_itempool, create_item #, item_groups_table
-from .Locations import location_groups_table, events_and_locations
+from .Items import create_itempool, create_item, item_groups_table
+from .Locations import events_and_locations
 from .Data.LocData import location_table
 from .Data.ItemData import item_table
 from .Regions import create_regions
@@ -39,8 +39,8 @@ class IjiWorld(World):
     game="Iji"
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}
-    #item_name_groups = item_groups_table
-    location_name_groups = location_groups_table
+    item_name_groups = item_groups_table
+    #location_name_groups = location_groups_table
     options_dataclass = IjiOptions
     options: IjiOptions
     explicit_indirect_conditions = False
@@ -49,6 +49,7 @@ class IjiWorld(World):
     health_balancing_values: List[int]
 
     ut_can_gen_without_yaml = True
+    #glitches_item_name = ItemNames.Glitch
 
     tracker_world = {
         "map_page_folder": "Maps",
@@ -78,7 +79,7 @@ class IjiWorld(World):
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
             "ModVersion": 3,
-            "ModSemantic": "1.2.0",
+            "ModSemantic": "1.2.5",
 
             "Goal": self.options.end_goal.value,
             "GoalPosters": self.options.goal_posters.value,
@@ -94,8 +95,10 @@ class IjiWorld(World):
             "OverloadLocations": self.options.nano_overload_locations.value,
 
             "SpecialTraits": self.options.special_trait_items.value,
+            "JumpUpgrades": self.options.jump_upgrades.value,
             "ArmorUpgrades": self.options.armor_upgrades.value,
             "Levelsanity": self.options.levelsanity.value,
+            "FireAnytime": self.options.debug_item.value,
 
             "NullDriveFactor": self.options.null_drive_factor.value,
 
@@ -103,6 +106,7 @@ class IjiWorld(World):
             "DeathLink": self.options.deathlink.value,
             "DeathLinkDamage": self.options.deathlink_damage.value,
             "LogicDifficulty": self.options.logic_difficulty.value,
+            "OutOfOrderSectors": self.options.out_of_order_sectors.value,
             "MusicShuffle": self.options.music_shuffle.value,
             "ShuffledSongs": get_shuffled_music(self)
         }
@@ -116,9 +120,15 @@ class IjiWorld(World):
                 self.options.goal_posters.value = passthrough["GoalPosters"]
                 self.options.goal_ribbons.value = passthrough["GoalRibbons"]
                 self.options.ribbon_items.value = passthrough["RibbonCount"]
-                if "SectorZPostGame" in passthrough.keys(): # remove this condition when the next major update is released
+                if "SectorZPostGame" in passthrough.keys(): # TODO: remove this condition in v1.3.0
                     self.options.allow_sector_z.value = passthrough["SectorZPostGame"]
-                
+                if "JumpUpgrades" in passthrough.keys(): # TODO: remove this condition in v1.3.0
+                    self.options.jump_upgrades.value = passthrough["JumpUpgrades"]
+                if "FireAnytime" in passthrough.keys(): # TODO: remove this condition in v1.3.0
+                    self.options.debug_item.value = passthrough["FireAnytime"]
+                if "OutOfOrderSectors" in passthrough.keys(): # TODO: remove this condition in v1.3.0
+                    self.options.out_of_order_sectors.value = passthrough["OutOfOrderSectors"]
+
                 self.options.poster_locations.value = passthrough["PosterLocations"]
                 self.options.supercharge_locations.value = passthrough["SuperchargeLocations"]
                 self.options.basic_weapon_locations.value = passthrough["BasicWeaponLocations"]
