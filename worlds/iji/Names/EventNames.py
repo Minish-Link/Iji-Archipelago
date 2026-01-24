@@ -1,4 +1,7 @@
-from typing import List
+from typing import List, Dict
+from . import ItemNames
+from .LocNames import Sector_Numbers
+from ..Data.DoorData import Door_Levels
 
 Weapons: List[str] = [
     "Has Null Driver",
@@ -89,95 +92,17 @@ Weapon_Locations: List[List[List[str]]] = [
  ["Sector X - Got Resonance Reflector"]]
 ]
 
-Supercharges: List[str] = [
-    "Has Sector 1 Supercharge",
-    "Has Sector 2 Supercharge",
-    "Has Sector 3 Supercharge",
-    "Has Sector 4 Supercharge",
-    "Has Sector 5 Supercharge",
-    "Has Sector 6 Supercharge",
-    "Has Sector 7 Supercharge",
-    "Has Sector 8 Supercharge",
-    "Has Sector 9 Supercharge",
-    "Has Sector X Supercharge"
-]
+Supercharges: List[str] = list("Has Sector "+Sector_Numbers[i]+" Supercharge" for i in range(10))
 
-Posters: List[str] = [
-    "Found Poster",
-    "Found Sector 1 Poster",
-    "Found Sector 2 Poster",
-    "Found Sector 3 Poster",
-    "Found Sector 4 Poster",
-    "Found Sector 5 Poster",
-    "Found Sector 6 Poster",
-    "Found Sector 7 Poster",
-    "Found Sector 8 Poster",
-    "Found Sector 9 Poster",
-    "Found Sector X Poster"
-]
+Posters: List[str] = ["Found Poster"] + list("Found Sector "+Sector_Numbers[i]+" Poster" for i in range(10))
 
-XP: List[List[str]] = [
-    ["1-4 XP",
-     "1-8 XP",
-     "1-16 XP",
-     "1-32 XP",
-     "1-64 XP",
-     "1-128 XP"],
-    ["2-4 XP",
-     "2-8 XP",
-     "2-16 XP",
-     "2-32 XP",
-     "2-64 XP",
-     "2-128 XP"],
-    ["3-4 XP",
-     "3-8 XP",
-     "3-16 XP",
-     "3-32 XP",
-     "3-64 XP",
-     "3-128 XP"],
-    ["4-4 XP",
-     "4-8 XP",
-     "4-16 XP",
-     "4-32 XP",
-     "4-64 XP",
-     "4-128 XP"],
-    ["5-4 XP",
-     "5-8 XP",
-     "5-16 XP",
-     "5-32 XP",
-     "5-64 XP",
-     "5-128 XP"],
-    ["6-4 XP",
-     "6-8 XP",
-     "6-16 XP",
-     "6-32 XP",
-     "6-64 XP",
-     "6-128 XP"],
-    ["7-4 XP",
-     "7-8 XP",
-     "7-16 XP",
-     "7-32 XP",
-     "7-64 XP",
-     "7-128 XP"],
-    ["8-4 XP",
-     "8-8 XP",
-     "8-16 XP",
-     "8-32 XP",
-     "8-64 XP",
-     "8-128 XP"],
-    ["9-4 XP",
-     "9-8 XP",
-     "9-16 XP",
-     "9-32 XP",
-     "9-64 XP",
-     "9-128 XP"],
-    ["X-4 XP",
-     "X-8 XP",
-     "X-16 XP",
-     "X-32 XP",
-     "X-64 XP",
-     "X-128 XP"],
-]
+XP_Collected: List[str] = list("XP - Sector "+Sector_Numbers[i] for i in range(10))
+
+XP_Collected_Dict: Dict[str, str] = {
+    Sector_Numbers[i]: XP_Collected[i] for i in range(10)
+}
+
+XP: List[List[str]] = list(list(Sector_Numbers[i]+"-"+str(2**j).rjust(3)+" XP" for j in range(2,10)) for i in range(10))
 
 XP_Sector: List[List[str]] = [
     [
@@ -370,59 +295,7 @@ XP_Sector: List[List[str]] = [
     ]
 ]
 
-Levels: List[str] = [
-    "Stat Point",
-    "Reached Level 1",
-    "Reached Level 2",
-    "Reached Level 3",
-    "Reached Level 4",
-    "Reached Level 5",
-    "Reached Level 6",
-    "Reached Level 7",
-    "Reached Level 8",
-    "Reached Level 9",
-    "Reached Level 10",
-    "Reached Level 11",
-    "Reached Level 12",
-    "Reached Level 13",
-    "Reached Level 14",
-    "Reached Level 15",
-    "Reached Level 16",
-    "Reached Level 17",
-    "Reached Level 18",
-    "Reached Level 19",
-    "Reached Level 20",
-    "Reached Level 21",
-    "Reached Level 22",
-    "Reached Level 23",
-    "Reached Level 24",
-    "Reached Level 25",
-    "Reached Level 26",
-    "Reached Level 27",
-    "Reached Level 28",
-    "Reached Level 29",
-    "Reached Level 30",
-    "Reached Level 31",
-    "Reached Level 32",
-    "Reached Level 33",
-    "Reached Level 34",
-    "Reached Level 35",
-    "Reached Level 36",
-    "Reached Level 37",
-    "Reached Level 38",
-    "Reached Level 39",
-    "Reached Level 40",
-    "Reached Level 41",
-    "Reached Level 42",
-    "Reached Level 43",
-    "Reached Level 44",
-    "Reached Level 45",
-    "Reached Level 46",
-    "Reached Level 47",
-    "Reached Level 48",
-    "Reached Level 49",
-    "Reached Level 50",
-]
+Levels: List[str] = ["Stat Point"] + list("Reached Level "+str(i) for i in range(1,51))
 
 Sector4_Terminals = "Sector 4 Shaft Terminals"
 Sector6_Shredders = "Sector 6 Top Shredders"
@@ -443,6 +316,13 @@ SectorX_Terminal_Megacore: List[str] = [
     "Sector X Icarus Exit"
 ]
 SectorX_Megacore = "Sector X Megacore Destroyed"
+
+Terminals: Dict[int,str] = {
+    # int is door id
+    code: "Terminal "+str(code) for code, data in Door_Levels.items() if data.terminal > 0
+}
+
+Explosives = "Has Explosive"
 
 Victory = "Victory!"
 

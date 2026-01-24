@@ -1,8 +1,11 @@
-from math import ceil
-from typing import List, TYPE_CHECKING, Dict
+from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
 from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList, OptionDict
+from Rules import WeaponData
+from Names.ItemNames import Weapons as WeaponNames
+from Names import EventNames
+import logging
 
 if TYPE_CHECKING:
     from . import IjiWorld
@@ -25,20 +28,168 @@ def define_health_balancing(world: "IjiWorld") -> List[int]:
 
     for i in range(9):
         if hb_sector_indices[i] in world.options.health_balancing.value:
-            cur_val: int = world.options.health_balancing.value[hb_sector_indices[i]]
-            if cur_val < 0:
-                value_list.append(get_random_health_balance_value(world, cur_val))
-            else:
-                value_list.append(min(9, cur_val))
+            value_list.append(interpret_randomizable_option(world,
+                                                            world.options.health_balancing.value[hb_sector_indices[i]],
+                                                            f"{hb_sector_indices[i]} Health Balancing"))
         else:
             value_list.append(i + 1)
-
         world.options.health_balancing.value[hb_sector_indices[i]] = value_list[i]
-    
+
     return value_list
 
-def get_random_health_balance_value(world: "IjiWorld", value: int) -> int:
-    return min(9, world.random.randint(0, abs(value)))
+def interpret_randomizable_option(world: "IjiWorld",
+                                  value: Any,
+                                  option_name: str,
+                                  lower_bound: int = 0,
+                                  upper_bound: int = 9) -> int:
+    if type(value) == int:
+        if value < lower_bound or value > upper_bound:
+            raise ValueError(f"{option_name} must be between {lower_bound} and {upper_bound}")
+        return value
+    elif type(value) == str:
+        return choose_random_option_from_string(world, value, option_name, lower_bound, upper_bound)
+    else:
+        raise ValueError(f"{option_name} must be either an integer or a string representing a range between two integers")
+
+weapon_error_names: List[str] = [
+    "Tasen",
+    "Komato",
+    "Crack"
+]
+def interpret_weapon_requirements(world: "IjiWorld"):
+    for key, data in world.weapon_stats_needed.items():
+        for i in range(3):
+            weapon_value: int = 0
+            stat_dict: Dict[str, Any]
+            if i == 0: stat_dict = world.options.tasen_weapon_requirements.value
+            elif i == 1: stat_dict = world.options.komato_weapon_requirements.value
+            else: stat_dict = world.options.crack_weapon_requirements.value
+
+            if key in stat_dict.keys():
+                if type(stat_dict[key]) == int:
+                    weapon_value = stat_dict[key]
+                    if weapon_value < 0 or weapon_value > 9:
+                        raise ValueError(f"{weapon_error_names[i]} stat requirement for {key} must be between 0 and 9")
+
+                elif type(stat_dict[key]) == str:
+                    weapon_value = choose_random_option_from_string(
+                        world,
+                        stat_dict[key],
+                        weapon_error_names[i]+" stat requirement for "+key,
+                        0, 9)
+
+                if i == 0: data.tasen = weapon_value
+                elif i == 1: data.komato = weapon_value
+                else: data.crack = weapon_value
+
+def weapon_requirements_to_slot_data(world: "IjiWorld") -> Dict[str, str]:
+    ret: Dict[str, str] = {}
+    for key, data in world.weapon_stats_needed.items():
+        ret[key] = str(data.tasen)+str(data.komato)+str(data.crack)
+    return ret
+
+def get_weapon_requirements_from_slot_data(world: "IjiWorld", data: Dict[str, str]):
+    for key, value in world.weapon_stats_needed.items():
+        if key in data.keys():
+            value.tasen = int(data[key][0])
+            value.komato = int(data[key][1])
+            value.crack = int(data[key][2])
+
+combined_weapons_indices: Dict[str, List[str]] = {
+        WeaponNames[9]: [WeaponNames[1], WeaponNames[2]],
+        WeaponNames[10]: [WeaponNames[2], WeaponNames[7]],
+        WeaponNames[11]: [WeaponNames[1], WeaponNames[3]],
+        WeaponNames[12]: [WeaponNames[3], WeaponNames[4]],
+        WeaponNames[13]: [WeaponNames[1], WeaponNames[5]],
+        WeaponNames[14]: [WeaponNames[5], WeaponNames[6]],
+        WeaponNames[15]: [WeaponNames[6], WeaponNames[7]],
+        WeaponNames[16]: [WeaponNames[4], WeaponNames[8]]
+    }
+
+def starting_stats_to_slot_data(world: "IjiWorld") -> Dict[str,int]:
+    ret: Dict[str, int] = {}
+    for key, data in world.options.starting_stats.value:
+        pass #TODO
+    return ret
+
+def finalize_weapon_stats(world: "IjiWorld"):
+    ret: Dict[str, WeaponData] = {}
+    for i in range(2, 9): # iterate through basic weapons
+        temp_tasen = world.weapon_stats_needed[WeaponNames[i]].tasen
+        temp_komato = world.weapon_stats_needed[WeaponNames[i]].komato
+        world.weapon_stats_needed[WeaponNames[i]].points_needed  = temp_tasen + temp_komato
+
+    for key, value in combined_weapons_indices.items():
+        temp_tasen = max(world.weapon_stats_needed[value[0]].tasen,
+                         world.weapon_stats_needed[value[1]].tasen)
+        temp_komato = max(world.weapon_stats_needed[value[0]].komato,
+                          world.weapon_stats_needed[value[1]].komato)
+        world.weapon_stats_needed[key].tasen = temp_tasen
+        world.weapon_stats_needed[key].komato = temp_komato
+        world.weapon_stats_needed[key].calculate_points_needed()
+
+    world.weapon_stats_needed[WeaponNames[0]] = WeaponData() # Null Driver
+    world.weapon_stats_needed[WeaponNames[18]] = WeaponData() # Massacre
+
+def revert_invalid_weapon_stats(world: "IjiWorld", new_table: Dict[str, WeaponData]):
+    vanilla_table = world.weapon_stats_needed
+    max_points = world.max_stats[EventNames.Levels[0]]
+    for i in range(2,9): # Iterate through basic weapons
+        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
+            continue
+        if revert_basic_weapon(vanilla_table[WeaponNames[i]],new_table[WeaponNames[i]], max_points):
+            logging.warning(f"Stat requirement for {WeaponNames[i]} was too high for {world.player_name}'s world. "
+                            f"Some or all of its stats have been automatically reduced to their vanilla requirements.")
+    for i in range(9,17): # Iterate through combined weapons
+        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
+            continue
+        component: int = 2
+        reduced: bool = False
+        while component >= 0 and new_table[WeaponNames[i]].points_needed > max_points:
+            component -= 1
+
+def revert_basic_weapon(vanilla_weapon: WeaponData, modified_weapon: WeaponData, max_points: int) -> bool:
+    stat: int = 0
+    reduced: bool = False
+    while stat <= 1 and modified_weapon.points_needed > max_points:
+        if stat == 0:
+            reduced = reduced or modified_weapon.clamp_tasen(vanilla_weapon.tasen)
+        elif stat == 1:
+            reduced = reduced or modified_weapon.clamp_komato(vanilla_weapon.komato)
+        stat += 1
+    return reduced
+
+def choose_random_option_from_string(world: "IjiWorld",
+                                     option_range: str,
+                                     option_name: str,
+                                     lower_bound: int = 0,
+                                     upper_bound: int = 9) -> int:
+    options = option_range.split('-')
+    values: List[int] = []
+    if len(options) == 1:
+        try:
+            values[0] = int(options[0])
+            values[1] = values[0]
+        except ValueError:
+            raise ValueError(option_name+" is either not an integer, or is not a valid range of integers")
+    elif len(options) == 2:
+        try:
+            values[0] = int(options[0])
+            values[1] = int(options[1])
+        except ValueError:
+            raise ValueError(option_name+" is either not an integer, or is not a valid range of integers")
+        if values[0] < lower_bound or values[1] > upper_bound:
+            raise ValueError(f"{option_name} must be between {lower_bound} and {upper_bound}")
+        if values[0] > values[1]:
+            temp = values[0]
+            values[0] = values[1]
+            values[1] = temp
+        if values[0] < lower_bound or values[1] > upper_bound:
+            raise ValueError(f"range chosen for {option_name} is invalid. Minimum value is {lower_bound} and maximum value is {upper_bound}")
+    elif len(options) >= 3:
+        raise ValueError(option_name+" is either not an integer, or is not a valid range of integers")
+
+    return world.random.randrange(values[0],values[1]+1)
 
 def get_shuffled_music(world: "IjiWorld") -> Dict[str, str]:
     music_list: List[str] = [
@@ -81,7 +232,6 @@ def get_shuffled_music(world: "IjiWorld") -> Dict[str, str]:
 
     return music_dict
 
-
 class EndGoal(Choice):
     """
     Sector 3: Reach the end of Sector 3 and defeat Elite Krotera. Sectors 4-X will be excluded.
@@ -101,6 +251,9 @@ class EndGoal(Choice):
     option_sector_x = 10
     option_sector_z = 11
     option_sector_y = 12
+
+    def get_normal_sector_count(self) -> int:
+        return min(10,self.value)
 
 class GoalPosterLocations(Range):
     """
@@ -149,15 +302,27 @@ class AllowSectorZ(Choice):
     default = 0
     option_off = 0
     option_sector_z = 0b001
-    option_sector_z_and_nulldriver = 0b011
+    option_sector_z_and_null_driver = 0b011
     option_sector_z_with_goal_requirement = 0b101
     option_sector_z_and_null_driver_with_goal_requirement = 0b111
+
+    def has_requirement(self) -> bool:
+        return self.value & 0b100 != 0
+
+    def null_driver_allowed(self) -> bool:
+        return self.value & 0b010 != 0
+
+    def allowed(self) -> bool:
+        return self.value & 0b001 != 0
 
 class PosterLocations(DefaultOnToggle):
     """
     If enabled, Finding posters sends checks.
     """
     display_name = "Poster Locations"
+
+    def expected_location_count(self, sector_count) -> bool:
+        return self.value * sector_count
 
 class SuperchargeLocations(Choice):
     """
@@ -170,6 +335,31 @@ class SuperchargeLocations(Choice):
     option_off = 0
     option_locations_only = 1
     option_locations_and_items = 2
+
+    def awards_points(self) -> bool:
+        return self.value <= 1
+
+    def has_locations(self) -> bool:
+        return self.value >= 1
+
+    def expected_location_count(self, sector_count: int) -> int:
+        return 0 if self.value == 0 else min(10,sector_count)
+
+    def max_without_weapons(self, sector_count: int) -> int:
+        if not self.awards_points():
+            return sector_count
+        ret = sector_count
+        if sector_count >= 10:
+            ret -= 1
+        if sector_count >= 7:
+            ret -= 1
+        if sector_count >= 6:
+            ret -= 1
+        if sector_count >= 5:
+            ret -= 1
+        if sector_count >= 3:
+            ret -= 1
+        return ret
 
 class BasicWeaponLocations(Choice):
     """
@@ -193,8 +383,8 @@ class LogbookLocations(Toggle):
 class ExtraItemCount(OptionDict):
     """
     How many duplicates of each major item to add to the pool.
-    Negative numbers will choose a random number between 0 and the absolute value of that number.
-    e.g. -7 will choose a random value between 0 and 7.
+    You can have the randomizer choose a random value within a given range by entering a string representing a random range, instead of a number
+    e.g putting "2-5" for an item will add 2 to 5 of that item (inclusive)
 
     If you choose to have extra sector accesses with out of order sectors enabled,
     an even split of the sector accesses will be added.
@@ -245,97 +435,19 @@ class MaximumStatAllowed(OptionDict):
         "Attack": 10,
         "Assimilate": 10,
         "Strength": 10,
-        "CracK": 10,
+        "Crack": 10,
         "Tasen": 10,
         "Komato": 10
     }
 
-class SectorAccessItems(Range):
-    """
-    How many extra Sector Access items to add to the item pool.
-    """
-    display_name = "Extra Sector Access Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class HealthItems(Range):
-    """
-    How many extra Health Stat items to add to the item pool.
-    """
-    display_name = "Extra Health Stat items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class AttackItems(Range):
-    """
-    How many extra Attack Stat items to add to the item pool.
-    """
-    display_name = "Extra Attack Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class AssimilateItems(Range):
-    """
-    How many extra Assimilate Stat items to add to the item pool.
-    """
-    display_name = "Extra Assimilate Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class StrengthItems(Range):
-    """
-    How many extra Strength Stat items to add to the item pool.
-    """
-    display_name = "Extra Strength Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class CrackItems(Range):
-    """
-    How many extra Crack Stat items to add to the item pool.
-    """
-    display_name = "Extra Crack Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class TasenItems(Range):
-    """
-    How many extra Tasen Stat items to add to the item pool.
-    """
-    display_name = "Extra Tasen Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class KomatoItems(Range):
-    """
-    How many extra Komato Stat items to add to the item pool.
-    """
-    display_name = "Extra Komato Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
 class SpecialTraitItems(Toggle):
     """
     If enabled, the Special Trait items will be shuffled into the item pool.
+    An additional location for reaching the final level of a stat will also be added.
+
+    Otherwise, the Special Traits will be in effect when you raise the respective stat to its maximum level
     """
     display_name = "Special Traits"
-
-class ExtraSupercharges(Range):
-    """
-    Adds extra Supercharge items to the pool that each grant 1 Stat point at the start of each Sector.
-    """
-    display_name = "Extra Supercharges"
-    default = 0
-    range_start = 0
-    range_end = 20
 
 class TrapPercentage(Range):
     """
@@ -350,6 +462,7 @@ class TrapWeights(OptionDict):
     """
     How likely each trap is to be chosen when creating a trap item.
     Choosing 0 disables a trap entirely.
+
     Rocket to the Face spawns a rocket projectile that flies toward Iji.
     Banana spawns an exploding banana projectile at Iji's position.
     Blits Nest spawns a handful of Blit enemies at Iji's position.
@@ -357,6 +470,8 @@ class TrapWeights(OptionDict):
     Clown Shoes makes Iji's footsteps squeaky for 1 minute.
     Power Nap knocks Iji down for 10 seconds (or until damaged)
     Null Drive randomly swaps around background textures, effect persists until the game is closed.
+    Guilt Trip forces you to read the logbook texts detailing all the enemies you killed so far, and it cannot be skipped.
+    Forced Reboot sets all your stats to 1 (refunding 1 stat point for stat level lost), leaving you vulnerable until you raise your stats again
     """
     display_name = "Trap Weights"
     default = {
@@ -366,41 +481,10 @@ class TrapWeights(OptionDict):
         "Turbo Mode": 10,
         "Clown Shoes": 10,
         "Power Nap": 20,
-        "Null Drive": 0
+        "Null Drive": 0,
+        "Guilt Trip": 0,
+        "Forced Reboot": 0
     }
-
-class RocketTrapWeight(Range):
-    """
-    How weighted Rocket to the Face traps are to be chosen, if traps are shuffled.
-    Spawns a rocket that flies towards Iji's face.
-    0 Disables Rocket to the Face traps.
-    """
-    display_name = "Rocket to the Face Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class BlitsTrapWeight(Range):
-    """
-    How weighted Blits traps are to be chosen, if traps are shuffled.
-    Spawns a Blits nest under Iji's feet that spawns a few Blits enemies.
-    0 Disables Blits traps.
-    """
-    display_name = "Blits Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class NullDriveTrapWeight(Range):
-    """
-    How weighted Null Drive traps are to be chosen, if traps are shuffled.
-    Randomly shuffles some of the background/tileset images until the game is closed.
-    0 Disables Null Drive traps
-    """
-    display_name = "Null Drive Weight"
-    default = 0
-    range_start = 0
-    range_end = 100
 
 class NullDriveFactor(Range):
     """
@@ -411,50 +495,6 @@ class NullDriveFactor(Range):
     display_name = "Null Drive Factor"
     default = 25
     range_start = 1
-    range_end = 100
-
-class TurboTrapWeight(Range):
-    """
-    How weighted Turbo traps are to be chosen, if traps are shuffled.
-    Doubles the game speed for 20 seconds.
-    0 Disables Turbo traps
-    """
-    display_name = "Turbo Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class NapTrapWeight(Range):
-    """
-    How weighted Nap traps are to be chosen, if traps are shuffled.
-    Knocks Iji down, and prevents her from getting up for 5 seconds.
-    0 Disables Nap traps
-    """
-    display_name = "Nap Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class BananaTrapWeight(Range):
-    """
-    How weighted Banana traps are to be chosen, if traps are shuffled.
-    Spawns a banana.
-    0 Disables Banana traps
-    """
-    display_name = "Banana Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class ClownShoesWeight(Range):
-    """
-    How weighted Clown Shoe traps are to be chosen, if traps are shuffled.
-    Iji's footsteps make squeaky noises for 1 minute.
-    0 Disables Clown Shoe traps
-    """
-    display_name = "Clown Shoes Weight"
-    default = 20
-    range_start = 0
     range_end = 100
 
 class HealthBalancing(OptionDict):
@@ -510,20 +550,10 @@ class LogicDifficulty(Choice):
 
     Hard Logic: Expects the player to utilize vanilla methods that would be needed to
     reach posters and supercharges in order to reach all locations.
-
-    Extreme Logic: Same as Hard Logic, but some locations may require more setup and/or longer chains of skips
-
-    Ultimortal Logic: Expects more unorthodox skips from the player
-    using techniques that would otherwise never be required.
-
-    reallyjoel's Dad Logic: Anything goes. If it's technically possible, it's in logic.
     """
     display_name = "Logic Difficulty"
     option_normal_logic = 0
     option_hard_logic = 1
-    option_extreme_logic = 2
-    option_ultimortal_logic = 3
-    option_reallyjoelsdad_logic = 4
     default = 0
 
 class GameDifficulty(Choice):
@@ -541,6 +571,9 @@ class GameDifficulty(Choice):
     option_hard = 4
     option_extreme = 3
     default = 5
+
+    def levels_per_sector(self) -> int:
+        return max(3,min(5,self.value))
 
 class MusicShuffle(Choice):
     """
@@ -569,7 +602,7 @@ class OutOfOrderSectors(Toggle):
 class Levelsanity(Toggle):
     """
     If enabled, Leveling up will no longer award stat points.
-    Instead, 50 Supercharge items will be added to the multiworld.
+    Instead, a respective Supercharge item for each level up will be added to the multiworld.
     """
     display_name = "Levelsanity"
 
@@ -669,7 +702,6 @@ class ShieldDoorShuffleType(Choice):
     option_separate_resistances_per_sector = 0b0111
     default = 0
 
-
 class SecurityDoorShuffleType(Choice):
     """
     Unused Placeholder option for now
@@ -693,6 +725,229 @@ class TerminalDoorShuffleType(Choice):
     option_individual_doors = 1
     option_terminal_doors_per_sector = 2
 
+class ShuffleDoors(Choice):
+    """
+    This option lets you shuffle the strength/crack requirement to open doors
+    Not all doors can be shuffled. Doors with a security or resistance higher than 10 will not be randomized.
+
+    Shuffle Levels: The amount of strength or crack stat required to open a given door is randomized.
+
+    Shuffle Terminals: All terminals that open doors will have a cracking minigame,
+    and require a random amount of crack to activate.
+
+    Shuffle Types: Randomizes whether any given door requires strength or crack.
+
+    """
+    display_name = "Shuffle Door Levels"
+    default = 0
+    option_off = 0
+    option_shuffle_levels_only = 0b001
+    option_shuffle_types_only = 0b010
+    option_shuffle_terminals_only = 0b100
+    option_shuffle_terminals_and_levels = 0b101
+    option_shuffle_terminals_and_types = 0b110
+    option_shuffle_types_and_levels = 0b011
+    option_shuffle_everything = 0b111
+
+    def shuffle_levels(self) -> bool:
+        return self.value & self.option_shuffle_levels_only != 0
+
+    def shuffle_types(self) -> bool:
+        return self.value & self.option_shuffle_types_only != 0
+
+    def shuffle_terminals(self) -> bool:
+        return self.value & self.option_shuffle_terminals_only != 0
+
+class DoorLevelDeviation(Range):
+    """
+    If Shuffle Door Levels is enabled, this option determines how far a door's level is allowed to deviate from its original level.
+    e.g. if a door normally requires 5 strength to open, and the deviation is 3, that door could require anywhere from 2 to 8 strength.
+    If Shuffle Terminals is enabled, their base crack requirement is 1 for the purposes of this option.
+    """
+    display_name = "Door Level Deviation"
+    default = 9
+    range_start = 1
+    range_end = 9
+
+class EnforceHealthBalancing(Toggle):
+    """
+    If true, you will be prohibited from entering a Sector if you don't meet the health requirement as
+    defined by the health balancing option.
+
+    If false, you will be able to enter any Sector you have access to, but the locations won't be in logic
+    if you don't meet the health requirement.
+    """
+    display_name = "Enforce Health Balancing"
+
+class WeaponTasenRequirements(OptionDict):
+    """
+    How many Tasen stat items are required in order to pick up and use the game's basic weapons.
+    Weapons that are combined from two weapons will in turn require the stats needed for each of those weapons.
+    The Banana Gun will in turn require the stats needed for all basic weapons.
+
+    If fewer than 9 Tasen items are required to obtain all basic weapons,
+    excess Tasen stat items and locations will be removed.
+    The requirement for the VENGEANCE special trait will be whatever the new maximum is.
+
+    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
+    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
+    """
+    default = {
+        "Machine Gun": 2,
+        "Rocket Launcher": 5,
+        "MPFB Devastator": 9,
+        "Resonance Detonator": 0,
+        "Pulse Cannon": 0,
+        "Shocksplinter": 0,
+        "Cyclic Fusion Ignition System": 0
+    }
+
+class WeaponKomatoRequirements(OptionDict):
+    """
+    How many Tasen stat items are required in order to pick up and use the game's basic weapons.
+    Weapons that are combined from two weapons will in turn require the stats needed for each of those weapons.
+    The Banana Gun will in turn require the stats needed for all basic weapons.
+
+    If fewer than 9 Komato items are required to obtain all basic weapons,
+    excess Komato stat items and locations will be removed.
+    The requirement for the GLORY special trait will be whatever the new maximum is.
+
+    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
+    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
+    """
+    default = {
+        "Machine Gun": 0,
+        "Rocket Launcher": 0,
+        "MPFB Devastator": 0,
+        "Resonance Detonator": 0,
+        "Pulse Cannon": 2,
+        "Shocksplinter": 5,
+        "Cyclic Fusion Ignition System": 9
+    }
+
+class WeaponCrackRequirements(OptionDict):
+    """
+    How many Crack stat items are required in order to combine two weapons together.
+
+    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
+    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
+    """
+    default = {
+        "Buster Gun": 2,
+        "Splintergun": 6,
+        "Spread Rockets": 4,
+        "Nuke": 8,
+        "Resonance Reflector": 3,
+        "Hyper Pulse": 5,
+        "Plasma Cannon": 7,
+        "Velocithor V2-10": 9
+    }
+
+class ICanRead(Choice):
+    """
+    Whether or not you read the README file enclosed with the randomizer.
+    This has no effect on generation, but it does contain important information you should know :)
+    """
+    display_name = "I Read the README"
+    default = 0
+    option_i_did_not_read_the_readme = 0
+    option_i_read_the_readme_and_am_a_cool_person = 1
+
+class CompactStats(OptionDict):
+    """
+    This option lets you compact your stat items into fewer items that give you more stat levels per item.
+    i.e. A stat with a compact value of 2 will add half the number of respective stat items (rounded up)
+    but each one will increase the respective stat cap by 2 instead of 1.
+
+    Compacting supercharges only affects Supercharge items you receive,
+    either from the levelsanity option, supercharge location option, or duplicate supercharges from the extra_items option
+    Stat points awarded from picking up Supercharges in levels will not give additional points.
+
+    If you want to choose a random value, you can enter a string representing a random range, instead of a number.
+    e.g. putting "2-4" will choose a random number between 2 and 4 (inclusive). Valid values range between 1 and 9
+    """
+    display_name = "Compact Stats"
+    default = {
+        "Health Stat": 1,
+        "Attack Stat": 1,
+        "Assimilate Stat": 1,
+        "Strength Stat": 1,
+        "Crack Stat": 1,
+        "Tasen Stat": 1,
+        "Komato Stat": 1,
+        "Supercharge": 1,
+    }
+
+class Scrambler(Toggle):
+    """
+    Whether the Scrambler should be turned on. This option can be changed later in-game via the Extras menu
+    The scrambler occasionally scrambles text by replacing words with a random selection of words, and jumbling vowels.
+    No effect on logic, it's just for fun.
+    """
+    display_name = "Turn on Scrambler"
+
+class AlternateOutfit(Toggle):
+    """
+    Iji wears an alternate outfit, from the opening cutscene.
+    This option can be changed later in-game via the Extras menu
+    """
+    display_name = "Alternate Outfit"
+
+class FillerWeights(OptionDict):
+    """
+    This option lets you override the weight for each of the filler items.
+    Set an item to 0 weight or remove it from the list to remove it from the pool entirely.
+    Note: If every filler item has a weight of 0, all filler items will be Health Pickups
+    """
+    display_name = "Filler Weights"
+    default = {
+        "Health Pickup": 0,
+        "Armor Pickup": 0,
+        "Nano Pickup": 0,
+        "Machine Ammo": 0,
+        "Rocket Ammo": 0,
+        "MPFB Ammo": 0,
+        "Pulse Ammo": 0,
+        "Shock Ammo": 0,
+        "CFIS Ammo": 0,
+        "Nano Overload": 0,
+        "Bundle of Ammo": 0
+    }
+
+class StartingStats(OptionDict):
+    """
+    For each stat, you may set its respective starting level cap.
+    Increasing a stat's level cap will cause some of its items to be removed from the item pool.
+    This is different from putting stat items in your starting items in a couple ways:
+    1. Stat levels within your starting level cap will not contain random items when reaching their level
+        (if stat_locations is enabled)
+    2. Raising your level caps this way is unaffected by the compact_stats option
+
+    Valid values range from 1 to 10
+    """
+    display_name = "Starting Stats"
+    default = {
+        "Health Stat": 1,
+        "Attack Stat": 1,
+        "Assimilate Stat": 1,
+        "Strength Stat": 1,
+        "Crack Stat": 1,
+        "Tasen Stat": 1,
+        "Komato Stat": 1
+    }
+
+class StatLocations(Choice):
+    """
+    If enabled, leveling up a stat to a specific level will contain a random item
+    If you have special_trait_items enabled, reaching the max level of a stat will still contain an item
+
+    NOTE: Stat Levels make up a significant portion of this game's locations.
+    disabling this option may cause your world to not have enough locations to fit all of your stat items.
+    You can choose whether the multiworld generation compensates for this by increasing your starting_stats options,
+    or by increasing your compact_stats options (See these options below for more information about how they work)
+    """
+    display_name = "Stat Level Locations"
+
 @dataclass
 class IjiOptions(PerGameCommonOptions):
     end_goal:                       EndGoal
@@ -705,6 +960,7 @@ class IjiOptions(PerGameCommonOptions):
     logic_difficulty:               LogicDifficulty
     out_of_order_sectors:           OutOfOrderSectors
     health_balancing:               HealthBalancing
+    enforce_health_balancing:       EnforceHealthBalancing
 
     poster_locations:               PosterLocations
     supercharge_locations:          SuperchargeLocations
@@ -712,6 +968,7 @@ class IjiOptions(PerGameCommonOptions):
     logbook_locations:              LogbookLocations
     security_box_locations:         CrackBoxLocations
     nano_overload_locations:        OverloadLocations
+    stat_locations:                 StatLocations
 
     special_trait_items:            SpecialTraitItems
     extra_items:                    ExtraItemCount
@@ -720,17 +977,25 @@ class IjiOptions(PerGameCommonOptions):
     levelsanity:                    Levelsanity
     debug_item:                     DebugAbilities
 
+    filler_weights:                 FillerWeights
     trap_percentage:                TrapPercentage
     trap_weights:                   TrapWeights
     null_drive_factor:              NullDriveFactor
 
+    compact_stats:                  CompactStats
+    starting_stats:                 StartingStats
+    door_shuffle:                   ShuffleDoors
+    door_shuffle_deviation:         DoorLevelDeviation
+    tasen_weapon_requirements:      WeaponTasenRequirements
+    komato_weapon_requirements:     WeaponKomatoRequirements
+    crack_weapon_requirements:      WeaponCrackRequirements
+
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
-    door_shuffle:                   DoorShuffle
-    strength_doors:                 ShieldDoorShuffleType
-    crack_doors:                    SecurityDoorShuffleType
-    terminal_doors:                 TerminalDoorShuffleType
     music_shuffle:                  MusicShuffle
+    i_read_the_readme:              ICanRead
+    scrambler:                      Scrambler
+    alternate_outfit:               AlternateOutfit
 
 
 iji_option_groups = [
@@ -746,6 +1011,7 @@ iji_option_groups = [
         LogicDifficulty,
         OutOfOrderSectors,
         HealthBalancing,
+        EnforceHealthBalancing,
     ]),
     OptionGroup("Location Options", [
         PosterLocations,
@@ -753,7 +1019,8 @@ iji_option_groups = [
         BasicWeaponLocations,
         LogbookLocations,
         CrackBoxLocations,
-        OverloadLocations
+        OverloadLocations,
+        StatLocations,
     ]),
     OptionGroup("Item Options", [
         SpecialTraitItems,
@@ -761,20 +1028,29 @@ iji_option_groups = [
         JumpUpgrades,
         ArmorUpgrades,
         Levelsanity,
-        DebugAbilities
+        DebugAbilities,
     ]),
-    OptionGroup("Trap Options", [
+    OptionGroup("Filler Options", [
+        FillerWeights,
         TrapPercentage,
         TrapWeights,
-        NullDriveFactor
+        NullDriveFactor,
+    ]),
+    OptionGroup("Stat Options", [
+        CompactStats,
+        StartingStats,
+        ShuffleDoors,
+        DoorLevelDeviation,
+        WeaponTasenRequirements,
+        WeaponKomatoRequirements,
+        WeaponCrackRequirements,
     ]),
     OptionGroup("Miscellaneous Options", [
         IjiDeathLink,
         DeathLinkDamage,
-        DoorShuffle,
-        ShieldDoorShuffleType,
-        SecurityDoorShuffleType,
-        TerminalDoorShuffleType,
-        MusicShuffle
-    ])
+        MusicShuffle,
+        ICanRead,
+        Scrambler,
+        AlternateOutfit,
+    ]),
 ]

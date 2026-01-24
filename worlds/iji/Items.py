@@ -3,8 +3,9 @@ from math import ceil, floor
 from BaseClasses import Item, ItemClassification
 from .Locations import get_remaining_locations
 from typing import List, Dict, TYPE_CHECKING, NamedTuple
-from .Data.ItemData import item_table, items_filler, items_sectors, items_stats, items_traits
+from .Data.ItemData import item_table, items_filler, items_sectors, items_stats, items_traits, items_traps, items_other
 from .Data.EventData import event_item_table
+from .Options import interpret_randomizable_option
 
 from .Names import ItemNames
 
@@ -126,25 +127,25 @@ def create_ribbon_items(world: "IjiWorld", maximum: int) -> List[Item]:
 def get_post_goal_location_count(world: "IjiWorld") -> int:
     count: int = 0
 
-    if (world.options.end_goal.value >= 11 or world.options.allow_sector_z.value & 4 == 4):
+    if world.options.end_goal.value >= 11 or world.options.allow_sector_z.value & 4 == 4:
         count += 1 # Sector Z Complete
-        if (world.options.end_goal.value == 12 or world.options.allow_sector_z.value & 2 == 2):
+        if world.options.end_goal.value == 12 or world.options.allow_sector_z.value & 2 == 2:
             count += 1 # Null Driver location
-        if (world.options.logbook_locations):
+        if world.options.logbook_locations:
             count += 2 # Sector Z Logbooks
-        if (world.options.poster_locations):
+        if world.options.poster_locations:
             count += 1 # Epic Poster
     if (world.options.end_goal.value == 12 or
         (world.options.end_goal.value >= 10 and world.options.allow_sector_z.value & 2 == 2)):
-        if (world.options.poster_locations):
+        if world.options.poster_locations:
             count += 1 # Poster of Doom
-        if (world.options.logbook_locations):
+        if world.options.logbook_locations:
             count += 15 # Sector Y Logbooks
-        if (world.options.end_goal.value != 12):
+        if world.options.end_goal.value != 12:
             count += 1 # Sector Y Complete
 
     if world.options.supercharge_locations.value > 0:
-        if (world.options.end_goal.value == 5 or world.options.end_goal.value == 7):
+        if world.options.end_goal.value == 5 or world.options.end_goal.value == 7:
             count += 1 # Asha/Proxima supercharge
     
     return count
@@ -180,10 +181,10 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
 
     for item_name in dupe_array:
         if item_name in world.options.extra_items.value.keys():
-            if world.options.extra_items.value[item_name] < 0:
-                dupe_amounts.append(world.random.randint(0, abs(world.options.extra_items.value[item_name])))
-            else:
-                dupe_amounts.append(world.options.extra_items.value[item_name])
+            dupe_amounts.append(interpret_randomizable_option(world,
+                                                              world.options.extra_items.value[item_name],
+                                                              f"Duplicate {item_name}",
+                                                              0,2147483647))
         else:
             dupe_amounts.append(0)
 
@@ -257,13 +258,15 @@ def create_trap_items(world: "IjiWorld", count: int) -> List[Item]:
 
 
 item_groups_table = {
-    "Stat": items_stats.keys(),
+    "Stat": set(items_stats.keys()),
     "Weapon Stat": {
         ItemNames.Stat_Tasen,
         ItemNames.Stat_Komato
         },
-    "Sector Access": items_sectors.keys(),
-    "Special Trait": items_traits.keys()
+    "Sector Access": set(items_sectors.keys()),
+    "Special Trait": set(items_traits.keys()),
+    "Filler": set(items_filler.keys()),
+    "Traps": set(items_traps.keys())
 }
 
 #item_groups_table = {

@@ -5,42 +5,15 @@ from ..Names import ItemNames
 class IjiItemData(NamedTuple):
     progtype: ItemClassification
     code: Optional[int] = None
-    weight: int = 1
 
 items_sectors: Dict[str, IjiItemData] = {
     ItemNames.Sector_Access[0]: IjiItemData(
         code=1, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[1]: IjiItemData(
-        code=41, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[2]: IjiItemData(
-        code=42, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[3]: IjiItemData(
-        code=43, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[4]: IjiItemData(
-        code=44, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[5]: IjiItemData(
-        code=45, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[6]: IjiItemData(
-        code=46, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[7]: IjiItemData(
-        code=47, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[8]: IjiItemData(
-        code=48, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[9]: IjiItemData(
-        code=49, progtype=ItemClassification.progression
-    ),
-    ItemNames.Sector_Access[10]: IjiItemData(
-        code=50, progtype=ItemClassification.progression
     )
+} | {
+    ItemNames.Sector_Access[i]: IjiItemData(
+        code=40+i, progtype=ItemClassification.progression
+    ) for i in range(1, 11)
 }
 
 items_stats: Dict[str, IjiItemData] = {
@@ -92,63 +65,15 @@ items_traits: Dict[str, IjiItemData] = {
 }
 
 items_filler: Dict[str, IjiItemData] = {
-    ItemNames.Filler[0]: IjiItemData(
-        code=201, progtype=ItemClassification.filler, weight=15
-    ),
-    ItemNames.Filler[1]: IjiItemData(
-        code=202, progtype=ItemClassification.filler, weight=3
-    ),
-    ItemNames.Filler[2]: IjiItemData(
-        code=203, progtype=ItemClassification.filler, weight=8
-    ),
-    ItemNames.Filler[3]: IjiItemData(
-        code=204, progtype=ItemClassification.filler, weight=4
-    ),
-    ItemNames.Filler[4]: IjiItemData(
-        code=205, progtype=ItemClassification.filler, weight=3
-    ),
-    ItemNames.Filler[5]: IjiItemData(
-        code=206, progtype=ItemClassification.filler, weight=2
-    ),
-    ItemNames.Filler[6]: IjiItemData(
-        code=207, progtype=ItemClassification.filler, weight=3
-    ),
-    ItemNames.Filler[7]: IjiItemData(
-        code=208, progtype=ItemClassification.filler, weight=2
-    ),
-    ItemNames.Filler[8]: IjiItemData(
-        code=209, progtype=ItemClassification.filler, weight=1
-    ),
-    ItemNames.Filler[9]: IjiItemData(
-        code=210, progtype=ItemClassification.filler, weight=5
-    ),
-    ItemNames.Filler[10]: IjiItemData(
-        code=211, progtype=ItemClassification.filler, weight=6
-    )
+    ItemNames.Filler[i]: IjiItemData(
+        code=201+i,progtype=ItemClassification.filler
+    ) for i in range(len(ItemNames.Filler))
 }
 
 items_traps: Dict[str, IjiItemData] = {
-    ItemNames.Traps[0]: IjiItemData(
-        code=401, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[1]: IjiItemData(
-        code=402, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[2]: IjiItemData(
-        code=403, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[3]: IjiItemData(
-        code=404, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[4]: IjiItemData(
-        code=405, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[5]: IjiItemData(
-        code=406, progtype=ItemClassification.trap
-    ),
-    ItemNames.Traps[6]: IjiItemData(
-        code=407, progtype=ItemClassification.trap
-    )
+    ItemNames.Traps[i]: IjiItemData(
+        code=401+i, progtype=ItemClassification.trap
+    ) for i in range(len(ItemNames.Traps))
 }
 
 items_other: Dict[str, IjiItemData] = {
@@ -168,8 +93,18 @@ items_other: Dict[str, IjiItemData] = {
         code=52, progtype=ItemClassification.useful
     ),
     ItemNames.Glitch: IjiItemData(
-        progtype=ItemClassification.progression
+        code=19, progtype=ItemClassification.progression
     )
+}
+
+items_weapons: Dict[str, IjiItemData] = {
+    ItemNames.Weapons[i]: IjiItemData(
+        code=100+i, progtype=ItemClassification.progression
+    ) for i in range(len(ItemNames.Weapons))
+} | {
+    ItemNames.Weapons_Passive[i]: IjiItemData(
+        code=120+i, progtype=ItemClassification.progression
+    ) for i in range(len(ItemNames.Weapons_Passive))
 }
 
 item_table = {
@@ -178,5 +113,6 @@ item_table = {
     **items_traits,
     **items_filler,
     **items_traps,
+    **items_weapons,
     **items_other
 }

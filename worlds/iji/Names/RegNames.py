@@ -1,7 +1,9 @@
 from typing import List
+from .LocNames import Sector_Numbers
 
 Menu = "Menu"
 Global = "Global"
+Weapon_Station = "Weapon Station"
 
 Sector1_Main: List[str] = [
     "Sector 1 Start",
@@ -20,6 +22,7 @@ Sector1_Poster = "Sector 1 Poster"
 SectorZ = "Sector Z"
 SectorZ_Null = "Sector Z Inner Prey"
 
+Sector_Globals: List[str] = list("Sector "+Sector_Numbers[i]+" Global" for i in range(len(Sector_Numbers)))
 
 Sector2_Main: List[str] = [
     "Sector 2 Start", # 0
@@ -196,7 +199,7 @@ Sector7_Side: List[str] = [
     "Sector 7 Neoweapons Storage Sideroom Right",
     "Sector 7 Security Station Overload", # 3
     "Sector 7 Armory Security Sideroom",
-    "Sector 7 Armory Heavy Weapons Armory Interim",
+    "Sector 7 Heavy Weapons Armory Interim",
     "Sector 7 CFIS", # 6
     "Sector 7 Main Gate Access Sideroom",
     "Sector 7 Internal Security Top Left",
@@ -343,5 +346,79 @@ SectorX_Poster: List[str] = [
 ]
 SectorX_Super = "Sector X Supercharge"
 
-
 SectorY = "Sector Y"
+
+Sector_Ends: List[str] = [
+    Sector1_Main[3],
+    Sector2_Main[6],
+    Sector3_Main[4],
+    Sector4_Main[8],
+    Sector5_Main[8],
+    Sector6_Main[11],
+    Sector7_Main[11],
+    Sector8_Main[3],
+    Sector9_Main[14],
+    SectorX_Final[6],
+    SectorZ,
+    SectorY
+]
+
+Sector_Posters: List[str] = [
+    Sector1_Poster,
+    Sector2_Poster,
+    Sector3_Poster[1],
+    Sector4_Poster[1],
+    Sector5_Poster[2],
+    Sector6_Poster[3],
+    Sector7_Poster,
+    Sector8_Poster,
+    Sector9_Poster[2],
+    SectorX_Poster[3],
+    SectorZ,
+    SectorY
+]
+
+Sector_Ribbons: List[str] = [
+    Sector1_Main[1],
+    Sector2_Main[4],
+    Sector3_Main[1],
+    Sector4_Main[2],
+    Sector5_Ribbon,
+    Sector6_Ribbon,
+    Sector7_Ribbon,
+    Sector8_Main[2],
+    Sector9_Main[4],
+    SectorX_Final[3]
+]
+
+Sector_Supercharges: List[str] = [
+    Sector1_Super,
+    Sector2_Super,
+    Sector3_Super[1],
+    Sector4_Super[2],
+    Sector5_Main[8],
+    Sector6_Super,
+    Sector7_Main[11],
+    Sector8_Side[3],
+    Sector9_Deep[9],
+    SectorX_Core[0]
+]
+
+Sector_Checkpoints: List[str] = [
+    Sector2_Main[2],
+    Sector3_Main[1],
+    Sector4_Main[2],
+    Sector5_Main[2],
+    Sector6_Main[4],
+    Sector7_Main[3],
+    Sector7_Main[10],
+    Sector8_Main[3],
+    Sector9_Main[3],
+    Sector9_Main[13],
+    SectorX_Core[4],
+    SectorX_Main[7]
+]
+
+JumpUpgrades: List[str] = [
+
+]

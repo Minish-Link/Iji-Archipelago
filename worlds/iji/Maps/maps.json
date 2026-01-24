@@ -1,5 +1,11 @@
 ﻿[
     {
+        "name": "World",
+        "img": "Global.png",
+        "location_size": 48,
+        "location_border_thickness": 4
+    },
+    {
         "name": "Sector1",
         "img": "Sector_1.png",
         "location_size": 18,

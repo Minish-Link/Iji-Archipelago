@@ -1,19 +1,20 @@
 from typing import Any
 
 map_pages = {
-    "Sector1": 0,
-    "Sector2": 1,
-    "Sector3": 2,
-    "Sector4": 3,
-    "Sector5": 4,
-    "Sector6": 5,
-    "Sector7": 6,
-    "Sector8": 7,
-    "Sector9": 8,
-    "DeepSector": 9,
-    "SectorX": 10,
-    "SectorZ": 11,
-    "SectorY": 12
+    "World": 0,
+    "Sector1": 1,
+    "Sector2": 2,
+    "Sector3": 3,
+    "Sector4": 4,
+    "Sector5": 5,
+    "Sector6": 6,
+    "Sector7": 7,
+    "Sector8": 8,
+    "Sector9": 9,
+    "DeepSector": 10,
+    "SectorX": 11,
+    "SectorZ": 12,
+    "SectorY": 13
 }
 
 def map_page_index(data: Any):

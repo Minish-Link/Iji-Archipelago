@@ -1,5 +1,5 @@
 from typing import Callable, Dict, NamedTuple, Optional, TYPE_CHECKING
-from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_xp
+from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_xp, is_difficulty_in_logic
 from ..Names import LocNames, RegNames, ItemNames, EventNames
 from .LocData import IjiLocData, location_table
 from .ItemData import IjiItemData
@@ -27,13 +27,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[4]: IjiLocData(
         region=RegNames.Sector1_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 1, 4)
     ),
     EventNames.Levels[5]: IjiLocData(
         region=RegNames.Sector1_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 1, 5)
     ),
     EventNames.Levels[6]: IjiLocData(
@@ -57,13 +57,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[9]:   IjiLocData(
         region=RegNames.Sector2_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 2, 4)
     ),
     EventNames.Levels[10]:  IjiLocData(
         region=RegNames.Sector2_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 2, 5)
     ),
     EventNames.Levels[11]:  IjiLocData(
@@ -87,13 +87,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[14]:  IjiLocData(
         region=RegNames.Sector3_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 3, 4)
     ),
     EventNames.Levels[15]:  IjiLocData(
         region=RegNames.Sector3_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 3, 5)
     ),
     EventNames.Levels[16]:  IjiLocData(
@@ -117,13 +117,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[19]:  IjiLocData(
         region=RegNames.Sector4_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 4, 4)
     ),
     EventNames.Levels[20]:  IjiLocData(
         region=RegNames.Sector4_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 4, 5)
     ),
     EventNames.Levels[21]:  IjiLocData(
@@ -147,13 +147,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[24]:  IjiLocData(
         region=RegNames.Sector5_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 5, 4)
     ),
     EventNames.Levels[25]:  IjiLocData(
         region=RegNames.Sector5_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 5, 5)
     ),
     EventNames.Levels[26]:  IjiLocData(
@@ -177,13 +177,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[29]:  IjiLocData(
         region=RegNames.Sector6_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 6, 4)
     ),
     EventNames.Levels[30]:  IjiLocData(
         region=RegNames.Sector6_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 6, 5)
     ),
     EventNames.Levels[31]:  IjiLocData(
@@ -207,13 +207,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[34]:  IjiLocData(
         region=RegNames.Sector7_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 7, 4)
     ),
     EventNames.Levels[35]:  IjiLocData(
         region=RegNames.Sector7_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 7, 5)
     ),
     EventNames.Levels[36]:  IjiLocData(
@@ -237,13 +237,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[39]:  IjiLocData(
         region=RegNames.Sector8_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 8, 4)
     ),
     EventNames.Levels[40]:  IjiLocData(
         region=RegNames.Sector8_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 8, 5)
     ),
     EventNames.Levels[41]:  IjiLocData(
@@ -267,13 +267,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[44]:  IjiLocData(
         region=RegNames.Sector9_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 9, 4)
     ),
     EventNames.Levels[45]:  IjiLocData(
         region=RegNames.Sector9_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 9, 5)
     ),
     EventNames.Levels[46]:  IjiLocData(
@@ -297,13 +297,13 @@ events_levels: Dict[str, IjiLocData] = {
     EventNames.Levels[49]:  IjiLocData(
         region=RegNames.SectorX_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 4),
         logic=lambda world, state: has_xp(state, world, 10, 4)
     ),
     EventNames.Levels[50]:  IjiLocData(
         region=RegNames.SectorX_Main[0],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.levelsanity.value == 0,
+        valid=lambda world: (world.options.levelsanity.value == 0 and world.options.game_difficulty.value >= 5),
         logic=lambda world, state: has_xp(state, world, 10, 5)
     ),
 }
@@ -376,7 +376,7 @@ events_xp: Dict[str, IjiLocData] = {
         region=RegNames.Sector2_Main[5],
         locked_item=lambda world: EventNames.XP[1][2],
         logic=lambda world, state: (
-            has_stats(state, world, ItemNames.Stat_Crack, 1)
+            has_stats(world, ItemNames.Stat_Crack, 1)
         )
     ),
     EventNames.XP_Sector[1][10]: IjiLocData(
@@ -405,7 +405,7 @@ events_xp: Dict[str, IjiLocData] = {
         region=RegNames.Sector3_Side[1],
         locked_item=lambda world: EventNames.XP[2][1],
         logic=lambda world, state: (
-            has_stats(state, world, ItemNames.Stat_Crack, 2)
+            has_stats(world, ItemNames.Stat_Crack, 2)
         )
     ),
     EventNames.XP_Sector[2][2]: IjiLocData(
@@ -424,7 +424,7 @@ events_xp: Dict[str, IjiLocData] = {
         region=RegNames.Sector3_Main[0],
         locked_item=lambda world: EventNames.XP[2][2],
         logic=lambda world, state: (
-            has_stats(state, world, ItemNames.Stat_Crack, 2)
+            has_stats(world, ItemNames.Stat_Crack, 2)
         )
     ),
     EventNames.XP_Sector[2][6]: IjiLocData(
@@ -510,7 +510,7 @@ events_xp: Dict[str, IjiLocData] = {
         region=RegNames.Sector4_Main[3],
         locked_item=lambda world: EventNames.XP[3][3],
         logic=lambda world, state: (
-            has_stats(state, world, ItemNames.Stat_Crack, 2)
+            has_stats(world, ItemNames.Stat_Crack, 2)
         )
     ),
     EventNames.XP_Sector[3][12]: IjiLocData(
@@ -542,7 +542,7 @@ events_xp: Dict[str, IjiLocData] = {
         region=RegNames.Sector5_Side[2],
         locked_item=lambda world: EventNames.XP[4][1],
         logic=lambda world, state: (
-            has_stats(state, world, ItemNames.Stat_Crack, 1)
+            has_stats(world, ItemNames.Stat_Crack, 1)
         )
     ),
     EventNames.XP_Sector[4][3]: IjiLocData(
@@ -614,7 +614,7 @@ events_xp: Dict[str, IjiLocData] = {
     EventNames.XP_Sector[5][7]: IjiLocData(
         region=RegNames.Sector6_Side[7],
         locked_item=lambda world: EventNames.XP[5][2],
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     EventNames.XP_Sector[5][8]: IjiLocData(
         region=RegNames.Sector6_Main[4],
@@ -790,7 +790,7 @@ events_xp: Dict[str, IjiLocData] = {
     EventNames.XP_Sector[7][8]: IjiLocData(
         region=RegNames.Sector8_Main[2],
         locked_item=lambda world: EventNames.XP[7][4],
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 4)
     ),
     EventNames.XP_Sector[7][9]: IjiLocData(
         region=RegNames.Sector8_Main[3],
@@ -826,7 +826,7 @@ events_xp: Dict[str, IjiLocData] = {
     EventNames.XP_Sector[8][1]: IjiLocData(
         region=RegNames.Sector9_Side[12],
         locked_item=lambda world: EventNames.XP[8][1],
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     EventNames.XP_Sector[8][2]: IjiLocData(
         region=RegNames.Sector9_Side[1],
@@ -974,7 +974,7 @@ events_xp: Dict[str, IjiLocData] = {
     EventNames.XP_Sector[9][10]: IjiLocData(
         region=RegNames.SectorX_Main[7],
         locked_item=lambda world: EventNames.XP[9][2],
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 6)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 6)
     ),
     EventNames.XP_Sector[9][11]: IjiLocData(
         region=RegNames.SectorX_Main[8],
@@ -1041,46 +1041,20 @@ events_xp: Dict[str, IjiLocData] = {
 }
 
 events_poster: Dict[str, IjiLocData] = {
-    EventNames.Posters[1]: IjiLocData(
-        region=RegNames.Sector1_Poster,
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[2]: IjiLocData(
-        region=RegNames.Sector2_Poster,
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[3]: IjiLocData(
-        region=RegNames.Sector3_Poster[1],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[4]: IjiLocData(
-        region=RegNames.Sector4_Poster[1],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[5]: IjiLocData(
-        region=RegNames.Sector5_Poster[2],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[6]: IjiLocData(
-        region=RegNames.Sector6_Poster[3],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[7]: IjiLocData(
-        region=RegNames.Sector7_Poster,
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[8]: IjiLocData(
-        region=RegNames.Sector8_Poster,
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[9]: IjiLocData(
-        region=RegNames.Sector9_Poster[2],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
-    EventNames.Posters[10]:IjiLocData(
-        region=RegNames.SectorX_Poster[3],
-        locked_item=lambda world: EventNames.Posters[0]
-    ),
+    EventNames.Posters[i]: IjiLocData(
+        region=RegNames.Sector_Posters[i-1],
+        locked_item=lambda world: EventNames.Posters[0],
+        on_added=lambda world: world.increment_total_posters()
+    )
+    for i in range(1,11)
+} | {
+    EventNames.Posters[11]: IjiLocData(
+        region = RegNames.Sector_Posters[10],
+        valid = lambda world: (not world.options.sector_z_allowed.has_requirement() and
+                               world.options.end_goal.value <= 10),
+        locked_item = lambda world: EventNames.Posters[0],
+        on_added = lambda world: world.increment_total_posters()
+    )
 }
 
 events_supercharges: Dict[str, IjiLocData] = {
@@ -1128,7 +1102,7 @@ events_supercharges: Dict[str, IjiLocData] = {
         logic=lambda world, state: location_table[LocNames.Supercharges[7]].logic(world, state)
     ),
     EventNames.Supercharges[8]: IjiLocData(
-        region=RegNames.Sector9_Deep,
+        region=RegNames.Sector9_Deep[9],
         locked_item=lambda world: EventNames.Levels[0],
         valid=lambda world: world.options.supercharge_locations.value <= 1
     ),
@@ -1797,6 +1771,13 @@ events_weapons: Dict[str, IjiLocData] = {
         region=RegNames.SectorX_Final[3],
         locked_item=lambda world: EventNames.Weapons[13],
         logic=lambda world, state: location_table[LocNames.Weapons_Per_Sector[9][7]].logic(world, state)
+    ),
+    EventNames.Explosives: IjiLocData(
+        region = RegNames.Global,
+        locked_item = lambda world: EventNames.Explosives,
+        logic = lambda world, state: (
+            state.has_any([EventNames.Weapons[3],EventNames.Weapons[4],EventNames.Weapons[7]],world.player)
+        )
     )
 }
 
@@ -1974,5 +1955,7 @@ event_item_table = {
     EventNames.SectorX_Terminal_Megacore[1]: IjiItemData(progtype = ItemClassification.progression),
     EventNames.SectorX_Terminal_Megacore[2]: IjiItemData(progtype = ItemClassification.progression),
     EventNames.SectorX_Megacore: IjiItemData(progtype = ItemClassification.progression),
-    EventNames.Victory: IjiItemData(progtype = ItemClassification.progression)
+    EventNames.Victory: IjiItemData(progtype = ItemClassification.progression),
+    #ItemNames.Glitch: IjiItemData( progtype=ItemClassification.progression),
+    EventNames.Explosives: IjiItemData( progtype = ItemClassification.progression),
 }

@@ -1,5 +1,1273 @@
 [
   {
+    "name": "World",
+    "children": [
+      {
+        "name": "Health",
+        "sections": [
+          {"name": "Reach Health Level 1"},
+          {"name": "Reach Health Level 2"},
+          {"name": "Reach Health Level 3"},
+          {"name": "Reach Health Level 4"},
+          {"name": "Reach Health Level 5"},
+          {"name": "Reach Health Level 6"},
+          {"name": "Reach Health Level 7"},
+          {"name": "Reach Health Level 8"},
+          {"name": "Reach Health Level 9"},
+          {"name": "Reach Health Level 10"},
+          {"name": "Reach Max Health Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 363,
+            "y": 768
+          }
+        ]
+      },
+      {
+        "name": "Attack",
+        "sections": [
+          {"name": "Reach Attack Level 1"},
+          {"name": "Reach Attack Level 2"},
+          {"name": "Reach Attack Level 3"},
+          {"name": "Reach Attack Level 4"},
+          {"name": "Reach Attack Level 5"},
+          {"name": "Reach Attack Level 6"},
+          {"name": "Reach Attack Level 7"},
+          {"name": "Reach Attack Level 8"},
+          {"name": "Reach Attack Level 9"},
+          {"name": "Reach Attack Level 10"},
+          {"name": "Reach Max Attack Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 363,
+            "y": 816
+          }
+        ]
+      },
+      {
+        "name": "Assimilate",
+        "sections": [
+          {"name": "Reach Assimilate Level 1"},
+          {"name": "Reach Assimilate Level 2"},
+          {"name": "Reach Assimilate Level 3"},
+          {"name": "Reach Assimilate Level 4"},
+          {"name": "Reach Assimilate Level 5"},
+          {"name": "Reach Assimilate Level 6"},
+          {"name": "Reach Assimilate Level 7"},
+          {"name": "Reach Assimilate Level 8"},
+          {"name": "Reach Assimilate Level 9"},
+          {"name": "Reach Assimilate Level 10"},
+          {"name": "Reach Max Assimilate Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 363,
+            "y": 864
+          }
+        ]
+      },
+      {
+        "name": "Strength",
+        "sections": [
+          {"name": "Reach Strength Level 1"},
+          {"name": "Reach Strength Level 2"},
+          {"name": "Reach Strength Level 3"},
+          {"name": "Reach Strength Level 4"},
+          {"name": "Reach Strength Level 5"},
+          {"name": "Reach Strength Level 6"},
+          {"name": "Reach Strength Level 7"},
+          {"name": "Reach Strength Level 8"},
+          {"name": "Reach Strength Level 9"},
+          {"name": "Reach Strength Level 10"},
+          {"name": "Reach Max Strength Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 363,
+            "y": 912
+          }
+        ]
+      },
+      {
+        "name": "Crack",
+        "sections": [
+          {"name": "Reach Crack Level 1"},
+          {"name": "Reach Crack Level 2"},
+          {"name": "Reach Crack Level 3"},
+          {"name": "Reach Crack Level 4"},
+          {"name": "Reach Crack Level 5"},
+          {"name": "Reach Crack Level 6"},
+          {"name": "Reach Crack Level 7"},
+          {"name": "Reach Crack Level 8"},
+          {"name": "Reach Crack Level 9"},
+          {"name": "Reach Crack Level 10"},
+          {"name": "Reach Max Crack Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 687,
+            "y": 768
+          }
+        ]
+      },
+      {
+        "name": "Tasen",
+        "sections": [
+          {"name": "Reach Tasen Level 1"},
+          {"name": "Reach Tasen Level 2"},
+          {"name": "Reach Tasen Level 3"},
+          {"name": "Reach Tasen Level 4"},
+          {"name": "Reach Tasen Level 5"},
+          {"name": "Reach Tasen Level 6"},
+          {"name": "Reach Tasen Level 7"},
+          {"name": "Reach Tasen Level 8"},
+          {"name": "Reach Tasen Level 9"},
+          {"name": "Reach Tasen Level 10"},
+          {"name": "Reach Max Tasen Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 687,
+            "y": 816
+          }
+        ]
+      },
+      {
+        "name": "Komato",
+        "sections": [
+          {"name": "Reach Komato Level 1"},
+          {"name": "Reach Komato Level 2"},
+          {"name": "Reach Komato Level 3"},
+          {"name": "Reach Komato Level 4"},
+          {"name": "Reach Komato Level 5"},
+          {"name": "Reach Komato Level 6"},
+          {"name": "Reach Komato Level 7"},
+          {"name": "Reach Komato Level 8"},
+          {"name": "Reach Komato Level 9"},
+          {"name": "Reach Komato Level 10"},
+          {"name": "Reach Max Komato Level"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 687,
+            "y": 864
+          }
+        ]
+      },
+      {
+        "name": "Machine Gun",
+        "sections": [
+          {"name": "Obtain Machine Gun"},
+          {"name": "Obtain Buster Gun"},
+          {"name": "Obtain Splintergun"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 876,
+            "y": 766
+          }
+        ]
+      },
+      {
+        "name": "Rocket Launcher",
+        "sections": [
+          {"name": "Obtain Rocket Launcher"},
+          {"name": "Obtain Spread Rockets"},
+          {"name": "Obtain Nuke"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 876,
+            "y": 840
+          }
+        ]
+      },
+      {
+        "name": "MPFB Devastator",
+        "sections": [
+          {"name": "Obtain MPFB Devastator"},
+          {"name": "Obtain Nuke"},
+          {"name": "Obtain Velocithor V2-10"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 876,
+            "y": 914
+          }
+        ]
+      },
+      {
+        "name": "Pulse Cannon",
+        "sections": [
+          {"name": "Obtain Pulse Cannon"},
+          {"name": "Obtain Hyper Pulse"},
+          {"name": "Obtain Plasma Cannon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1086,
+            "y": 766
+          }
+        ]
+      },
+      {
+        "name": "Shocksplinter",
+        "sections": [
+          {"name": "Obtain Shocksplinter"},
+          {"name": "Obtain Splintergun"},
+          {"name": "Obtain Plasma Cannon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1086,
+            "y": 840
+          }
+        ]
+      },
+      {
+        "name": "CFIS",
+        "sections": [
+          {"name": "Obtain Cyclic Fusion Ignition System"},
+          {"name": "Obtain Velocithor V2-10"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1086,
+            "y": 914
+          }
+        ]
+      },
+      {
+        "name": "Resonance Detonator",
+        "sections": [
+          {"name": "Obtain Resonance Detonator"},
+          {"name": "Obtain Resonance Reflector"},
+          {"name": "Obtain Hyper Pulse"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1296,
+            "y": 766
+          }
+        ]
+      },
+      {
+        "name": "Banana Gun",
+        "sections": [
+          {"name": "Obtain Banana Gun"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1296,
+            "y": 840
+          }
+        ]
+      },
+      {
+        "name": "Null Driver",
+        "sections": [
+          {"name": "Obtain Null Driver"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1296,
+            "y": 914
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Primary",
+        "sections": [
+          { "name": "Sector 1 - Level 1"},
+          { "name": "Sector 1 - Level 2"},
+          { "name": "Sector 1 - Level 3"},
+          { "name": "Sector 1 - Level 4"},
+          { "name": "Sector 1 - Level 5"},
+          { "name": "Sector 1 - Ribbon"},
+          { "name": "Sector 1 - Poster"},
+          { "name": "Sector 1 - Supercharge"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Weapons",
+        "sections": [
+          {"name": "Obtain Machine Gun"},
+          {"name": "Sector 1 - Machine Gun"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Logbooks",
+        "sections": [
+          {"name": "Sector 1 - 1st Tutorial Logbook"},
+          {"name": "Sector 1 - 2nd Tutorial Logbook"},
+          {"name": "Sector 1 - 3rd Tutorial Logbook"},
+          {"name": "Sector 1 - 4th Tutorial Logbook"},
+          {"name": "Sector 1 - 5th Tutorial Logbook"},
+          {"name": "Sector 1 - 1st Logbook near Poster"},
+          {"name": "Sector 1 - 2nd Logbook near Poster"},
+          {"name": "Sector 1 - 3rd Logbook near Poster"},
+          {"name": "Sector 1 - 4th Logbook near Poster"},
+          {"name": "Sector 1 - Logbook at End of Sector"},
+          {"name": "Sector 1 - Logbook in Guard Post"},
+          {"name": "Sector 1 - Logbook in Used Materials Access"},
+          {"name": "Sector 1 - Logbook near Machine Gun"},
+          {"name": "Sector 1 - Logbook near Supercharge"},
+          {"name": "Sector 1 - Logbook next to Ribbon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Primary",
+        "sections": [
+          {"name": "Sector 2 - Level 1"},
+          {"name": "Sector 2 - Level 2"},
+          {"name": "Sector 2 - Level 3"},
+          {"name": "Sector 2 - Level 4"},
+          {"name": "Sector 2 - Level 5"},
+          {"name": "Sector 2 - Ribbon"},
+          {"name": "Sector 2 - Poster"},
+          {"name": "Sector 2 - Supercharge"},
+          {"name": "Sector 2 - Checkpoint"},
+          {"name": "Sector 2 - Jump Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Weapons",
+        "sections": [
+          {"name": "Sector 2 - Machine Gun"},
+          {"name": "Sector 2 - Rocket Launcher"},
+          {"name": "Sector 2 - Resonance Detonator"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Logbooks",
+        "sections": [
+          {"name": "Sector 2 - Logbook at Top of Medical Access"},
+          {"name": "Sector 2 - Logbook in Break Room"},
+          {"name": "Sector 2 - Logbook in Medical Access"},
+          {"name": "Sector 2 - Logbook Left of Breakable Wall"},
+          {"name": "Sector 2 - Logbook Near 1st Terminal"},
+          {"name": "Sector 2 - Logbook Right of Breakable Wall"},
+          {"name": "Sector 2 - 1st Logbook at Start"},
+          {"name": "Sector 2 - 1st Logbook Near Checkpoint"},
+          {"name": "Sector 2 - 1st Logbook Near Poster"},
+          {"name": "Sector 2 - 2nd Logbook at Start"},
+          {"name": "Sector 2 - 2nd Logbook Near Checkpoint"},
+          {"name": "Sector 2 - 2nd Logbook Near Poster"},
+          {"name": "Sector 2 - 3rd Logbook at Start"},
+          {"name": "Sector 2 - 4th Logbook at Start"},
+          {"name": "Sector 2 - 5th Logbook at Start"},
+          {"name": "Sector 2 - 6th Logbook at Start"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Misc",
+        "sections": [
+          {"name": "Sector 2 - Nano Overload in Medical Storage"},
+          {"name": "Sector 2 - Nano Overload in Security Station"},
+          {"name": "Sector 2 - Security Box in Doctors' Offices"},
+          {"name": "Sector 2 - Security Box in Storeroom"},
+          {"name": "Sector 2 - Security Box in Ventilation"},
+          {"name": "Sector 2 - Security Box near Exit"},
+          {"name": "Sector 2 - Security Box near Rocket Launcher"},
+          {"name": "Sector 2 - Security Box Next to Terminal"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 682,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Primary",
+        "sections": [
+          {"name": "Sector 3 - Level 1"},
+          {"name": "Sector 3 - Level 2"},
+          {"name": "Sector 3 - Level 3"},
+          {"name": "Sector 3 - Level 4"},
+          {"name": "Sector 3 - Level 5"},
+          {"name": "Sector 3 - Ribbon"},
+          {"name": "Sector 3 - Poster"},
+          {"name": "Sector 3 - Supercharge"},
+          {"name": "Sector 3 - Checkpoint"},
+          {"name": "Sector 3 - Armor Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Weapons",
+        "sections": [
+          {"name": "Sector 3 - Machine Gun in Main Entrance Left"},
+          {"name": "Sector 3 - Machine Gun in Storage A"},
+          {"name": "Sector 3 - Machine Gun near End"},
+          {"name": "Sector 3 - Machine Gun"},
+          {"name": "Sector 3 - Rocket Launcher in Main Entrance Right"},
+          {"name": "Sector 3 - Rocket Launcher in Secured Box near End"},
+          {"name": "Sector 3 - Rocket Launcher"},
+          {"name": "Sector 3 - Resonance Detonator"},
+          {"name": "Sector 3 - Pulse Cannon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Logbooks",
+        "sections": [
+          {"name": "Sector 3 - Logbook at Right of Software Development"},
+          {"name": "Sector 3 - Logbook at Start"},
+          {"name": "Sector 3 - Logbook in Outdoors Section"},
+          {"name": "Sector 3 - Logbook in Software Development"},
+          {"name": "Sector 3 - Logbook near Ceiling Blits"},
+          {"name": "Sector 3 - Logbook near Poster"},
+          {"name": "Sector 3 - 1st Logbook behind Secured Doors"},
+          {"name": "Sector 3 - 1st Logbook Left of Ribbon"},
+          {"name": "Sector 3 - 1st Logbook near Armor Upgrade"},
+          {"name": "Sector 3 - 1st Logbook near End of Sector"},
+          {"name": "Sector 3 - 2nd Logbook behind Secured Doors"},
+          {"name": "Sector 3 - 2nd Logbook Left of Ribbon"},
+          {"name": "Sector 3 - 2nd Logbook near Armor Upgrade"},
+          {"name": "Sector 3 - 2nd Logbook near End of Sector"},
+          {"name": "Sector 3 - 1st Komato Logbook"},
+          {"name": "Sector 3 - 2nd Komato Logbook"},
+          {"name": "Sector 3 - 3rd Komato Logbook"},
+          {"name": "Sector 3 - 4th Komato Logbook"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 998,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Misc",
+        "sections": [
+          {"name": "Sector 3 - Nano Overload after Storage Elevator"},
+          {"name": "Sector 3 - Security Box 1 before Krotera"},
+          {"name": "Sector 3 - Security Box 1 Left of Software Development"},
+          {"name": "Sector 3 - Security Box 2 before Krotera"},
+          {"name": "Sector 3 - Security Box 2 Left of Software Development"},
+          {"name": "Sector 3 - Security Box in Storage A"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1102,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Primary",
+        "sections": [
+          {"name": "Sector 4 - Level 1"},
+          {"name": "Sector 4 - Level 2"},
+          {"name": "Sector 4 - Level 3"},
+          {"name": "Sector 4 - Level 4"},
+          {"name": "Sector 4 - Level 5"},
+          {"name": "Sector 4 - Ribbon"},
+          {"name": "Sector 4 - Poster"},
+          {"name": "Sector 4 - Supercharge"},
+          {"name": "Sector 4 - Checkpoint"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1470,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Weapons",
+        "sections": [
+          {"name": "Sector 4 - Machine Gun"},
+          {"name": "Sector 4 - Rocket Launcher near Checkpoint"},
+          {"name": "Sector 4 - Rocket Launcher near First Terminal"},
+          {"name": "Sector 4 - Rocket Launcher"},
+          {"name": "Sector 4 - MPFB Devastator"},
+          {"name": "Sector 4 - Resonance Detonator"},
+          {"name": "Sector 4 - Pulse Cannon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1470,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Logbooks",
+        "sections": [
+          {"name": "Sector 4 - Logbook at Start"},
+          {"name": "Sector 4 - Logbook Behind Breakable Wall at Start"},
+          {"name": "Sector 4 - Logbook in Guard Post above Secured Doors"},
+          {"name": "Sector 4 - Logbook in Shaft above Secured Doors"},
+          {"name": "Sector 4 - Logbook near End"},
+          {"name": "Sector 4 - Logbook near Left Terminal"},
+          {"name": "Sector 4 - Logbook near Main Storage Shredders"},
+          {"name": "Sector 4 - Logbook near Poster"},
+          {"name": "Sector 4 - Logbook near Reactor Core Elevator"},
+          {"name": "Sector 4 - Logbook near Ribbon"},
+          {"name": "Sector 4 - Logbook toward Right Terminal"},
+          {"name": "Sector 4 - 1st Logbook after Reactor Door"},
+          {"name": "Sector 4 - 2nd Logbook after Reactor Door"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1418,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Misc",
+        "sections": [
+          {"name": "Sector 4 - Nano Overload in Main Storage"},
+          {"name": "Sector 4 - Security Box"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1522,
+            "y": 94
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Primary",
+        "sections": [
+          {"name": "Sector 5 - Level 1"},
+          {"name": "Sector 5 - Level 2"},
+          {"name": "Sector 5 - Level 3"},
+          {"name": "Sector 5 - Level 4"},
+          {"name": "Sector 5 - Level 5"},
+          {"name": "Sector 5 - Ribbon"},
+          {"name": "Sector 5 - Poster"},
+          {"name": "Sector 5 - Supercharge"},
+          {"name": "Sector 5 - Checkpoint"},
+          {"name": "Sector 5 - Jump Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Weapons",
+        "sections": [
+          {"name": "Sector 5 - Machine Gun Left of First Elevator"},
+          {"name": "Sector 5 - Machine Gun near Floor 3 Terminal"},
+          {"name": "Sector 5 - Machine Gun"},
+          {"name": "Sector 5 - Rocket Launcher after First Elevator"},
+          {"name": "Sector 5 - Rocket Launcher next to Weapon Station"},
+          {"name": "Sector 5 - Rocket Launcher"},
+          {"name": "Sector 5 - MPFB Devastator"},
+          {"name": "Sector 5 - Resonance Detonator"},
+          {"name": "Sector 5 - Pulse Cannon in Incoming Goods"},
+          {"name": "Sector 5 - Pulse Cannon in Komato Assault Carrier"},
+          {"name": "Sector 5 - Pulse Cannon near Ribbon"},
+          {"name": "Sector 5 - Pulse Cannon"},
+          {"name": "Sector 5 - Shocksplinter"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Logbooks",
+        "sections": [
+          {"name": "Sector 5 - Logbook at Bottom of Central Ventilation Shaft"},
+          {"name": "Sector 5 - Logbook before Final Elevator"},
+          {"name": "Sector 5 - Logbook below Jump Upgrade"},
+          {"name": "Sector 5 - Logbook below Poster"},
+          {"name": "Sector 5 - Logbook in Incoming Goods"},
+          {"name": "Sector 5 - Logbook in Komato Assault Carrier"},
+          {"name": "Sector 5 - 1st Logbook near Floor 3 Terminal"},
+          {"name": "Sector 5 - 1st Logbook near Left Terminal"},
+          {"name": "Sector 5 - 2nd Logbook near Floor 3 Terminal"},
+          {"name": "Sector 5 - 2nd Logbook near Left Terminal"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Misc",
+        "sections": [
+          {"name": "Sector 5 - Nano Overload in Classified Materials Analysis"},
+          {"name": "Sector 5 - Nano Overload in Storage Control Sideroom"},
+          {"name": "Sector 5 - Security Box 1 in First Storeroom"},
+          {"name": "Sector 5 - Security Box 1 near Jump Upgrade"},
+          {"name": "Sector 5 - Security Box 2 in First Storeroom"},
+          {"name": "Sector 5 - Security Box 2 near Jump Upgrade"},
+          {"name": "Sector 5 - Security Box 3 in First Storeroom"},
+          {"name": "Sector 5 - Security Box in Second Storeroom"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 262,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Primary",
+        "sections": [
+          {"name": "Sector 6 - Level 1"},
+          {"name": "Sector 6 - Level 2"},
+          {"name": "Sector 6 - Level 3"},
+          {"name": "Sector 6 - Level 4"},
+          {"name": "Sector 6 - Level 5"},
+          {"name": "Sector 6 - Ribbon"},
+          {"name": "Sector 6 - Poster"},
+          {"name": "Sector 6 - Supercharge"},
+          {"name": "Sector 6 - Checkpoint"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Weapons",
+        "sections": [
+          {"name": "Sector 6 - Machine Gun below Supercharge"},
+          {"name": "Sector 6 - Machine Gun in Neoweapons Research Top"},
+          {"name": "Sector 6 - Machine Gun"},
+          {"name": "Sector 6 - Rocket Launcher in Neoweapons Research Bottom"},
+          {"name": "Sector 6 - Rocket Launcher in Neoweapons Research Top"},
+          {"name": "Sector 6 - Rocket Launcher near Ribbon"},
+          {"name": "Sector 6 - Rocket Launcher"},
+          {"name": "Sector 6 - MPFB Devastator near Poster"},
+          {"name": "Sector 6 - MPFB Devastator near Supercharge"},
+          {"name": "Sector 6 - MPFB Devastator"},
+          {"name": "Sector 6 - Resonance Detonator"},
+          {"name": "Sector 6 - Pulse Cannon in Neoweapons Research Bottom"},
+          {"name": "Sector 6 - Pulse Cannon near Ribbon"},
+          {"name": "Sector 6 - Pulse Cannon"},
+          {"name": "Sector 6 - Shocksplinter in Ventilation Shaft"},
+          {"name": "Sector 6 - Shocksplinter Left of Elevator"},
+          {"name": "Sector 6 - Shocksplinter near Ribbon"},
+          {"name": "Sector 6 - Shocksplinter"},
+          {"name": "Sector 6 - Cyclic Fusion Ignition System"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Logbooks",
+        "sections": [
+          {"name": "Sector 6 - Logbook in Neoweapons Research Bottom"},
+          {"name": "Sector 6 - Logbook near End of Sector"},
+          {"name": "Sector 6 - Logbook next to First Assassin"},
+          {"name": "Sector 6 - Logbook next to Poster"},
+          {"name": "Sector 6 - Logbook next to Second Assassin"},
+          {"name": "Sector 6 - Logbook next to Ventilation Shocksplinter"},
+          {"name": "Sector 6 - 1st Logbook after Secured Elevator Door"},
+          {"name": "Sector 6 - 1st Logbook near Supercharge"},
+          {"name": "Sector 6 - 2nd Logbook after Secured Elevator Door"},
+          {"name": "Sector 6 - 2nd Logbook near Supercharge"},
+          {"name": "Sector 6 - 3rd Logbook near Supercharge"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Misc",
+        "sections": [
+          {"name": "Sector 6 - Nano Overload at Bottom of Neoweapons Research"},
+          {"name": "Sector 6 - Security Box after Elevator Exit"},
+          {"name": "Sector 6 - Security Box near Elevator"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 682,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Primary",
+        "sections": [
+          {"name": "Sector 7 - Level 1"},
+          {"name": "Sector 7 - Level 2"},
+          {"name": "Sector 7 - Level 3"},
+          {"name": "Sector 7 - Level 4"},
+          {"name": "Sector 7 - Level 5"},
+          {"name": "Sector 7 - Ribbon"},
+          {"name": "Sector 7 - Poster"},
+          {"name": "Sector 7 - Supercharge"},
+          {"name": "Sector 7 - First Checkpoint"},
+          {"name": "Sector 7 - Second Checkpoint"},
+          {"name": "Sector 7 - Armor Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Weapons",
+        "sections": [
+          {"name": "Sector 7 - Machine Gun"},
+          {"name": "Sector 7 - Rocket Launcher after Rooftops"},
+          {"name": "Sector 7 - Rocket Launcher at Bottom of First Area"},
+          {"name": "Sector 7 - Rocket Launcher in Armory"},
+          {"name": "Sector 7 - Rocket Launcher"},
+          {"name": "Sector 7 - MPFB Devastator"},
+          {"name": "Sector 7 - Resonance Detonator in Armory"},
+          {"name": "Sector 7 - Resonance Detonator Left of Internal Security Terminal"},
+          {"name": "Sector 7 - Resonance Detonator"},
+          {"name": "Sector 7 - Pulse Cannon in Armory"},
+          {"name": "Sector 7 - Pulse Cannon near Ribbon"},
+          {"name": "Sector 7 - Pulse Cannon"},
+          {"name": "Sector 7 - Shocksplinter in Armory"},
+          {"name": "Sector 7 - Shocksplinter in Secured Box near Ribbon"},
+          {"name": "Sector 7 - Shocksplinter Left of Internal Security Terminal"},
+          {"name": "Sector 7 - Shocksplinter"},
+          {"name": "Sector 7 - Cyclic Fusion Ignition System"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Logbooks",
+        "sections": [
+          {"name": "Sector 7 - Logbook at Start of Sector"},
+          {"name": "Sector 7 - Logbook before Exotic Technology Access"},
+          {"name": "Sector 7 - Logbook in Ventilation near Start"},
+          {"name": "Sector 7 - Logbook near Internal Security Terminal"},
+          {"name": "Sector 7 - Logbook near Komato Ship Exit"},
+          {"name": "Sector 7 - Logbook next to CFIS"},
+          {"name": "Sector 7 - Logbook next to Hatch Terminal"},
+          {"name": "Sector 7 - Logbook next to Teleporter at End of Sector"},
+          {"name": "Sector 7 - Logbook on Balcony next to Teleporter after Rooftops"},
+          {"name": "Sector 7 - 1st Logbook after Rooftops"},
+          {"name": "Sector 7 - 1st Logbook in Armory"},
+          {"name": "Sector 7 - 1st Logbook in Crackers' Hideout"},
+          {"name": "Sector 7 - 1st Logbook in Top Left of Komato Ship"},
+          {"name": "Sector 7 - 1st Logbook near Poster"},
+          {"name": "Sector 7 - 1st Logbook on Platforms above Database Terminal"},
+          {"name": "Sector 7 - 2nd Logbook in Armory"},
+          {"name": "Sector 7 - 2nd Logbook in Crackers' Hideout"},
+          {"name": "Sector 7 - 2nd Logbook in Top Left of Komato Ship"},
+          {"name": "Sector 7 - 2nd Logbook near Poster"},
+          {"name": "Sector 7 - 2nd Logbook on Platforms above Database Terminal"},
+          {"name": "Sector 7 - 3rd Logbook in Armory"},
+          {"name": "Sector 7 - 3rd Logbook in Crackers' Hideout"},
+          {"name": "Sector 7 - AREYOUSERIOUS Logbook Left of Komato Ship Exit"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 998,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Misc",
+        "sections": [
+          {"name": "Sector 7 - Nano Overload in Phantom Hammer Control"},
+          {"name": "Sector 7 - Nano Overload in Security Station"},
+          {"name": "Sector 7 - Security Box 1 in Armory"},
+          {"name": "Sector 7 - Security Box 2 in Armory"},
+          {"name": "Sector 7 - Security Box below Ribbon"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1102,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Primary",
+        "sections": [
+          {"name": "Sector 8 - Level 1"},
+          {"name": "Sector 8 - Level 2"},
+          {"name": "Sector 8 - Level 3"},
+          {"name": "Sector 8 - Level 4"},
+          {"name": "Sector 8 - Level 5"},
+          {"name": "Sector 8 - Ribbon"},
+          {"name": "Sector 8 - Poster"},
+          {"name": "Sector 8 - Supercharge"},
+          {"name": "Sector 8 - Checkpoint"},
+          {"name": "Sector 8 - Armor Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1470,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Weapons",
+        "sections": [
+          {"name": "Sector 8 - Machine Gun"},
+          {"name": "Sector 8 - Rocket Launcher before Collapsible Floor"},
+          {"name": "Sector 8 - Rocket Launcher below Armor Upgrade"},
+          {"name": "Sector 8 - Rocket Launcher"},
+          {"name": "Sector 8 - Resonance Detonator"},
+          {"name": "Sector 8 - Pulse Cannon below Armor Upgrade"},
+          {"name": "Sector 8 - Pulse Cannon Right of Second Annihilator"},
+          {"name": "Sector 8 - Pulse Cannon"},
+          {"name": "Sector 8 - Shocksplinter near Start"},
+          {"name": "Sector 8 - Shocksplinter next to Ribbon"},
+          {"name": "Sector 8 - Shocksplinter"},
+          {"name": "Sector 8 - Cyclic Fusion Ignition System"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1470,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Logbooks",
+        "sections": [
+          {"name": "Sector 8 - Logbook above Final Annihilator"},
+          {"name": "Sector 8 - Logbook at Right of Recreation"},
+          {"name": "Sector 8 - Logbook at Start of Sector"},
+          {"name": "Sector 8 - Logbook before Collapsible Floor"},
+          {"name": "Sector 8 - Logbook before Phantom Hammer Strike"},
+          {"name": "Sector 8 - Logbook below Final Annihilator"},
+          {"name": "Sector 8 - Logbook Left of Second Annihilator"},
+          {"name": "Sector 8 - Logbook near Armor Upgrade"},
+          {"name": "Sector 8 - Logbook near Poster"},
+          {"name": "Sector 8 - Logbook near Ribbon"},
+          {"name": "Sector 8 - Logbook next to Annihilator Beta Terminal"},
+          {"name": "Sector 8 - Logbook next to Staff Storage Teleporter"},
+          {"name": "Sector 8 - Logbook Right of Second Annihilator"},
+          {"name": "Sector 8 - 1st Logbook near Trapmine"},
+          {"name": "Sector 8 - 2nd Logbook near Trapmine"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1418,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Misc",
+        "sections": [
+          {"name": "Sector 8 - Nano Overload Left of Hammer Strike"},
+          {"name": "Sector 8 - Security Box Next to Mine"},
+          {"name": "Sector 8 - Security Box next to Pitfall"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1522,
+            "y": 334
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Primary",
+        "sections": [
+          {"name": "Sector 9 - Level 1"},
+          {"name": "Sector 9 - Level 2"},
+          {"name": "Sector 9 - Level 3"},
+          {"name": "Sector 9 - Level 4"},
+          {"name": "Sector 9 - Level 5"},
+          {"name": "Sector 9 - Ribbon"},
+          {"name": "Sector 9 - Poster"},
+          {"name": "Sector 9 - Supercharge"},
+          {"name": "Sector 9 - First Checkpoint"},
+          {"name": "Sector 9 - Second Checkpoint"},
+          {"name": "Sector 9 - Armor Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Weapons",
+        "sections": [
+          {"name": "Sector 9 - Machine Gun in Bunker"},
+          {"name": "Sector 9 - Machine Gun in Head Guards' Offices"},
+          {"name": "Sector 9 - Machine Gun near Poster"},
+          {"name": "Sector 9 - Machine Gun"},
+          {"name": "Sector 9 - Rocket Launcher at Top of Bulkhead Area"},
+          {"name": "Sector 9 - Rocket Launcher in Break Room"},
+          {"name": "Sector 9 - Rocket Launcher in Bunker"},
+          {"name": "Sector 9 - Rocket Launcher near Assassin Ambush"},
+          {"name": "Sector 9 - Rocket Launcher near Poster"},
+          {"name": "Sector 9 - Rocket Launcher"},
+          {"name": "Sector 9 - MPFB Devastator in Break Room"},
+          {"name": "Sector 9 - MPFB Devastator in Bunker"},
+          {"name": "Sector 9 - MPFB Devastator near Assassin Ambush"},
+          {"name": "Sector 9 - MPFB Devastator near Poster"},
+          {"name": "Sector 9 - MPFB Devastator"},
+          {"name": "Sector 9 - Resonance Detonator above First Terminal"},
+          {"name": "Sector 9 - Resonance Detonator near Break Room"},
+          {"name": "Sector 9 - Resonance Detonator near Poster"},
+          {"name": "Sector 9 - Resonance Detonator in Bunker"},
+          {"name": "Sector 9 - Resonance Detonator"},
+          {"name": "Sector 9 - Pulse Cannon in Bunker"},
+          {"name": "Sector 9 - Pulse Cannon in Head Guards' Offices"},
+          {"name": "Sector 9 - Pulse Cannon near Assassin Ambush"},
+          {"name": "Sector 9 - Pulse Cannon near Poster"},
+          {"name": "Sector 9 - Pulse Cannon"},
+          {"name": "Sector 9 - Shocksplinter in Bunker"},
+          {"name": "Sector 9 - Shocksplinter in Head Guards' Offices"},
+          {"name": "Sector 9 - Shocksplinter near Assassin Ambush"},
+          {"name": "Sector 9 - Shocksplinter near Poster"},
+          {"name": "Sector 9 - Shocksplinter"},
+          {"name": "Sector 9 - Cyclic Fusion Ignition System in Bunker"},
+          {"name": "Sector 9 - Cyclic Fusion Ignition System near Poster"},
+          {"name": "Sector 9 - Cyclic Fusion Ignition System near Ribbon"},
+          {"name": "Sector 9 - Cyclic Fusion Ignition System"},
+          {"name": "Obtain Banana Gun"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 210,
+            "y": 626
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Logbooks",
+        "sections": [
+          {"name": "Sector 9 - Logbook above Shaft Leading to Bunker"},
+          {"name": "Sector 9 - Logbook at Right of Bulkhead Area"},
+          {"name": "Sector 9 - Logbook at Start"},
+          {"name": "Sector 9 - Logbook at Top of Bulkhead Area"},
+          {"name": "Sector 9 - Logbook behind Secured Doors in Bunker"},
+          {"name": "Sector 9 - Logbook near Break Room Weapon Station"},
+          {"name": "Sector 9 - Logbook next to Banana Gun"},
+          {"name": "Sector 9 - Logbook Outside Deep Sector"},
+          {"name": "Sector 9 - Logbook Right of Start"},
+          {"name": "Sector 9 - 1st Logbook in Bunker"},
+          {"name": "Sector 9 - 1st Logbook in Deep Sector"},
+          {"name": "Sector 9 - 1st Logbook near Assassin below Poster"},
+          {"name": "Sector 9 - 1st Logbook Outside Bunker"},
+          {"name": "Sector 9 - 2nd Logbook in Bunker"},
+          {"name": "Sector 9 - 2nd Logbook in Deep Sector"},
+          {"name": "Sector 9 - 2nd Logbook near Assassin below Poster"},
+          {"name": "Sector 9 - 2nd Logbook Outside Bunker"},
+          {"name": "Sector 9 - 3rd Logbook in Bunker"},
+          {"name": "Sector 9 - 3rd Logbook in Deep Sector"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Misc",
+        "sections": [
+          {"name": "Sector 9 - Nano Overload in Megacore Research"},
+          {"name": "Sector 9 - Nano Overload near Start"},
+          {"name": "Sector 9 - Security Box 1 at Start"},
+          {"name": "Sector 9 - Security Box 2 at Start"},
+          {"name": "Sector 9 - Security Box Above Elevator Trap"},
+          {"name": "Sector 9 - Security Box in Guards' Quarters"},
+          {"name": "Sector 9 - Security Box near Bulkhead Lock A"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 262,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector X Primary",
+        "sections": [
+          {"name": "Sector X - Level 1"},
+          {"name": "Sector X - Level 2"},
+          {"name": "Sector X - Level 3"},
+          {"name": "Sector X - Level 4"},
+          {"name": "Sector X - Level 5"},
+          {"name": "Sector X - Ribbon"},
+          {"name": "Sector X - Poster"},
+          {"name": "Sector X - Supercharge"},
+          {"name": "Sector X - First Checkpoint"},
+          {"name": "Sector X - Second Checkpoint"},
+          {"name": "Sector X - Armor Upgrade"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector X Weapons",
+        "sections": [
+          {"name": "Sector X - Machine Gun at Top of First Area"},
+          {"name": "Sector X - Machine Gun before General Tor"},
+          {"name": "Sector X - Machine Gun in Megacore Control"},
+          {"name": "Sector X - Machine Gun"},
+          {"name": "Sector X - Rocket Launcher at Bottom of First Area"},
+          {"name": "Sector X - Rocket Launcher before General Tor"},
+          {"name": "Sector X - Rocket Launcher before Helios Labs"},
+          {"name": "Sector X - Rocket Launcher in Megacore Control"},
+          {"name": "Sector X - Rocket Launcher"},
+          {"name": "Sector X - MPFB Devastator before General Tor"},
+          {"name": "Sector X - MPFB Devastator before Helios Labs"},
+          {"name": "Sector X - MPFB Devastator in Icarus Labs"},
+          {"name": "Sector X - MPFB Devastator Right of Asha"},
+          {"name": "Sector X - MPFB Devastator"},
+          {"name": "Sector X - Resonance Detonator in Icarus Labs"},
+          {"name": "Sector X - Resonance Detonator Right of Asha"},
+          {"name": "Sector X - Resonance Detonator"},
+          {"name": "Sector X - Pulse Cannon at Bottom of First Area"},
+          {"name": "Sector X - Pulse Cannon before General Tor"},
+          {"name": "Sector X - Pulse Cannon before Helios Labs"},
+          {"name": "Sector X - Pulse Cannon in Megacore Control"},
+          {"name": "Sector X - Pulse Cannon"},
+          {"name": "Sector X - Shocksplinter before General Tor"},
+          {"name": "Sector X - Shocksplinter before Helios Labs"},
+          {"name": "Sector X - Shocksplinter below Rooftop Elevator"},
+          {"name": "Sector X - Shocksplinter"},
+          {"name": "Sector X - Cyclic Fusion Ignition System before General Tor"},
+          {"name": "Sector X - Cyclic Fusion Ignition System before Helios Labs"},
+          {"name": "Sector X - Cyclic Fusion Ignition System in Megacore Control"},
+          {"name": "Sector X - Cyclic Fusion Ignition System Left of Rooftop Elevator"},
+          {"name": "Sector X - Cyclic Fusion Ignition System"},
+          {"name": "Sector X - Resonance Reflector"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 630,
+            "y": 626
+          }
+        ]
+      },
+      {
+        "name": "Sector X Logbooks",
+        "sections": [
+          {"name": "Sector X - Logbook across Large Gap near Start"},
+          {"name": "Sector X - Logbook before Asha"},
+          {"name": "Sector X - Logbook before Final Climb"},
+          {"name": "Sector X - Logbook near Annihilator Beta"},
+          {"name": "Sector X - Logbook near Start"},
+          {"name": "Sector X - Logbook to Right of First Elevator"},
+          {"name": "Sector X - Logbook to Right of Megacore"},
+          {"name": "Sector X - 1st Logbook below First Elevator"},
+          {"name": "Sector X - 1st Logbook in Final Area"},
+          {"name": "Sector X - 1st Logbook Left of Top of First Elevator"},
+          {"name": "Sector X - 1st Logbook near Final Elevator"},
+          {"name": "Sector X - 1st Logbook near Maximum Charge Terminal"},
+          {"name": "Sector X - 1st Logbook near Megacore"},
+          {"name": "Sector X - 2nd Logbook below First Elevator"},
+          {"name": "Sector X - 2nd Logbook in Final Area"},
+          {"name": "Sector X - 2nd Logbook Left of Top of First Elevator"},
+          {"name": "Sector X - 2nd Logbook near Final Elevator"},
+          {"name": "Sector X - 2nd Logbook near Maximum Charge Terminal"},
+          {"name": "Sector X - 2nd Logbook near Megacore"},
+          {"name": "Sector X - 3rd Logbook in Final Area"},
+          {"name": "Sector X - 3rd Logbook near Final Elevator"},
+          {"name": "Sector X - 3rd Logbook near Maximum Charge Terminal"},
+          {"name": "Sector X - 3rd Logbook near Megacore"},
+          {"name": "Sector X - 4th Logbook in Final Area"},
+          {"name": "Sector X - 4th Logbook near Final Elevator"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector X Misc",
+        "sections": [
+          {"name": "Sector X - Nano Overload in Final Climb"},
+          {"name": "Sector X - Nano Overload near Start"},
+          {"name": "Sector X - Security Box in Final Climb"},
+          {"name": "Sector X - Security Box near Annihilator Beta"},
+          {"name": "Sector X - Security Box near Start"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 682,
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector Z Primary",
+        "sections": [
+          {"name": "Sector Z - Sector Complete"},
+          {"name": "Sector Z - Epic Poster"},
+          {"name": "Sector Z - Logbook at End of Sector"},
+          {"name": "Sector Z - Logbook in Hero Area"},
+          {"name": "Obtain Null Driver"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 600
+          }
+        ]
+      },
+      {
+        "name": "Sector Y Primary",
+        "sections": [
+          {"name": "Sector Y - 1st Logbook Left of Start"},
+          {"name": "Sector Y - 1st Logbook Right of Start"},
+          {"name": "Sector Y - 2nd Logbook Left of Start"},
+          {"name": "Sector Y - 3rd Logbook Left of Start"},
+          {"name": "Sector Y - 3rd Logbook Right of Start"},
+          {"name": "Sector Y - 4th Logbook Left of Start"},
+          {"name": "Sector Y - 4th Logbook Right of Start"},
+          {"name": "Sector Y - Logbook above Last Elevator"},
+          {"name": "Sector Y - Logbook at End of Sector"},
+          {"name": "Sector Y - Logbook in Used Materials Access"},
+          {"name": "Sector Y - Logbook Left of Last Elevator"},
+          {"name": "Sector Y - Logbook near Poster of Doom"},
+          {"name": "Sector Y - Logbook Right of Last Elevator"},
+          {"name": "Sector Y - Poster of Doom"},
+          {"name": "Sector Y - Sector Complete"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1470,
+            "y": 600
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "Sector 1",
     "children": [
       {
@@ -140,6 +1408,23 @@
             "map": "Sector1",
             "x": 1051,
             "y": 425
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Levels",
+        "sections": [
+          {"name": "Sector 1 - Level 1"},
+          {"name": "Sector 1 - Level 2"},
+          {"name": "Sector 1 - Level 3"},
+          {"name": "Sector 1 - Level 4"},
+          {"name": "Sector 1 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector1",
+            "x": 291,
+            "y": 495
           }
         ]
       }
@@ -459,6 +1744,23 @@
             "y": 537
           }
         ]
+      },
+      {
+        "name": "Sector 2 Levels",
+        "sections": [
+          {"name": "Sector 2 - Level 1"},
+          {"name": "Sector 2 - Level 2"},
+          {"name": "Sector 2 - Level 3"},
+          {"name": "Sector 2 - Level 4"},
+          {"name": "Sector 2 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 387,
+            "y": 627
+          }
+        ]
       }
     ]
   },
@@ -602,12 +1904,6 @@
             "x": 388,
             "y": 591
           }
-        ]
-      },
-      {
-        "name": "Sector 3 Main Entrance Logbook",
-        "sections": [
-          { "name": "Sector 3 - Logbook in Outdoors Section" }
         ]
       },
       {
@@ -781,6 +2077,23 @@
             "map": "Sector3",
             "x": 593,
             "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Levels",
+        "sections": [
+          {"name": "Sector 3 - Level 1"},
+          {"name": "Sector 3 - Level 2"},
+          {"name": "Sector 3 - Level 3"},
+          {"name": "Sector 3 - Level 4"},
+          {"name": "Sector 3 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 300,
+            "y": 654
           }
         ]
       }
@@ -1024,6 +2337,23 @@
             "map": "Sector4",
             "x": 917,
             "y": 558
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Levels",
+        "sections": [
+          {"name": "Sector 4 - Level 1"},
+          {"name": "Sector 4 - Level 2"},
+          {"name": "Sector 4 - Level 3"},
+          {"name": "Sector 4 - Level 4"},
+          {"name": "Sector 4 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 444,
+            "y": 609
           }
         ]
       }
@@ -1346,6 +2676,23 @@
             "y": 151
           }
         ]
+      },
+      {
+        "name": "Sector 5 Levels",
+        "sections": [
+          {"name": "Sector 5 - Level 1"},
+          {"name": "Sector 5 - Level 2"},
+          {"name": "Sector 5 - Level 3"},
+          {"name": "Sector 5 - Level 4"},
+          {"name": "Sector 5 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 183,
+            "y": 663
+          }
+        ]
       }
     ]
   },
@@ -1658,6 +3005,23 @@
             "map": "Sector6",
             "x": 950,
             "y": 351
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Levels",
+        "sections": [
+          {"name": "Sector 6 - Level 1"},
+          {"name": "Sector 6 - Level 2"},
+          {"name": "Sector 6 - Level 3"},
+          {"name": "Sector 6 - Level 4"},
+          {"name": "Sector 6 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 420,
+            "y": 573
           }
         ]
       }
@@ -2010,6 +3374,23 @@
             "y": 539
           }
         ]
+      },
+      {
+        "name": "Sector 7 Levels",
+        "sections": [
+          {"name": "Sector 7 - Level 1"},
+          {"name": "Sector 7 - Level 2"},
+          {"name": "Sector 7 - Level 3"},
+          {"name": "Sector 7 - Level 4"},
+          {"name": "Sector 7 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 327,
+            "y": 660
+          }
+        ]
       }
     ]
   },
@@ -2267,6 +3648,23 @@
             "map": "Sector8",
             "x": 1031,
             "y": 348
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Levels",
+        "sections": [
+          {"name": "Sector 8 - Level 1"},
+          {"name": "Sector 8 - Level 2"},
+          {"name": "Sector 8 - Level 3"},
+          {"name": "Sector 8 - Level 4"},
+          {"name": "Sector 8 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 300,
+            "y": 546
           }
         ]
       }
@@ -2627,7 +4025,7 @@
           { "name": "Sector 9 - MPFB Devastator in Bunker" },
           { "name": "Obtain Resonance Detonator" },
           { "name": "Sector 9 - Resonance Detonator" },
-          { "name": "Sector 9 - Resonance Detontor in Bunker" },
+          { "name": "Sector 9 - Resonance Detonator in Bunker" },
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector 9 - Pulse Cannon" },
           { "name": "Sector 9 - Pulse Cannon in Bunker" },
@@ -2636,7 +4034,8 @@
           { "name": "Sector 9 - Shocksplinter in Bunker" },
           { "name": "Obtain Cyclic Fusion Ignition System" },
           { "name": "Sector 9 - Cyclic Fusion Ignition System" },
-          { "name": "Sector 9 - Cyclic Fusion Ignition System in Bunker" }
+          { "name": "Sector 9 - Cyclic Fusion Ignition System in Bunker" },
+          { "name": "Sector 9 - Second Checkpoint" }
         ],
         "map_locations": [
           {
@@ -2672,6 +4071,23 @@
             "map": "Sector9",
             "x": 1123,
             "y": 595
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Levels",
+        "sections": [
+          {"name": "Sector 9 - Level 1"},
+          {"name": "Sector 9 - Level 2"},
+          {"name": "Sector 9 - Level 3"},
+          {"name": "Sector 9 - Level 4"},
+          {"name": "Sector 9 - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 219,
+            "y": 662
           }
         ]
       }
@@ -3196,6 +4612,23 @@
             "y": 242
           }
         ]
+      },
+      {
+        "name": "Sector X Levels",
+        "sections": [
+          {"name": "Sector X - Level 1"},
+          {"name": "Sector X - Level 2"},
+          {"name": "Sector X - Level 3"},
+          {"name": "Sector X - Level 4"},
+          {"name": "Sector X - Level 5"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 228,
+            "y": 591
+          }
+        ]
       }
     ]
   },
@@ -3231,7 +4664,8 @@
       {
         "name": "Sector Z End",
         "sections": [
-          { "name": "Sector Z - Logbook at End of Sector" }
+          { "name": "Sector Z - Logbook at End of Sector" },
+          { "name": "Sector Z - Sector Complete" }
         ],
         "map_locations": [
           {

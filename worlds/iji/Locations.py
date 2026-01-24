@@ -17,8 +17,8 @@ def get_remaining_locations(world: "IjiWorld") -> int:
 
     return total
 
-def get_location_names() -> Dict[str, int]:
-    names = {name: data.code for name, data in LocData.location_table.items()}
+#def get_location_names() -> Dict[str, int]:
+#    names = {name: data.code for name, data in LocData.location_table.items()}
 
 events_and_locations = {
     **LocData.location_table,
@@ -26,7 +26,15 @@ events_and_locations = {
 }
 
 location_groups_table = {
-    group: locations
-    for group in [data.region[:8] for _, data in LocData.locations_sectorcomplete.items()]
-    for locations in [[location for location, data in LocData.location_table.items() if data.region[:8] == group]]
+    "Sector Complete": LocData.locations_sector_complete.keys(),
+    "Posters": LocData.locations_poster.keys(),
+    "Ribbons": LocData.locations_ribbon.keys(),
+    "Levels": LocData.locations_level_up.keys(),
+    "Stat Levels": LocData.locations_stat_levels.keys(),
+    #"Health Levels": [keys for keys in LocData.locations_stat_levels.keys() if "Health" in keys],
+    "Supercharges": LocData.locations_supercharge.keys(),
+    "Logbooks": LocData.locations_logbooks.keys(),
+    #group: locations
+    #for group in [data.region[:8] for _, data in LocData.locations_sectorcomplete.items()]
+    #for locations in [[location for location, data in LocData.location_table.items() if data.region[:8] == group]]
 }

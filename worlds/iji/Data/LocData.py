@@ -1,9 +1,9 @@
 from typing import Callable, Dict, NamedTuple, Optional, TYPE_CHECKING
 from BaseClasses import CollectionState
-from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, can_make_bustergun, can_make_hyperpulse, \
-    can_make_nuke, can_make_plasmacannon, can_make_resonancereflector, can_make_splintergun, can_make_spreadrockets, \
-    can_make_velocithor, has_stats, has_weapon_stats, has_xp
+from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_weapon_stats, has_xp, \
+    can_make_weapon, has_weapon_plus_points
 from ..Names import LocNames, RegNames, ItemNames, EventNames
+from ..Valid import could_destroy_sentinel_proxima
 
 if TYPE_CHECKING:
     from .. import IjiWorld
@@ -14,748 +14,132 @@ class IjiLocData(NamedTuple):
     valid: Callable[["IjiWorld"], bool] = lambda world: True
     logic: Callable[["IjiWorld", CollectionState], bool] = lambda world, state: True
     locked_item: Callable[["IjiWorld"], str] = lambda world: None
+    on_added: Callable[["IjiWorld"], None] = lambda world: None
 
-locations_sectorcomplete: Dict[str,IjiLocData] = {
-    LocNames.Sector_Complete[0]: IjiLocData(
-        code=1,  region=RegNames.Sector1_Main[3]
-    ),
-    LocNames.Sector_Complete[1]: IjiLocData(
-        code=2,  region=RegNames.Sector2_Main[6]
-    ),
-    LocNames.Sector_Complete[2]: IjiLocData(
-        code=3,  region=RegNames.Sector3_Main[4],
-        valid=lambda world: world.options.end_goal.value != 3
-    ),
-    LocNames.Sector_Complete[3]: IjiLocData(
-        code=4,  region=RegNames.Sector4_Main[8]
-    ),
-    LocNames.Sector_Complete[4]: IjiLocData(
-        code=5,  region=RegNames.Sector5_Main[8],
-        valid=lambda world: world.options.end_goal.value != 5
-    ),
-    LocNames.Sector_Complete[5]: IjiLocData(
-        code=6,  region=RegNames.Sector6_Main[11]
-    ),
-    LocNames.Sector_Complete[6]: IjiLocData(
-        code=7,  region=RegNames.Sector7_Main[11],
-        valid=lambda world: world.options.end_goal.value != 7
-    ),
-    LocNames.Sector_Complete[7]: IjiLocData(
-        code=8,  region=RegNames.Sector8_Main[3]
-    ),
-    LocNames.Sector_Complete[8]: IjiLocData(
-        code=9, region=RegNames.Sector9_Main[14],
-        valid=lambda world: world.options.end_goal.value != 9
-    ),
-    LocNames.Sector_Complete[9]: IjiLocData(
-        code=10, region=RegNames.SectorX_Final[6],
-        valid=lambda world: world.options.end_goal.value != 10
-    ),
-    LocNames.Sector_Complete[10]: IjiLocData(
-        code=11, region=RegNames.SectorZ,
-        valid=lambda world: world.options.end_goal.value != 11
-    ),
-    LocNames.Sector_Complete[11]: IjiLocData(
-        code=12, region=RegNames.SectorY,
-        valid=lambda world: world.options.end_goal.value != 12
-    )
+locations_sector_complete: Dict[str,IjiLocData] = {
+    LocNames.Sector_Complete[i]: IjiLocData(
+        code=i+1, region=RegNames.Sector_Ends[i],
+        valid=lambda world: world.options.end_goal.value != (i+1)
+    ) for i in range(len(LocNames.Sector_Complete))
 }
 
 locations_checkpoints: Dict[str, IjiLocData] = {
-    LocNames.Checkpoints[0]: IjiLocData(
-        code=13, region=RegNames.Sector2_Main[2]
-    ),
-    LocNames.Checkpoints[1]: IjiLocData(
-        code=14, region=RegNames.Sector3_Main[1]
-    ),
-    LocNames.Checkpoints[2]: IjiLocData(
-        code=15,region=RegNames.Sector4_Main[2]
-    ),
-    LocNames.Checkpoints[3]: IjiLocData(
-        code=16, region=RegNames.Sector5_Main[2]
-    ),
-    LocNames.Checkpoints[4]: IjiLocData(
-        code=17, region=RegNames.Sector6_Main[4]
-    ),
-    LocNames.Checkpoints[5]: IjiLocData(
-        code=18, region=RegNames.Sector7_Main[3]
-    ),
-    LocNames.Checkpoints[6]: IjiLocData(
-        code=19, region=RegNames.Sector7_Main[10]
-    ),
-    LocNames.Checkpoints[7]: IjiLocData(
-        code=20, region=RegNames.Sector8_Main[3]
-    ),
-    LocNames.Checkpoints[8]: IjiLocData(
-        code=21, region=RegNames.Sector9_Main[3]
-    ),
-    LocNames.Checkpoints[9]: IjiLocData(
-        code=22, region=RegNames.Sector9_Main[13]
-    ),
-    LocNames.Checkpoints[10]: IjiLocData(
-        code=23, region=RegNames.SectorX_Core[4]
-    ),
-    LocNames.Checkpoints[11]: IjiLocData(
-        code=24, region=RegNames.SectorX_Main[7]
-    )
+    LocNames.Checkpoints[i]: IjiLocData(
+        code=13+i, region=RegNames.Sector_Checkpoints[i]
+    ) for i in range(len(RegNames.Sector_Checkpoints))
 }
 
-# levelup regions change based on difficulty (Whenever that is implemented)
-locations_levelup: Dict[str, IjiLocData] = {
-    LocNames.Levels[0][0]: IjiLocData(
-        code=101, region=RegNames.Sector1_Main[0],
-        logic=lambda world, state: has_xp(state, world, 1, 1)
-    ),
-    LocNames.Levels[0][1]: IjiLocData(
-        code=102, region=RegNames.Sector1_Main[0],
-        logic=lambda world, state: has_xp(state, world, 1, 2)
-    ),
-    LocNames.Levels[0][2]: IjiLocData(
-        code=103, region=RegNames.Sector1_Main[0],
-        logic=lambda world, state: has_xp(state, world, 1, 3)
-    ),
-    LocNames.Levels[0][3]: IjiLocData(
-        code=104, region=RegNames.Sector1_Main[0],
-        logic=lambda world, state: has_xp(state, world, 1, 4)
-    ),
-    LocNames.Levels[0][4]: IjiLocData(
-        code=105, region=RegNames.Sector1_Main[0],
-        logic=lambda world, state: has_xp(state, world, 1, 5)
-    ),
-    LocNames.Levels[1][0]: IjiLocData(
-        code=106, region=RegNames.Sector2_Main[0],
-        logic=lambda world, state: has_xp(state, world, 2, 1)
-    ),
-    LocNames.Levels[1][1]: IjiLocData(
-        code=107, region=RegNames.Sector2_Main[0],
-        logic=lambda world, state: has_xp(state, world, 2, 2)
-    ),
-    LocNames.Levels[1][2]: IjiLocData(
-        code=108, region=RegNames.Sector2_Main[0],
-        logic=lambda world, state: has_xp(state, world, 2, 3)
-    ),
-    LocNames.Levels[1][3]: IjiLocData(
-        code=109, region=RegNames.Sector2_Main[0],
-        logic=lambda world, state: has_xp(state, world, 2, 4)
-    ),
-    LocNames.Levels[1][4]: IjiLocData(
-        code=110, region=RegNames.Sector2_Main[0],
-        logic=lambda world, state: has_xp(state, world, 2, 5)
-    ),
-    LocNames.Levels[2][0]: IjiLocData(
-        code=111, region=RegNames.Sector3_Main[0],
-        logic=lambda world, state: has_xp(state, world, 3, 1)
-    ),
-    LocNames.Levels[2][1]: IjiLocData(
-        code=112, region=RegNames.Sector3_Main[0],
-        logic=lambda world, state: has_xp(state, world, 3, 2)
-    ),
-    LocNames.Levels[2][2]: IjiLocData(
-        code=113, region=RegNames.Sector3_Main[0],
-        logic=lambda world, state: has_xp(state, world, 3, 3)
-    ),
-    LocNames.Levels[2][3]: IjiLocData(
-        code=114, region=RegNames.Sector3_Main[0],
-        logic=lambda world, state: has_xp(state, world, 3, 4)
-    ),
-    LocNames.Levels[2][4]: IjiLocData(
-        code=115, region=RegNames.Sector3_Main[0],
-        logic=lambda world, state: has_xp(state, world, 3, 5)
-    ),
-    LocNames.Levels[3][0]: IjiLocData(
-        code=116, region=RegNames.Sector4_Main[0],
-        logic=lambda world, state: has_xp(state, world, 4, 1)
-    ),
-    LocNames.Levels[3][1]: IjiLocData(
-        code=117, region=RegNames.Sector4_Main[0],
-        logic=lambda world, state: has_xp(state, world, 4, 2)
-    ),
-    LocNames.Levels[3][2]: IjiLocData(
-        code=118, region=RegNames.Sector4_Main[0],
-        logic=lambda world, state: has_xp(state, world, 4, 3)
-    ),
-    LocNames.Levels[3][3]: IjiLocData(
-        code=119, region=RegNames.Sector4_Main[0],
-        logic=lambda world, state: has_xp(state, world, 4, 4)
-    ),
-    LocNames.Levels[3][4]: IjiLocData(
-        code=120, region=RegNames.Sector4_Main[0],
-        logic=lambda world, state: has_xp(state, world, 4, 5)
-    ),
-    LocNames.Levels[4][0]: IjiLocData(
-        code=121, region=RegNames.Sector5_Main[0],
-        logic=lambda world, state: has_xp(state, world, 5, 1)
-    ),
-    LocNames.Levels[4][1]: IjiLocData(
-        code=122, region=RegNames.Sector5_Main[0],
-        logic=lambda world, state: has_xp(state, world, 5, 2)
-    ),
-    LocNames.Levels[4][2]: IjiLocData(
-        code=123, region=RegNames.Sector5_Main[0],
-        logic=lambda world, state: has_xp(state, world, 5, 3)
-    ),
-    LocNames.Levels[4][3]: IjiLocData(
-        code=124, region=RegNames.Sector5_Main[0],
-        logic=lambda world, state: has_xp(state, world, 5, 4)
-    ),
-    LocNames.Levels[4][4]: IjiLocData(
-        code=125, region=RegNames.Sector5_Main[0],
-        logic=lambda world, state: has_xp(state, world, 5, 5)
-    ),
-    LocNames.Levels[5][0]: IjiLocData(
-        code=126, region=RegNames.Sector6_Main[0],
-        logic=lambda world, state: has_xp(state, world, 6, 1)
-    ),
-    LocNames.Levels[5][1]: IjiLocData(
-        code=127, region=RegNames.Sector6_Main[0],
-        logic=lambda world, state: has_xp(state, world, 6, 2)
-    ),
-    LocNames.Levels[5][2]: IjiLocData(
-        code=128, region=RegNames.Sector6_Main[0],
-        logic=lambda world, state: has_xp(state, world, 6, 3)
-    ),
-    LocNames.Levels[5][3]: IjiLocData(
-        code=129, region=RegNames.Sector6_Main[0],
-        logic=lambda world, state: has_xp(state, world, 6, 4)
-    ),
-    LocNames.Levels[5][4]: IjiLocData(
-        code=130, region=RegNames.Sector6_Main[0],
-        logic=lambda world, state: has_xp(state, world, 6, 5)
-    ),
-    LocNames.Levels[6][0]: IjiLocData(
-        code=131, region=RegNames.Sector7_Main[0],
-        logic=lambda world, state: has_xp(state, world, 7, 1)
-    ),
-    LocNames.Levels[6][1]: IjiLocData(
-        code=132, region=RegNames.Sector7_Main[0],
-        logic=lambda world, state: has_xp(state, world, 7, 2)
-    ),
-    LocNames.Levels[6][2]: IjiLocData(
-        code=133, region=RegNames.Sector7_Main[0],
-        logic=lambda world, state: has_xp(state, world, 7, 3)
-    ),
-    LocNames.Levels[6][3]: IjiLocData(
-        code=134, region=RegNames.Sector7_Main[0],
-        logic=lambda world, state: has_xp(state, world, 7, 4)
-    ),
-    LocNames.Levels[6][4]: IjiLocData(
-        code=135, region=RegNames.Sector7_Main[0],
-        logic=lambda world, state: has_xp(state, world, 7, 5)
-    ),
-    LocNames.Levels[7][0]: IjiLocData(
-        code=136, region=RegNames.Sector8_Main[0],
-        logic=lambda world, state: has_xp(state, world, 8, 1)
-    ),
-    LocNames.Levels[7][1]: IjiLocData(
-        code=137, region=RegNames.Sector8_Main[0],
-        logic=lambda world, state: has_xp(state, world, 8, 2)
-    ),
-    LocNames.Levels[7][2]: IjiLocData(
-        code=138, region=RegNames.Sector8_Main[0],
-        logic=lambda world, state: has_xp(state, world, 8, 3)
-    ),
-    LocNames.Levels[7][3]: IjiLocData(
-        code=139, region=RegNames.Sector8_Main[0],
-        logic=lambda world, state: has_xp(state, world, 8, 4)
-    ),
-    LocNames.Levels[7][4]: IjiLocData(
-        code=140, region=RegNames.Sector8_Main[0],
-        logic=lambda world, state: has_xp(state, world, 8, 5)
-    ),
-    LocNames.Levels[8][0]: IjiLocData(
-        code=141, region=RegNames.Sector9_Main[0],
-        logic=lambda world, state: has_xp(state, world, 9, 1)
-    ),
-    LocNames.Levels[8][1]: IjiLocData(
-        code=142, region=RegNames.Sector9_Main[0],
-        logic=lambda world, state: has_xp(state, world, 9, 2)
-    ),
-    LocNames.Levels[8][2]: IjiLocData(
-        code=143, region=RegNames.Sector9_Main[0],
-        logic=lambda world, state: has_xp(state, world, 9, 3)
-    ),
-    LocNames.Levels[8][3]: IjiLocData(
-        code=144, region=RegNames.Sector9_Main[0],
-        logic=lambda world, state: has_xp(state, world, 9, 4)
-    ),
-    LocNames.Levels[8][4]: IjiLocData(
-        code=145, region=RegNames.Sector9_Main[0],
-        logic=lambda world, state: has_xp(state, world, 9, 5)
-    ),
-    LocNames.Levels[9][0]: IjiLocData(
-        code=146, region=RegNames.SectorX_Main[0],
-        logic=lambda world, state: has_xp(state, world, 10, 1)
-    ),
-    LocNames.Levels[9][1]: IjiLocData(
-        code=147, region=RegNames.SectorX_Main[0],
-        logic=lambda world, state: has_xp(state, world, 10, 2)
-    ),
-    LocNames.Levels[9][2]: IjiLocData(
-        code=148, region=RegNames.SectorX_Main[0],
-        logic=lambda world, state: has_xp(state, world, 10, 3)
-    ),
-    LocNames.Levels[9][3]: IjiLocData(
-        code=149, region=RegNames.SectorX_Main[0],
-        logic=lambda world, state: has_xp(state, world, 10, 4)
-    ),
-    LocNames.Levels[9][4]: IjiLocData(
-        code=150, region=RegNames.SectorX_Main[0],
-        logic=lambda world, state: has_xp(state, world, 10, 5)
-    ),
+locations_level_up: Dict[str, IjiLocData] = {
+    LocNames.Levels[i][j]: IjiLocData(
+        code=100+(i*5)+j+1, region = RegNames.Sector_Globals[i],
+        valid = lambda world,level=j+1: world.options.game_difficulty.levels_per_sector() >= level,
+        logic = lambda world,state,sector=i+1,level=j+1: has_xp(state,world,sector,level),
+        on_added = lambda world: world.add_max_stats(ItemNames.Supercharge, 1)
+    ) for i in range(10) for j in range(5)
 }
 
-locations_statlevels: Dict[str, IjiLocData] = {
-    LocNames.Stat_Health[0]: IjiLocData(
-        code = 410, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Health[1]: IjiLocData(
-        code = 411, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 1)
-    ),
-    LocNames.Stat_Health[2]: IjiLocData(
-        code = 412, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 2)
-    ),
-    LocNames.Stat_Health[3]: IjiLocData(
-        code = 413, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 3)
-    ),
-    LocNames.Stat_Health[4]: IjiLocData(
-        code = 414, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 4)
-    ),
-    LocNames.Stat_Health[5]: IjiLocData(
-        code = 415, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 5)
-    ),
-    LocNames.Stat_Health[6]: IjiLocData(
-        code = 416, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 6)
-    ),
-    LocNames.Stat_Health[7]: IjiLocData(
-        code = 417, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 7)
-    ),
-    LocNames.Stat_Health[8]: IjiLocData(
-        code = 418, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 8)
-    ),
-    LocNames.Stat_Health[9]: IjiLocData(
-        code = 419, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 9)
-    ),
-    LocNames.Stat_Attack[0]: IjiLocData(
-        code = 420, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Attack[1]: IjiLocData(
-        code = 421, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 1)
-    ),
-    LocNames.Stat_Attack[2]: IjiLocData(
-        code = 422, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 2)
-    ),
-    LocNames.Stat_Attack[3]: IjiLocData(
-        code = 423, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 3)
-    ),
-    LocNames.Stat_Attack[4]: IjiLocData(
-        code = 424, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 4)
-    ),
-    LocNames.Stat_Attack[5]: IjiLocData(
-        code = 425, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 5)
-    ),
-    LocNames.Stat_Attack[6]: IjiLocData(
-        code = 426, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 6)
-    ),
-    LocNames.Stat_Attack[7]: IjiLocData(
-        code = 427, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 7)
-    ),
-    LocNames.Stat_Attack[8]: IjiLocData(
-        code = 428, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 8)
-    ),
-    LocNames.Stat_Attack[9]: IjiLocData(
-        code = 429, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 9)
-    ),
-    LocNames.Stat_Assimilate[0]: IjiLocData(
-        code = 430, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Assimilate[1]: IjiLocData(
-        code = 431, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 1)
-    ),
-    LocNames.Stat_Assimilate[2]: IjiLocData(
-        code = 432, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 2)
-    ),
-    LocNames.Stat_Assimilate[3]: IjiLocData(
-        code = 433, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 3)
-    ),
-    LocNames.Stat_Assimilate[4]: IjiLocData(
-        code = 434, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 4)
-    ),
-    LocNames.Stat_Assimilate[5]: IjiLocData(
-        code = 435, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 5)
-    ),
-    LocNames.Stat_Assimilate[6]: IjiLocData(
-        code = 436, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 6)
-    ),
-    LocNames.Stat_Assimilate[7]: IjiLocData(
-        code = 437, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 7)
-    ),
-    LocNames.Stat_Assimilate[8]: IjiLocData(
-        code = 438, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 8)
-    ),
-    LocNames.Stat_Assimilate[9]: IjiLocData(
-        code = 439, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 9)
-    ),
-    LocNames.Stat_Strength[0]: IjiLocData(
-        code = 440, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Strength[1]: IjiLocData(
-        code = 441, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 1)
-    ),
-    LocNames.Stat_Strength[2]: IjiLocData(
-        code = 442, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 2)
-    ),
-    LocNames.Stat_Strength[3]: IjiLocData(
-        code = 443, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 3)
-    ),
-    LocNames.Stat_Strength[4]: IjiLocData(
-        code = 444, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 4)
-    ),
-    LocNames.Stat_Strength[5]: IjiLocData(
-        code = 445, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 5)
-    ),
-    LocNames.Stat_Strength[6]: IjiLocData(
-        code = 446, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 6)
-    ),
-    LocNames.Stat_Strength[7]: IjiLocData(
-        code = 447, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 7)
-    ),
-    LocNames.Stat_Strength[8]: IjiLocData(
-        code = 448, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 8)
-    ),
-    LocNames.Stat_Strength[9]: IjiLocData(
-        code = 449, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 9)
-    ),
-    LocNames.Stat_Crack[0]: IjiLocData(
-        code = 450, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Crack[1]: IjiLocData(
-        code = 451, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
-    ),
-    LocNames.Stat_Crack[2]: IjiLocData(
-        code = 452, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
-    ),
-    LocNames.Stat_Crack[3]: IjiLocData(
-        code = 453, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
-    ),
-    LocNames.Stat_Crack[4]: IjiLocData(
-        code = 454, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
-    ),
-    LocNames.Stat_Crack[5]: IjiLocData(
-        code = 455, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 5)
-    ),
-    LocNames.Stat_Crack[6]: IjiLocData(
-        code = 456, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 6)
-    ),
-    LocNames.Stat_Crack[7]: IjiLocData(
-        code = 457, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 7)
-    ),
-    LocNames.Stat_Crack[8]: IjiLocData(
-        code = 458, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 8)
-    ),
-    LocNames.Stat_Crack[9]: IjiLocData(
-        code = 459, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 9)
-    ),
-    LocNames.Stat_Tasen[0]: IjiLocData(
-        code = 460, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Tasen[1]: IjiLocData(
-        code = 461, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 1)
-    ),
-    LocNames.Stat_Tasen[2]: IjiLocData(
-        code = 462, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 2)
-    ),
-    LocNames.Stat_Tasen[3]: IjiLocData(
-        code = 463, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 3)
-    ),
-    LocNames.Stat_Tasen[4]: IjiLocData(
-        code = 464, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 4)
-    ),
-    LocNames.Stat_Tasen[5]: IjiLocData(
-        code = 465, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 5)
-    ),
-    LocNames.Stat_Tasen[6]: IjiLocData(
-        code = 466, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 6)
-    ),
-    LocNames.Stat_Tasen[7]: IjiLocData(
-        code = 467, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 7)
-    ),
-    LocNames.Stat_Tasen[8]: IjiLocData(
-        code = 468, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 8)
-    ),
-    LocNames.Stat_Tasen[9]: IjiLocData(
-        code = 469, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 9)
-    ),
-    LocNames.Stat_Komato[0]: IjiLocData(
-        code = 470, region = RegNames.Global,
-        valid=lambda world: False
-    ),
-    LocNames.Stat_Komato[1]: IjiLocData(
-        code = 471, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 1)
-    ),
-    LocNames.Stat_Komato[2]: IjiLocData(
-        code = 472, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 2)
-    ),
-    LocNames.Stat_Komato[3]: IjiLocData(
-        code = 473, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 3)
-    ),
-    LocNames.Stat_Komato[4]: IjiLocData(
-        code = 474, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 4)
-    ),
-    LocNames.Stat_Komato[5]: IjiLocData(
-        code = 475, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 5)
-    ),
-    LocNames.Stat_Komato[6]: IjiLocData(
-        code = 476, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 6)
-    ),
-    LocNames.Stat_Komato[7]: IjiLocData(
-        code = 477, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 7)
-    ),
-    LocNames.Stat_Komato[8]: IjiLocData(
-        code = 478, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 8)
-    ),
-    LocNames.Stat_Komato[9]: IjiLocData(
-        code = 479, region = RegNames.Global,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 9)
-    ),
-
-    LocNames.Stat_Health[10]: IjiLocData(
-        code = 481, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Health, 9)
-    ),
-    LocNames.Stat_Attack[10]: IjiLocData(
-        code = 482, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Attack, 9)
-    ),
-    LocNames.Stat_Assimilate[10]: IjiLocData(
-        code = 483, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Assimilate, 9)
-    ),
-    LocNames.Stat_Strength[10]: IjiLocData(
-        code = 484, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Strength, 9)
-    ),
-    LocNames.Stat_Crack[10]: IjiLocData(
-        code = 485, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 9)
-    ),
-    LocNames.Stat_Tasen[10]: IjiLocData(
-        code = 486, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Tasen, 9)
-    ),
-    LocNames.Stat_Komato[10]: IjiLocData(
-        code = 487, region = RegNames.Global,
-        valid=lambda world: world.options.special_trait_items,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Komato, 9)
-    )
+locations_stat_levels: Dict[str, IjiLocData] = {
+    LocNames.Stat_Levels[i][j]: IjiLocData(
+        code = 400+(i*10)+j, region = RegNames.Global,
+        valid = (
+            lambda world: False) if j == 0 else (
+            lambda world,stat=i,items=j: (world.max_stats[ItemNames.Stats[stat]] >= items)),
+        logic = lambda world, state,stat=i,items=j: has_stats(world,ItemNames.Stats[stat],items)
+    ) for i in range(7) for j in range(10)
+} | {
+    LocNames.Stat_Levels[i][10]: IjiLocData(
+        code = 470+i, region = RegNames.Global,
+        valid = lambda world: world.options.special_trait_items,
+        logic = (
+            lambda world, state, stat=i: (has_stats(world,ItemNames.Stats[stat],
+                                                    world.max_stats[ItemNames.Stats[stat]]))
+        )
+    ) for i in range(7)
 }
 
 locations_poster: Dict[str, IjiLocData] = {
-    LocNames.Posters[0]: IjiLocData(
-        code=201, region=RegNames.Sector1_Poster,
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[1]: IjiLocData(
-        code=202, region=RegNames.Sector2_Poster,
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[2]: IjiLocData(
-        code=203, region=RegNames.Sector3_Poster[1],
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[3]: IjiLocData(
-        code=204, region=RegNames.Sector4_Poster[1],
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[4]: IjiLocData(
-        code=205, region=RegNames.Sector5_Poster[2],
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[5]: IjiLocData(
-        code=206, region=RegNames.Sector6_Poster[3],
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[6]: IjiLocData(
-        code=207, region=RegNames.Sector7_Poster,
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[7]: IjiLocData(
-        code=208, region=RegNames.Sector8_Poster,
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[8]: IjiLocData(
-        code=209, region=RegNames.Sector9_Poster[2],
-        valid=lambda world: world.options.poster_locations
-    ),
-    LocNames.Posters[9]: IjiLocData(
-        code=210, region=RegNames.SectorX_Poster[3],
-        valid=lambda world: world.options.poster_locations
-    ),
+    LocNames.Posters[i]: IjiLocData(
+        code=200+i+1, region = RegNames.Sector_Posters[i],
+        valid = lambda world: world.options.poster_locations
+    ) for i in range(10)
+} | {
     LocNames.Posters[10]: IjiLocData(
-        code=211, region=RegNames.SectorZ,
-        valid=lambda world: world.options.poster_locations
+        code=211, region = RegNames.Sector_Posters[10],
+        valid = lambda world: world.options.poster_locations,
+        on_added = lambda world: (
+            world.increment_post_goal_locations() if (
+                    world.options.end_goal.value >= 11 or
+                    world.options.allow_sector_z.has_requirement()
+            ) else None
+        )
     ),
     LocNames.Posters[11]: IjiLocData(
-        code=212, region=RegNames.SectorY,
-        valid=lambda world: world.options.poster_locations
+        code=212,region = RegNames.Sector_Posters[11],
+        valid = lambda world: world.options.poster_locations,
+        on_added = lambda world: world.increment_post_goal_locations()
     )
 }
 
 locations_ribbon: Dict[str, IjiLocData] = {
-    LocNames.Ribbons[0]: IjiLocData(
-        code=221, region=RegNames.Sector1_Main[1]
-    ),
-    LocNames.Ribbons[1]: IjiLocData(
-        code=222, region=RegNames.Sector2_Main[4]
-    ),
-    LocNames.Ribbons[2]: IjiLocData(
-        code=223, region=RegNames.Sector3_Main[1]
-    ),
-    LocNames.Ribbons[3]: IjiLocData(
-        code=224, region=RegNames.Sector4_Main[2]
-    ),
-    LocNames.Ribbons[4]: IjiLocData(
-        code=225, region=RegNames.Sector5_Ribbon
-    ),
-    LocNames.Ribbons[5]: IjiLocData(
-        code=226, region=RegNames.Sector6_Ribbon
-    ),
-    LocNames.Ribbons[6]: IjiLocData(
-        code=227, region=RegNames.Sector7_Ribbon
-    ),
-    LocNames.Ribbons[7]: IjiLocData(
-        code=228, region=RegNames.Sector8_Main[2]
-    ),
-    LocNames.Ribbons[8]: IjiLocData(
-        code=229, region=RegNames.Sector9_Main[4]
-    ),
-    LocNames.Ribbons[9]: IjiLocData(
-        code=230, region=RegNames.SectorX_Final[3]
-    ),
+    LocNames.Ribbons[i]: IjiLocData(
+        code=220+i+1, region=RegNames.Sector_Ribbons[i]
+    ) for i in range(10)
 }
 
 locations_supercharge: Dict[str,IjiLocData] = {
     LocNames.Supercharges[0]: IjiLocData(
         code=231, region=RegNames.Sector1_Super,
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[1]: IjiLocData(
         code=232, region=RegNames.Sector2_Super,
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[2]: IjiLocData(
         code=233, region=RegNames.Sector3_Super[1],
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[3]: IjiLocData(
         code=234, region=RegNames.Sector4_Super[2],
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[4]: IjiLocData(
         code=235, region=RegNames.Sector5_Main[8],
-        valid=lambda world: world.options.supercharge_locations.value >= 1,
-        logic=lambda world, state: state.has(EventNames.Weapons[12], world.player)
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        logic=lambda world, state: state.has(EventNames.Weapons[12], world.player),
+        on_added=lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 5 else None
     ),
     LocNames.Supercharges[5]: IjiLocData(
         code=236, region=RegNames.Sector6_Super,
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[6]: IjiLocData(
         code=237, region=RegNames.Sector7_Main[11],
-        valid=lambda world: world.options.supercharge_locations.value >= 1,
-        logic=lambda world, state: can_destroy_sentinel_proxima(state, world)
+        valid=lambda world: (
+                world.options.supercharge_locations.has_locations() and
+                could_destroy_sentinel_proxima(world)
+        ),
+        logic=lambda world, state: can_destroy_sentinel_proxima(state, world),
+        on_added=lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 7 else None
     ),
     LocNames.Supercharges[7]: IjiLocData(
-        code=238, region=RegNames.Sector8_Side[3], 
-        valid=lambda world: world.options.supercharge_locations.value >= 1,
+        code=238, region=RegNames.Sector8_Side[3],
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
         logic=lambda world, state: can_kill_annihilators(state, world)
     ),
     LocNames.Supercharges[8]: IjiLocData(
         code=239, region=RegNames.Sector9_Deep[9],
-        valid=lambda world: world.options.supercharge_locations.value >= 1
+        valid=lambda world: world.options.supercharge_locations.has_locations()
     ),
     LocNames.Supercharges[9]: IjiLocData(
         code=240, region=RegNames.SectorX_Core[0],
-        valid=lambda world: world.options.supercharge_locations.value >= 1,
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
         logic=lambda world, state: (
-            state.has_all([EventNames.Weapons[16], EventNames.SectorX_Megacore], world.player)
+            state.has(EventNames.SectorX_Megacore, world.player) and
+            has_weapon_plus_points(state, world, 16, 0)
         )
     )
 }
-
 
 locations_upgrades: Dict[str, IjiLocData] = {
     LocNames.Upgrades_Jump[0]: IjiLocData(
@@ -802,9 +186,9 @@ locations_upgrades: Dict[str, IjiLocData] = {
     )
 }
 
-locations_uniquebasicweapons: Dict[str, IjiLocData] = {
+locations_unique_basic_weapons: Dict[str, IjiLocData] = {
     LocNames.Weapons_First[0]: IjiLocData(
-        code=241, region=RegNames.Global, 
+        code=241, region=RegNames.Global,
         valid=lambda world: world.options.basic_weapon_locations.value == 1,
         logic=lambda world, state: state.has(EventNames.Weapons[2], world.player)
     ),
@@ -870,43 +254,46 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
 locations_combinedweapons: Dict[str,IjiLocData] = {
     LocNames.Weapons_Combined[0]: IjiLocData(
         code=251, region=RegNames.Global,
-        logic=lambda world, state: can_make_bustergun(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[9])
     ),
     LocNames.Weapons_Combined[1]: IjiLocData(
         code=252, region=RegNames.Global,
         valid=lambda world: world.options.end_goal.value >= 5,
-        logic=lambda world, state: can_make_splintergun(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[10])
     ),
     LocNames.Weapons_Combined[2]: IjiLocData(
         code=253, region=RegNames.Global,
-        logic=lambda world, state: can_make_spreadrockets(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[11])
     ),
     LocNames.Weapons_Combined[3]: IjiLocData(
         code=254, region=RegNames.Global,
         valid=lambda world: world.options.end_goal.value >= 5,
-        logic=lambda world, state: can_make_nuke(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[12])
     ),
     LocNames.Weapons_Combined[4]: IjiLocData(
         code=255, region=RegNames.Global,
-        logic=lambda world, state: can_make_resonancereflector(state, world)
+        logic=lambda world, state: (
+            can_make_weapon(state, world, ItemNames.Weapons[13]) or
+            state.has(EventNames.Weapons[13], world.player)
+        )
     ),
     LocNames.Weapons_Combined[5]: IjiLocData(
         code=256, region=RegNames.Global,
-        logic=lambda world, state: can_make_hyperpulse(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[14])
     ),
     LocNames.Weapons_Combined[6]: IjiLocData(
         code=257, region=RegNames.Global,
         valid=lambda world: world.options.end_goal.value >= 5,
-        logic=lambda world, state: can_make_plasmacannon(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[15])
     ),
     LocNames.Weapons_Combined[7]: IjiLocData(
         code=258, region=RegNames.Global,
         valid=lambda world: world.options.end_goal.value >= 7,
-        logic=lambda world, state: can_make_velocithor(state, world)
+        logic=lambda world, state: can_make_weapon(state, world, ItemNames.Weapons[16])
     )
 }
 
-locations_sectorweapons: Dict[str, IjiLocData] = {
+locations_sector_weapons: Dict[str, IjiLocData] = {
     LocNames.Weapons_Per_Sector[0][0]: IjiLocData(
         code=311, region=RegNames.Sector1_Main[2],
         valid=lambda world: world.options.basic_weapon_locations.value >= 2,
@@ -2121,7 +1508,7 @@ locations_logbooks: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.logbook_locations
     ),
     LocNames.Logbooks[8][9]: IjiLocData(
-        code=1810, region=RegNames.Sector8_Main[3], 
+        code=1810, region=RegNames.Sector8_Main[3],
         valid=lambda world: world.options.logbook_locations
     ),
     LocNames.Logbooks[8][10]: IjiLocData(
@@ -2181,7 +1568,7 @@ locations_logbooks: Dict[str, IjiLocData] = {
         valid=lambda world: world.options.logbook_locations
     ),
     LocNames.Logbooks[9][9]: IjiLocData(
-        code=1910, region=RegNames.Sector9_Main[13], 
+        code=1910, region=RegNames.Sector9_Main[13],
         valid=lambda world: world.options.logbook_locations
     ),
     LocNames.Logbooks[9][10]: IjiLocData(
@@ -2406,17 +1793,17 @@ locations_crackboxes: Dict[str, IjiLocData] = {
     LocNames.CrackBoxes[0][3]: IjiLocData(
         code=724, region=RegNames.Sector2_Main[5],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[0][4]: IjiLocData(
         code=725, region=RegNames.Sector2_Side[4],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[0][5]: IjiLocData(
         code=726, region=RegNames.Sector2_Side[5],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[0][6]: IjiLocData(
         code=727, region=RegNames.Sector2_Main[6],
@@ -2425,17 +1812,17 @@ locations_crackboxes: Dict[str, IjiLocData] = {
     LocNames.CrackBoxes[1][0]: IjiLocData(
         code=731, region=RegNames.Sector3_Side[1],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[1][1]: IjiLocData(
         code=732, region=RegNames.Sector3_Side[1],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[1][2]: IjiLocData(
         code=733, region=RegNames.Sector3_Main[0],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[1][3]: IjiLocData(
         code=734, region=RegNames.Sector3_Main[3],
@@ -2448,57 +1835,57 @@ locations_crackboxes: Dict[str, IjiLocData] = {
     LocNames.CrackBoxes[2][0]: IjiLocData(
         code=741, region=RegNames.Sector4_Main[3],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[3][0]: IjiLocData(
         code=751, region=RegNames.Sector5_Side[0],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[3][1]: IjiLocData(
         code=752, region=RegNames.Sector5_Side[0],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     LocNames.CrackBoxes[3][2]: IjiLocData(
         code=753, region=RegNames.Sector5_Side[1],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 4)
     ),
     LocNames.CrackBoxes[3][3]: IjiLocData(
         code=754, region=RegNames.Sector5_Side[2],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[3][4]: IjiLocData(
         code=755, region=RegNames.Sector5_Side[8],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     LocNames.CrackBoxes[3][5]: IjiLocData(
         code=756, region=RegNames.Sector5_Side[8],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 7)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 7)
     ),
     LocNames.CrackBoxes[4][0]: IjiLocData(
         code=761, region=RegNames.Sector6_Side[7],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     LocNames.CrackBoxes[4][1]: IjiLocData(
         code=762, region=RegNames.Sector6_Main[5],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[5][0]: IjiLocData(
         code=771, region=RegNames.Sector7_Main[3],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 5)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 5)
     ),
     LocNames.CrackBoxes[5][1]: IjiLocData(
         code=772, region=RegNames.Sector7_Main[3],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[5][2]: IjiLocData(
         code=773, region=RegNames.Sector7_Ribbon,
@@ -2507,52 +1894,52 @@ locations_crackboxes: Dict[str, IjiLocData] = {
     LocNames.CrackBoxes[6][0]: IjiLocData(
         code=781, region=RegNames.Sector8_Main[2],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 7)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 7)
     ),
     LocNames.CrackBoxes[6][1]: IjiLocData(
         code=782, region=RegNames.Sector8_Main[2],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 4)
     ),
     LocNames.CrackBoxes[7][0]: IjiLocData(
         code=791, region=RegNames.Sector9_Side[12],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 4)
     ),
     LocNames.CrackBoxes[7][1]: IjiLocData(
         code=792, region=RegNames.Sector9_Side[12],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 1)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 1)
     ),
     LocNames.CrackBoxes[7][2]: IjiLocData(
         code=793, region=RegNames.Sector9_Main[3],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     LocNames.CrackBoxes[7][3]: IjiLocData(
         code=794, region=RegNames.Sector9_Side[2],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 4)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 4)
     ),
     LocNames.CrackBoxes[7][4]: IjiLocData(
         code=795, region=RegNames.Sector9_Side[4],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 3)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 3)
     ),
     LocNames.CrackBoxes[8][0]: IjiLocData(
         code=701, region=RegNames.SectorX_Main[1],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 2)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 2)
     ),
     LocNames.CrackBoxes[8][1]: IjiLocData(
         code=702, region=RegNames.SectorX_Main[7],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 6)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 6)
     ),
     LocNames.CrackBoxes[8][2]: IjiLocData(
         code=703, region=RegNames.SectorX_Side[5],
         valid=lambda world: world.options.security_box_locations,
-        logic=lambda world, state: has_stats(state, world, ItemNames.Stat_Crack, 9)
+        logic=lambda world, state: has_stats(world, ItemNames.Stat_Crack, 9)
     )
 }
 
@@ -2637,15 +2024,15 @@ locations_tutorialpages: Dict[str, IjiLocData] = {
 }
 
 location_table = {
-    **locations_sectorcomplete,
-    **locations_levelup,
-    **locations_statlevels,
+    **locations_sector_complete,
+    **locations_level_up,
+    **locations_stat_levels,
     **locations_ribbon,
     **locations_poster,
     **locations_supercharge,
     **locations_upgrades,
-    **locations_uniquebasicweapons,
-    **locations_sectorweapons,
+    **locations_unique_basic_weapons,
+    **locations_sector_weapons,
     **locations_allbasicweapons,
     **locations_combinedweapons,
     **locations_uniquespecialweapons,

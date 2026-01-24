@@ -8,6 +8,15 @@ Stat_Crack = "Crack Stat"
 Stat_Tasen = "Tasen Stat"
 Stat_Komato = "Komato Stat"
 
+Stats: List[str] = [
+    Stat_Health,
+    Stat_Attack,
+    Stat_Assimilate,
+    Stat_Strength,
+    Stat_Crack,
+    Stat_Tasen,
+    Stat_Komato
+]
 Sector_Access: List[str] = [
     "Progressive Sector Access",
     "Sector 1 Access",
@@ -32,6 +41,15 @@ Special_Strength = "CYBERNETIC ENDURANCE"
 Special_Crack = "ELECTRONIC MASTERY"
 Special_Tasen = "VENGEANCE"
 Special_Komato = "GLORY"
+Special_Traits: List[str] = [
+    Special_Health,
+    Special_Attack,
+    Special_Assimilate,
+    Special_Strength,
+    Special_Crack,
+    Special_Tasen,
+    Special_Komato
+]
 
 Filler: List[str] = [
     "Health Pickup",
@@ -54,7 +72,9 @@ Traps: List[str] = [
     "Turbo Mode",
     "Power Nap",
     "Clown Shoes",
-    "Banana"
+    "Banana",
+    "Guilt Trip",
+    "Forced Reboot"
 ]
 
 Debug = "Fire Anytime"
@@ -84,6 +104,17 @@ Weapons: List[str] = [
     "Massacre"
 ]
 
+Weapons_Passive: List[str] = [
+    "Stun Gun",
+    "Impact Machine Gun",
+    "Impulse Launcher",
+    "MPFB Neutralizer",
+    "Resonance Disruptor",
+    "Pulse Linker",
+    "Shock Barrier",
+    "Chain Fractal Injection Shell"
+]
+
 Checkpoints: List[str] = [
     "Sector 2 - Checkpoint",
     "Sector 3 - Checkpoint",
@@ -97,332 +128,4 @@ Checkpoints: List[str] = [
     "Sector 9 - Second Checkpoint",
     "Sector X - First Checkpoint",
     "Sector X - Second Checkpoint"
-]
-
-StrengthDoorLevels: List[List[str]] = [
-    [
-    "Progressive Shield Doors",
-    "Level 1 Shield Doors",
-    "Level 2 Shield Doors",
-    "Level 3 Shield Doors",
-    "Level 4 Shield Doors",
-    "Level 5 Shield Doors",
-    "Level 6 Shield Doors",
-    "Level 7 Shield Doors",
-    "Level 8 Shield Doors",
-    "Level 9 Shield Doors",
-    "Level 10 Shield Doors",
-    "Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 1 - Progressive Shield Doors",
-    "Sector 1 - Level 1 Shield Doors",
-    "Sector 1 - Level 2 Shield Doors",
-    "Sector 1 - Level 3 Shield Doors",
-    "Sector 1 - Level 4 Shield Doors",
-    "Sector 1 - Level 5 Shield Doors",
-    "Sector 1 - Level 6 Shield Doors",
-    "Sector 1 - Level 7 Shield Doors",
-    "Sector 1 - Level 8 Shield Doors",
-    "Sector 1 - Level 9 Shield Doors",
-    "Sector 1 - Level 10 Shield Doors",
-    "Sector 1 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 2 - Progressive Shield Doors",
-    "Sector 2 - Level 1 Shield Doors",
-    "Sector 2 - Level 2 Shield Doors",
-    "Sector 2 - Level 3 Shield Doors",
-    "Sector 2 - Level 4 Shield Doors",
-    "Sector 2 - Level 5 Shield Doors",
-    "Sector 2 - Level 6 Shield Doors",
-    "Sector 2 - Level 7 Shield Doors",
-    "Sector 2 - Level 8 Shield Doors",
-    "Sector 2 - Level 9 Shield Doors",
-    "Sector 2 - Level 10 Shield Doors",
-    "Sector 2 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 3 - Progressive Shield Doors",
-    "Sector 3 - Level 1 Shield Doors",
-    "Sector 3 - Level 2 Shield Doors",
-    "Sector 3 - Level 3 Shield Doors",
-    "Sector 3 - Level 4 Shield Doors",
-    "Sector 3 - Level 5 Shield Doors",
-    "Sector 3 - Level 6 Shield Doors",
-    "Sector 3 - Level 7 Shield Doors",
-    "Sector 3 - Level 8 Shield Doors",
-    "Sector 3 - Level 9 Shield Doors",
-    "Sector 3 - Level 10 Shield Doors",
-    "Sector 3 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 4 - Progressive Shield Doors",
-    "Sector 4 - Level 1 Shield Doors",
-    "Sector 4 - Level 2 Shield Doors",
-    "Sector 4 - Level 3 Shield Doors",
-    "Sector 4 - Level 4 Shield Doors",
-    "Sector 4 - Level 5 Shield Doors",
-    "Sector 4 - Level 6 Shield Doors",
-    "Sector 4 - Level 7 Shield Doors",
-    "Sector 4 - Level 8 Shield Doors",
-    "Sector 4 - Level 9 Shield Doors",
-    "Sector 4 - Level 10 Shield Doors",
-    "Sector 4 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 5 - Progressive Shield Doors",
-    "Sector 5 - Level 1 Shield Doors",
-    "Sector 5 - Level 2 Shield Doors",
-    "Sector 5 - Level 3 Shield Doors",
-    "Sector 5 - Level 4 Shield Doors",
-    "Sector 5 - Level 5 Shield Doors",
-    "Sector 5 - Level 6 Shield Doors",
-    "Sector 5 - Level 7 Shield Doors",
-    "Sector 5 - Level 8 Shield Doors",
-    "Sector 5 - Level 9 Shield Doors",
-    "Sector 5 - Level 10 Shield Doors",
-    "Sector 5 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 6 - Progressive Shield Doors",
-    "Sector 6 - Level 1 Shield Doors",
-    "Sector 6 - Level 2 Shield Doors",
-    "Sector 6 - Level 3 Shield Doors",
-    "Sector 6 - Level 4 Shield Doors",
-    "Sector 6 - Level 5 Shield Doors",
-    "Sector 6 - Level 6 Shield Doors",
-    "Sector 6 - Level 7 Shield Doors",
-    "Sector 6 - Level 8 Shield Doors",
-    "Sector 6 - Level 9 Shield Doors",
-    "Sector 6 - Level 10 Shield Doors",
-    "Sector 6 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 7 - Progressive Shield Doors",
-    "Sector 7 - Level 1 Shield Doors",
-    "Sector 7 - Level 2 Shield Doors",
-    "Sector 7 - Level 3 Shield Doors",
-    "Sector 7 - Level 4 Shield Doors",
-    "Sector 7 - Level 5 Shield Doors",
-    "Sector 7 - Level 6 Shield Doors",
-    "Sector 7 - Level 7 Shield Doors",
-    "Sector 7 - Level 8 Shield Doors",
-    "Sector 7 - Level 9 Shield Doors",
-    "Sector 7 - Level 10 Shield Doors",
-    "Sector 7 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 8 - Progressive Shield Doors",
-    "Sector 8 - Level 1 Shield Doors",
-    "Sector 8 - Level 2 Shield Doors",
-    "Sector 8 - Level 3 Shield Doors",
-    "Sector 8 - Level 4 Shield Doors",
-    "Sector 8 - Level 5 Shield Doors",
-    "Sector 8 - Level 6 Shield Doors",
-    "Sector 8 - Level 7 Shield Doors",
-    "Sector 8 - Level 8 Shield Doors",
-    "Sector 8 - Level 9 Shield Doors",
-    "Sector 8 - Level 10 Shield Doors",
-    "Sector 8 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector 9 - Progressive Shield Doors",
-    "Sector 9 - Level 1 Shield Doors",
-    "Sector 9 - Level 2 Shield Doors",
-    "Sector 9 - Level 3 Shield Doors",
-    "Sector 9 - Level 4 Shield Doors",
-    "Sector 9 - Level 5 Shield Doors",
-    "Sector 9 - Level 6 Shield Doors",
-    "Sector 9 - Level 7 Shield Doors",
-    "Sector 9 - Level 8 Shield Doors",
-    "Sector 9 - Level 9 Shield Doors",
-    "Sector 9 - Level 10 Shield Doors",
-    "Sector 9 - Level 15+ Shield Doors"
-    ],
-    [
-    "Sector X - Progressive Shield Doors",
-    "Sector X - Level 1 Shield Doors",
-    "Sector X - Level 2 Shield Doors",
-    "Sector X - Level 3 Shield Doors",
-    "Sector X - Level 4 Shield Doors",
-    "Sector X - Level 5 Shield Doors",
-    "Sector X - Level 6 Shield Doors",
-    "Sector X - Level 7 Shield Doors",
-    "Sector X - Level 8 Shield Doors",
-    "Sector X - Level 9 Shield Doors",
-    "Sector X - Level 10 Shield Doors",
-    "Sector X - Level 15+ Shield Doors"
-    ],
-]
-
-CrackDoorLevels: List[List[str]] = [
-    [
-    "Progressive Security Doors",
-    "Level 1 Security Doors",
-    "Level 2 Security Doors",
-    "Level 3 Security Doors",
-    "Level 4 Security Doors",
-    "Level 5 Security Doors",
-    "Level 6 Security Doors",
-    "Level 7 Security Doors",
-    "Level 8 Security Doors",
-    "Level 9 Security Doors",
-    "Level 10 Security Doors",
-    "Level 15+ Security Doors"
-    ],
-    [
-    "Sector 1 - Progressive Security Doors",
-    "Sector 1 - Level 1 Security Doors",
-    "Sector 1 - Level 2 Security Doors",
-    "Sector 1 - Level 3 Security Doors",
-    "Sector 1 - Level 4 Security Doors",
-    "Sector 1 - Level 5 Security Doors",
-    "Sector 1 - Level 6 Security Doors",
-    "Sector 1 - Level 7 Security Doors",
-    "Sector 1 - Level 8 Security Doors",
-    "Sector 1 - Level 9 Security Doors",
-    "Sector 1 - Level 10 Security Doors",
-    "Sector 1 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 2 - Progressive Security Doors",
-    "Sector 2 - Level 1 Security Doors",
-    "Sector 2 - Level 2 Security Doors",
-    "Sector 2 - Level 3 Security Doors",
-    "Sector 2 - Level 4 Security Doors",
-    "Sector 2 - Level 5 Security Doors",
-    "Sector 2 - Level 6 Security Doors",
-    "Sector 2 - Level 7 Security Doors",
-    "Sector 2 - Level 8 Security Doors",
-    "Sector 2 - Level 9 Security Doors",
-    "Sector 2 - Level 10 Security Doors",
-    "Sector 2 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 3 - Progressive Security Doors",
-    "Sector 3 - Level 1 Security Doors",
-    "Sector 3 - Level 2 Security Doors",
-    "Sector 3 - Level 3 Security Doors",
-    "Sector 3 - Level 4 Security Doors",
-    "Sector 3 - Level 5 Security Doors",
-    "Sector 3 - Level 6 Security Doors",
-    "Sector 3 - Level 7 Security Doors",
-    "Sector 3 - Level 8 Security Doors",
-    "Sector 3 - Level 9 Security Doors",
-    "Sector 3 - Level 10 Security Doors",
-    "Sector 3 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 4 - Progressive Security Doors",
-    "Sector 4 - Level 1 Security Doors",
-    "Sector 4 - Level 2 Security Doors",
-    "Sector 4 - Level 3 Security Doors",
-    "Sector 4 - Level 4 Security Doors",
-    "Sector 4 - Level 5 Security Doors",
-    "Sector 4 - Level 6 Security Doors",
-    "Sector 4 - Level 7 Security Doors",
-    "Sector 4 - Level 8 Security Doors",
-    "Sector 4 - Level 9 Security Doors",
-    "Sector 4 - Level 10 Security Doors",
-    "Sector 4 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 5 - Progressive Security Doors",
-    "Sector 5 - Level 1 Security Doors",
-    "Sector 5 - Level 2 Security Doors",
-    "Sector 5 - Level 3 Security Doors",
-    "Sector 5 - Level 4 Security Doors",
-    "Sector 5 - Level 5 Security Doors",
-    "Sector 5 - Level 6 Security Doors",
-    "Sector 5 - Level 7 Security Doors",
-    "Sector 5 - Level 8 Security Doors",
-    "Sector 5 - Level 9 Security Doors",
-    "Sector 5 - Level 10 Security Doors",
-    "Sector 5 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 6 - Progressive Security Doors",
-    "Sector 6 - Level 1 Security Doors",
-    "Sector 6 - Level 2 Security Doors",
-    "Sector 6 - Level 3 Security Doors",
-    "Sector 6 - Level 4 Security Doors",
-    "Sector 6 - Level 5 Security Doors",
-    "Sector 6 - Level 6 Security Doors",
-    "Sector 6 - Level 7 Security Doors",
-    "Sector 6 - Level 8 Security Doors",
-    "Sector 6 - Level 9 Security Doors",
-    "Sector 6 - Level 10 Security Doors",
-    "Sector 6 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 7 - Progressive Security Doors",
-    "Sector 7 - Level 1 Security Doors",
-    "Sector 7 - Level 2 Security Doors",
-    "Sector 7 - Level 3 Security Doors",
-    "Sector 7 - Level 4 Security Doors",
-    "Sector 7 - Level 5 Security Doors",
-    "Sector 7 - Level 6 Security Doors",
-    "Sector 7 - Level 7 Security Doors",
-    "Sector 7 - Level 8 Security Doors",
-    "Sector 7 - Level 9 Security Doors",
-    "Sector 7 - Level 10 Security Doors",
-    "Sector 7 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 8 - Progressive Security Doors",
-    "Sector 8 - Level 1 Security Doors",
-    "Sector 8 - Level 2 Security Doors",
-    "Sector 8 - Level 3 Security Doors",
-    "Sector 8 - Level 4 Security Doors",
-    "Sector 8 - Level 5 Security Doors",
-    "Sector 8 - Level 6 Security Doors",
-    "Sector 8 - Level 7 Security Doors",
-    "Sector 8 - Level 8 Security Doors",
-    "Sector 8 - Level 9 Security Doors",
-    "Sector 8 - Level 10 Security Doors",
-    "Sector 8 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector 9 - Progressive Security Doors",
-    "Sector 9 - Level 1 Security Doors",
-    "Sector 9 - Level 2 Security Doors",
-    "Sector 9 - Level 3 Security Doors",
-    "Sector 9 - Level 4 Security Doors",
-    "Sector 9 - Level 5 Security Doors",
-    "Sector 9 - Level 6 Security Doors",
-    "Sector 9 - Level 7 Security Doors",
-    "Sector 9 - Level 8 Security Doors",
-    "Sector 9 - Level 9 Security Doors",
-    "Sector 9 - Level 10 Security Doors",
-    "Sector 9 - Level 15+ Security Doors"
-    ],
-    [
-    "Sector X - Progressive Security Doors",
-    "Sector X - Level 1 Security Doors",
-    "Sector X - Level 2 Security Doors",
-    "Sector X - Level 3 Security Doors",
-    "Sector X - Level 4 Security Doors",
-    "Sector X - Level 5 Security Doors",
-    "Sector X - Level 6 Security Doors",
-    "Sector X - Level 7 Security Doors",
-    "Sector X - Level 8 Security Doors",
-    "Sector X - Level 9 Security Doors",
-    "Sector X - Level 10 Security Doors",
-    "Sector X - Level 15+ Security Doors"
-    ],
-]
-
-TerminalDoorGroups: List[str] = [
-    "Terminal Doors",
-    "Sector 1 - Terminal Doors",
-    "Sector 2 - Terminal Doors",
-    "Sector 3 - Terminal Doors",
-    "Sector 4 - Terminal Doors",
-    "Sector 5 - Terminal Doors",
-    "Sector 6 - Terminal Doors",
-    "Sector 7 - Terminal Doors",
-    "Sector 8 - Terminal Doors",
-    "Sector 9 - Terminal Doors",
-    "Sector X - Terminal Doors"
 ]

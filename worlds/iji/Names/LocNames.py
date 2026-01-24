@@ -1,32 +1,28 @@
 from typing import List
 
-Levels: List[List[str]] = [
-    ["Sector 1 - Level 1", "Sector 1 - Level 2", "Sector 1 - Level 3", "Sector 1 - Level 4", "Sector 1 - Level 5"],
-    ["Sector 2 - Level 1", "Sector 2 - Level 2", "Sector 2 - Level 3", "Sector 2 - Level 4", "Sector 2 - Level 5"],
-    ["Sector 3 - Level 1", "Sector 3 - Level 2", "Sector 3 - Level 3", "Sector 3 - Level 4", "Sector 3 - Level 5"],
-    ["Sector 4 - Level 1", "Sector 4 - Level 2", "Sector 4 - Level 3", "Sector 4 - Level 4", "Sector 4 - Level 5"],
-    ["Sector 5 - Level 1", "Sector 5 - Level 2", "Sector 5 - Level 3", "Sector 5 - Level 4", "Sector 5 - Level 5"],
-    ["Sector 6 - Level 1", "Sector 6 - Level 2", "Sector 6 - Level 3", "Sector 6 - Level 4", "Sector 6 - Level 5"],
-    ["Sector 7 - Level 1", "Sector 7 - Level 2", "Sector 7 - Level 3", "Sector 7 - Level 4", "Sector 7 - Level 5"],
-    ["Sector 8 - Level 1", "Sector 8 - Level 2", "Sector 8 - Level 3", "Sector 8 - Level 4", "Sector 8 - Level 5"],
-    ["Sector 9 - Level 1", "Sector 9 - Level 2", "Sector 9 - Level 3", "Sector 9 - Level 4", "Sector 9 - Level 5"],
-    ["Sector X - Level 1", "Sector X - Level 2", "Sector X - Level 3", "Sector X - Level 4", "Sector X - Level 5"]
+Sector_Numbers: List[str] = ["1","2","3","4","5","6","7","8","9","X","Z","Y"]
+Basic_Weapons: List[str] = [
+    "Machine Gun",
+    "Rocket Launcher",
+    "MPFB Devastator",
+    "Resonance Detonator",
+    "Pulse Cannon",
+    "Shocksplinter",
+    "Cyclic Fusion Ignition System"
+]
+Stat_Names: List[str] = [
+    "Health",
+    "Attack",
+    "Assimilate",
+    "Strength",
+    "Crack",
+    "Tasen",
+    "Komato"
 ]
 
-Sector_Complete: List[str] = [
-    "Sector 1 - Sector Complete",
-    "Sector 2 - Sector Complete",
-    "Sector 3 - Sector Complete",
-    "Sector 4 - Sector Complete",
-    "Sector 5 - Sector Complete",
-    "Sector 6 - Sector Complete",
-    "Sector 7 - Sector Complete",
-    "Sector 8 - Sector Complete",
-    "Sector 9 - Sector Complete",
-    "Sector X - Sector Complete",
-    "Sector Z - Sector Complete",
-    "Sector Y - Sector Complete"
-]
+Levels: List[List[str]] = list(list("Sector "+i+" - Level "+str(j) for j in range(1,6)) for i in Sector_Numbers[:10])
+Sector_Complete: List[str] = list("Sector "+i+" - Sector Complete" for i in Sector_Numbers)
+Stat_Levels: List[List[str]] = list(list("Reach "+i+" Level "+str(j) for j in range(1,11))+["Reach Max "+i+"Level"] for i in Stat_Names)
 
 Stat_Health: List[str] = [
     "Reach Health Level 1",
