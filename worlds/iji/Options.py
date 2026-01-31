@@ -1007,7 +1007,7 @@ class EnemyLocationTypes(OptionDict):
         "Komato Beast": True,
         "Komato Assassin": True,
         "Komato Annihilator": True,
-        "Sector Z": True
+        "Sector Z": False
     }
 
     def type_allowed(self, world: "IjiWorld", enemy_type: str) -> bool:

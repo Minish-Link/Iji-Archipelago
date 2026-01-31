@@ -32,8 +32,8 @@ def create_item_pool(world: "IjiWorld") -> List[Item]:
 
     sector_count: int = min(10, world.options.end_goal.value)
 
-    if world.options.levelsanity:
-        item_pool += create_multiple_items(world, ItemNames.Supercharge, world.options.game_difficulty * sector_count)
+    #if world.options.levelsanity:
+    #    item_pool += create_multiple_items(world, ItemNames.Supercharge, world.options.game_difficulty * sector_count)
 
     if world.options.out_of_order_sectors:
         for i in range(2, sector_count + 1):
@@ -66,8 +66,8 @@ def create_item_pool(world: "IjiWorld") -> List[Item]:
         else:
             item_pool.append(create_item(world, ItemNames.Upgrade_Armor))
 
-    if world.options.supercharge_locations.value == 2:
-        item_pool += create_multiple_items(world, ItemNames.Supercharge, sector_count)
+    #if world.options.supercharge_locations.value == 2:
+    #    item_pool += create_multiple_items(world, ItemNames.Supercharge, sector_count)
 
     unfilled_locations = get_remaining_locations(world)
 
@@ -90,9 +90,12 @@ def create_item(world: "IjiWorld", name: str, progtype: ItemClassification = Non
 def create_compacted_stat_items(world: "IjiWorld") -> List[Item]:
     ret: List[Item] = []
     for name, value in world.max_stats.items():
-        stats_needed = value - world.current_stat_items[name]
-        ret += create_multiple_items(world, name, ceil(stats_needed / world.compact_stats[name]))
-
+        stats_needed = ceil((value - world.current_stat_items[name]) / world.compact_stats[name])
+        ret += create_multiple_items(world, name, stats_needed)
+        logging.warning(f"Adding {stats_needed} {name}s to Item Pool")
+        logging.warning(world.max_stats[name])
+        logging.warning(world.compact_stats[name])
+        logging.warning(world.current_stat_items[name])
     return ret
 
 def create_multiple_items(world: "IjiWorld", name: str, count: int, progtype: ItemClassification = None) -> List[Item]:
@@ -173,7 +176,6 @@ def create_duplicate_items(world: "IjiWorld", maximum: int) -> List[Item]:
 
     dupe_count = min(dupe_count, maximum)
     sector_dupe_list: List[str] = []
-    dupe_to_add: str = ""
 
     while dupe_count > 0:
         added_item: bool = False

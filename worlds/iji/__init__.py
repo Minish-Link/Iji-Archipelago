@@ -50,57 +50,11 @@ class IjiWorld(World):
     web = IjiWeb()
 
     health_balancing_values: List[int]
-    weapon_stats_needed: Dict[str, WeaponData] = {
-        ItemNames.Weapons[0]: WeaponData(), # Null Driver
-        ItemNames.Weapons[1]: WeaponData(), # Shotgun
-        ItemNames.Weapons[2]: WeaponData(tasen=2), # Machine Gun
-        ItemNames.Weapons[3]: WeaponData(tasen=5), # Rocket Launcher
-        ItemNames.Weapons[4]: WeaponData(tasen=9), # MPFB Devastator
-        ItemNames.Weapons[5]: WeaponData(), # Resonance Detonator
-        ItemNames.Weapons[6]: WeaponData(komato=2), # Pulse Cannon
-        ItemNames.Weapons[7]: WeaponData(komato=5), # Shocksplinter
-        ItemNames.Weapons[8]: WeaponData(komato=9), # Cyclic Fusion Ignition System
-        ItemNames.Weapons[9]: WeaponData(tasen=2,crack=2), # Buster Gun
-        ItemNames.Weapons[10]: WeaponData(tasen=2,komato=5,crack=6), # Splintergun
-        ItemNames.Weapons[11]: WeaponData(tasen=5,crack=4), # Spread Rockets
-        ItemNames.Weapons[12]: WeaponData(tasen=9,crack=8), # Nuke
-        ItemNames.Weapons[13]: WeaponData(crack=3), # Resonance Reflector
-        ItemNames.Weapons[14]: WeaponData(komato=2,crack=5), # Hyperpulse
-        ItemNames.Weapons[15]: WeaponData(komato=5,crack=7), # Plasma Cannon
-        ItemNames.Weapons[16]: WeaponData(tasen=9,komato=9,crack=9), # Velocithor V2-10
-        ItemNames.Weapons[17]: WeaponData(tasen=9, komato=9) # Banana Gun
-    }
-    max_stats: Dict[str, int] = {
-        ItemNames.Stat_Health: 9,
-        ItemNames.Stat_Attack: 9,
-        ItemNames.Stat_Assimilate: 9,
-        ItemNames.Stat_Strength: 9,
-        ItemNames.Stat_Crack: 9,
-        ItemNames.Stat_Tasen: 9,
-        ItemNames.Stat_Komato: 9,
-        ItemNames.Supercharge: 0
-    }
-    compact_stats: Dict[str, int] = {
-        ItemNames.Stat_Health: 1,
-        ItemNames.Stat_Attack: 1,
-        ItemNames.Stat_Assimilate: 1,
-        ItemNames.Stat_Strength: 1,
-        ItemNames.Stat_Crack: 1,
-        ItemNames.Stat_Tasen: 1,
-        ItemNames.Stat_Komato: 1,
-        ItemNames.Supercharge: 1
-    }
-    current_stat_items: Dict[str, int] = {
-        ItemNames.Stat_Health: 0,
-        ItemNames.Stat_Attack: 0,
-        ItemNames.Stat_Assimilate: 0,
-        ItemNames.Stat_Strength: 0,
-        ItemNames.Stat_Crack: 0,
-        ItemNames.Stat_Tasen: 0,
-        ItemNames.Stat_Komato: 0,
-        ItemNames.Supercharge: 0
-    }
-    door_stats: Dict[int, DoorData] = Door_Levels
+    weapon_stats_needed: Dict[str, WeaponData]
+    max_stats: Dict[str, int]
+    compact_stats: Dict[str, int]
+    current_stat_items: Dict[str, int]
+    door_stats: Dict[int, DoorData]
     total_posters: int = 0
     post_goal_locations: int = 0
 
@@ -122,8 +76,62 @@ class IjiWorld(World):
         "map_page_index": map_page_index
     }
 
+
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
+
+    def initialize_stat_dicts(self):
+        self.compact_stats = {
+        ItemNames.Stat_Health: 1,
+        ItemNames.Stat_Attack: 1,
+        ItemNames.Stat_Assimilate: 1,
+        ItemNames.Stat_Strength: 1,
+        ItemNames.Stat_Crack: 1,
+        ItemNames.Stat_Tasen: 1,
+        ItemNames.Stat_Komato: 1,
+        ItemNames.Supercharge: 1
+        }
+        self.max_stats = {
+        ItemNames.Stat_Health: 9,
+        ItemNames.Stat_Attack: 9,
+        ItemNames.Stat_Assimilate: 9,
+        ItemNames.Stat_Strength: 9,
+        ItemNames.Stat_Crack: 9,
+        ItemNames.Stat_Tasen: 9,
+        ItemNames.Stat_Komato: 9,
+        ItemNames.Supercharge: 0
+        }
+        self.current_stat_items = {
+        ItemNames.Stat_Health: 0,
+        ItemNames.Stat_Attack: 0,
+        ItemNames.Stat_Assimilate: 0,
+        ItemNames.Stat_Strength: 0,
+        ItemNames.Stat_Crack: 0,
+        ItemNames.Stat_Tasen: 0,
+        ItemNames.Stat_Komato: 0,
+        ItemNames.Supercharge: 0
+        }
+        self.weapon_stats_needed = {
+        ItemNames.Weapons[0]: WeaponData(), # Null Driver
+        ItemNames.Weapons[1]: WeaponData(), # Shotgun
+        ItemNames.Weapons[2]: WeaponData(tasen=2), # Machine Gun
+        ItemNames.Weapons[3]: WeaponData(tasen=5), # Rocket Launcher
+        ItemNames.Weapons[4]: WeaponData(tasen=9), # MPFB Devastator
+        ItemNames.Weapons[5]: WeaponData(), # Resonance Detonator
+        ItemNames.Weapons[6]: WeaponData(komato=2), # Pulse Cannon
+        ItemNames.Weapons[7]: WeaponData(komato=5), # Shocksplinter
+        ItemNames.Weapons[8]: WeaponData(komato=9), # Cyclic Fusion Ignition System
+        ItemNames.Weapons[9]: WeaponData(tasen=2,crack=2), # Buster Gun
+        ItemNames.Weapons[10]: WeaponData(tasen=2,komato=5,crack=6), # Splintergun
+        ItemNames.Weapons[11]: WeaponData(tasen=5,crack=4), # Spread Rockets
+        ItemNames.Weapons[12]: WeaponData(tasen=9,crack=8), # Nuke
+        ItemNames.Weapons[13]: WeaponData(crack=3), # Resonance Reflector
+        ItemNames.Weapons[14]: WeaponData(komato=2,crack=5), # Hyperpulse
+        ItemNames.Weapons[15]: WeaponData(komato=5,crack=7), # Plasma Cannon
+        ItemNames.Weapons[16]: WeaponData(tasen=9,komato=9,crack=9), # Velocithor V2-10
+        ItemNames.Weapons[17]: WeaponData(tasen=9, komato=9) # Banana Gun
+        }
+        self.door_stats = Door_Levels
 
     def create_items(self):
         self.multiworld.itempool += create_item_pool(self)
@@ -190,6 +198,8 @@ class IjiWorld(World):
         }
 
     def generate_early(self):
+        self.initialize_stat_dicts()
+
         # If using Universal Tracker
         if hasattr(self.multiworld, "re_gen_passthrough"):
             if "Iji" in self.multiworld.re_gen_passthrough:

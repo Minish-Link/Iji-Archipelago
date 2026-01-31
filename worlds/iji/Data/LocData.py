@@ -34,7 +34,8 @@ locations_level_up: Dict[str, IjiLocData] = {
         code=100+(i*5)+j+1, region = RegNames.Sector_Globals[i],
         valid = lambda world,level=j+1: world.options.game_difficulty.levels_per_sector() >= level,
         logic = lambda world,state,sector=i+1,level=j+1: has_xp(state,world,sector,level),
-        on_added = lambda world: world.add_max_stats(ItemNames.Supercharge, 1)
+        on_added = lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            world.options.levelsanity) else None
     ) for i in range(10) for j in range(5)
 }
 
@@ -269,7 +270,8 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
         code=250, region=RegNames.SectorZ_Null,
         valid=lambda world: True,
         logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[0],world),
-        on_added=lambda world: world.increment_post_goal_locations()
+        on_added=lambda world: world.increment_post_goal_locations() if (
+            world.options.allow_sector_z.is_post_game(world)) else None
     )
 }
 
@@ -2146,6 +2148,7 @@ locations_enemy_bosses: Dict[str, IjiLocData] = {
     LocNames.Kills_Bosses[3]: IjiLocData( # Tor
         code=2798, region = RegNames.Sector_Ends[9],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        logic = lambda world, state: state.has("Iosa's Fate", world.player), # Tor cannot be killed while Iosa is alive
         on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 10 else None
     ),
     LocNames.Kills_Bosses[4]: IjiLocData( # Sentinel Proxima
@@ -2166,7 +2169,7 @@ locations_enemy_z: Dict[str, IjiLocData] = {
         region = RegNames.SectorZ,
         valid = lambda world: enemy_is_valid(world, "Sector Z", 0),
         on_added = lambda world: world.increment_post_goal_locations if (
-            world.options.end_goal.value >= 11 or world.options.allow_sector_z.has_requirement()
+            world.options.allow_sector_z.is_post_game(world)
         ) else None
     ) for i in range(len(LocNames.Kills_Sector_Z))
 }
