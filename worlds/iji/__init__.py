@@ -2,7 +2,7 @@ import logging
 from typing import Any, Dict, List
 from BaseClasses import Item, ItemClassification, Location, MultiWorld, Tutorial
 from worlds.generic.Rules import add_rule, set_rule
-from .Data.DoorData import DoorData, shuffle_doors
+from .Data.DoorData import DoorData, shuffle_doors, Door_Levels
 from .Items import create_item_pool, create_item, item_groups_table, IjiItem
 from .Locations import events_and_locations, location_groups_table
 from .Data.LocData import location_table
@@ -14,7 +14,7 @@ from .Options import (IjiOptions, iji_option_groups, define_health_balancing, ge
                       get_weapon_requirements_from_slot_data)
 from worlds.AutoWorld import WebWorld, World, CollectionState
 from .Maps.map_page_index import map_page_index
-from Rules import WeaponData
+from .Rules import WeaponData
 #from Utils import visualize_regions
 
 
@@ -51,6 +51,7 @@ class IjiWorld(World):
 
     health_balancing_values: List[int]
     weapon_stats_needed: Dict[str, WeaponData] = {
+        ItemNames.Weapons[0]: WeaponData(), # Null Driver
         ItemNames.Weapons[1]: WeaponData(), # Shotgun
         ItemNames.Weapons[2]: WeaponData(tasen=2), # Machine Gun
         ItemNames.Weapons[3]: WeaponData(tasen=5), # Rocket Launcher
@@ -66,7 +67,8 @@ class IjiWorld(World):
         ItemNames.Weapons[13]: WeaponData(crack=3), # Resonance Reflector
         ItemNames.Weapons[14]: WeaponData(komato=2,crack=5), # Hyperpulse
         ItemNames.Weapons[15]: WeaponData(komato=5,crack=7), # Plasma Cannon
-        ItemNames.Weapons[16]: WeaponData(tasen=9,komato=9,crack=9) # Velocithor V2-10
+        ItemNames.Weapons[16]: WeaponData(tasen=9,komato=9,crack=9), # Velocithor V2-10
+        ItemNames.Weapons[17]: WeaponData(tasen=9, komato=9) # Banana Gun
     }
     max_stats: Dict[str, int] = {
         ItemNames.Stat_Health: 9,
@@ -98,7 +100,7 @@ class IjiWorld(World):
         ItemNames.Stat_Komato: 0,
         ItemNames.Supercharge: 0
     }
-    door_stats: Dict[int, DoorData] = {}
+    door_stats: Dict[int, DoorData] = Door_Levels
     total_posters: int = 0
     post_goal_locations: int = 0
 
@@ -231,7 +233,7 @@ class IjiWorld(World):
             # If not using Universal Tracker
             self.health_balancing_values = define_health_balancing(self)
             for name, value in self.options.starting_stats.get_starting_stat_items(self).items():
-                self.current_stats[name] += value
+                self.current_stat_items[name] += value
 
             #shuffle_doors(self)
 
@@ -279,14 +281,17 @@ class IjiWorld(World):
         return ret
 
     def set_rules(self):
-        if self.options.poster_locations.value > self.total_posters:
+        for loc in self.multiworld.get_locations(self.player):
+            set_rule(loc, lambda state, temploc=loc: events_and_locations[temploc.name].logic(self, state))
+            if events_and_locations[loc.name].on_added is not None:
+                events_and_locations[loc.name].on_added(self)
+
+        if self.options.goal_posters.value > self.total_posters:
             self.options.goal_posters.value = self.options.end_goal.value
             logging.warning(f"{self.player_name} required more posters than available sectors.")
             logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
 
 
-        for loc in self.multiworld.get_locations(self.player):
-            set_rule(loc, lambda state, temploc=loc: events_and_locations[temploc.name].logic(self, state))
 
         if self.options.end_goal.value == 3:
             self.multiworld.completion_condition[self.player] = lambda state: (

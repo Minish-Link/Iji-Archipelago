@@ -24,15 +24,15 @@ class DoorData(NamedTuple):
     def can_open(self, state: CollectionState, world: "IjiWorld", from_terminal: bool = False) -> bool:
         if not from_terminal:
             if self.type == DoorType.STRENGTH:
-                if world.max_stats["Has Strength Stat"]+1 < self.level:
+                if world.current_stat_items["Strength Stat"]+1 < self.level:
                     return False
-                return has_stats(state, world, "Strength Stat", self.level)
+                return has_stats(world, "Strength Stat", self.level)
             else:
-                if world.max_stats["Has Crack Stat"]+1 < self.level:
+                if world.current_stat_items["Crack Stat"]+1 < self.level:
                     return False
-                return has_stats(state, world, "Crack Stat", self.level)
+                return has_stats(world, "Crack Stat", self.level)
         else:
-            return has_stats(state, world, "Crack Stat", self.level)
+            return has_stats(world, "Crack Stat", self.level)
 
     def is_valid_entrance(self, world: "IjiWorld") -> bool:
         if self.terminal != 0:
@@ -43,16 +43,15 @@ class DoorData(NamedTuple):
             return world.max_stats["Has Crack Stat"]+1 < self.level
 
 def shuffle_doors(world: "IjiWorld"):
-    # TODO
-    levels: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_levels_only) != 0
-    types: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_types_only) != 0
-    terminals: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_terminals_only) != 0
-    deviation: int = world.options.door_shuffle_deviation.value
-    for code, data in Door_Levels.items():
-        world.door_stats[code] = DoorData(
-            type = data.type if (not types or data.terminal >= 1) else world.random.randrange(1,3)
-
-        )
+    ## TODO
+    #levels: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_levels_only) != 0
+    #types: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_types_only) != 0
+    #terminals: bool = (world.options.door_shuffle.value & world.options.door_shuffle.option_shuffle_terminals_only) != 0
+    #deviation: int = world.options.door_shuffle_deviation.value
+    #for code, data in Door_Levels.items():
+    #    world.door_stats[code] = DoorData(
+    #        type = data.type if (not types or data.terminal >= 1) else world.random.randrange(1,3)
+    #    )
     pass
 
 def choose_random_level(world: "IjiWorld", old_value: int, deviation: int, min_level: int, max_level: int) -> int:

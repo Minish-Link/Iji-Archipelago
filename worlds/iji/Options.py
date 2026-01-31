@@ -1,10 +1,10 @@
 from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList, OptionDict
-from Rules import WeaponData
-from Names.ItemNames import Weapons as WeaponNames
-from Names import EventNames
+from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionSet, OptionDict
+#from .Rules import WeaponData
+from .Names.ItemNames import Weapons as WeaponNames
+#from Names import EventNames
 import logging
 
 if TYPE_CHECKING:
@@ -581,6 +581,9 @@ class GameDifficulty(Choice):
     def levels_per_sector(self) -> int:
         return max(3,min(5,self.value))
 
+    def get_xp_index(self) -> int:
+        return 5 - self.levels_per_sector()
+
 class MusicShuffle(Choice):
     """
     Whether or not to randomly reassign music tracks.
@@ -988,12 +991,12 @@ class EnemyLocations(Toggle):
     """
     display_name = "Enemy Locations"
 
-class EnemyLocationTypes(OptionList):
+class EnemyLocationTypes(OptionSet):
     """
     If Enemy Locations is enabled, these are the types of enemies that can be locations.
     """
     display_name = "Enemy Location Types"
-    default = [
+    default = {
         "Bosses",
         "Tasen Scout",
         "Tasen Soldier",
@@ -1005,7 +1008,7 @@ class EnemyLocationTypes(OptionList):
         "Komato Assassin",
         "Komato Annihilator",
         "Sector Z"
-    ]
+    }
 
     def type_allowed(self, world: "IjiWorld", enemy_type: str) -> bool:
         return world.options.enemy_locations and enemy_type in self.value

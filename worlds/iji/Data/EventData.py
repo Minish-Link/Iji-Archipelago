@@ -1,5 +1,5 @@
 from typing import Callable, Dict, NamedTuple, Optional, TYPE_CHECKING
-from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_xp, is_difficulty_in_logic
+from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_xp, is_difficulty_in_logic, can_open_door
 from ..Names import LocNames, RegNames, ItemNames, EventNames
 from .LocData import IjiLocData, location_table
 from .ItemData import IjiItemData
@@ -1050,7 +1050,7 @@ events_poster: Dict[str, IjiLocData] = {
 } | {
     EventNames.Posters[11]: IjiLocData(
         region = RegNames.Sector_Posters[10],
-        valid = lambda world: (not world.options.sector_z_allowed.has_requirement() and
+        valid = lambda world: (not world.options.allow_sector_z.has_requirement() and
                                world.options.end_goal.value <= 10),
         locked_item = lambda world: EventNames.Posters[0]
     )
@@ -1845,6 +1845,16 @@ events_miscellaneous: Dict[str, IjiLocData] = {
             state.has_all([EventNames.SectorX_Terminal_Megacore[0],
             EventNames.SectorX_Terminal_Megacore[1],
             EventNames.SectorX_Terminal_Megacore[2]], world.player))
+    ),
+    "Sector 2 First Terminal": IjiLocData(
+        region = RegNames.Sector2_Main[2],
+        locked_item=lambda world: "Sector 2 First Terminal",
+        logic=lambda world, state: can_open_door(state, world, 11, True)
+    ),
+    "Sector 2 Second Terminal": IjiLocData(
+        region = RegNames.Sector2_Main[5],
+        locked_item=lambda world: "Sector 2 Second Terminal",
+        logic=lambda world, state: can_open_door(state, world, 13, True)
     )
 }
 
@@ -1957,4 +1967,6 @@ event_item_table = {
     EventNames.Victory: IjiItemData(progtype = ItemClassification.progression),
     #ItemNames.Glitch: IjiItemData( progtype=ItemClassification.progression),
     EventNames.Explosives: IjiItemData( progtype = ItemClassification.progression),
+    "Sector 2 First Terminal": IjiItemData(progtype = ItemClassification.progression),
+    "Sector 2 Second Terminal": IjiItemData(progtype = ItemClassification.progression)
 }

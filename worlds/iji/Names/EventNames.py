@@ -1,7 +1,7 @@
 from typing import List, Dict
 from . import ItemNames
 from .LocNames import Sector_Numbers
-from ..Data.DoorData import Door_Levels
+#from ..Data.DoorData import Door_Levels
 
 Weapons: List[str] = [
     "Has Null Driver",
@@ -94,7 +94,7 @@ Weapon_Locations: List[List[List[str]]] = [
 
 Supercharges: List[str] = list("Has Sector "+Sector_Numbers[i]+" Supercharge" for i in range(10))
 
-Posters: List[str] = ["Found Poster"] + list("Found Sector "+Sector_Numbers[i]+" Poster" for i in range(10))
+Posters: List[str] = ["Found Poster"] + list("Found Sector "+Sector_Numbers[i]+" Poster" for i in range(11))
 
 XP_Collected: List[str] = list("XP - Sector "+Sector_Numbers[i] for i in range(10))
 
@@ -317,9 +317,22 @@ SectorX_Terminal_Megacore: List[str] = [
 ]
 SectorX_Megacore = "Sector X Megacore Destroyed"
 
+
 Terminals: Dict[int,str] = {
     # int is door id
-    code: "Terminal "+str(code) for code, data in Door_Levels.items() if data.terminal > 0
+    #code: "Terminal "+str(code) for code, data in Door_Levels.items() if data.terminal > 0
+    11: "Sector 2 First Terminal",
+    13: "Sector 2 Second Terminal",
+    39: "Sector 4 First Terminal",
+    43: "Sector 4 Left Shaft Terminal",
+    44: "Sector 4 Right Shaft Terminal",
+    47: "Sector 4 Reactor Terminal",
+    48: "Sector 4 Final Terminal",
+    55: "Sector 5 Tasen v Komato Terminal",
+    56: "Sector 5 Left Terminal",
+    57: "Sector 5 Right Terminal",
+    58: "Sector 5 Last Terminal",
+    # TODO Finish this later when Door rando is a thing
 }
 
 Explosives = "Has Explosive"

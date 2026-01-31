@@ -1,12 +1,11 @@
 from enum import Enum
 from math import floor, ceil
 from typing import Dict, TYPE_CHECKING, List, NamedTuple
-from Data.DoorData import DoorData
+#from .Data.DoorData import DoorData
 from .Options import combined_weapons_indices
 
 from BaseClasses import CollectionState
 from .Names import RegNames, ItemNames, EventNames
-from ..stardew_valley.stardew_rule import true_
 
 if TYPE_CHECKING:
     from . import IjiWorld
@@ -68,7 +67,7 @@ def meets_goal_req(state: CollectionState, world: "IjiWorld") -> bool:
 def has_xp(state: CollectionState, world: "IjiWorld", sector: int, level: int) -> bool:
     return state.has(EventNames.XP_Collected[sector-1],
                      world.player,
-                     xp_table[world.options.game_difficulty.value][sector-1][level-1])
+                     xp_table[world.options.game_difficulty.get_xp_index()][sector-1][level-1])
 
 xp_table: List[List[List[int]]] = [
     [
@@ -294,12 +293,9 @@ def can_reach_poster_nine(state: CollectionState, world: "IjiWorld") -> bool:
     )
 
 def can_open_door(state: CollectionState, world: "IjiWorld", door_id: int, from_terminal: bool = False) -> bool:
-    #TODO
     if from_terminal:
         return world.door_stats[door_id].can_open(state, world, from_terminal)
     else:
         if world.door_stats[door_id].terminal > 0 and state.has(EventNames.Terminals[door_id], world.player):
             return True
         return world.door_stats[door_id].can_open(state, world, from_terminal)
-
-    return True

@@ -1,5 +1,7 @@
 from typing import List
-from .LocNames import Sector_Numbers
+#from .LocNames import Sector_Numbers
+
+Sector_Numbers: List[str] = ["1","2","3","4","5","6","7","8","9","X","Z","Y"]
 
 Menu = "Menu"
 Global = "Global"
