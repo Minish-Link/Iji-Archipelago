@@ -283,15 +283,15 @@ class IjiWorld(World):
     def set_rules(self):
         for loc in self.multiworld.get_locations(self.player):
             set_rule(loc, lambda state, temploc=loc: events_and_locations[temploc.name].logic(self, state))
-            if events_and_locations[loc.name].on_added is not None:
-                events_and_locations[loc.name].on_added(self)
 
         if self.options.goal_posters.value > self.total_posters:
-            self.options.goal_posters.value = self.options.end_goal.value
+            self.options.goal_posters.value = self.total_posters
             logging.warning(f"{self.player_name} required more posters than available sectors.")
             logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
 
-
+        logging.warning(f"{self.player_name} Post Goal Locations: {self.post_goal_locations}")
+        logging.warning(f"{self.player_name} Supercharge Max: {self.max_stats['Supercharge']}")
+        logging.warning(f"{self.player_name} Posters: {self.options.goal_posters.value} / {self.total_posters}")
 
         if self.options.end_goal.value == 3:
             self.multiworld.completion_condition[self.player] = lambda state: (

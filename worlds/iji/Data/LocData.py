@@ -19,7 +19,7 @@ class IjiLocData(NamedTuple):
 locations_sector_complete: Dict[str,IjiLocData] = {
     LocNames.Sector_Complete[i]: IjiLocData(
         code=i+1, region=RegNames.Sector_Ends[i],
-        valid=lambda world: world.options.end_goal.value != (i+1)
+        valid=lambda world,temp_i=i: world.options.end_goal.value != temp_i+1
     ) for i in range(len(LocNames.Sector_Complete))
 }
 
@@ -2132,12 +2132,12 @@ locations_enemy_bosses: Dict[str, IjiLocData] = {
     LocNames.Kills_Bosses[0]: IjiLocData( # Krotera
         code=2095, region = RegNames.Sector_Ends[2],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
-        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 3 else None
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 3 else None
     ),
     LocNames.Kills_Bosses[1]: IjiLocData( # Iosa
         code=2720, region = RegNames.Sector_Ends[8],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
-        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 9 else None
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 9 else None
     ),
     LocNames.Kills_Bosses[2]: IjiLocData( # Asha
         code=2755, region = RegNames.SectorX_Core[7],
@@ -2146,12 +2146,12 @@ locations_enemy_bosses: Dict[str, IjiLocData] = {
     LocNames.Kills_Bosses[3]: IjiLocData( # Tor
         code=2798, region = RegNames.Sector_Ends[9],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
-        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 10 else None
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 10 else None
     ),
     LocNames.Kills_Bosses[4]: IjiLocData( # Sentinel Proxima
         code=2915, region = RegNames.Sector_Ends[6],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
-        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 7 else None
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 7 else None
     ),
     LocNames.Kills_Bosses[5]: IjiLocData( # Yukabacera (Not actually a boss)
         code=2276, region = RegNames.Sector6_Poster[3],

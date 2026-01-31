@@ -226,7 +226,7 @@ def has_special_trait(state: CollectionState, world: "IjiWorld", trait_index: in
 
 def has_weapon_stats(state: CollectionState, weapon_name: str, world: "IjiWorld", extra_points: int = 0) -> bool:
     weapon_data = world.weapon_stats_needed[weapon_name]
-    has_multiple_stats(world,
+    return has_multiple_stats(world,
                        {
                            ItemNames.Stat_Tasen: weapon_data.tasen,
                            ItemNames.Stat_Komato: weapon_data.komato,
@@ -235,7 +235,7 @@ def has_weapon_stats(state: CollectionState, weapon_name: str, world: "IjiWorld"
 
 def can_make_weapon(state: CollectionState, world: "IjiWorld", weapon_name: str) -> bool:
     if not state.has_all(["Has "+combined_weapons_indices[weapon_name][0],
-                          "Has "+combined_weapons_indices[weapon_name][0]], world.player):
+                          "Has "+combined_weapons_indices[weapon_name][1]], world.player):
         return False
 
     return has_weapon_stats(state, weapon_name, world)

@@ -1060,56 +1060,76 @@ events_supercharges: Dict[str, IjiLocData] = {
     EventNames.Supercharges[0]: IjiLocData(
         region=RegNames.Sector1_Super,
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[1]: IjiLocData(
         region=RegNames.Sector2_Super,
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[2]: IjiLocData(
         region=RegNames.Sector3_Super[1],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[3]: IjiLocData(
         region=RegNames.Sector4_Super[2],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[4]: IjiLocData(
         region=RegNames.Sector5_Main[8],
         locked_item=lambda world: EventNames.Levels[0],
         valid=lambda world: world.options.supercharge_locations.value <= 1,
-        logic=lambda world, state: location_table[LocNames.Supercharges[4]].logic(world, state)
+        logic=lambda world, state: location_table[LocNames.Supercharges[4]].logic(world, state),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[5]: IjiLocData(
         region=RegNames.Sector6_Super,
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[6]: IjiLocData(
         region=RegNames.Sector7_Main[11],
         locked_item=lambda world: EventNames.Levels[0],
         valid=lambda world: world.options.supercharge_locations.value <= 1,
-        logic=lambda world, state: location_table[LocNames.Supercharges[6]].logic(world, state)
+        logic=lambda world, state: location_table[LocNames.Supercharges[6]].logic(world, state),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[7]: IjiLocData(
         region=RegNames.Sector8_Side[3],
         locked_item=lambda world: EventNames.Levels[0],
         valid=lambda world: world.options.supercharge_locations.value <= 1,
-        logic=lambda world, state: location_table[LocNames.Supercharges[7]].logic(world, state)
+        logic=lambda world, state: location_table[LocNames.Supercharges[7]].logic(world, state),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[8]: IjiLocData(
         region=RegNames.Sector9_Deep[9],
         locked_item=lambda world: EventNames.Levels[0],
-        valid=lambda world: world.options.supercharge_locations.value <= 1
+        valid=lambda world: world.options.supercharge_locations.value <= 1,
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     EventNames.Supercharges[9]: IjiLocData(
         region=RegNames.SectorX_Core[0],
         locked_item=lambda world: EventNames.Levels[0],
         valid=lambda world: world.options.supercharge_locations.value <= 1,
-        logic=lambda world, state: location_table[LocNames.Supercharges[9]].logic(world, state)
+        logic=lambda world, state: location_table[LocNames.Supercharges[9]].logic(world, state),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
 }
 

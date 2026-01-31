@@ -991,27 +991,27 @@ class EnemyLocations(Toggle):
     """
     display_name = "Enemy Locations"
 
-class EnemyLocationTypes(OptionSet):
+class EnemyLocationTypes(OptionDict):
     """
     If Enemy Locations is enabled, these are the types of enemies that can be locations.
     """
     display_name = "Enemy Location Types"
     default = {
-        "Bosses",
-        "Tasen Scout",
-        "Tasen Soldier",
-        "Tasen Commander",
-        "Tasen Elite",
-        "Komato Trooper",
-        "Komato Berserker",
-        "Komato Beast",
-        "Komato Assassin",
-        "Komato Annihilator",
-        "Sector Z"
+        "Bosses": True,
+        "Tasen Scout": True,
+        "Tasen Soldier": True,
+        "Tasen Commander": True,
+        "Tasen Elite": True,
+        "Komato Trooper": True,
+        "Komato Berserker": True,
+        "Komato Beast": True,
+        "Komato Assassin": True,
+        "Komato Annihilator": True,
+        "Sector Z": True
     }
 
     def type_allowed(self, world: "IjiWorld", enemy_type: str) -> bool:
-        return world.options.enemy_locations and enemy_type in self.value
+        return world.options.enemy_locations and enemy_type in self.value.keys() and self.value[enemy_type]
 
 class MoreEnemies(Toggle):
     """
