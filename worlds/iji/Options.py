@@ -56,31 +56,32 @@ weapon_error_names: List[str] = [
     "Komato",
     "Crack"
 ]
-def interpret_weapon_requirements(world: "IjiWorld"):
-    for key, data in world.weapon_stats_needed.items():
-        for i in range(3):
-            weapon_value: int = 0
-            stat_dict: Dict[str, Any]
-            if i == 0: stat_dict = world.options.tasen_weapon_requirements.value
-            elif i == 1: stat_dict = world.options.komato_weapon_requirements.value
-            else: stat_dict = world.options.crack_weapon_requirements.value
 
-            if key in stat_dict.keys():
-                if type(stat_dict[key]) == int:
-                    weapon_value = stat_dict[key]
-                    if weapon_value < 0 or weapon_value > 9:
-                        raise ValueError(f"{weapon_error_names[i]} stat requirement for {key} must be between 0 and 9")
-
-                elif type(stat_dict[key]) == str:
-                    weapon_value = choose_random_option_from_string(
-                        world,
-                        stat_dict[key],
-                        weapon_error_names[i]+" stat requirement for "+key,
-                        0, 9)
-
-                if i == 0: data.tasen = weapon_value
-                elif i == 1: data.komato = weapon_value
-                else: data.crack = weapon_value
+#def interpret_weapon_requirements(world: "IjiWorld"):
+#    for key, data in world.weapon_stats_needed.items():
+#        for i in range(3):
+#            weapon_value: int = 0
+#            stat_dict: Dict[str, Any]
+#            if i == 0: stat_dict = world.options.tasen_weapon_requirements.value
+#            elif i == 1: stat_dict = world.options.komato_weapon_requirements.value
+#            else: stat_dict = world.options.crack_weapon_requirements.value
+#
+#            if key in stat_dict.keys():
+#                if type(stat_dict[key]) == int:
+#                    weapon_value = stat_dict[key]
+#                    if weapon_value < 0 or weapon_value > 9:
+#                        raise ValueError(f"{weapon_error_names[i]} stat requirement for {key} must be between 0 and 9")
+#
+#                elif type(stat_dict[key]) == str:
+#                    weapon_value = choose_random_option_from_string(
+#                        world,
+#                        stat_dict[key],
+#                        weapon_error_names[i]+" stat requirement for "+key,
+#                        0, 9)
+#
+#                if i == 0: data.tasen = weapon_value
+#                elif i == 1: data.komato = weapon_value
+#                else: data.crack = weapon_value
 
 def weapon_requirements_to_slot_data(world: "IjiWorld") -> Dict[str, str]:
     ret: Dict[str, str] = {}
@@ -112,52 +113,52 @@ def starting_stats_to_slot_data(world: "IjiWorld") -> Dict[str,int]:
         pass #TODO
     return ret
 
-def finalize_weapon_stats(world: "IjiWorld"):
-    ret: Dict[str, WeaponData] = {}
-    for i in range(2, 9): # iterate through basic weapons
-        temp_tasen = world.weapon_stats_needed[WeaponNames[i]].tasen
-        temp_komato = world.weapon_stats_needed[WeaponNames[i]].komato
-        world.weapon_stats_needed[WeaponNames[i]].points_needed  = temp_tasen + temp_komato
-
-    for key, value in combined_weapons_indices.items():
-        temp_tasen = max(world.weapon_stats_needed[value[0]].tasen,
-                         world.weapon_stats_needed[value[1]].tasen)
-        temp_komato = max(world.weapon_stats_needed[value[0]].komato,
-                          world.weapon_stats_needed[value[1]].komato)
-        world.weapon_stats_needed[key].tasen = temp_tasen
-        world.weapon_stats_needed[key].komato = temp_komato
-        world.weapon_stats_needed[key].calculate_points_needed()
-
-    world.weapon_stats_needed[WeaponNames[0]] = WeaponData() # Null Driver
-    world.weapon_stats_needed[WeaponNames[18]] = WeaponData() # Massacre
-
-def revert_invalid_weapon_stats(world: "IjiWorld", new_table: Dict[str, WeaponData]):
-    vanilla_table = world.weapon_stats_needed
-    max_points = world.max_stats[EventNames.Levels[0]]
-    for i in range(2,9): # Iterate through basic weapons
-        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
-            continue
-        if revert_basic_weapon(vanilla_table[WeaponNames[i]],new_table[WeaponNames[i]], max_points):
-            logging.warning(f"Stat requirement for {WeaponNames[i]} was too high for {world.player_name}'s world. "
-                            f"Some or all of its stats have been automatically reduced to their vanilla requirements.")
-    for i in range(9,17): # Iterate through combined weapons
-        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
-            continue
-        component: int = 2
-        reduced: bool = False
-        while component >= 0 and new_table[WeaponNames[i]].points_needed > max_points:
-            component -= 1
-
-def revert_basic_weapon(vanilla_weapon: WeaponData, modified_weapon: WeaponData, max_points: int) -> bool:
-    stat: int = 0
-    reduced: bool = False
-    while stat <= 1 and modified_weapon.points_needed > max_points:
-        if stat == 0:
-            reduced = reduced or modified_weapon.clamp_tasen(vanilla_weapon.tasen)
-        elif stat == 1:
-            reduced = reduced or modified_weapon.clamp_komato(vanilla_weapon.komato)
-        stat += 1
-    return reduced
+#def finalize_weapon_stats(world: "IjiWorld"):
+#    ret: Dict[str, WeaponData] = {}
+#    for i in range(2, 9): # iterate through basic weapons
+#        temp_tasen = world.weapon_stats_needed[WeaponNames[i]].tasen
+#        temp_komato = world.weapon_stats_needed[WeaponNames[i]].komato
+#        world.weapon_stats_needed[WeaponNames[i]].points_needed  = temp_tasen + temp_komato
+#
+#    for key, value in combined_weapons_indices.items():
+#        temp_tasen = max(world.weapon_stats_needed[value[0]].tasen,
+#                         world.weapon_stats_needed[value[1]].tasen)
+#        temp_komato = max(world.weapon_stats_needed[value[0]].komato,
+#                          world.weapon_stats_needed[value[1]].komato)
+#        world.weapon_stats_needed[key].tasen = temp_tasen
+#        world.weapon_stats_needed[key].komato = temp_komato
+#        world.weapon_stats_needed[key].calculate_points_needed()
+#
+#    world.weapon_stats_needed[WeaponNames[0]] = WeaponData() # Null Driver
+#    world.weapon_stats_needed[WeaponNames[18]] = WeaponData() # Massacre
+#
+#def revert_invalid_weapon_stats(world: "IjiWorld", new_table: Dict[str, WeaponData]):
+#    vanilla_table = world.weapon_stats_needed
+#    max_points = world.max_stats[EventNames.Levels[0]]
+#    for i in range(2,9): # Iterate through basic weapons
+#        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
+#            continue
+#        if revert_basic_weapon(vanilla_table[WeaponNames[i]],new_table[WeaponNames[i]], max_points):
+#            logging.warning(f"Stat requirement for {WeaponNames[i]} was too high for {world.player_name}'s world. "
+#                            f"Some or all of its stats have been automatically reduced to their vanilla requirements.")
+#    for i in range(9,17): # Iterate through combined weapons
+#        if new_table[WeaponNames[i]].points_needed <= vanilla_table[WeaponNames[i]].points_needed:
+#            continue
+#        component: int = 2
+#        reduced: bool = False
+#        while component >= 0 and new_table[WeaponNames[i]].points_needed > max_points:
+#            component -= 1
+#
+#def revert_basic_weapon(vanilla_weapon: WeaponData, modified_weapon: WeaponData, max_points: int) -> bool:
+#    stat: int = 0
+#    reduced: bool = False
+#    while stat <= 1 and modified_weapon.points_needed > max_points:
+#        if stat == 0:
+#            reduced = reduced or modified_weapon.clamp_tasen(vanilla_weapon.tasen)
+#        elif stat == 1:
+#            reduced = reduced or modified_weapon.clamp_komato(vanilla_weapon.komato)
+#        stat += 1
+#    return reduced
 
 def choose_random_option_from_string(world: "IjiWorld",
                                      option_range: str,
@@ -264,7 +265,7 @@ class GoalPosterLocations(Range):
     display_name = "Poster Locations Required for Goal"
     default = 0
     range_start = 0
-    range_end = 10
+    range_end = 11
 
 class GoalRibbonItems(Range):
     """
@@ -314,6 +315,9 @@ class AllowSectorZ(Choice):
 
     def allowed(self) -> bool:
         return self.value & 0b001 != 0
+
+    def is_post_game(self, world: "IjiWorld") -> bool:
+        return self.has_requirement() or world.options.end_goal.value >= 11
 
 class PosterLocations(DefaultOnToggle):
     """
@@ -472,6 +476,7 @@ class TrapWeights(OptionDict):
     Null Drive randomly swaps around background textures, effect persists until the game is closed.
     Guilt Trip forces you to read the logbook texts detailing all the enemies you killed so far, and it cannot be skipped.
     Forced Reboot sets all your stats to 1 (refunding 1 stat point for stat level lost), leaving you vulnerable until you raise your stats again
+    Assassin Ambush spawns a Komato Assassin at your current location, which follows and attacks Iji for 30 seconds, or until it's defeated.
     """
     display_name = "Trap Weights"
     default = {
@@ -483,7 +488,8 @@ class TrapWeights(OptionDict):
         "Power Nap": 20,
         "Null Drive": 0,
         "Guilt Trip": 0,
-        "Forced Reboot": 0
+        "Forced Reboot": 0,
+        "Assassin Ambush": 0
     }
 
 class NullDriveFactor(Range):
@@ -878,6 +884,16 @@ class CompactStats(OptionDict):
         "Supercharge": 1,
     }
 
+    def get_chosen_compact_values(self, world) -> Dict[str, int]:
+        ret: Dict[str, int] = {}
+        for name in self.default.keys():
+            if name in self.value.keys():
+                ret[name] = interpret_randomizable_option(world, self.value[name], f"Compact Stat: {name}", 1, 9)
+            else:
+                ret[name] = 1
+
+        return ret
+
 class Scrambler(Toggle):
     """
     Whether the Scrambler should be turned on. This option can be changed later in-game via the Extras menu
@@ -897,7 +913,14 @@ class FillerWeights(OptionDict):
     """
     This option lets you override the weight for each of the filler items.
     Set an item to 0 weight or remove it from the list to remove it from the pool entirely.
-    Note: If every filler item has a weight of 0, all filler items will be Health Pickups
+    Health Pickup: Spawns a red pickup that restores health or grants temporary health if already at max hp.
+    Armor Pickup: Spawns a green pickup that restores armor.
+    Nano Pickup: Spawns a blue pickup that gives restores armor and gives XP when collected. Helps with leveling up.
+    Machine/Rocket/MPFB/Pulse/Shock/CFIS Ammo: Spawns a large pickup that gives ammo for the respective weapon
+    Bundle of Ammo: Spawns small ammo pickups for each weapon type
+    Nano Overload: Gives Iji a random temporary powerup.
+    Can of Soda: Spawns a soda can that does nothing.
+    Note: If every filler item has a weight of 0, all filler items will be Can of Soda.
     """
     display_name = "Filler Weights"
     default = {
@@ -911,7 +934,8 @@ class FillerWeights(OptionDict):
         "Shock Ammo": 0,
         "CFIS Ammo": 0,
         "Nano Overload": 0,
-        "Bundle of Ammo": 0
+        "Bundle of Ammo": 0,
+        "Can of Soda": 0,
     }
 
 class StartingStats(OptionDict):
@@ -933,10 +957,19 @@ class StartingStats(OptionDict):
         "Strength Stat": 1,
         "Crack Stat": 1,
         "Tasen Stat": 1,
-        "Komato Stat": 1
+        "Komato Stat": 1,
     }
 
-class StatLocations(Choice):
+    def get_starting_stat_items(self, world: "IjiWorld") -> Dict[str, int]:
+        ret: Dict[str, int] = {}
+        for stat in self.default.keys():
+            if stat in self.value.keys():
+                ret[stat] = interpret_randomizable_option(world, self.value[stat], f"Starting Stat: {stat}", 1, 10) - 1
+            else:
+                ret[stat] = 0
+        return ret
+
+class StatLocations(Toggle):
     """
     If enabled, leveling up a stat to a specific level will contain a random item
     If you have special_trait_items enabled, reaching the max level of a stat will still contain an item
@@ -947,6 +980,43 @@ class StatLocations(Choice):
     or by increasing your compact_stats options (See these options below for more information about how they work)
     """
     display_name = "Stat Level Locations"
+
+class EnemyLocations(Toggle):
+    """
+    Whether killing individual enemies can send items.
+    Note: It does not matter how an enemy dies, nor who kills said enemy to send an item.
+    """
+    display_name = "Enemy Locations"
+
+class EnemyLocationTypes(OptionList):
+    """
+    If Enemy Locations is enabled, these are the types of enemies that can be locations.
+    """
+    display_name = "Enemy Location Types"
+    default = [
+        "Bosses",
+        "Tasen Scout",
+        "Tasen Soldier",
+        "Tasen Commander",
+        "Tasen Elite",
+        "Komato Trooper",
+        "Komato Berserker",
+        "Komato Beast",
+        "Komato Assassin",
+        "Komato Annihilator",
+        "Sector Z"
+    ]
+
+    def type_allowed(self, world: "IjiWorld", enemy_type: str) -> bool:
+        return world.options.enemy_locations and enemy_type in self.value
+
+class MoreEnemies(Toggle):
+    """
+    If enabled, enemies that would normally not appear on normal difficulty will also spawn.
+    This has no effect if you are playing on hard difficulty or higher.
+    """
+    display_name = "More Enemies"
+
 
 @dataclass
 class IjiOptions(PerGameCommonOptions):
@@ -968,7 +1038,10 @@ class IjiOptions(PerGameCommonOptions):
     logbook_locations:              LogbookLocations
     security_box_locations:         CrackBoxLocations
     nano_overload_locations:        OverloadLocations
-    stat_locations:                 StatLocations
+    #stat_locations:                 StatLocations
+    enemy_locations:                EnemyLocations
+    enemy_location_types:           EnemyLocationTypes
+    more_enemies:                   MoreEnemies
 
     special_trait_items:            SpecialTraitItems
     extra_items:                    ExtraItemCount
@@ -984,11 +1057,11 @@ class IjiOptions(PerGameCommonOptions):
 
     compact_stats:                  CompactStats
     starting_stats:                 StartingStats
-    door_shuffle:                   ShuffleDoors
-    door_shuffle_deviation:         DoorLevelDeviation
-    tasen_weapon_requirements:      WeaponTasenRequirements
-    komato_weapon_requirements:     WeaponKomatoRequirements
-    crack_weapon_requirements:      WeaponCrackRequirements
+    #door_shuffle:                   ShuffleDoors
+    #door_shuffle_deviation:         DoorLevelDeviation
+    #tasen_weapon_requirements:      WeaponTasenRequirements
+    #komato_weapon_requirements:     WeaponKomatoRequirements
+    #crack_weapon_requirements:      WeaponCrackRequirements
 
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
@@ -1020,7 +1093,10 @@ iji_option_groups = [
         LogbookLocations,
         CrackBoxLocations,
         OverloadLocations,
-        StatLocations,
+        #StatLocations,
+        EnemyLocations,
+        EnemyLocationTypes,
+        MoreEnemies
     ]),
     OptionGroup("Item Options", [
         SpecialTraitItems,
@@ -1039,11 +1115,11 @@ iji_option_groups = [
     OptionGroup("Stat Options", [
         CompactStats,
         StartingStats,
-        ShuffleDoors,
-        DoorLevelDeviation,
-        WeaponTasenRequirements,
-        WeaponKomatoRequirements,
-        WeaponCrackRequirements,
+        #ShuffleDoors,
+        #DoorLevelDeviation,
+        #WeaponTasenRequirements,
+        #WeaponKomatoRequirements,
+        #WeaponCrackRequirements,
     ]),
     OptionGroup("Miscellaneous Options", [
         IjiDeathLink,

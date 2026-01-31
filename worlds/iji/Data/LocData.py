@@ -1,9 +1,9 @@
 from typing import Callable, Dict, NamedTuple, Optional, TYPE_CHECKING
 from BaseClasses import CollectionState
 from ..Rules import can_destroy_sentinel_proxima, can_kill_annihilators, has_stats, has_weapon_stats, has_xp, \
-    can_make_weapon, has_weapon_plus_points
+    can_make_weapon, has_weapon_plus_points, can_kill_yukabacera
 from ..Names import LocNames, RegNames, ItemNames, EventNames
-from ..Valid import could_destroy_sentinel_proxima
+from ..Valid import could_destroy_sentinel_proxima, enemy_is_valid
 
 if TYPE_CHECKING:
     from .. import IjiWorld
@@ -89,29 +89,42 @@ locations_ribbon: Dict[str, IjiLocData] = {
 locations_supercharge: Dict[str,IjiLocData] = {
     LocNames.Supercharges[0]: IjiLocData(
         code=231, region=RegNames.Sector1_Super,
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[1]: IjiLocData(
         code=232, region=RegNames.Sector2_Super,
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[2]: IjiLocData(
         code=233, region=RegNames.Sector3_Super[1],
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[3]: IjiLocData(
         code=234, region=RegNames.Sector4_Super[2],
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[4]: IjiLocData(
         code=235, region=RegNames.Sector5_Main[8],
         valid=lambda world: world.options.supercharge_locations.has_locations(),
         logic=lambda world, state: state.has(EventNames.Weapons[12], world.player),
-        on_added=lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 5 else None
+        on_added=lambda world: world.increment_post_goal_locations() if (
+                world.options.end_goal.value == 5) else world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()
+        ) else None
     ),
     LocNames.Supercharges[5]: IjiLocData(
         code=236, region=RegNames.Sector6_Super,
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[6]: IjiLocData(
         code=237, region=RegNames.Sector7_Main[11],
@@ -120,24 +133,32 @@ locations_supercharge: Dict[str,IjiLocData] = {
                 could_destroy_sentinel_proxima(world)
         ),
         logic=lambda world, state: can_destroy_sentinel_proxima(state, world),
-        on_added=lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 7 else None
+        on_added=lambda world: world.increment_post_goal_locations() if (
+                world.options.end_goal.value == 7) else world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()
+        ) else None
     ),
     LocNames.Supercharges[7]: IjiLocData(
         code=238, region=RegNames.Sector8_Side[3],
         valid=lambda world: world.options.supercharge_locations.has_locations(),
-        logic=lambda world, state: can_kill_annihilators(state, world)
+        logic=lambda world, state: can_kill_annihilators(state, world),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[8]: IjiLocData(
         code=239, region=RegNames.Sector9_Deep[9],
-        valid=lambda world: world.options.supercharge_locations.has_locations()
+        valid=lambda world: world.options.supercharge_locations.has_locations(),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     ),
     LocNames.Supercharges[9]: IjiLocData(
         code=240, region=RegNames.SectorX_Core[0],
         valid=lambda world: world.options.supercharge_locations.has_locations(),
         logic=lambda world, state: (
             state.has(EventNames.SectorX_Megacore, world.player) and
-            has_weapon_plus_points(state, world, 16, 0)
-        )
+            has_weapon_plus_points(state, world, 16, 0)),
+        on_added=lambda world: world.add_max_stats(ItemNames.Supercharge, 1) if (
+            not world.options.supercharge_locations.awards_points()) else None
     )
 }
 
@@ -247,7 +268,8 @@ locations_uniquespecialweapons: Dict[str, IjiLocData] = {
     LocNames.Weapon_Null: IjiLocData(
         code=250, region=RegNames.SectorZ_Null,
         valid=lambda world: True,
-        logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[0],world)
+        logic=lambda world, state: has_weapon_stats(state,ItemNames.Weapons[0],world),
+        on_added=lambda world: world.increment_post_goal_locations()
     )
 }
 
@@ -1709,71 +1731,90 @@ locations_logbooks: Dict[str, IjiLocData] = {
     ),
     LocNames.Logbooks[0][0]:  IjiLocData(
         code=1116, region=RegNames.SectorZ,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations() if (
+            world.options.allow_sector_z.is_post_game(world)) else None
     ),
     LocNames.Logbooks[0][1]:  IjiLocData(
         code=1117, region=RegNames.SectorZ,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations() if (
+            world.options.allow_sector_z.is_post_game(world)) else None
     ),
     LocNames.Logbooks[11][0]:  IjiLocData(
         code=1118, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][1]: IjiLocData(
         code=1119, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][2]: IjiLocData(
         code=1120, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][3]: IjiLocData(
         code=1121, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][4]: IjiLocData(
         code=1122, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][5]: IjiLocData(
         code=1123, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][6]: IjiLocData(
         code=1124, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][7]: IjiLocData(
         code=1125, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][8]: IjiLocData(
         code=1126, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][9]: IjiLocData(
         code=1127, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][10]: IjiLocData(
         code=1128, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][11]: IjiLocData(
         code=1129, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][12]: IjiLocData(
         code=1130, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][13]: IjiLocData(
         code=1131, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     ),
     LocNames.Logbooks[11][14]: IjiLocData(
         code=1132, region=RegNames.SectorY,
-        valid=lambda world: world.options.logbook_locations
+        valid=lambda world: world.options.logbook_locations,
+        on_added=lambda world: world.increment_post_goal_locations()
     )
 }
 
@@ -2023,6 +2064,127 @@ locations_tutorialpages: Dict[str, IjiLocData] = {
     )
 }
 
+locations_enemy_scout: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Tasen Scout", difficulty)
+    ) for data in LocNames.Kills_Scouts
+}
+
+locations_enemy_soldier: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Tasen Soldier", difficulty)
+    ) for data in LocNames.Kills_Soldiers
+}
+
+locations_enemy_commander: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Tasen Commander", difficulty)
+    ) for data in LocNames.Kills_Commanders
+}
+
+locations_enemy_elite: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Tasen Elite", difficulty)
+    ) for data in LocNames.Kills_Elites
+}
+
+locations_enemy_trooper: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Komato Trooper", difficulty)
+    ) for data in LocNames.Kills_Troopers
+}
+
+locations_enemy_berserker: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Komato Berserker", difficulty)
+    ) for data in LocNames.Kills_Berserkers
+}
+
+locations_enemy_beast: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world, difficulty = data[3]: enemy_is_valid(world, "Komato Beast", difficulty),
+    ) for data in LocNames.Kills_Beasts
+}
+
+locations_enemy_assassin: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world: enemy_is_valid(world, "Komato Assassin", 0)
+    ) for data in LocNames.Kills_Assassins
+}
+
+locations_enemy_annihilator: Dict[str, IjiLocData] = {
+    data[1]: IjiLocData(
+        code = 2000+data[0], region = data[2],
+        valid = lambda world: enemy_is_valid(world, "Komato Annihilator", 0),
+        logic = lambda world, state: can_kill_annihilators(state, world)
+    ) for data in LocNames.Kills_Annihilators
+}
+
+locations_enemy_bosses: Dict[str, IjiLocData] = {
+    LocNames.Kills_Bosses[0]: IjiLocData( # Krotera
+        code=2095, region = RegNames.Sector_Ends[2],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 3 else None
+    ),
+    LocNames.Kills_Bosses[1]: IjiLocData( # Iosa
+        code=2720, region = RegNames.Sector_Ends[8],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 9 else None
+    ),
+    LocNames.Kills_Bosses[2]: IjiLocData( # Asha
+        code=2755, region = RegNames.SectorX_Core[7],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+    ),
+    LocNames.Kills_Bosses[3]: IjiLocData( # Tor
+        code=2798, region = RegNames.Sector_Ends[9],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 10 else None
+    ),
+    LocNames.Kills_Bosses[4]: IjiLocData( # Sentinel Proxima
+        code=2915, region = RegNames.Sector_Ends[6],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value != 7 else None
+    ),
+    LocNames.Kills_Bosses[5]: IjiLocData( # Yukabacera (Not actually a boss)
+        code=2276, region = RegNames.Sector6_Poster[3],
+        valid = lambda world: enemy_is_valid(world, "Tasen Soldier", 0),
+        logic = lambda world, state: can_kill_yukabacera(state, world)
+    )
+}
+
+locations_enemy_z: Dict[str, IjiLocData] = {
+    LocNames.Kills_Sector_Z[i]: IjiLocData(
+        code = 2801 + i,
+        region = RegNames.SectorZ,
+        valid = lambda world: enemy_is_valid(world, "Sector Z", 0),
+        on_added = lambda world: world.increment_post_goal_locations if (
+            world.options.end_goal.value >= 11 or world.options.allow_sector_z.has_requirement()
+        ) else None
+    ) for i in range(len(LocNames.Kills_Sector_Z))
+}
+
+enemy_locations = {
+    **locations_enemy_bosses,
+    **locations_enemy_scout,
+    **locations_enemy_soldier,
+    **locations_enemy_commander,
+    **locations_enemy_elite,
+    **locations_enemy_trooper,
+    **locations_enemy_berserker,
+    **locations_enemy_beast,
+    **locations_enemy_assassin,
+    **locations_enemy_annihilator,
+    **locations_enemy_z
+}
+
 location_table = {
     **locations_sector_complete,
     **locations_level_up,
@@ -2039,6 +2201,16 @@ location_table = {
     **locations_logbooks,
     **locations_checkpoints,
     **locations_crackboxes,
-    **locations_overloads
-    #**locations_tutorialpages
+    **locations_overloads,
+    **locations_enemy_bosses,
+    **locations_enemy_scout,
+    **locations_enemy_soldier,
+    **locations_enemy_commander,
+    **locations_enemy_elite,
+    **locations_enemy_trooper,
+    **locations_enemy_berserker,
+    **locations_enemy_beast,
+    **locations_enemy_assassin,
+    **locations_enemy_annihilator,
+    **locations_enemy_z
 }

@@ -1052,8 +1052,7 @@ events_poster: Dict[str, IjiLocData] = {
         region = RegNames.Sector_Posters[10],
         valid = lambda world: (not world.options.sector_z_allowed.has_requirement() and
                                world.options.end_goal.value <= 10),
-        locked_item = lambda world: EventNames.Posters[0],
-        on_added = lambda world: world.increment_total_posters()
+        locked_item = lambda world: EventNames.Posters[0]
     )
 }
 

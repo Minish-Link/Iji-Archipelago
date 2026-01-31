@@ -62,7 +62,8 @@ Filler: List[str] = [
     "Shock Ammo",
     "CFIS Ammo",
     "Nano Overload",
-    "Bundle of Ammo"
+    "Bundle of Ammo",
+    "Can of Soda"
 ]
 
 Traps: List[str] = [
@@ -74,7 +75,8 @@ Traps: List[str] = [
     "Clown Shoes",
     "Banana",
     "Guilt Trip",
-    "Forced Reboot"
+    "Forced Reboot",
+    "Assassin Ambush"
 ]
 
 Debug = "Fire Anytime"

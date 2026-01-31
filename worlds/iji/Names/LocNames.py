@@ -1,4 +1,5 @@
 from typing import List
+from . import RegNames
 
 Sector_Numbers: List[str] = ["1","2","3","4","5","6","7","8","9","X","Z","Y"]
 Basic_Weapons: List[str] = [
@@ -378,610 +379,749 @@ Checkpoints: List[str] = [
 
 Scrambler = "Sector 6 - Yukabacera's Scrambler"
 
-Kills_Tasen: List[str] = [
-                                                        # In-game KillData IDs
-    "Sector 1 - Kill Tasen Scout Tuva",                 # 1      
-    "Sector 1 - Kill Tasen Scout Ogrensie Tayu",        # 2      
-    "Sector 1 - Kill Tasen Scout Favi Savakrie",        # 3      
-    "Sector 1 - Kill Tasen Scout Zonrak",               # 4      
-    "Sector 1 - Kill Tasen Scout Xutei",                # 5      
-    "Sector 1 - Kill Tasen Soldier Iri",                # 6      
-    "Sector 1 - Kill Tasen Soldier Elsa Haukti",        # 7      
-    "Sector 1 - Kill Tasen Scout Lofeito Hel",          # 8  
-    "Sector 1 - Kill Tasen Scout Shohaka",              # 9  
-    "Sector 1 - Kill Tasen Scout Uzon",                 # 10 
-    "Sector 1 - Kill Tasen Soldier Tajasun",            # 11 
-    "Sector 1 - Kill Tasen Scout Jao Viy",              # 12 
-    "Sector 1 - Kill Tasen Scout Sunsak",               # 13 
-    "Sector 1 - Kill Tasen Scout Mari",                 # 14 
-    "Sector 1 - Kill Tasen Scout Fahel",                # 15 
-    "Sector 1 - Kill Tasen Soldier Tusun Tuvaxu",       # 16 
-    "Sector 2 - Kill Tasen Commander Shahauk Hasja",    # 21 
-    "Sector 2 - Kill Tasen Soldier Cazedel",            # 22 
-    "Sector 2 - Kill Tasen Scout Sasjusa",              # 23 
-    "Sector 2 - Kill Tasen Soldier Helmkai",            # 24 
-    "Sector 2 - Kill Tasen Scout Grenkaitu",            # 25 
-    "Sector 2 - Kill Tasen Scout Saetor",               # 26 
-    "Sector 2 - Kill Tasen Scout Tei Faratie",          # 27 
-    "Sector 2 - Kill Tasen Soldier Yizepay",            # 28 
-    "Sector 2 - Kill Tasen Scout Yuyu",                 # 29 
-    "Sector 2 - Kill Tasen Scout Asdel",                # 30 
-    "Sector 2 - Kill Tasen Scout Kepaktoh",             # 31 
-    "Sector 2 - Kill Tasen Scout Bulei",                # 32 
-    "Sector 2 - Kill Tasen Scout Cobu",                 # 33 
-    "Sector 2 - Kill Tasen Soldier Suntie",             # 34 
-    "Sector 2 - Kill Tasen Soldier Kari Lo",            # 35 
-    "Sector 2 - Kill Tasen Commander Jage",             # 36 
-    "Sector 2 - Kill Tasen Scout Wakro",                # 37 
-    "Sector 2 - Kill Tasen Scout Quhtei",               # 38 
-    "Sector 2 - Kill Tasen Scout Yah Rieba",            # 39 
-    "Sector 2 - Kill Tasen Soldier Bupaqu",             # 40 
-    "Sector 2 - Kill Tasen Commander Matoh Feiwaktor",  # 41 
-    "Sector 2 - Kill Tasen Scout Elipera",              # 42 
-    "Sector 2 - Kill Tasen Scout Zege Ba",              # 43 
-    "Sector 2 - Kill Tasen Elite Teira Sunjao",         # 44 
-    "Sector 2 - Kill Tasen Scout Greno",                # 45 
-    "Sector 2 - Kill Tasen Soldier Klexu",              # 46 
-    "Sector 2 - Kill Tasen Soldier Wusae",              # 47 
-    "Sector 3 - Kill Tasen Soldier Vateilika",          # 51 
-    "Sector 3 - Kill Tasen Scout Yankaio",              # 52 
-    "Sector 3 - Kill Tasen Scout Berge Ansho",          # 53 
-    "Sector 3 - Kill Tasen Scout Yisaktu",              # 54 
-    "Sector 3 - Kill Tasen Soldier Naeman Jezo",        # 55 
-    "Sector 3 - Kill Tasen Soldier Vitohlei",           # 56 
-    "Sector 3 - Kill Tasen Soldier Hasu",               # 57 
-    "Sector 3 - Kill Tasen Soldier Coriwaqu",           # 58 
-    "Sector 3 - Kill Tasen Scout Hemsarier Izoni",      # 59 
-    "Sector 3 - Kill Tasen Scout Zonotuca",             # 60 
-    "Sector 3 - Kill Tasen Soldier Quburu Mari",        # 61 
-    "Sector 3 - Kill Tasen Scout Xuribeyi",             # 62 
-    "Sector 3 - Kill Tasen Commander Taasjasak",        # 63 
-    "Sector 3 - Kill Tasen Soldier Zonohasha",          # 64 
-    "Sector 3 - Kill Tasen Soldier An Wak",             # 65 
-    "Sector 3 - Kill Tasen Commander Lohauk Mae",       # 66 
-    "Sector 3 - Kill Tasen Scout Hauk Viqu",            # 67 
-    "Sector 3 - Kill Tasen Scout Waktuke Zo",           # 68 
-    "Sector 3 - Kill Tasen Scout Emmae",                # 69 
-    "Sector 3 - Kill Tasen Soldier Waquhes",            # 70 
-    "Sector 3 - Kill Tasen Soldier Grenuti",            # 71 
-    "Sector 3 - Kill Tasen Scout Hasto",                # 72 
-    "Sector 3 - Kill Tasen Commander Falo",             # 73 
-    "Sector 3 - Kill Tasen Scout Jati",                 # 74 
-    "Sector 3 - Kill Tasen Soldier Yabaturaibu",        # 75 
-    "Sector 3 - Kill Tasen Commander Pahot",            # 76 
-    "Sector 3 - Kill Tasen Soldier Cetor Fei",          # 77 
-    "Sector 3 - Kill Tasen Scout Siefa",                # 78 
-    "Sector 3 - Kill Tasen Scout Mawa Yae",             # 79 
-    "Sector 3 - Kill Tasen Scout Zonhelico",            # 80 
-    "Sector 3 - Kill Tasen Scout Zesie",                # 81 
-    "Sector 3 - Kill Tasen Scout Hawu",                 # 82 
-    "Sector 3 - Kill Tasen Elite Jhokta",               # 83 
-    "Sector 3 - Kill Tasen Scout Heseilo",              # 84 
-    "Sector 3 - Kill Tasen Soldier Saenanita",          # 85 
-    "Sector 3 - Kill Tasen Soldier Jao Genio",          # 86 
-    "Sector 3 - Kill Tasen Commander Quwao Sun",        # 87 
-    "Sector 3 - Kill Tasen Scout Zongeas",              # 88 
-    "Sector 3 - Kill Tasen Commander Cerixumah",        # 89 
-    "Sector 3 - Kill Tasen Soldier Maeja",              # 90 
-    "Sector 3 - Kill Tasen Elite Krotera",              # 95 
-    "Sector 4 - Kill Tasen Commander Rakwu",            # 96 
-    "Sector 4 - Kill Tasen Soldier Esem Sie",           # 97 
-    "Sector 4 - Kill Tasen Scout Tiikatei",             # 98 
-    "Sector 4 - Kill Tasen Commander Xaas",             # 99 
-    "Sector 4 - Kill Tasen Scout Haia",                 # 100
-    "Sector 4 - Kill Tasen Soldier Grenka",             # 101
-    "Sector 4 - Kill Tasen Scout Ashdel Es",            # 102
-    "Sector 4 - Kill Tasen Soldier Hemgren",            # 103
-    "Sector 4 - Kill Tasen Soldier Sharaiqy",           # 104
-    "Sector 4 - Kill Tasen Scout Mali",                 # 105
-    "Sector 4 - Kill Tasen Scout Saefa",                # 106
-    "Sector 4 - Kill Tasen Scout Wugren",               # 107
-    "Sector 4 - Kill Tasen Scout Pah Bai",              # 108
-    "Sector 4 - Kill Tasen Soldier Hassjawak",          # 109
-    "Sector 4 - Kill Tasen Soldier Zetirie",            # 110
-    "Sector 4 - Kill Tasen Scout Tiei",                 # 111
-    "Sector 4 - Kill Tasen Scout Yinaklas",             # 112
-    "Sector 4 - Kill Tasen Soldier Tilohauk",           # 113
-    "Sector 4 - Kill Tasen Soldier Zebeli",             # 114
-    "Sector 4 - Kill Tasen Soldier Ber Viketo",         # 115
-    "Sector 4 - Kill Tasen Scout Tidepaash Sho",        # 116
-    "Sector 4 - Kill Tasen Scout Zerie Cahashem",       # 117
-    "Sector 4 - Kill Tasen Soldier Uria",               # 118
-    "Sector 4 - Kill Tasen Soldier Yahwak",             # 119
-    "Sector 4 - Kill Tasen Scout Hem Li",               # 120
-    "Sector 4 - Kill Tasen Scout Vajagren",             # 121
-    "Sector 4 - Kill Tasen Commander Paktei",           # 122
-    "Sector 4 - Kill Tasen Detorpe Voe",                # 123
-    "Sector 4 - Kill Tasen Scout Au Xutor",             # 124
-    "Sector 4 - Kill Tasen Scout Rakaiwu",              # 125
-    "Sector 4 - Kill Tasen Soldier Otelcau",            # 126
-    "Sector 4 - Kill Tasen Elite Xusha",                # 127
-    "Sector 4 - Kill Tasen Scout Torkai An",            # 128
-    "Sector 4 - Kill Tasen Scout Rayah",                # 129
-    "Sector 4 - Kill Tasen Scout Ke Fakera",            # 130
-    "Sector 4 - Kill Tasen Soldier Jhoktai",            # 131
-    "Sector 4 - Kill Tasen Elite Peihemfei",            # 132
-    "Sector 4 - Kill Tasen Soldier Ribe Ayah",          # 133
-    "Sector 4 - Kill Tasen Scout Hastuwate",            # 134
-    "Sector 4 - Kill Tasen Scout Malei Besha",          # 135
-    "Sector 4 - Kill Tasen Commander Astoh Cacosaolo",  # 136
-    "Sector 4 - Kill Tasen Soldier Rafajena",           # 137
-    "Sector 4 - Kill Tasen Scout Saegren Ta",           # 138
-    "Sector 4 - Kill Tasen Scout Asti",                 # 139
-    "Sector 4 - Kill Tasen Scout Xuotta",               # 140
-    "Sector 4 - Kill Tasen Scout Sunhem",               # 141
-    "Sector 4 - Kill Tasen Soldier Delderohas",         # 142
-    "Sector 4 - Kill Tasen Commander Loroiyi",          # 143
-    "Sector 4 - Kill Tasen Soldier Payte",              # 144
-    "Sector 4 - Kill Tasen Soldier Xuaroika",           # 145
-    "Sector 4 - Kill Tasen Scout Del Bacoisun",         # 146
-    "Sector 4 - Kill Tasen Scout Ja Sha",               # 147
-    "Sector 4 - Kill Tasen Scout Yaze",                 # 148
-    "Sector 4 - Kill Tasen Soldier Grenrahauk",         # 149
-    "Sector 4 - Kill Tasen Soldier Emshata",            # 150
-    "Sector 5 - Kill Tasen Soldier Visun",              # 156
-    "Sector 5 - Kill Tasen Scout Rorak Viamae",         # 157
-    "Sector 5 - Kill Tasen Soldier Sunmawa",            # 158
-    "Sector 5 - Kill Tasen Scout Yriema",               # 159
-    "Sector 5 - Kill Tasen Scout Askeiota",             # 160
-    "Sector 5 - Kill Tasen Scout Roigren",              # 161
-    "Sector 5 - Kill Tasen Soldier Ibupay",             # 162
-    "Sector 5 - Kill Tasen Scout Qurasha",              # 163
-    "Sector 5 - Kill Tasen Scout Asei Xurai",           # 164
-    "Sector 5 - Kill Tasen Scout Kaquosun",             # 165
-    "Sector 5 - Kill Tasen Scout Helsak Losaeja",       # 166
-    "Sector 5 - Kill Tasen Scout Rakjanio",             # 167
-    "Sector 5 - Kill Tasen Scout Utoli",                # 168
-    "Sector 5 - Kill Tasen Soldier Kapah",              # 169
-    "Sector 5 - Kill Tasen Soldier Paydepei",           # 170
-    "Sector 5 - Kill Tasen Commander Otozobe Sha",      # 171
-    "Sector 5 - Kill Tasen Soldier Bevapa Riya",        # 172
-    "Sector 5 - Kill Tasen Soldier Hel Rie",            # 173
-    "Sector 5 - Kill Tasen Soldier Tisae",              # 174
-    "Sector 5 - Kill Tasen Elite Vakrai",               # 175
-    "Sector 5 - Kill Tasen Soldier Grenhasel",          # 176
-    "Sector 5 - Kill Tasen Scout Pahesk Maeo",          # 177
-    "Sector 5 - Kill Tasen Scout Saka",                 # 178
-    "Sector 5 - Kill Tasen Commander Pahemli",          # 179
-    "Sector 5 - Kill Tasen Soldier Voe Vaksaera",       # 180
-    "Sector 5 - Kill Tasen Soldier Helroihauk",         # 181
-    "Sector 5 - Kill Tasen Commander Baqyi",            # 182
-    "Sector 5 - Kill Tasen Scout Klogrenu",             # 183
-    "Sector 5 - Kill Tasen Scout Shouma",               # 184
-    "Sector 5 - Kill Tasen Scout Aswu",                 # 185
-    "Sector 5 - Kill Tasen Scout Harieje",              # 186
-    "Sector 5 - Kill Tasen Soldier Kematasa",           # 187
-    "Sector 5 - Kill Tasen Scout Torjaoto Saw",         # 188
-    "Sector 5 - Kill Tasen Scout Berako",               # 189
-    "Sector 5 - Kill Tasen Soldier Voesak",             # 190
-    "Sector 5 - Kill Tasen Soldier Ikajhok Mae",        # 191
-    "Sector 5 - Kill Tasen Scout Zonrie",               # 192
-    "Sector 5 - Kill Tasen Scout Elde Lipakotsun",      # 193
-    "Sector 5 - Kill Tasen Scout Hel Wavate",           # 194
-    "Sector 5 - Kill Tasen Commander Saqubu",           # 195
-    "Sector 5 - Kill Tasen Soldier Yaeisako Sie",       # 196
-    "Sector 5 - Kill Tasen Soldier Peroi",              # 197
-    "Sector 5 - Kill Tasen Commander Leige Raktor",     # 198
-    "Sector 5 - Kill Tasen Soldier Shofali",            # 199
-    "Sector 5 - Kill Tasen Soldier Eswakzo",            # 200
-    "Sector 5 - Kill Tasen Scout Xugepei",              # 201
-    "Sector 5 - Kill Tasen Commander Sunha",            # 202
-    "Sector 5 - Kill Tasen Soldier Besaeti",            # 203
-    "Sector 5 - Kill Tasen Soldier Ti Ce",              # 204
-    "Sector 5 - Kill Tasen Commander Eswa Kepah",       # 205
-    "Sector 5 - Kill Tasen Soldier Xueshastu",          # 206
-    "Sector 5 - Kill Tasen Commander Liroto",           # 207
-    "Sector 5 - Kill Tasen Scout Covayah",              # 208
-    "Sector 5 - Kill Tasen Commander Haisak",           # 209
-    "Sector 5 - Kill Tasen Scout Sunkeroi",             # 210
-    "Sector 5 - Kill Tasen Elite An Fa",                # 211
-    "Sector 5 - Kill Tasen Commander Zoyah",            # 212
-    "Sector 5 - Kill Tasen Elite Dehemni Helpak",       # 213
-    "Sector 5 - Kill Tasen Scout Aslova",               # 214
-    "Sector 5 - Kill Tasen Soldier Sakhas",             # 215
-    "Sector 5 - Kill Tasen Commander Yukeca",           # 216
-    "Sector 5 - Kill Tasen Elite Haspei",               # 217
-    "Sector 5 - Kill Tasen Soldier Roniba",             # 218
-    "Sector 5 - Kill Tasen Soldier Otraktie",           # 219
-    "Sector 5 - Kill Tasen Scout Derak Jhokdel",        # 220
-    "Sector 5 - Kill Tasen Soldier Wu Mahro",           # 221
-    "Sector 5 - Kill Tasen Soldier Yrak",               # 222
-    "Sector 5 - Kill Tasen Scout Grenti Rokai",         # 223
-    "Sector 5 - Kill Tasen Commander As Xuvaksie",      # 224
-    "Sector 5 - Kill Tasen Scout Yahpa",                # 225
-    "Sector 5 - Kill Tasen Scout Niwakmae",             # 226
-    "Sector 5 - Kill Tasen Soldier Embu",               # 227
-    "Sector 5 - Kill Tasen Scout Esgren Mae",           # 228
-    "Sector 5 - Kill Tasen Scout Nidely",               # 229
-    "Sector 5 - Kill Tasen Scout Anmaesk",              # 230
-    "Sector 5 - Kill Tasen Soldier Wawaksie",           # 231
-    "Sector 5 - Kill Tasen Scout Voetoro",              # 232
-    "Sector 5 - Kill Tasen Scout Yies",                 # 233
-    "Sector 5 - Kill Tasen Soldier Del Je",             # 234
-    "Sector 5 - Kill Tasen Scout Rasha",                # 235
-    "Sector 5 - Kill Tasen Scout Rihauk",               # 236
-    "Sector 5 - Kill Tasen Scout Toh Yuraiwu",          # 237
-    "Sector 5 - Kill Tasen Commander Na Mae",           # 238
-    "Sector 5 - Kill Tasen Soldier Zoniorak",           # 239
-    "Sector 5 - Kill Tasen Soldier Japeito",            # 240
-    "Sector 5 - Kill Tasen Elite Kabe",                 # 241
-    "Sector 5 - Kill Tasen Scout Xuantura",             # 242
-    "Sector 5 - Kill Tasen Scout Auta",                 # 243
-    "Sector 5 - Kill Tasen Soldier Ra Bexu",            # 244
-    "Sector 5 - Kill Tasen Soldier Es Abersa",          # 245
-    "Sector 5 - Kill Tasen Soldier Yahi",               # 246
-    "Sector 5 - Kill Tasen Scout Aumaba",               # 247
-    "Sector 5 - Kill Tasen Scout Tosjael",              # 248
-    "Sector 5 - Kill Tasen Scout Voesak Zoxu",          # 249
-    "Sector 5 - Kill Tasen Soldier Cece",               # 250
-    "Sector 5 - Kill Tasen Elite Raber Shamah",         # 251
-    "Sector 5 - Kill Tasen Scout Ka Namae",             # 252
-    "Sector 5 - Kill Tasen Scout Caanwa",               # 253
-    "Sector 5 - Kill Tasen Scout Jaope Te",             # 254
-    "Sector 5 - Kill Tasen Soldier Ti Payra",           # 255
-    "Sector 5 - Kill Tasen Soldier Yisie",              # 256
-    "Sector 5 - Kill Tasen Soldier Zotakai",            # 257
-    "Sector 5 - Kill Tasen Scout Tohel",                # 258
-    "Sector 5 - Kill Tasen Soldier Pakaze",             # 259
-    "Sector 6 - Kill Tasen Soldier Asa Riesratu",       # 266
-    "Sector 6 - Kill Tasen Commander Yipaxu",           # 267
-    "Sector 6 - Kill Tasen Soldier Rieesk",             # 268
-    "Sector 6 - Kill Tasen Soldier Nicosaktor",         # 269
-    "Sector 6 - Kill Tasen Commander Ka Del",           # 270
-    "Sector 6 - Kill Tasen Soldier Hapa Famae",         # 271
-    "Sector 6 - Kill Tasen Soldier Teitu",              # 272
-    "Sector 6 - Kill Tasen Commander Taelfei",          # 273
-    "Sector 6 - Kill Tasen Soldier Lite",               # 274
-    "Sector 6 - Kill Tasen Soldier Dezo Ge",            # 275
-    "Sector 6 - Kill Tasen Soldier Yukabacera",         # 276
-    "Sector 6 - Kill Tasen Commander Aysa",             # 277
-    "Sector 6 - Kill Tasen Soldier Peio",               # 278
-    "Sector 6 - Kill Tasen Soldier Ro Nio",             # 279
-    "Sector 6 - Kill Tasen Soldier Anli",               # 280
-    "Sector 6 - Kill Tasen Soldier Delpah",             # 281
-    "Sector 6 - Kill Tasen Commander Cesun",            # 282
-    "Sector 6 - Kill Tasen Commander Bacatabu",         # 283
-    "Sector 6 - Kill Tasen Commander Raigren",          # 284
-    "Sector 6 - Kill Tasen Soldier Bujaoro",            # 285
-    "Sector 6 - Kill Tasen Soldier Nio Wunio",          # 286
-    "Sector 6 - Kill Tasen Soldier Sharai Hage",        # 287
-    "Sector 6 - Kill Tasen Soldier Jaofei Lotu",        # 288
-    "Sector 6 - Kill Tasen Soldier Barosie",            # 289
-    "Sector 6 - Kill Tasen Soldier Pei Ashridel",       # 290
-    "Sector 6 - Kill Tasen Commander Mahxu",            # 291
-    "Sector 6 - Kill Tasen Soldier Honadelot",          # 292
-    "Sector 6 - Kill Tasen Soldier Xufei",              # 293
-    "Sector 6 - Kill Tasen Soldier Ashihaso",           # 294
-    "Sector 6 - Kill Tasen Commander Zon Rihemco",      # 295
-    "Sector 6 - Kill Tasen Soldier Tor Zelei",          # 296
-    "Sector 6 - Kill Tasen Soldier Nazon Payhauk",      # 297
-    "Sector 6 - Kill Tasen Commander Roja",             # 298
-    "Sector 6 - Kill Tasen Soldier Maezon",             # 299
-    "Sector 6 - Kill Tasen Soldier Xatie",              # 300
-    "Sector 6 - Kill Tasen Soldier Qurawa",             # 301
-    "Sector 6 - Kill Tasen Soldier Delsho",             # 302
-    "Sector 6 - Kill Tasen Commander Klash",            # 303
-    "Sector 6 - Kill Tasen Soldier Qunati",             # 304
-    "Sector 6 - Kill Tasen Soldier Espay Hauk",         # 305
-    "Sector 6 - Kill Tasen Soldier Riero",              # 306
-    "Sector 6 - Kill Tasen Soldier Lixu",               # 307
-    "Sector 6 - Kill Tasen Soldier Kasaot",             # 308
-    "Sector 6 - Kill Tasen Soldier Copakri",            # 309
-    "Sector 6 - Kill Tasen Soldier Unijero",            # 310
-    "Sector 6 - Kill Tasen Soldier Zerak",              # 311
-    "Sector 6 - Kill Tasen Commander Shofei",           # 312
-    "Sector 7 - Kill Tasen Soldier Kalo",               # 316
-    "Sector 7 - Kill Tasen Soldier Hastohem",           # 317
-    "Sector 7 - Kill Tasen Soldier Toshadel",           # 318
-    "Sector 7 - Kill Tasen Soldier Hempei",             # 319
-    "Sector 7 - Kill Tasen Elite Mavak",                # 320
-    "Sector 7 - Kill Tasen Soldier Shoca Bervoe",       # 321
-    "Sector 7 - Kill Tasen Soldier Teini",              # 322
-    "Sector 7 - Kill Tasen Soldier Emhauk",             # 323
-    "Sector 7 - Kill Tasen Soldier Ritema",             # 324
-    "Sector 7 - Kill Tasen Soldier Yutorha",            # 325
-    "Sector 7 - Kill Tasen Soldier Ifei",               # 326
-    "Sector 7 - Kill Tasen Soldier Mapak",              # 327
-    "Sector 7 - Kill Tasen Soldier Viride",             # 328
-    "Sector 7 - Kill Tasen Elite Jeka Berke",           # 329
-    "Sector 7 - Kill Tasen Soldier Niowaklo",           # 330
-    "Sector 7 - Kill Tasen Elite Coesta",               # 331
-    "Sector 7 - Kill Tasen Elite Haukpei",              # 332
-    "Sector 7 - Kill Tasen Elite Niquh",                # 333
-    "Sector 8 - Kill Tasen Commander Roha Pexu",        # 341
-    "Sector 8 - Kill Tasen Elite Vakeelta",             # 342
-    "Sector 8 - Kill Tasen Commander Nixuto Hastoh",    # 343
-    "Sector 8 - Kill Tasen Commander Yahsie Kai",       # 344
-    "Sector 8 - Kill Tasen Elite Lei Ixuel",            # 345
-    "Sector 8 - Kill Tasen Elite Hasconio",             # 346
-    "Sector 8 - Kill Tasen Elite Jao Zejeni",           # 347
-    "Sector 8 - Kill Tasen Elite Jaberi",               # 348
-    "Sector 8 - Kill Tasen Elite Kavak",                # 349
-    "Sector 8 - Kill Tasen Commander Deroi",            # 350
-    "Sector 8 - Kill Tasen Commander Klasjaan",         # 351
-    "Sector 8 - Kill Tasen Elite Xalei",                # 352
-    "Sector 8 - Kill Tasen Elite Estepei",              # 353
-    "Sector 8 - Kill Tasen Commander As Teisie",        # 354
-    "Sector 8 - Kill Tasen Elite Xarajao",              # 355
-    "Sector 8 - Kill Tasen Commander Em Sho",           # 356
-    "Sector 8 - Kill Tasen Elite Torri",                # 357
-    "Sector 8 - Kill Tasen Elite Mae Zeja",             # 358
-    "Sector 8 - Kill Tasen Elite Pa Sjarak",            # 359
-    "Sector 8 - Kill Tasen Commander Xaxa Helni",       # 360
-    "Sector 8 - Kill Tasen Commander Cosietu",          # 361
-    "Sector 9 - Kill Tasen Elite Pahemsun",             # 366
-    "Sector 9 - Kill Tasen Elite Haavi"                 # 367
+Kills_Bosses: List[str] = [
+    "Sector 3 - Kill Tasen Elite Krotera",  #95
+    "Sector 9 - Kill Komato Annihilator Iosa",  #720
+    "Sector X - Kill Komato Assassin Asha",  #755
+    "Sector X - Kill Komato General Tor",  #798
+    "Sector 7 - Destroy Komato Sentinel Proxima", #915
+    "Sector 6 - Kill Tasen Soldier Yukabacera", #276
 ]
 
-Kills_Komato: List[str] = [
-                                                            # In Game KillData IDs
-    "Sector 3 - Kill Komato Trooper Zonharak",              # 501
-    "Sector 3 - Kill Komato Trooper Siete",                 # 502
-    "Sector 3 - Kill Komato Trooper Xavi",                  # 503
-    "Sector 5 - Kill Komato Trooper Tortie",                # 504
-    "Sector 5 - Kill Komato Trooper Wulei",                 # 505
-    "Sector 5 - Kill Komato Trooper Yaqupay",               # 506
-    "Sector 5 - Kill Komato Trooper Mapei Pake",            # 507
-    "Sector 5 - Kill Komato Trooper Naperak",               # 508
-    "Sector 5 - Kill Komato Trooper Pa Essak",              # 509
-    "Sector 5 - Kill Komato Trooper Xusun",                 # 510
-    "Sector 5 - Kill Komato Trooper Conaot",                # 511
-    "Sector 5 - Kill Komato Trooper Ranibewu",              # 512
-    "Sector 5 - Kill Komato Trooper Ja Losho",              # 513
-    "Sector 5 - Kill Komato Trooper Esmah",                 # 514
-    "Sector 5 - Kill Komato Berserker Zonio",               # 515
-    "Sector 5 - Kill Komato Berserker Xarai",               # 516
-    "Sector 5 - Kill Komato Trooper Berem Niri",            # 517
-    "Sector 5 - Kill Komato Trooper Elhas Valei",           # 518
-    "Sector 5 - Kill Komato Trooper Dehemtor",              # 519
-    "Sector 5 - Kill Komato Trooper Coro",                  # 520
-    "Sector 5 - Kill Komato Berserker Hasmah",              # 521
-    "Sector 5 - Kill Komato Trooper Heltei",                # 522
-    "Sector 5 - Kill Komato Trooper Zonjapako",             # 523
-    "Sector 5 - Kill Komato Trooper Anzoma",                # 524
-    "Sector 5 - Kill Komato Trooper Esa",                   # 525
-    "Sector 5 - Kill Komato Trooper Hasnio",                # 526
-    "Sector 5 - Kill Komato Trooper Delpay",                # 527
-    "Sector 5 - Kill Komato Trooper Hasa Vashode",          # 528
-    "Sector 5 - Kill Komato Trooper Elbu",                  # 529
-    "Sector 5 - Kill Komato Berserker Vakalei",             # 530
-    "Sector 5 - Kill Komato Trooper Sakteto",               # 531
-    "Sector 5 - Kill Komato Trooper Berotpak",              # 532
-    "Sector 6 - Kill Komato Trooper Bepei",                 # 536
-    "Sector 6 - Kill Komato Trooper Siero",                 # 537
-    "Sector 6 - Kill Komato Trooper Maoliem Buyah",         # 538
-    "Sector 6 - Kill Komato Trooper Hastodel",              # 539
-    "Sector 6 - Kill Komato Trooper Esvaksun",              # 540
-    "Sector 6 - Kill Komato Trooper Ashber",                # 541
-    "Sector 6 - Kill Komato Trooper Licehel Yavoe",         # 542
-    "Sector 6 - Kill Komato TrooperJahauk",                 # 543
-    "Sector 6 - Kill Komato Trooper Yasjulo",               # 544
-    "Sector 6 - Kill Komato Trooper Bede",                  # 545
-    "Sector 6 - Kill Komato Trooper Zevitei",               # 546
-    "Sector 6 - Kill Komato Trooper Qudel",                 # 547
-    "Sector 6 - Kill Komato Trooper Yeke",                  # 548
-    "Sector 6 - Kill Komato Trooper Sae",                   # 549
-    "Sector 6 - Kill Komato Berserker Toniterai",           # 550
-    "Sector 6 - Kill Komato Berserker Hemesko",             # 551
-    "Sector 6 - Kill Komato Trooper Butie Pahes",           # 552
-    "Sector 6 - Kill Komato Berserker Tegesun",             # 553
-    "Sector 6 - Kill Komato Trooper Sunwaktor",             # 554
-    "Sector 6 - Kill Komato Trooper Teihasel",              # 555
-    "Sector 6 - Kill Komato Trooper Rihauk Bewak",          # 556
-    "Sector 6 - Kill Komato Berserker Losho",               # 557
-    "Sector 6 - Kill Komato Trooper Bei Jexa",              # 558
-    "Sector 6 - Kill Komato Trooper Shomahtu",              # 559
-    "Sector 6 - Kill Komato Trooper Sakja",                 # 560
-    "Sector 6 - Kill Komato Berserker Xuge",                # 561
-    "Sector 7 - Kill Komato Trooper Shotupa",               # 566
-    "Sector 7 - Kill Komato Trooper Fasiebe",               # 567
-    "Sector 7 - Kill Komato Trooper Vakesha",               # 568
-    "Sector 7 - Kill Komato Trooper Ashelhauk",             # 569
-    "Sector 7 - Kill Komato Berserker Roive Besiena",       # 570
-    "Sector 7 - Kill Komato Trooper Hember",                # 571
-    "Sector 7 - Kill Komato Trooper Payroica",              # 572
-    "Sector 7 - Kill Komato Trooper Yva Tataber",           # 573
-    "Sector 7 - Kill Komato Trooper Auroba",                # 574
-    "Sector 7 - Kill Komato Berserker Xutei",               # 575
-    "Sector 7 - Kill Komato Trooper Klas Ze",               # 576
-    "Sector 7 - Kill Komato Trooper Jevak Delha",           # 577
-    "Sector 7 - Kill Komato Berserker Ti Jhokro",           # 578
-    "Sector 7 - Kill Komato Trooper Raisak",                # 579
-    "Sector 7 - Kill Komato Trooper Uusun",                 # 580
-    "Sector 7 - Kill Komato Trooper Shamakai",              # 581
-    "Sector 7 - Kill Komato Trooper Hasetei",               # 582
-    "Sector 7 - Kill Komato Beast Yahli Saetoh",            # 583
-    "Sector 7 - Kill Komato Berserker Hauksha",             # 584
-    "Sector 7 - Kill Komato Trooper Valii Xuta",            # 585
-    "Sector 7 - Kill Komato Beast Waktaka",                 # 586
-    "Sector 7 - Kill Komato Trooper Nawa",                  # 587
-    "Sector 7 - Kill Komato Berserker Zondebaot",           # 588
-    "Sector 7 - Kill Komato Trooper Nihel",                 # 589
-    "Sector 7 - Kill Komato Beast Debapa",                  # 590
-    "Sector 7 - Kill Komato Beast Bu Sha",                  # 591
-    "Sector 7 - Kill Komato Trooper Ashniber",              # 592
-    "Sector 7 - Kill Komato Trooper Tieropay",              # 593
-    "Sector 7 - Kill Komato Trooper Saerak",                # 594
-    "Sector 7 - Kill Komato Trooper Zehas",                 # 595
-    "Sector 7 - Kill Komato Trooper Payuka",                # 596
-    "Sector 7 - Kill Komato Trooper Yahlei",                # 597
-    "Sector 7 - Kill Komato Beast Pah Sunlonio",            # 598
-    "Sector 7 - Kill Komato Trooper Tei Torber",            # 599
-    "Sector 7 - Kill Komato Beast Osaklas",                 # 600
-    "Sector 7 - Kill Komato Trooper Namahot",               # 601
-    "Sector 7 - Kill Komato Beast Jaoemni Rodel",           # 602
-    "Sector 7 - Kill Komato Trooper Toba",                  # 603
-    "Sector 7 - Kill Komato Beast Payma Fagren",            # 604
-    "Sector 7 - Kill Komato Beast Wurie",                   # 605
-    "Sector 7 - Kill Komato Trooper Perie Viba",            # 606
-    "Sector 7 - Kill Komato Beast Shatei",                  # 607
-    "Sector 7 - Kill Komato Berserker Saktoro",             # 608
-    "Sector 7 - Kill Komato Berserker Teixato",             # 609
-    "Sector 7 - Kill Komato Berserker Roquh",               # 610
-    "Sector 7 - Kill Komato Trooper Peinioca",              # 611
-    "Sector 7 - Kill Komato Trooper Yapakte Sabeze",        # 612
-    "Sector 7 - Kill Komato Trooper Shavamah",              # 613
-    "Sector 7 - Kill Komato Berserker Ke Deyi",             # 614
-    "Sector 7 - Kill Komato Berserker Saesie",              # 615
-    "Sector 7 - Kill Komato Berserker Betorsa",             # 616
-    "Sector 7 - Kill Komato Berserker Gevi",                # 617
-    "Sector 7 - Kill Komato Beast Anvakta",                 # 618
-    "Sector 7 - Kill Komato Beast Mahnio",                  # 619
-    "Sector 7 - Kill Komato Berserker Coturie",             # 620
-    "Sector 7 - Kill Komato Beast Payjaux",                 # 621
-    "Sector 8 - Kill Komato Trooper Kairoi",                # 626
-    "Sector 8 - Kill Komato Trooper Teloro",                # 627
-    "Sector 8 - Kill Komato Berserker Yubi",                # 628
-    "Sector 8 - Kill Komato Berserker Saewa",               # 629
-    "Sector 8 - Kill Komato Berserker Jao Otdel",           # 630
-    "Sector 8 - Kill Komato Trooper Maeri",                 # 631
-    "Sector 8 - Kill Komato Trooper Bewu",                  # 632
-    "Sector 8 - Kill Komato Trooper Grento Tei",            # 633
-    "Sector 8 - Kill Komato Trooper Wakeske",               # 634
-    "Sector 8 - Kill Komato Berserker Jali",                # 635
-    "Sector 8 - Kill Komato Annihilator Deltojaro",         # 636
-    "Sector 8 - Kill Komato Trooper Aheli",                 # 637
-    "Sector 8 - Kill Komato Teroma Rabuco",                 # 638
-    "Sector 8 - Kill Komato Trooper Buyi",                  # 639
-    "Sector 8 - Kill Komato Annihilator Helri Lo",          # 640
-    "Sector 8 - Kill Komato Berserker Bunazo",              # 641
-    "Sector 8 - Kill Komato Trooper Tohankai",              # 642
-    "Sector 8 - Kill Komato Trooper Cotorni",               # 643
-    "Sector 8 - Kill Komato Trooper Emhaja",                # 644
-    "Sector 8 - Kill Komato Trooper Zokepei",               # 645
-    "Sector 8 - Kill Komato Trooper Xusa Yu",               # 646
-    "Sector 8 - Kill Komato Berserker Gekeelzo",            # 647
-    "Sector 8 - Kill Komato Berserker Eri",                 # 648
-    "Sector 8 - Kill Komato Trooper Haukot",                # 649
-    "Sector 8 - Kill Komato Berserker Juibertei",           # 650
-    "Sector 8 - Kill Komato Trooper Yusak Jao",             # 651
-    "Sector 8 - Kill Komato Trooper Torrabaya",             # 652
-    "Sector 8 - Kill Komato Berserker Leisun Jeyu",         # 653
-    "Sector 8 - Kill Komato Trooper Zonna",                 # 654
-    "Sector 8 - Kill Komato Berserker Voe Vi",              # 655
-    "Sector 8 - Kill Komato Trooper Xube",                  # 656
-    "Sector 8 - Kill Komato Trooper Esuvi",                 # 657
-    "Sector 8 - Kill Komato Annihilator Gerakka",           # 658
-    "Sector 8 - Kill Komato Trooper Toheska",               # 659
-    "Sector 9 - Kill Komato Trooper Hemvi",                 # 666
-    "Sector 9 - Kill Komato Trooper Xao",                   # 667
-    "Sector 9 - Kill Komato Trooper Asfaroi",               # 668
-    "Sector 9 - Kill Komato Trooper Bawa Natei",            # 669
-    "Sector 9 - Kill Komato Trooper Haniri",                # 670
-    "Sector 9 - Kill Komato Berserker Vilokato",            # 671
-    "Sector 9 - Kill Komato Berserker Litor",               # 672
-    "Sector 9 - Kill Komato Trooper Elhasan",               # 673
-    "Sector 9 - Kill Komato Trooper Saewu",                 # 674
-    "Sector 9 - Kill Komato Trooper Zeca Paktubero",        # 675
-    "Sector 9 - Kill Komato Beast Lioma",                   # 676
-    "Sector 9 - Kill Komato Berserker Sharaceti",           # 677
-    "Sector 9 - Kill Komato Berserker Sie Esk",             # 678
-    "Sector 9 - Kill Komato Trooper Yusae Behem",           # 679
-    "Sector 9 - Kill Komato Trooper Voekasho",              # 680
-    "Sector 9 - Kill Komato Berserker Au Rakrai",           # 681
-    "Sector 9 - Kill Komato Trooper Zeberan",               # 682
-    "Sector 9 - Kill Komato Trooper Payrie",                # 683
-    "Sector 9 - Kill Komato Trooper Ohauk Wakrai",          # 684
-    "Sector 9 - Kill Komato Trooper Saeta",                 # 685
-    "Sector 9 - Kill Komato Trooper Hasta",                 # 686
-    "Sector 9 - Kill Komato Annihilator Be Xuya",           # 687
-    "Sector 9 - Kill Komato Trooper Feidesho",              # 688
-    "Sector 9 - Kill Komato Trooper Zozenata Tofao",        # 689
-    "Sector 9 - Kill Komato Trooper Nio Xebe",              # 690
-    "Sector 9 - Kill Komato Berserker Licozon",             # 691
-    "Sector 9 - Kill Komato Beast Tupei Mator",             # 692
-    "Sector 9 - Kill Komato Trooper Mahesmae",              # 693
-    "Sector 9 - Kill Komato Trooper Xa Decaa",              # 694
-    "Sector 9 - Kill Komato Trooper Yao Wahem",             # 695
-    "Sector 9 - Kill Komato Trooper Tushata",               # 696
-    "Sector 9 - Kill Komato Berserker Jefei",               # 697
-    "Sector 9 - Kill Komato Trooper Kaiya",                 # 698
-    "Sector 9 - Kill Komato Bersrker Li Sakel",             # 699
-    "Sector 9 - Kill Komato Berserker Kahapa",              # 700
-    "Sector 9 - Kill Komato Trooper Baqu Ta",               # 701
-    "Sector 9 - Kill Komato Trooper Astor",                 # 702
-    "Sector 9 - Kill Komato Trooper Delli",                 # 703
-    "Sector 9 - Kill Komato Trooper Mavatonio",             # 704
-    "Sector 9 - Kill Komato Trooper Zontu",                 # 705
-    "Sector 9 - Kill Komato Trooper Fayati Sho",            # 706
-    "Sector 9 - Kill Komato Berserker Irai Helto",          # 707
-    "Sector 9 - Kill Komato Annihilator Yrie",              # 708
-    "Sector 9 - Kill Komato Berserker Varo",                # 709
-    "Sector 9 - Kill Komato Berserker Auratoh",             # 710
-    "Sector 9 - Kill Komato Trooper Keto",                  # 711
-    "Sector 9 - Kill Komato Trooper Saki Ro",               # 712
-    "Sector 9 - Kill Komato Annihilator Iosa Sakera",       # 720
-    "Sector X - Kill Komato Trooper Hasroi",                # 721
-    "Sector X - Kill Komato Trooper Xuroi",                 # 722
-    "Sector X - Kill Komato Berserker Livigren",            # 723
-    "Sector X - Kill Komato Berserker Niodely",             # 724
-    "Sector X - Kill Komato Trooper Ottohas Sha",           # 725
-    "Sector X - Kill Komato Annihilator Vasa",              # 726
-    "Sector X - Kill Komato Trooper Nasatorai",             # 727
-    "Sector X - Kill Komato Berserker Voe Ikahas",          # 728
-    "Sector X - Kill Komato Beast Hassali",                 # 729
-    "Sector X - Kill Komato Beast Viri",                    # 730
-    "Sector X - Kill Komato Trooper Ba Waturi",             # 731
-    "Sector X - Kill Komato Beast Yiyu Qyan",               # 732
-    "Sector X - Kill Komato Trooper Batasa",                # 733
-    "Sector X - Kill Komato Trooper Yuta",                  # 734
-    "Sector X - Kill Komato Trooper Una",                   # 735
-    "Sector X - Kill Komato Trooper Fahasma",               # 736
-    "Sector X - Kill Komato Trooper Zon Hemriesk",          # 737
-    "Sector X - Kill Komato Berserker Peterol",             # 738
-    "Sector X - Kill Komato Trooper Ausu",                  # 739
-    "Sector X - Kill Komato Trooper Tetorni Hasot",         # 740
-    "Sector X - Kill Komato Trooper Jexao Haasa",           # 741
-    "Sector X - Kill Komato Trooper Shokaiya",              # 742
-    "Sector X - Kill Komato Trooper Liquh Yirai",           # 743
-    "Sector X - Kill Komato Trooper Mateii",                # 744
-    "Sector X - Kill Komato Annihilator Siena",             # 745
-    "Sector X - Kill Komato Trooper Yahesk",                # 746
-    "Sector X - Kill Komato Trooper Ni Hato",               # 747
-    "Sector X - Kill Komato Trooper Buzon",                 # 748
-    "Sector X - Kill Komato Trooper Pean",                  # 749
-    "Sector X - Kill Komato Berserker Cerisha",             # 750
-    "Sector X - Kill Komato Berserker Tor Rosun",           # 751
-    "Sector X - Kill Komato Trooper Yuroi Kahel",           # 752
-    "Sector X - Kill Komato Trooper Ateesto",               # 753
-    "Sector X - Kill Komato Berserker Roxayi",              # 754
-    "Sector X - Kill Komato Assassin Asha",                 # 755
-    "Sector X - Kill Komato Berserker Baviem",              # 756
-    "Sector X - Kill Komato Trooper Xusakya",               # 757
-    "Sector X - Kill Komato Trooper Otber",                 # 758
-    "Sector X - Kill Komato Trooper Torash",                # 759
-    "Sector X - Kill Komato Trooper Rai Ke",                # 760
-    "Sector X - Kill Komato Trooper Yugewu Shasha",         # 761
-    "Sector X - Kill Komato Trooper Zekailo",               # 762
-    "Sector X - Kill Komato Trooper Tarixuro",              # 763
-    "Sector X - Kill Komato Berserker Xubusak",             # 764
-    "Sector X - Kill Komato Trooper Shaba",                 # 765
-    "Sector X - Kill Komato Berserker Anbevi",              # 766
-    "Sector X - Kill Komato Berserker Hariewu Cekai",       # 767
-    "Sector X - Kill Komato Berserker Cosaeco",             # 768
-    "Sector X - Kill Komato Berserker Qygren",              # 769
-    "Sector X - Kill Komato Berserker Viramah",             # 770
-    "Sector X - Kill Komato Annihilator Saejao Buhastahel", # 771
-    "Sector X - Kill Komato Berserker Tormaebu",            # 772
-    "Sector X - Kill Komato Berserker Feirakotem",          # 773
-    "Sector X - Kill Komato Trooper Yahra",                 # 774
-    "Sector X - Kill Komato Trooper Xuhauk Cozea",          # 775
-    "Sector X - Kill Komato Beast Gejacora",                # 776
-    "Sector X - Kill Komato Trooper Xadelhauk",             # 777
-    "Sector X - Kill Komato Trooper Tebusjua",              # 778
-    "Sector X - Kill Komato Trooper Sha Vaemash",           # 779
-    "Sector X - Kill Komato Beast Auwak",                   # 780
-    "Sector X - Kill Komato Trooper Yufei",                 # 781
-    "Sector X - Kill Komato Berserker Bauni Ce",            # 782
-    "Sector X - Kill Komato Berserker Vazonja",             # 783
-    "Sector X - Kill Komato Trooper Au Wuria",              # 784
-    "Sector X - Kill Komato Trooper Tupei",                 # 785
-    "Sector X - Kill Komato Trooper Dejama",                # 786
-    "Sector X - Kill Komato Trooper Kerohasel",             # 787
-    "Sector X - Kill Komato Trooper Jaau",                  # 788
-    "Sector X - Kill Komato Trooper Satesja",               # 789
-    "Sector X - Kill Komato Trooper Auzefei",               # 790
-    "Sector X - Kill Komato Trooper Cati Ketosun",          # 791
-    "Sector X - Kill Komato Annihilator Tubuvak Asna",      # 792
-    "Sector X - Kill Komato General Tor"                    # 798
+NORMAL: int = 0
+HARD: int = 1
+Kills_Scouts: List[tuple[int, str, str, int]] = [ # ID, Name, Region, Difficulty
+    (1, "Sector 1 - Kill Tasen Scout Tuva", RegNames.Sector1_Main[0], NORMAL),
+    (2, "Sector 1 - Kill Tasen Scout Ogrensie Tayu", RegNames.Sector1_Main[1], NORMAL),
+    (3, "Sector 1 - Kill Tasen Scout Favi Savakrie", RegNames.Sector1_Main[1], NORMAL),
+    (4, "Sector 1 - Kill Tasen Scout Zonrak", RegNames.Sector1_Main[1], HARD),
+    (5, "Sector 1 - Kill Tasen Scout Xutei", RegNames.Sector1_Main[1], NORMAL),
+    (8, "Sector 1 - Kill Tasen Scout Lofeito Hel", RegNames.Sector1_Main[1], HARD),
+    (9, "Sector 1 - Kill Tasen Scout Shohaka", RegNames.Sector1_Main[1], NORMAL),
+    (10, "Sector 1 - Kill Tasen Scout Uzon", RegNames.Sector1_Main[1], NORMAL),
+    (12, "Sector 1 - Kill Tasen Scout Jao Viy", RegNames.Sector1_Side[1], NORMAL),
+    (13, "Sector 1 - Kill Tasen Scout Sunsak", RegNames.Sector1_Main[3], NORMAL),
+    (14, "Sector 1 - Kill Tasen Scout Mari", RegNames.Sector1_Main[3], NORMAL),
+    (15, "Sector 1 - Kill Tasen Scout Fahel", RegNames.Sector1_Main[3], HARD),
+    (23, "Sector 2 - Kill Tasen Scout Sasjusa", RegNames.Sector2_Main[2], NORMAL),
+    (25, "Sector 2 - Kill Tasen Scout Grenkaitu", RegNames.Sector2_Main[2], HARD),
+    (26, "Sector 2 - Kill Tasen Scout Saetor", RegNames.Sector2_Main[2], NORMAL),
+    (27, "Sector 2 - Kill Tasen Scout Tei Faratie", RegNames.Sector2_Main[2], HARD),
+    (29, "Sector 2 - Kill Tasen Scout Yuyu", RegNames.Sector2_Main[2], NORMAL),
+    (30, "Sector 2 - Kill Tasen Scout Asdel", RegNames.Sector2_Main[2], NORMAL),
+    (31, "Sector 2 - Kill Tasen Scout Kepaktoh", RegNames.Sector2_Main[2], NORMAL),
+    (32, "Sector 2 - Kill Tasen Scout Bulei", RegNames.Sector2_Main[2], NORMAL),
+    (33, "Sector 2 - Kill Tasen Scout Cobu", RegNames.Sector2_Main[3], NORMAL),
+    (37, "Sector 2 - Kill Tasen Scout Wakro", RegNames.Sector2_Main[4], HARD),
+    (38, "Sector 2 - Kill Tasen Scout Quhtei", RegNames.Sector2_Main[4], NORMAL),
+    (39, "Sector 2 - Kill Tasen Scout Yah Rieba", RegNames.Sector2_Side[1], HARD),
+    (42, "Sector 2 - Kill Tasen Scout Elipera", RegNames.Sector2_Main[5], NORMAL),
+    (43, "Sector 2 - Kill Tasen Scout Zege Ba", RegNames.Sector2_Main[5], NORMAL),
+    (45, "Sector 2 - Kill Tasen Scout Greno", RegNames.Sector2_Main[6], NORMAL),
+    (52, "Sector 3 - Kill Tasen Scout Yankaio", RegNames.Sector3_Side[2], NORMAL),
+    (53, "Sector 3 - Kill Tasen Scout Berge Ansho", RegNames.Sector3_Side[0], HARD),
+    (54, "Sector 3 - Kill Tasen Scout Yisaktu", RegNames.Sector3_Side[0], NORMAL),
+    (59, "Sector 3 - Kill Tasen Scout Hemsarier Izoni", RegNames.Sector3_Main[0], HARD),
+    (60, "Sector 3 - Kill Tasen Scout Zonotuca", RegNames.Sector3_Main[0], NORMAL),
+    (62, "Sector 3 - Kill Tasen Scout Xuribeyi", RegNames.Sector3_Main[1], NORMAL),
+    (67, "Sector 3 - Kill Tasen Scout Hauk Viqu", RegNames.Sector3_Main[1], NORMAL),
+    (68, "Sector 3 - Kill Tasen Scout Waktuke Zo", RegNames.Sector3_Main[1], HARD),
+    (69, "Sector 3 - Kill Tasen Scout Emmae", RegNames.Sector3_Main[1], NORMAL),
+    (72, "Sector 3 - Kill Tasen Scout Hasto", RegNames.Sector3_Main[1], NORMAL),
+    (74, "Sector 3 - Kill Tasen Scout Jati", RegNames.Sector3_Main[1], NORMAL),
+    (78, "Sector 3 - Kill Tasen Scout Siefa", RegNames.Sector3_Main[1], NORMAL),
+    (79, "Sector 3 - Kill Tasen Scout Mawa Yae", RegNames.Sector3_Main[1], NORMAL),
+    (80, "Sector 3 - Kill Tasen Scout Zonhelico", RegNames.Sector3_Main[1], NORMAL),
+    (81, "Sector 3 - Kill Tasen Scout Zesie", RegNames.Sector3_Side[9], HARD),
+    (82, "Sector 3 - Kill Tasen Scout Hawu", RegNames.Sector3_Side[9], NORMAL),
+    (84, "Sector 3 - Kill Tasen Scout Heseilo", RegNames.Sector3_Main[1], NORMAL),
+    (88, "Sector 3 - Kill Tasen Scout Zongeas", RegNames.Sector3_Main[1], NORMAL),
+    (98, "Sector 4 - Kill Tasen Scout Tiikatei", RegNames.Sector4_Main[0], NORMAL),
+    (100, "Sector 4 - Kill Tasen Scout Haia", RegNames.Sector4_Super[0], NORMAL),
+    (102, "Sector 4 - Kill Tasen Scout Ashdel Es", RegNames.Sector4_Super[0], NORMAL),
+    (105, "Sector 4 - Kill Tasen Scout Mali", RegNames.Sector4_Main[0], HARD),
+    (106, "Sector 4 - Kill Tasen Scout Saefa", RegNames.Sector4_Main[0], HARD),
+    (107, "Sector 4 - Kill Tasen Scout Wugren", RegNames.Sector4_Main[0], HARD),
+    (108, "Sector 4 - Kill Tasen Scout Pah Bai", RegNames.Sector4_Main[0], NORMAL),
+    (111, "Sector 4 - Kill Tasen Scout Tiei", RegNames.Sector4_Super[2], NORMAL),
+    (112, "Sector 4 - Kill Tasen Scout Yinaklas", RegNames.Sector4_Super[2], NORMAL),
+    (116, "Sector 4 - Kill Tasen Scout Tidepaash Sho", RegNames.Sector4_Main[1], HARD),
+    (117, "Sector 4 - Kill Tasen Scout Zerie Cahashem", RegNames.Sector4_Main[1], HARD),
+    (120, "Sector 4 - Kill Tasen Scout Hem Li", RegNames.Sector4_Main[1], NORMAL),
+    (121, "Sector 4 - Kill Tasen Scout Vajagren", RegNames.Sector4_Main[1], NORMAL),
+    (123, "Sector 4 - Kill Tasen Scout Detorpe Voe", RegNames.Sector4_Main[1], NORMAL),
+    (124, "Sector 4 - Kill Tasen Scout Au Xutor", RegNames.Sector4_Main[1], NORMAL),
+    (125, "Sector 4 - Kill Tasen Scout Rakaiwu", RegNames.Sector4_Main[1], NORMAL),
+    (128, "Sector 4 - Kill Tasen Scout Torkai An", RegNames.Sector4_Main[2], NORMAL),
+    (129, "Sector 4 - Kill Tasen Scout Rayah", RegNames.Sector4_Main[2], NORMAL),
+    (130, "Sector 4 - Kill Tasen Scout Ke Fakera", RegNames.Sector4_Main[2], NORMAL),
+    (134, "Sector 4 - Kill Tasen Scout Hastuwate", RegNames.Sector4_Main[3], NORMAL),
+    (135, "Sector 4 - Kill Tasen Scout Malei Besha", RegNames.Sector4_Main[3], HARD),
+    (138, "Sector 4 - Kill Tasen Scout Saegren Ta", RegNames.Sector4_Main[3], HARD),
+    (139, "Sector 4 - Kill Tasen Scout Asti", RegNames.Sector4_Main[3], NORMAL),
+    (140, "Sector 4 - Kill Tasen Scout Xuotta", RegNames.Sector4_Main[3], NORMAL),
+    (141, "Sector 4 - Kill Tasen Scout Sunhem", RegNames.Sector4_Main[3], NORMAL),
+    (146, "Sector 4 - Kill Tasen Scout Del Bacoisun", RegNames.Sector4_Main[5], NORMAL),
+    (147, "Sector 4 - Kill Tasen Scout Ja Sha", RegNames.Sector4_Main[5], NORMAL),
+    (148, "Sector 4 - Kill Tasen Scout Yaze", RegNames.Sector4_Main[5], NORMAL),
+    (157, "Sector 5 - Kill Tasen Scout Rorak Viamae", RegNames.Sector5_Main[0], NORMAL),
+    (159, "Sector 5 - Kill Tasen Scout Yriema", RegNames.Sector5_Main[0], NORMAL),
+    (160, "Sector 5 - Kill Tasen Scout Askeiota", RegNames.Sector5_Main[0], NORMAL),
+    (161, "Sector 5 - Kill Tasen Scout Roigren", RegNames.Sector5_Main[0], NORMAL),
+    (163, "Sector 5 - Kill Tasen Scout Qurasha", RegNames.Sector5_Main[0], NORMAL),
+    (164, "Sector 5 - Kill Tasen Scout Asei Xurai", RegNames.Sector5_Main[1], NORMAL),
+    (165, "Sector 5 - Kill Tasen Scout Kaquosun", RegNames.Sector5_Main[1], NORMAL),
+    (166, "Sector 5 - Kill Tasen Scout Helsak Losaeja", RegNames.Sector5_Main[1], NORMAL),
+    (167, "Sector 5 - Kill Tasen Scout Rakjanio", RegNames.Sector5_Main[1], NORMAL),
+    (168, "Sector 5 - Kill Tasen Scout Utoli", RegNames.Sector5_Main[1], NORMAL),
+    (177, "Sector 5 - Kill Tasen Scout Pahesk Maeo", RegNames.Sector5_Main[2], NORMAL),
+    (178, "Sector 5 - Kill Tasen Scout Saka", RegNames.Sector5_Main[2], NORMAL),
+    (183, "Sector 5 - Kill Tasen Scout Klogrenu", RegNames.Sector5_Main[2], NORMAL),
+    (184, "Sector 5 - Kill Tasen Scout Shouma", RegNames.Sector5_Main[2], NORMAL),
+    (185, "Sector 5 - Kill Tasen Scout Aswu", RegNames.Sector5_Main[2], NORMAL),
+    (186, "Sector 5 - Kill Tasen Scout Harieje", RegNames.Sector5_Main[2], NORMAL),
+    (188, "Sector 5 - Kill Tasen Scout Torjaoto Saw", RegNames.Sector5_Main[2], NORMAL),
+    (189, "Sector 5 - Kill Tasen Scout Berako", RegNames.Sector5_Main[2], NORMAL),
+    (192, "Sector 5 - Kill Tasen Scout Zonrie", RegNames.Sector5_Main[2], NORMAL),
+    (193, "Sector 5 - Kill Tasen Scout Elde Lipakotsun", RegNames.Sector5_Main[2], NORMAL),
+    (194, "Sector 5 - Kill Tasen Scout Hel Wavate", RegNames.Sector5_Main[2], NORMAL),
+    (201, "Sector 5 - Kill Tasen Scout Xugepei", RegNames.Sector5_Main[2], NORMAL),
+    (208, "Sector 5 - Kill Tasen Scout Covayah", RegNames.Sector5_Poster[2], NORMAL),
+    (210, "Sector 5 - Kill Tasen Scout Sunkeroi", RegNames.Sector5_Poster[2], NORMAL),
+    (214, "Sector 5 - Kill Tasen Scout Aslova", RegNames.Sector5_Main[2], NORMAL),
+    (220, "Sector 5 - Kill Tasen Scout Derak Jhokdel", RegNames.Sector5_Main[2], NORMAL),
+    (223, "Sector 5 - Kill Tasen Scout Grenti Rokai", RegNames.Sector5_Main[2], NORMAL),
+    (225, "Sector 5 - Kill Tasen Scout Yahpa", RegNames.Sector5_Main[2], NORMAL),
+    (226, "Sector 5 - Kill Tasen Scout Niwakmae", RegNames.Sector5_Main[2], NORMAL),
+    (228, "Sector 5 - Kill Tasen Scout Esgren Mae", RegNames.Sector5_Main[2], NORMAL),
+    (229, "Sector 5 - Kill Tasen Scout Nidely", RegNames.Sector5_Main[2], NORMAL),
+    (230, "Sector 5 - Kill Tasen Scout Anmaesk", RegNames.Sector5_Main[2], NORMAL),
+    (232, "Sector 5 - Kill Tasen Scout Voetoro", RegNames.Sector5_Main[2], NORMAL),
+    (233, "Sector 5 - Kill Tasen Scout Yies", RegNames.Sector5_Main[2], NORMAL),
+    (235, "Sector 5 - Kill Tasen Scout Rasha", RegNames.Sector5_Main[2], HARD),
+    (236, "Sector 5 - Kill Tasen Scout Rihauk", RegNames.Sector5_Main[2], NORMAL),
+    (237, "Sector 5 - Kill Tasen Scout Toh Yuraiwu", RegNames.Sector5_Main[3], NORMAL),
+    (242, "Sector 5 - Kill Tasen Scout Xuantura", RegNames.Sector5_Main[3], NORMAL),
+    (243, "Sector 5 - Kill Tasen Scout Auta", RegNames.Sector5_Main[3], NORMAL),
+    (247, "Sector 5 - Kill Tasen Scout Aumaba", RegNames.Sector5_Main[3], NORMAL),
+    (248, "Sector 5 - Kill Tasen Scout Tosjael", RegNames.Sector5_Main[3], NORMAL),
+    (249, "Sector 5 - Kill Tasen Scout Voesak Zoxu", RegNames.Sector5_Main[3], NORMAL),
+    (252, "Sector 5 - Kill Tasen Scout Ka Namae", RegNames.Sector5_Main[4], NORMAL),
+    (253, "Sector 5 - Kill Tasen Scout Caanwa", RegNames.Sector5_Main[4], NORMAL),
+    (254, "Sector 5 - Kill Tasen Scout Jaope Te", RegNames.Sector5_Main[4], NORMAL),
+    (258, "Sector 5 - Kill Tasen Scout Tohel", RegNames.Sector5_Main[4], NORMAL),
+
+]
+Kills_Soldiers: List[tuple[int, str, str, int]] = [
+    (6, "Sector 1 - Kill Tasen Soldier Iri", RegNames.Sector1_Main[1], NORMAL),
+    (7, "Sector 1 - Kill Tasen Soldier Elsa Haukti", RegNames.Sector1_Main[1], NORMAL),
+    (11, "Sector 1 - Kill Tasen Soldier Tajasun", RegNames.Sector1_Main[1], NORMAL),
+    (16, "Sector 1 - Kill Tasen Soldier Tusun Tuvaxu", RegNames.Sector1_Main[3], NORMAL),
+    (22, "Sector 2 - Kill Tasen Soldier Cazedel", RegNames.Sector2_Main[2], NORMAL),
+    (24, "Sector 2 - Kill Tasen Soldier Helmkai", RegNames.Sector2_Main[2], NORMAL),
+    (28, "Sector 2 - Kill Tasen Soldier Yizepay", RegNames.Sector2_Main[2], NORMAL),
+    (34, "Sector 2 - Kill Tasen Soldier Suntie", RegNames.Sector2_Main[3], NORMAL),
+    (35, "Sector 2 - Kill Tasen Soldier Kari Lo", RegNames.Sector2_Main[3], HARD),
+    (40, "Sector 2 - Kill Tasen Soldier Bupaqu", RegNames.Sector2_Side[1], NORMAL),
+    (46, "Sector 2 - Kill Tasen Soldier Klexu", RegNames.Sector2_Main[6], NORMAL),
+    (47, "Sector 2 - Kill Tasen Soldier Wusae", RegNames.Sector2_Side[5], NORMAL),
+    (51, "Sector 3 - Kill Tasen Soldier Vateilika", RegNames.Sector3_Side[2], NORMAL),
+    (55, "Sector 3 - Kill Tasen Soldier Naeman Jezo", RegNames.Sector3_Side[0], NORMAL),
+    (56, "Sector 3 - Kill Tasen Soldier Vitohlei", RegNames.Sector3_Side[2], NORMAL),
+    (57, "Sector 3 - Kill Tasen Soldier Hasu", RegNames.Sector3_Side[3], NORMAL),
+    (58, "Sector 3 - Kill Tasen Soldier Coriwaqu", RegNames.Sector3_Side[3], NORMAL),
+    (61, "Sector 3 - Kill Tasen Soldier Quburu Mari", RegNames.Sector3_Main[1], NORMAL),
+    (64, "Sector 3 - Kill Tasen Soldier Zonohasha", RegNames.Sector3_Main[1], HARD),
+    (65, "Sector 3 - Kill Tasen Soldier An Wak", RegNames.Sector3_Main[1], NORMAL),
+    (70, "Sector 3 - Kill Tasen Soldier Waquhes", RegNames.Sector3_Main[1], HARD),
+    (71, "Sector 3 - Kill Tasen Soldier Grenuti", RegNames.Sector3_Main[1], NORMAL),
+    (75, "Sector 3 - Kill Tasen Soldier Yabaturaibu", RegNames.Sector3_Main[1], NORMAL),
+    (77, "Sector 3 - Kill Tasen Soldier Cetor Fei", RegNames.Sector3_Main[1], HARD),
+    (85, "Sector 3 - Kill Tasen Soldier Saenanita", RegNames.Sector3_Main[1], NORMAL),
+    (86, "Sector 3 - Kill Tasen Soldier Jao Genio", RegNames.Sector3_Main[1], NORMAL),
+    (90, "Sector 3 - Kill Tasen Soldier Maeja", RegNames.Sector3_Main[3], NORMAL),
+    (97, "Sector 4 - Kill Tasen Soldier Esem Sie", RegNames.Sector4_Main[0], NORMAL),
+    (101, "Sector 4 - Kill Tasen Soldier Grenka", RegNames.Sector4_Super[0], NORMAL),
+    (103, "Sector 4 - Kill Tasen Soldier Hemgren", RegNames.Sector4_Super[0], HARD),
+    (104, "Sector 4 - Kill Tasen Soldier Sharaiqy", RegNames.Sector4_Main[0], NORMAL),
+    (109, "Sector 4 - Kill Tasen Soldier Hassjawak", RegNames.Sector4_Main[0], HARD),
+    (110, "Sector 4 - Kill Tasen Soldier Zetirie", RegNames.Sector4_Main[0], NORMAL),
+    (113, "Sector 4 - Kill Tasen Soldier Tilohauk", RegNames.Sector4_Main[1], NORMAL),
+    (114, "Sector 4 - Kill Tasen Soldier Zebeli", RegNames.Sector4_Main[1], HARD),
+    (115, "Sector 4 - Kill Tasen Soldier Ber Viketo", RegNames.Sector4_Main[1], NORMAL),
+    (118, "Sector 4 - Kill Tasen Soldier Uria", RegNames.Sector4_Main[1], NORMAL),
+    (119, "Sector 4 - Kill Tasen Soldier Yahwak", RegNames.Sector4_Main[1], NORMAL),
+    (126, "Sector 4 - Kill Tasen Soldier Otelcau", RegNames.Sector4_Main[2], HARD),
+    (131, "Sector 4 - Kill Tasen Soldier Jhoktai", RegNames.Sector4_Main[2], NORMAL),
+    (133, "Sector 4 - Kill Tasen Soldier Ribe Ayah", RegNames.Sector4_Main[3], NORMAL),
+    (137, "Sector 4 - Kill Tasen Soldier Rafajena", RegNames.Sector4_Main[3], NORMAL),
+    (142, "Sector 4 - Kill Tasen Soldier Delderohas", RegNames.Sector4_Main[3], NORMAL),
+    (144, "Sector 4 - Kill Tasen Soldier Payte", RegNames.Sector4_Poster[0], NORMAL),
+    (145, "Sector 4 - Kill Tasen Soldier Xuaroika", RegNames.Sector4_Poster[0], NORMAL),
+    (149, "Sector 4 - Kill Tasen Soldier Grenrahauk", RegNames.Sector4_Main[4], NORMAL),
+    (150, "Sector 4 - Kill Tasen Soldier Emshata", RegNames.Sector4_Main[4], HARD),
+    (156, "Sector 5 - Kill Tasen Soldier Visun", RegNames.Sector5_Main[0], NORMAL),
+    (158, "Sector 5 - Kill Tasen Soldier Sunmawa", RegNames.Sector5_Main[0], NORMAL),
+    (162, "Sector 5 - Kill Tasen Soldier Ibupay", RegNames.Sector5_Main[0], NORMAL),
+    (169, "Sector 5 - Kill Tasen Soldier Kapah", RegNames.Sector5_Main[1], NORMAL),
+    (170, "Sector 5 - Kill Tasen Soldier Paydepei", RegNames.Sector5_Main[1], NORMAL),
+    (172, "Sector 5 - Kill Tasen Soldier Bevapa Riya", RegNames.Sector5_Main[1], NORMAL),
+    (173, "Sector 5 - Kill Tasen Soldier Hel Rie", RegNames.Sector5_Main[1], NORMAL),
+    (174, "Sector 5 - Kill Tasen Soldier Tisae", RegNames.Sector5_Main[1], NORMAL),
+    (176, "Sector 5 - Kill Tasen Soldier Grenhasel", RegNames.Sector5_Main[2], NORMAL),
+    (180, "Sector 5 - Kill Tasen Soldier Voe Vaksaera", RegNames.Sector5_Side[3], NORMAL),
+    (181, "Sector 5 - Kill Tasen Soldier Helroihauk", RegNames.Sector5_Side[3], NORMAL),
+    (187, "Sector 5 - Kill Tasen Soldier Kematasa", RegNames.Sector5_Main[2], NORMAL),
+    (190, "Sector 5 - Kill Tasen Soldier Voesak", RegNames.Sector5_Main[2], NORMAL),
+    (191, "Sector 5 - Kill Tasen Soldier Ikajhok Mae", RegNames.Sector5_Main[2], NORMAL),
+    (196, "Sector 5 - Kill Tasen Soldier Yaeisako Sie", RegNames.Sector5_Main[2], HARD),
+    (197, "Sector 5 - Kill Tasen Soldier Peroi", RegNames.Sector5_Main[2], NORMAL),
+    (199, "Sector 5 - Kill Tasen Soldier Shofali", RegNames.Sector5_Main[2], HARD),
+    (200, "Sector 5 - Kill Tasen Soldier Eswakzo", RegNames.Sector5_Main[2], NORMAL),
+    (203, "Sector 5 - Kill Tasen Soldier Besaeti", RegNames.Sector5_Poster[1], NORMAL),
+    (204, "Sector 5 - Kill Tasen Soldier Ti Ce", RegNames.Sector5_Poster[1], NORMAL),
+    (206, "Sector 5 - Kill Tasen Soldier Xueshastu", RegNames.Sector5_Poster[2], NORMAL),
+    (215, "Sector 5 - Kill Tasen Soldier Sakhas", RegNames.Sector5_Main[2], NORMAL),
+    (218, "Sector 5 - Kill Tasen Soldier Roniba", RegNames.Sector5_Main[2], NORMAL),
+    (219, "Sector 5 - Kill Tasen Soldier Otraktie", RegNames.Sector5_Main[2], HARD),
+    (221, "Sector 5 - Kill Tasen Soldier Wu Mahro", RegNames.Sector5_Main[2], NORMAL),
+    (222, "Sector 5 - Kill Tasen Soldier Yrak", RegNames.Sector5_Main[2], NORMAL),
+    (227, "Sector 5 - Kill Tasen Soldier Embu", RegNames.Sector5_Ribbon, NORMAL),
+    (231, "Sector 5 - Kill Tasen Soldier Wawaksie", RegNames.Sector5_Main[2], NORMAL),
+    (234, "Sector 5 - Kill Tasen Soldier Del Je", RegNames.Sector5_Main[2], NORMAL),
+    (239, "Sector 5 - Kill Tasen Soldier Zoniorak", RegNames.Sector5_Main[3], HARD),
+    (240, "Sector 5 - Kill Tasen Soldier Japeito", RegNames.Sector5_Main[3], NORMAL),
+    (244, "Sector 5 - Kill Tasen Soldier Ra Bexu", RegNames.Sector5_Main[3], NORMAL),
+    (245, "Sector 5 - Kill Tasen Soldier Es Abersa", RegNames.Sector5_Main[3], NORMAL),
+    (246, "Sector 5 - Kill Tasen Soldier Yahi", RegNames.Sector5_Main[3], NORMAL),
+    (250, "Sector 5 - Kill Tasen Soldier Cece", RegNames.Sector5_Main[4], NORMAL),
+    (255, "Sector 5 - Kill Tasen Soldier Ti Payra", RegNames.Sector5_Main[4], HARD),
+    (256, "Sector 5 - Kill Tasen Soldier Yisie", RegNames.Sector5_Main[4], NORMAL),
+    (257, "Sector 5 - Kill Tasen Soldier Zotakai", RegNames.Sector5_Main[4], NORMAL),
+    (259, "Sector 5 - Kill Tasen Soldier Pakaze", RegNames.Sector5_Main[2], NORMAL),
+    (266, "Sector 6 - Kill Tasen Soldier Asa Riesratu", RegNames.Sector6_Side[1], NORMAL),
+    (268, "Sector 6 - Kill Tasen Soldier Rieesk", RegNames.Sector6_Side[1], NORMAL),
+    (269, "Sector 6 - Kill Tasen Soldier Nicosaktor", RegNames.Sector6_Side[1], NORMAL),
+    (271, "Sector 6 - Kill Tasen Soldier Hapa Famae", RegNames.Sector6_Main[0], HARD),
+    (272, "Sector 6 - Kill Tasen Soldier Teitu", RegNames.Sector6_Side[1], NORMAL),
+    (274, "Sector 6 - Kill Tasen Soldier Lite", RegNames.Sector6_Main[1], NORMAL),
+    (275, "Sector 6 - Kill Tasen Soldier Dezo Ge", RegNames.Sector6_Main[1], NORMAL),
+#    "Sector 6 - Kill Tasen Soldier Yukabacera",  # 276 See: Kills_Bosses
+    (278, "Sector 6 - Kill Tasen Soldier Peio", RegNames.Sector6_Poster[1], NORMAL),
+    (279, "Sector 6 - Kill Tasen Soldier Ro Nio", RegNames.Sector6_Side[8], NORMAL),
+    (280, "Sector 6 - Kill Tasen Soldier Anli", RegNames.Sector6_Side[8], HARD),
+    (281, "Sector 6 - Kill Tasen Soldier Delpah", RegNames.Sector6_Side[8], NORMAL),
+    (285, "Sector 6 - Kill Tasen Soldier Bujaoro", RegNames.Sector6_Main[4], NORMAL),
+    (286, "Sector 6 - Kill Tasen Soldier Nio Wunio", RegNames.Sector6_Main[4], NORMAL),
+    (287, "Sector 6 - Kill Tasen Soldier Sharai Hage", RegNames.Sector6_Main[4], NORMAL),
+    (288, "Sector 6 - Kill Tasen Soldier Jaofei Lotu", RegNames.Sector6_Main[4], NORMAL),
+    (289, "Sector 6 - Kill Tasen Soldier Barosie", RegNames.Sector6_Main[4], NORMAL),
+    (290, "Sector 6 - Kill Tasen Soldier Pei Ashridel", RegNames.Sector6_Main[4], NORMAL),
+    (292, "Sector 6 - Kill Tasen Soldier Honadelot", RegNames.Sector6_Main[4], NORMAL),
+    (293, "Sector 6 - Kill Tasen Soldier Xufei", RegNames.Sector6_Main[4], NORMAL),
+    (294, "Sector 6 - Kill Tasen Soldier Ashihaso", RegNames.Sector6_Main[4], NORMAL),
+    (296, "Sector 6 - Kill Tasen Soldier Tor Zelei", RegNames.Sector6_Main[4], NORMAL),
+    (297, "Sector 6 - Kill Tasen Soldier Nazon Payhauk", RegNames.Sector6_Main[4], NORMAL),
+    (299, "Sector 6 - Kill Tasen Soldier Maezon", RegNames.Sector6_Main[4], NORMAL),
+    (300, "Sector 6 - Kill Tasen Soldier Xatie", RegNames.Sector6_Main[4], NORMAL),
+    (301, "Sector 6 - Kill Tasen Soldier Qurawa", RegNames.Sector6_Main[4], NORMAL),
+    (302, "Sector 6 - Kill Tasen Soldier Delsho", RegNames.Sector6_Main[4], NORMAL),
+    (304, "Sector 6 - Kill Tasen Soldier Qunati", RegNames.Sector6_Main[4], NORMAL),
+    (305, "Sector 6 - Kill Tasen Soldier Espay Hauk", RegNames.Sector6_Main[4], NORMAL),
+    (306, "Sector 6 - Kill Tasen Soldier Riero", RegNames.Sector6_Main[4], NORMAL),
+    (307, "Sector 6 - Kill Tasen Soldier Lixu", RegNames.Sector6_Side[11], HARD),
+    (308, "Sector 6 - Kill Tasen Soldier Kasaot", RegNames.Sector6_Main[7], NORMAL),
+    (309, "Sector 6 - Kill Tasen Soldier Copakri", RegNames.Sector6_Main[7], NORMAL),
+    (310, "Sector 6 - Kill Tasen Soldier Unijero", RegNames.Sector6_Main[7], NORMAL),
+    (311, "Sector 6 - Kill Tasen Soldier Zerak", RegNames.Sector6_Main[7], NORMAL),
+    (316, "Sector 7 - Kill Tasen Soldier Kalo", RegNames.Sector7_Main[1], NORMAL),
+    (317, "Sector 7 - Kill Tasen Soldier Hastohem", RegNames.Sector7_Main[1], NORMAL),
+    (318, "Sector 7 - Kill Tasen Soldier Toshadel", RegNames.Sector7_Main[1], NORMAL),
+    (319, "Sector 7 - Kill Tasen Soldier Hempei", RegNames.Sector7_Main[3], NORMAL),
+    (321, "Sector 7 - Kill Tasen Soldier Shoca Bervoe", RegNames.Sector7_Main[3], NORMAL),
+    (322, "Sector 7 - Kill Tasen Soldier Teini", RegNames.Sector7_Main[3], NORMAL),
+    (323, "Sector 7 - Kill Tasen Soldier Emhauk", RegNames.Sector7_Main[3], NORMAL),
+    (324, "Sector 7 - Kill Tasen Soldier Ritema", RegNames.Sector7_Main[3], NORMAL),
+    (325, "Sector 7 - Kill Tasen Soldier Yutorha", RegNames.Sector7_Main[10], NORMAL),
+    (326, "Sector 7 - Kill Tasen Soldier Ifei", RegNames.Sector7_Main[10], HARD),
+    (327, "Sector 7 - Kill Tasen Soldier Mapak", RegNames.Sector7_Main[10], NORMAL),
+    (328, "Sector 7 - Kill Tasen Soldier Viride", RegNames.Sector7_Main[10], NORMAL),
+    (330, "Sector 7 - Kill Tasen Soldier Niowaklo", RegNames.Sector7_Main[10], NORMAL),
+]
+Kills_Commanders: List[tuple[int, str, str, int]] = [
+    (21, "Sector 2 - Kill Tasen Commander Shahauk Hasja", RegNames.Sector2_Side[0], NORMAL),
+    (36, "Sector 2 - Kill Tasen Commander Jage", RegNames.Sector2_Main[3], NORMAL),
+    (41, "Sector 2 - Kill Tasen Commander Matoh Feiwaktor", RegNames.Sector2_Main[5], NORMAL),
+    (63, "Sector 3 - Kill Tasen Commander Taasjasak", RegNames.Sector3_Side[6], NORMAL),
+    (66, "Sector 3 - Kill Tasen Commander Lohauk Mae", RegNames.Sector3_Main[1], NORMAL),
+    (73, "Sector 3 - Kill Tasen Commander Falo", RegNames.Sector3_Main[1], HARD),
+    (76, "Sector 3 - Kill Tasen Commander Pahot", RegNames.Sector3_Main[1], NORMAL),
+    (87, "Sector 3 - Kill Tasen Commander Quwao Sun", RegNames.Sector3_Main[1], NORMAL),
+    (89, "Sector 3 - Kill Tasen Commander Cerixumah", RegNames.Sector3_Main[1], NORMAL),
+    (96, "Sector 4 - Kill Tasen Commander Rakwu", RegNames.Sector4_Side[0], NORMAL),
+    (99, "Sector 4 - Kill Tasen Commander Xaas", RegNames.Sector4_Main[0], NORMAL),
+    (122, "Sector 4 - Kill Tasen Commander Paktei", RegNames.Sector4_Main[1], NORMAL),
+    (136, "Sector 4 - Kill Tasen Commander Astoh Cacosaolo", RegNames.Sector4_Main[3], NORMAL),
+    (143, "Sector 4 - Kill Tasen Commander Loroiyi", RegNames.Sector4_Main[3], NORMAL),
+    (171, "Sector 5 - Kill Tasen Commander Otozobe Sha", RegNames.Sector5_Main[1], NORMAL),
+    (179, "Sector 5 - Kill Tasen Commander Pahemli", RegNames.Sector5_Main[2], NORMAL),
+    (182, "Sector 5 - Kill Tasen Commander Baqyi", RegNames.Sector5_Main[2], NORMAL),
+    (195, "Sector 5 - Kill Tasen Commander Saqubu", RegNames.Sector5_Main[2], NORMAL),
+    (198, "Sector 5 - Kill Tasen Commander Leige Raktor", RegNames.Sector5_Main[2], NORMAL),
+    (202, "Sector 5 - Kill Tasen Commander Sunha", RegNames.Sector5_Main[2], NORMAL),
+    (205, "Sector 5 - Kill Tasen Commander Eswa Kepah", RegNames.Sector5_Poster[2], NORMAL),
+    (207, "Sector 5 - Kill Tasen Commander Liroto", RegNames.Sector5_Poster[2], NORMAL),
+    (209, "Sector 5 - Kill Tasen Commander Haisak", RegNames.Sector5_Poster[2], NORMAL),
+    (212, "Sector 5 - Kill Tasen Commander Zoyah", RegNames.Sector5_Poster[2], NORMAL),
+    (216, "Sector 5 - Kill Tasen Commander Yukeca", RegNames.Sector5_Main[2], NORMAL),
+    (224, "Sector 5 - Kill Tasen Commander As Xuvaksie", RegNames.Sector5_Main[2], NORMAL),
+    (238, "Sector 5 - Kill Tasen Commander Na Mae", RegNames.Sector5_Main[3], NORMAL),
+    (267, "Sector 6 - Kill Tasen Commander Yipaxu", RegNames.Sector6_Side[1], NORMAL),
+    (270, "Sector 6 - Kill Tasen Commander Ka Del", RegNames.Sector6_Main[0], NORMAL),
+    (273, "Sector 6 - Kill Tasen Commander Taelfei", RegNames.Sector6_Main[1], NORMAL),
+    (277, "Sector 6 - Kill Tasen Commander Aysa", RegNames.Sector6_Poster[1], NORMAL),
+    (282, "Sector 6 - Kill Tasen Commander Cesun", RegNames.Sector6_Side[8], NORMAL),
+    (283, "Sector 6 - Kill Tasen Commander Bacatabu", RegNames.Sector6_Side[8], NORMAL),
+    (284, "Sector 6 - Kill Tasen Commander Raigren", RegNames.Sector6_Main[4], NORMAL),
+    (291, "Sector 6 - Kill Tasen Commander Mahxu", RegNames.Sector6_Main[4], NORMAL),
+    (295, "Sector 6 - Kill Tasen Commander Zon Rihemco", RegNames.Sector6_Main[4], NORMAL),
+    (298, "Sector 6 - Kill Tasen Commander Roja", RegNames.Sector6_Main[4], NORMAL),
+    (303, "Sector 6 - Kill Tasen Commander Klash", RegNames.Sector6_Main[4], NORMAL),
+    (312, "Sector 6 - Kill Tasen Commander Shofei", RegNames.Sector6_Main[7], NORMAL),
+    (341, "Sector 8 - Kill Tasen Commander Roha Pexu", RegNames.Sector8_Side[2], NORMAL),
+    (343, "Sector 8 - Kill Tasen Commander Nixuto Hastoh", RegNames.Sector8_Side[2], NORMAL),
+    (344, "Sector 8 - Kill Tasen Commander Yahsie Kai", RegNames.Sector8_Main[2], NORMAL),
+    (350, "Sector 8 - Kill Tasen Commander Deroi", RegNames.Sector8_Main[2], HARD),
+    (351, "Sector 8 - Kill Tasen Commander Klasjaan", RegNames.Sector8_Main[3], NORMAL),
+    (354, "Sector 8 - Kill Tasen Commander As Teisie", RegNames.Sector8_Main[3], NORMAL),
+    (356, "Sector 8 - Kill Tasen Commander Em Sho", RegNames.Sector8_Main[3], NORMAL),
+    (360, "Sector 8 - Kill Tasen Commander Xaxa Helni", RegNames.Sector8_Main[3], NORMAL),
+    (361, "Sector 8 - Kill Tasen Commander Cosietu", RegNames.Sector8_Main[3], NORMAL),
+]
+Kills_Elites: List[tuple[int, str, str, int]] = [
+    (44, "Sector 2 - Kill Tasen Elite Teira Sunjao", RegNames.Sector2_Side[3], NORMAL),
+    (83, "Sector 3 - Kill Tasen Elite Jhokta", RegNames.Sector3_Side[9], NORMAL),
+    (127, "Sector 4 - Kill Tasen Elite Xusha", RegNames.Sector4_Main[2], NORMAL),
+    (132, "Sector 4 - Kill Tasen Elite Peihemfei", RegNames.Sector4_Main[2], NORMAL),
+    (175, "Sector 5 - Kill Tasen Elite Vakrai", RegNames.Sector5_Main[1], NORMAL),
+    (211, "Sector 5 - Kill Tasen Elite An Fa", RegNames.Sector5_Poster[2], NORMAL),
+    (213, "Sector 5 - Kill Tasen Elite Dehemni Helpak", RegNames.Sector5_Poster[2], NORMAL),
+    (217, "Sector 5 - Kill Tasen Elite Haspei", RegNames.Sector5_Main[2], NORMAL),
+    (241, "Sector 5 - Kill Tasen Elite Kabe", RegNames.Sector5_Main[3], NORMAL),
+    (251, "Sector 5 - Kill Tasen Elite Raber Shamah", RegNames.Sector5_Main[4], NORMAL),
+    (320, "Sector 7 - Kill Tasen Elite Mavak", RegNames.Sector7_Main[3], NORMAL),
+    (329, "Sector 7 - Kill Tasen Elite Jeka Berke", RegNames.Sector7_Main[10], NORMAL),
+    (331, "Sector 7 - Kill Tasen Elite Coesta", RegNames.Sector7_Main[10], NORMAL),
+    (332, "Sector 7 - Kill Tasen Elite Haukpei", RegNames.Sector7_Main[10], NORMAL),
+    (333, "Sector 7 - Kill Tasen Elite Niquh", RegNames.Sector7_Main[10], NORMAL),
+    (342, "Sector 8 - Kill Tasen Elite Vakeelta", RegNames.Sector8_Side[2], NORMAL),
+    (345, "Sector 8 - Kill Tasen Elite Lei Ixuel", RegNames.Sector8_Main[2], HARD),
+    (346, "Sector 8 - Kill Tasen Elite Hasconio", RegNames.Sector8_Main[2], NORMAL),
+    (347, "Sector 8 - Kill Tasen Elite Jao Zejeni", RegNames.Sector8_Main[2], NORMAL),
+    (348, "Sector 8 - Kill Tasen Elite Jaberi", RegNames.Sector8_Main[2], NORMAL),
+    (349, "Sector 8 - Kill Tasen Elite Kavak", RegNames.Sector8_Main[2], NORMAL),
+    (352, "Sector 8 - Kill Tasen Elite Xalei", RegNames.Sector8_Main[3], NORMAL),
+    (353, "Sector 8 - Kill Tasen Elite Estepei", RegNames.Sector8_Main[3], NORMAL),
+    (355, "Sector 8 - Kill Tasen Elite Xarajao", RegNames.Sector8_Main[3], NORMAL),
+    (357, "Sector 8 - Kill Tasen Elite Torri", RegNames.Sector8_Main[3], NORMAL),
+    (358, "Sector 8 - Kill Tasen Elite Mae Zeja", RegNames.Sector8_Main[3], NORMAL),
+    (359, "Sector 8 - Kill Tasen Elite Pa Sjarak", RegNames.Sector8_Main[3], NORMAL),
+    (366, "Sector 9 - Kill Tasen Elite Pahemsun", RegNames.Sector9_Main[3], NORMAL),
+    (367, "Sector 9 - Kill Tasen Elite Haavi", RegNames.Sector9_Bulkhead, NORMAL),
+]
+
+Kills_Troopers: List[tuple[int, str, str, int]] = [
+    (501, "Sector 3 - Kill Komato Trooper Zonharak", RegNames.Sector3_Main[2], NORMAL),
+    (502, "Sector 3 - Kill Komato Trooper Siete", RegNames.Sector3_Main[2], NORMAL),
+    (503, "Sector 3 - Kill Komato Trooper Xavi", RegNames.Sector3_Main[2], NORMAL),
+    (504, "Sector 5 - Kill Komato Trooper Tortie", RegNames.Sector5_Main[0], NORMAL),
+    (505, "Sector 5 - Kill Komato Trooper Wulei", RegNames.Sector5_Main[0], NORMAL),
+    (506, "Sector 5 - Kill Komato Trooper Yaqupay", RegNames.Sector5_Main[0], NORMAL),
+    (507, "Sector 5 - Kill Komato Trooper Mapei Pake", RegNames.Sector5_Main[1], NORMAL),
+    (508, "Sector 5 - Kill Komato Trooper Naperak", RegNames.Sector5_Main[1], NORMAL),
+    (509, "Sector 5 - Kill Komato Trooper Pa Essak", RegNames.Sector5_Main[1], NORMAL),
+    (510, "Sector 5 - Kill Komato Trooper Xusun", RegNames.Sector5_Main[1], NORMAL),
+    (511, "Sector 5 - Kill Komato Trooper Conaot", RegNames.Sector5_Main[1], NORMAL),
+    (512, "Sector 5 - Kill Komato Trooper Ranibewu", RegNames.Sector5_Main[1], NORMAL),
+    (513, "Sector 5 - Kill Komato Trooper Ja Losho", RegNames.Sector5_Main[1], NORMAL),
+    (514, "Sector 5 - Kill Komato Trooper Esmah", RegNames.Sector5_Main[2], NORMAL),
+    (517, "Sector 5 - Kill Komato Trooper Berem Niri", RegNames.Sector5_Main[2], HARD),
+    (518, "Sector 5 - Kill Komato Trooper Elhas Valei", RegNames.Sector5_Main[2], NORMAL),
+    (519, "Sector 5 - Kill Komato Trooper Dehemtor", RegNames.Sector5_Main[2], HARD),
+    (520, "Sector 5 - Kill Komato Trooper Coro", RegNames.Sector5_Main[2], NORMAL),
+    (522, "Sector 5 - Kill Komato Trooper Heltei", RegNames.Sector5_Main[2], HARD),
+    (523, "Sector 5 - Kill Komato Trooper Zonjapako", RegNames.Sector5_Main[2], NORMAL),
+    (524, "Sector 5 - Kill Komato Trooper Anzoma", RegNames.Sector5_Main[2], NORMAL),
+    (525, "Sector 5 - Kill Komato Trooper Esa", RegNames.Sector5_Main[2], NORMAL),
+    (526, "Sector 5 - Kill Komato Trooper Hasnio", RegNames.Sector5_Main[3], HARD),
+    (527, "Sector 5 - Kill Komato Trooper Delpay", RegNames.Sector5_Main[3], NORMAL),
+    (528, "Sector 5 - Kill Komato Trooper Hasa Vashode", RegNames.Sector5_Main[3], NORMAL),
+    (529, "Sector 5 - Kill Komato Trooper Elbu", RegNames.Sector5_Main[3], NORMAL),
+    (531, "Sector 5 - Kill Komato Trooper Sakteto", RegNames.Sector5_Main[4], NORMAL),
+    (532, "Sector 5 - Kill Komato Trooper Berotpak", RegNames.Sector5_Main[4], NORMAL),
+    (536, "Sector 6 - Kill Komato Trooper Bepei", RegNames.Sector6_Side[1], NORMAL),
+    (537, "Sector 6 - Kill Komato Trooper Siero", RegNames.Sector6_Side[1], NORMAL),
+    (538, "Sector 6 - Kill Komato Trooper Maoliem Buyah", RegNames.Sector6_Side[1], NORMAL),
+    (539, "Sector 6 - Kill Komato Trooper Hastodel", RegNames.Sector6_Main[1], NORMAL),
+    (540, "Sector 6 - Kill Komato Trooper Esvaksun", RegNames.Sector6_Main[1], NORMAL),
+    (541, "Sector 6 - Kill Komato Trooper Ashber", RegNames.Sector6_Side[5], NORMAL),
+    (542, "Sector 6 - Kill Komato Trooper Licehel Yavoe", RegNames.Sector6_Side[5], NORMAL),
+    (543, "Sector 6 - Kill Komato Trooper Jahauk", RegNames.Sector6_Side[5], NORMAL),
+    (544, "Sector 6 - Kill Komato Trooper Yasjulo", RegNames.Sector6_Poster[0], NORMAL),
+    (545, "Sector 6 - Kill Komato Trooper Bede", RegNames.Sector6_Poster[0], NORMAL),
+    (546, "Sector 6 - Kill Komato Trooper Zevitei", RegNames.Sector6_Main[4], NORMAL),
+    (547, "Sector 6 - Kill Komato Trooper Qudel", RegNames.Sector6_Main[4], NORMAL),
+    (548, "Sector 6 - Kill Komato Trooper Yeke", RegNames.Sector6_Main[4], NORMAL),
+    (549, "Sector 6 - Kill Komato Trooper Sae", RegNames.Sector6_Main[4], NORMAL),
+    (552, "Sector 6 - Kill Komato Trooper Butie Pahes", RegNames.Sector6_Main[4], NORMAL),
+    (554, "Sector 6 - Kill Komato Trooper Sunwaktor", RegNames.Sector6_Main[4], NORMAL),
+    (555, "Sector 6 - Kill Komato Trooper Teihasel", RegNames.Sector6_Main[12], NORMAL),
+    (556, "Sector 6 - Kill Komato Trooper Rihauk Bewak", RegNames.Sector6_Main[12], HARD),
+    (558, "Sector 6 - Kill Komato Trooper Bei Jexa", RegNames.Sector6_Main[12], NORMAL),
+    (559, "Sector 6 - Kill Komato Trooper Shomahtu", RegNames.Sector6_Side[11], NORMAL),
+    (560, "Sector 6 - Kill Komato Trooper Sakja", RegNames.Sector6_Side[11], NORMAL),
+    (566, "Sector 7 - Kill Komato Trooper Shotupa", RegNames.Sector7_Main[1], NORMAL),
+    (567, "Sector 7 - Kill Komato Trooper Fasiebe", RegNames.Sector7_Main[1], NORMAL),
+    (568, "Sector 7 - Kill Komato Trooper Vakesha", RegNames.Sector7_Main[1], NORMAL),
+    (569, "Sector 7 - Kill Komato Trooper Ashelhauk", RegNames.Sector7_Main[1], NORMAL),
+    (571, "Sector 7 - Kill Komato Trooper Hember", RegNames.Sector7_Main[2], HARD),
+    (572, "Sector 7 - Kill Komato Trooper Payroica", RegNames.Sector7_Main[2], NORMAL),
+    (573, "Sector 7 - Kill Komato Trooper Yva Tataber", RegNames.Sector7_Main[1], NORMAL),
+    (574, "Sector 7 - Kill Komato Trooper Auroba", RegNames.Sector7_Main[1], NORMAL),
+    (576, "Sector 7 - Kill Komato Trooper Klas Ze", RegNames.Sector7_Main[1], HARD),
+    (577, "Sector 7 - Kill Komato Trooper Jevak Delha", RegNames.Sector7_Main[1], NORMAL),
+    (579, "Sector 7 - Kill Komato Trooper Raisak", RegNames.Sector7_Main[1], NORMAL),
+    (580, "Sector 7 - Kill Komato Trooper Uusun", RegNames.Sector7_Main[1], NORMAL),
+    (581, "Sector 7 - Kill Komato Trooper Shamakai", RegNames.Sector7_Main[3], NORMAL),
+    (582, "Sector 7 - Kill Komato Trooper Hasetei", RegNames.Sector7_Main[3], NORMAL),
+    (585, "Sector 7 - Kill Komato Trooper Valii Xuta", RegNames.Sector7_Main[3], HARD),
+    (587, "Sector 7 - Kill Komato Trooper Nawa", RegNames.Sector7_Main[3], NORMAL),
+    (589, "Sector 7 - Kill Komato Trooper Nihel", RegNames.Sector7_Main[4], NORMAL),
+    (592, "Sector 7 - Kill Komato Trooper Ashniber", RegNames.Sector7_Main[6], NORMAL),
+    (593, "Sector 7 - Kill Komato Trooper Tieropay", RegNames.Sector7_Main[6], HARD),
+    (594, "Sector 7 - Kill Komato Trooper Saerak", RegNames.Sector7_Main[6], NORMAL),
+    (595, "Sector 7 - Kill Komato Trooper Zehas", RegNames.Sector7_Main[5], NORMAL),
+    (596, "Sector 7 - Kill Komato Trooper Payuka", RegNames.Sector7_Main[5], NORMAL),
+    (597, "Sector 7 - Kill Komato Trooper Yahlei", RegNames.Sector7_Main[4], NORMAL),
+    (599, "Sector 7 - Kill Komato Trooper Tei Torber", RegNames.Sector7_Main[4], NORMAL),
+    (601, "Sector 7 - Kill Komato Trooper Namahot", RegNames.Sector7_Main[8], NORMAL),
+    (603, "Sector 7 - Kill Komato Trooper Toba", RegNames.Sector7_Main[8], NORMAL),
+    (606, "Sector 7 - Kill Komato Trooper Perie Viba", RegNames.Sector7_Main[8], NORMAL),
+    (611, "Sector 7 - Kill Komato Trooper Peinioca", RegNames.Sector7_Main[9], NORMAL),
+    (612, "Sector 7 - Kill Komato Trooper Yapakte Sabeze", RegNames.Sector7_Main[9], HARD),
+    (613, "Sector 7 - Kill Komato Trooper Shavamah", RegNames.Sector7_Main[9], NORMAL),
+    (626, "Sector 8 - Kill Komato Trooper Kairoi", RegNames.Sector8_Side[0], NORMAL),
+    (627, "Sector 8 - Kill Komato Trooper Teloro", RegNames.Sector8_Side[0], NORMAL),
+    (631, "Sector 8 - Kill Komato Trooper Maeri", RegNames.Sector8_Main[1], NORMAL),
+    (632, "Sector 8 - Kill Komato Trooper Bewu", RegNames.Sector8_Main[1], NORMAL),
+    (633, "Sector 8 - Kill Komato Trooper Grento Tei", RegNames.Sector8_Main[1], NORMAL),
+    (634, "Sector 8 - Kill Komato Trooper Wakeske", RegNames.Sector8_Main[1], NORMAL),
+    (637, "Sector 8 - Kill Komato Trooper Aheli", RegNames.Sector8_Main[2], HARD),
+    (638, "Sector 8 - Kill Komato Trooper Teroma Rabuco", RegNames.Sector8_Main[2], NORMAL),
+    (639, "Sector 8 - Kill Komato Trooper Buyi", RegNames.Sector8_Main[2], NORMAL),
+    (642, "Sector 8 - Kill Komato Trooper Tohankai", RegNames.Sector8_Main[2], NORMAL),
+    (643, "Sector 8 - Kill Komato Trooper Cotorni", RegNames.Sector8_Main[2], NORMAL),
+    (644, "Sector 8 - Kill Komato Trooper Emhaja", RegNames.Sector8_Main[2], NORMAL),
+    (645, "Sector 8 - Kill Komato Trooper Zokepei", RegNames.Sector8_Main[2], NORMAL),
+    (646, "Sector 8 - Kill Komato Trooper Xusa Yu", RegNames.Sector8_Main[2], NORMAL),
+    (649, "Sector 8 - Kill Komato Trooper Haukot", RegNames.Sector8_Main[3], NORMAL),
+    (651, "Sector 8 - Kill Komato Trooper Yusak Jao", RegNames.Sector8_Main[3], NORMAL),
+    (652, "Sector 8 - Kill Komato Trooper Torrabaya", RegNames.Sector8_Main[3], NORMAL),
+    (654, "Sector 8 - Kill Komato Trooper Zonna", RegNames.Sector8_Main[3], NORMAL),
+    (656, "Sector 8 - Kill Komato Trooper Xube", RegNames.Sector8_Main[3], NORMAL),
+    (657, "Sector 8 - Kill Komato Trooper Esuvi", RegNames.Sector8_Main[3], NORMAL),
+    (659, "Sector 8 - Kill Komato Trooper Toheska", RegNames.Sector8_Main[3], NORMAL), # The Dan one
+    (666, "Sector 9 - Kill Komato Trooper Hemvi", RegNames.Sector9_Side[1], NORMAL),
+    (667, "Sector 9 - Kill Komato Trooper Xao", RegNames.Sector9_Side[1], NORMAL),
+    (668, "Sector 9 - Kill Komato Trooper Asfaroi", RegNames.Sector9_Side[1], NORMAL),
+    (669, "Sector 9 - Kill Komato Trooper Bawa Natei", RegNames.Sector9_Main[0], NORMAL),
+    (670, "Sector 9 - Kill Komato Trooper Haniri", RegNames.Sector9_Main[0], NORMAL),
+    (673, "Sector 9 - Kill Komato Trooper Elhasan", RegNames.Sector9_Main[1], NORMAL),
+    (674, "Sector 9 - Kill Komato Trooper Saewu", RegNames.Sector9_Main[1], NORMAL),
+    (675, "Sector 9 - Kill Komato Trooper Zeca Paktubero", RegNames.Sector9_Main[1], NORMAL),
+    (679, "Sector 9 - Kill Komato Trooper Yusae Behem", RegNames.Sector9_Main[3], NORMAL),
+    (680, "Sector 9 - Kill Komato Trooper Voekasho", RegNames.Sector9_Main[3], NORMAL),
+    (682, "Sector 9 - Kill Komato Trooper Zeberan", RegNames.Sector9_Main[3], NORMAL),
+    (683, "Sector 9 - Kill Komato Trooper Payrie", RegNames.Sector9_Main[3], NORMAL),
+    (684, "Sector 9 - Kill Komato Trooper Ohauk Wakrai", RegNames.Sector9_Main[3], HARD),
+    (685, "Sector 9 - Kill Komato Trooper Saeta", RegNames.Sector9_Bulkhead[2], NORMAL),
+    (686, "Sector 9 - Kill Komato Trooper Hasta", RegNames.Sector9_Main[3], HARD),
+    (688, "Sector 9 - Kill Komato Trooper Feidesho", RegNames.Sector9_Main[3], NORMAL),
+    (689, "Sector 9 - Kill Komato Trooper Zozenata Tofao", RegNames.Sector9_Main[3], NORMAL),
+    (690, "Sector 9 - Kill Komato Trooper Nio Xebe", RegNames.Sector9_Main[3], NORMAL),
+    (693, "Sector 9 - Kill Komato Trooper Mahesmae", RegNames.Sector9_Main[3], NORMAL),
+    (694, "Sector 9 - Kill Komato Trooper Xa Decaa", RegNames.Sector9_Main[3], NORMAL),
+    (695, "Sector 9 - Kill Komato Trooper Yao Wahem", RegNames.Sector9_Main[4], HARD),
+    (696, "Sector 9 - Kill Komato Trooper Tushata", RegNames.Sector9_Main[4], HARD),
+    (698, "Sector 9 - Kill Komato Trooper Kaiya", RegNames.Sector9_Main[4], NORMAL),
+    (701, "Sector 9 - Kill Komato Trooper Baqu Ta", RegNames.Sector9_Main[6], NORMAL),
+    (702, "Sector 9 - Kill Komato Trooper Astor", RegNames.Sector9_Main[6], NORMAL),
+    (703, "Sector 9 - Kill Komato Trooper Delli", RegNames.Sector9_Side[14], NORMAL),
+    (704, "Sector 9 - Kill Komato Trooper Mavatonio", RegNames.Sector9_Side[14], NORMAL),
+    (705, "Sector 9 - Kill Komato Trooper Zontu", RegNames.Sector9_Main[4], NORMAL),
+    (706, "Sector 9 - Kill Komato Trooper Fayati Sho", RegNames.Sector9_Main[5], NORMAL),
+    (711, "Sector 9 - Kill Komato Trooper Keto", RegNames.Sector9_Side[9], NORMAL),
+    (712, "Sector 9 - Kill Komato Trooper Saki Ro", RegNames.Sector9_Side[9], NORMAL),
+    (721, "Sector X - Kill Komato Trooper Hasroi", RegNames.SectorX_Main[1], HARD),
+    (722, "Sector X - Kill Komato Trooper Xuroi", RegNames.SectorX_Main[1], NORMAL),
+    (725, "Sector X - Kill Komato Trooper Ottohas Sha", RegNames.SectorX_Main[1], NORMAL),
+    (727, "Sector X - Kill Komato Trooper Nasatorai", RegNames.SectorX_Main[2], NORMAL),
+    (731, "Sector X - Kill Komato Trooper Ba Waturi", RegNames.SectorX_Main[2], NORMAL),
+    (733, "Sector X - Kill Komato Trooper Batasa", RegNames.SectorX_Core[1], NORMAL),
+    (734, "Sector X - Kill Komato Trooper Yuta", RegNames.SectorX_Core[1], NORMAL),
+    (735, "Sector X - Kill Komato Trooper Una", RegNames.SectorX_Core[1], NORMAL),
+    (736, "Sector X - Kill Komato Trooper Fahasma", RegNames.SectorX_Core[1], HARD),
+    (737, "Sector X - Kill Komato Trooper Zon Hemriesk", RegNames.SectorX_Core[1], NORMAL),
+    (739, "Sector X - Kill Komato Trooper Ausu", RegNames.SectorX_Core[1], NORMAL),
+    (740, "Sector X - Kill Komato Trooper Tetorni Hasot", RegNames.SectorX_Core[1], NORMAL),
+    (741, "Sector X - Kill Komato Trooper Jexao Haasa", RegNames.SectorX_Core[1], HARD),
+    (742, "Sector X - Kill Komato Trooper Shokaiya", RegNames.SectorX_Core[1], HARD),
+    (743, "Sector X - Kill Komato Trooper Liquh Yirai", RegNames.SectorX_Core[1], NORMAL),
+    (744, "Sector X - Kill Komato Trooper Mateii", RegNames.SectorX_Core[1], NORMAL),
+    (746, "Sector X - Kill Komato Trooper Yahesk", RegNames.SectorX_Core[1], HARD),
+    (747, "Sector X - Kill Komato Trooper Ni Hato", RegNames.SectorX_Core[1], NORMAL),
+    (748, "Sector X - Kill Komato Trooper Buzon", RegNames.SectorX_Core[1], NORMAL),
+    (749, "Sector X - Kill Komato Trooper Pean", RegNames.SectorX_Core[1], HARD),
+    (752, "Sector X - Kill Komato Trooper Yuroi Kahel", RegNames.SectorX_Core[4], NORMAL),
+    (753, "Sector X - Kill Komato Trooper Ateesto", RegNames.SectorX_Core[4], HARD),
+    (757, "Sector X - Kill Komato Trooper Xusakya", RegNames.SectorX_Main[8], NORMAL),
+    (758, "Sector X - Kill Komato Trooper Otber", RegNames.SectorX_Side[1], NORMAL),
+    (759, "Sector X - Kill Komato Trooper Torash", RegNames.SectorX_Side[1], NORMAL),
+    (760, "Sector X - Kill Komato Trooper Rai Ke", RegNames.SectorX_Main[12], NORMAL),
+    (761, "Sector X - Kill Komato Trooper Yugewu Shasha", RegNames.SectorX_Main[12], HARD),
+    (762, "Sector X - Kill Komato Trooper Zekailo", RegNames.SectorX_Main[12], NORMAL),
+    (763, "Sector X - Kill Komato Trooper Tarixuro", RegNames.SectorX_Main[10], HARD),
+    (765, "Sector X - Kill Komato Trooper Shaba", RegNames.SectorX_Main[10], NORMAL),
+    (774, "Sector X - Kill Komato Trooper Yahra", RegNames.SectorX_Final[0], NORMAL),
+    (775, "Sector X - Kill Komato Trooper Xuhauk Cozea", RegNames.SectorX_Final[0], NORMAL),
+    (777, "Sector X - Kill Komato Trooper Xadelhauk", RegNames.SectorX_Final[0], NORMAL),
+    (778, "Sector X - Kill Komato Trooper Tebusjua", RegNames.SectorX_Final[0], NORMAL),
+    (779, "Sector X - Kill Komato Trooper Sha Vaemash", RegNames.SectorX_Final[0], NORMAL),
+    (781, "Sector X - Kill Komato Trooper Yufei", RegNames.SectorX_Final[0], NORMAL),
+    (784, "Sector X - Kill Komato Trooper Au Wuria", RegNames.SectorX_Side[4], NORMAL),
+    (785, "Sector X - Kill Komato Trooper Tupei", RegNames.SectorX_Final[2], NORMAL),
+    (786, "Sector X - Kill Komato Trooper Dejama", RegNames.SectorX_Final[2], NORMAL),
+    (787, "Sector X - Kill Komato Trooper Kerohasel", RegNames.SectorX_Final[2], NORMAL),
+    (788, "Sector X - Kill Komato Trooper Jaau", RegNames.SectorX_Final[2], NORMAL),
+    (789, "Sector X - Kill Komato Trooper Satesja", RegNames.SectorX_Final[2], NORMAL),
+    (790, "Sector X - Kill Komato Trooper Auzefei", RegNames.SectorX_Final[2], NORMAL),
+    (791, "Sector X - Kill Komato Trooper Cati Ketosun", RegNames.SectorX_Final[3], NORMAL),
+]
+Kills_Berserkers: List[tuple[int, str, str, int]] = [
+    (515, "Sector 5 - Kill Komato Berserker Zonio", RegNames.Sector5_Main[2], NORMAL),
+    (516, "Sector 5 - Kill Komato Berserker Xarai", RegNames.Sector5_Main[2], NORMAL),
+    (521, "Sector 5 - Kill Komato Berserker Hasmah", RegNames.Sector5_Main[2], NORMAL),
+    (530, "Sector 5 - Kill Komato Berserker Vakalei", RegNames.Sector5_Main[4], NORMAL),
+    (550, "Sector 6 - Kill Komato Berserker Toniterai", RegNames.Sector6_Main[4], NORMAL),
+    (551, "Sector 6 - Kill Komato Berserker Hemesko", RegNames.Sector6_Main[4], NORMAL),
+    (553, "Sector 6 - Kill Komato Berserker Tegesun", RegNames.Sector6_Main[4], NORMAL),
+    (557, "Sector 6 - Kill Komato Berserker Losho", RegNames.Sector6_Main[12], NORMAL),
+    (561, "Sector 6 - Kill Komato Berserker Xuge", RegNames.Sector6_Side[11], NORMAL),
+    (570, "Sector 7 - Kill Komato Berserker Roive Besiena", RegNames.Sector7_Main[2], NORMAL),
+    (575, "Sector 7 - Kill Komato Berserker Xutei", RegNames.Sector7_Main[1], HARD),
+    (578, "Sector 7 - Kill Komato Berserker Ti Jhokro", RegNames.Sector7_Main[1], NORMAL),
+    (584, "Sector 7 - Kill Komato Berserker Hauksha", RegNames.Sector7_Main[3], NORMAL),
+    (588, "Sector 7 - Kill Komato Berserker Zondebaot", RegNames.Sector7_Main[3], NORMAL),
+    (608, "Sector 7 - Kill Komato Berserker Saktoro", RegNames.Sector7_Main[9], NORMAL),
+    (609, "Sector 7 - Kill Komato Berserker Teixato", RegNames.Sector7_Main[9], NORMAL),
+    (610, "Sector 7 - Kill Komato Berserker Roquh", RegNames.Sector7_Main[9], NORMAL),
+    (614, "Sector 7 - Kill Komato Berserker Ke Deyi", RegNames.Sector7_Main[9], NORMAL),
+    (615, "Sector 7 - Kill Komato Berserker Saesie", RegNames.Sector7_Main[10], NORMAL),
+    (616, "Sector 7 - Kill Komato Berserker Betorsa", RegNames.Sector7_Main[10], NORMAL),
+    (617, "Sector 7 - Kill Komato Berserker Gevi", RegNames.Sector7_Main[10], HARD),
+    (620, "Sector 7 - Kill Komato Berserker Coturie", RegNames.Sector7_Main[10], NORMAL),
+    (628, "Sector 8 - Kill Komato Berserker Yubi", RegNames.Sector8_Side[1], NORMAL),
+    (629, "Sector 8 - Kill Komato Berserker Saewa", RegNames.Sector8_Main[1], NORMAL),
+    (630, "Sector 8 - Kill Komato Berserker Jao Otdel", RegNames.Sector8_Main[1], HARD),
+    (635, "Sector 8 - Kill Komato Berserker Jali", RegNames.Sector8_Main[1], NORMAL),
+    (641, "Sector 8 - Kill Komato Berserker Bunazo", RegNames.Sector8_Main[2], HARD),
+    (647, "Sector 8 - Kill Komato Berserker Gekeelzo", RegNames.Sector8_Main[2], NORMAL),
+    (648, "Sector 8 - Kill Komato Berserker Eri", RegNames.Sector8_Main[2], NORMAL),
+    (650, "Sector 8 - Kill Komato Berserker Juibertei", RegNames.Sector8_Main[3], NORMAL),
+    (653, "Sector 8 - Kill Komato Berserker Leisun Jeyu", RegNames.Sector8_Main[3], NORMAL),
+    (655, "Sector 8 - Kill Komato Berserker Voe Vi", RegNames.Sector8_Main[3], NORMAL),
+    (671, "Sector 9 - Kill Komato Berserker Vilokato", RegNames.Sector9_Main[0], NORMAL),
+    (672, "Sector 9 - Kill Komato Berserker Litor", RegNames.Sector9_Main[1], NORMAL),
+    (677, "Sector 9 - Kill Komato Berserker Sharaceti", RegNames.Sector9_Main[1], NORMAL),
+    (678, "Sector 9 - Kill Komato Berserker Sie Esk", RegNames.Sector9_Main[1], NORMAL),
+    (681, "Sector 9 - Kill Komato Berserker Au Rakrai", RegNames.Sector9_Main[3], NORMAL),
+    (691, "Sector 9 - Kill Komato Berserker Licozon", RegNames.Sector9_Main[3], NORMAL),
+    (697, "Sector 9 - Kill Komato Berserker Jefei", RegNames.Sector9_Main[4], NORMAL),
+    (699, "Sector 9 - Kill Komato Berserker Li Sakel", RegNames.Sector9_Main[6], HARD),
+    (700, "Sector 9 - Kill Komato Berserker Kahapa", RegNames.Sector9_Main[6], NORMAL),
+    (707, "Sector 9 - Kill Komato Berserker Irai Helto", RegNames.Sector9_Main[9], NORMAL),
+    (709, "Sector 9 - Kill Komato Berserker Varo", RegNames.Sector9_Side[9], NORMAL),
+    (710, "Sector 9 - Kill Komato Berserker Auratoh", RegNames.Sector9_Side[9], NORMAL),
+    (723, "Sector X - Kill Komato Berserker Livigren", RegNames.SectorX_Main[1], NORMAL),
+    (724, "Sector X - Kill Komato Berserker Niodely", RegNames.SectorX_Main[1], HARD),
+    (728, "Sector X - Kill Komato Berserker Voe Ikahas", RegNames.SectorX_Main[2], NORMAL),
+    (738, "Sector X - Kill Komato Berserker Peterol", RegNames.SectorX_Core[1], NORMAL),
+    (750, "Sector X - Kill Komato Berserker Cerisha", RegNames.SectorX_Core[1], NORMAL),
+    (751, "Sector X - Kill Komato Berserker Tor Rosun", RegNames.SectorX_Core[4], NORMAL),
+    (754, "Sector X - Kill Komato Berserker Roxayi", RegNames.SectorX_Core[5], NORMAL),
+    (756, "Sector X - Kill Komato Berserker Baviem", RegNames.SectorX_Main[8], NORMAL),
+    (764, "Sector X - Kill Komato Berserker Xubusak", RegNames.SectorX_Main[10], NORMAL),
+    (766, "Sector X - Kill Komato Berserker Anbevi", RegNames.SectorX_Main[9], HARD),
+    (767, "Sector X - Kill Komato Berserker Hariewu Cekai", RegNames.SectorX_Main[9], HARD),
+    (768, "Sector X - Kill Komato Berserker Cosaeco", RegNames.SectorX_Main[9], NORMAL),
+    (769, "Sector X - Kill Komato Berserker Qygren", RegNames.SectorX_Main[9], NORMAL),
+    (770, "Sector X - Kill Komato Berserker Viramah", RegNames.SectorX_Main[9], NORMAL),
+    (772, "Sector X - Kill Komato Berserker Tormaebu", RegNames.SectorX_Final[0], NORMAL),
+    (773, "Sector X - Kill Komato Berserker Feirakotem", RegNames.SectorX_Final[0], NORMAL),
+    (782, "Sector X - Kill Komato Berserker Bauni Ce", RegNames.SectorX_Final[1], NORMAL),
+    (783, "Sector X - Kill Komato Berserker Vazonja", RegNames.SectorX_Final[1], NORMAL),
+]
+Kills_Beasts: List[tuple[int, str, str, int]] = [
+    (583, "Sector 7 - Kill Komato Beast Yahli Saetoh", RegNames.Sector7_Main[3], HARD),
+    (586, "Sector 7 - Kill Komato Beast Waktaka", RegNames.Sector7_Main[3], NORMAL),
+    (590, "Sector 7 - Kill Komato Beast Debapa", RegNames.Sector7_Main[4], NORMAL),
+    (591, "Sector 7 - Kill Komato Beast Bu Sha", RegNames.Sector7_Main[4], NORMAL),
+    (598, "Sector 7 - Kill Komato Beast Pah Sunlonio", RegNames.Sector7_Main[4], HARD),
+    (600, "Sector 7 - Kill Komato Beast Osaklas", RegNames.Sector7_Main[4], NORMAL),
+    (602, "Sector 7 - Kill Komato Beast Jaoemni Rodel", RegNames.Sector7_Main[8], NORMAL),
+    (604, "Sector 7 - Kill Komato Beast Payma Fagren", RegNames.Sector7_Main[8], NORMAL),
+    (605, "Sector 7 - Kill Komato Beast Wurie", RegNames.Sector7_Main[8], NORMAL),
+    (607, "Sector 7 - Kill Komato Beast Shatei", RegNames.Sector7_Main[8], HARD),
+    (618, "Sector 7 - Kill Komato Beast Anvakta", RegNames.Sector7_Ribbon, NORMAL),
+    (619, "Sector 7 - Kill Komato Beast Mahnio", RegNames.Sector7_Ribbon, NORMAL),
+    (621, "Sector 7 - Kill Komato Beast Payjaux", RegNames.Sector7_Main[10], NORMAL),
+    (676, "Sector 9 - Kill Komato Beast Lioma", RegNames.Sector9_Main[1], NORMAL),
+    (692, "Sector 9 - Kill Komato Beast Tupei Mator", RegNames.Sector9_Main[9], HARD),
+    (729, "Sector X - Kill Komato Beast Hassali", RegNames.SectorX_Main[2], HARD),
+    (730, "Sector X - Kill Komato Beast Viri", RegNames.SectorX_Main[2], NORMAL),
+    (732, "Sector X - Kill Komato Beast Yiyu Qyan", RegNames.SectorX_Main[2], NORMAL),
+    (776, "Sector X - Kill Komato Beast Gejacora", RegNames.SectorX_Final[0], HARD),
+    (780, "Sector X - Kill Komato Beast Auwak", RegNames.SectorX_Final[0], NORMAL),
+]
+Kills_Assassins: List[tuple[int, str, str]] = [
+    (901, "Sector 6 - Defeat Komato Assassin in Neoweapons Storage", RegNames.Sector6_Main[3]),
+    (902, "Sector 6 - Defeat Komato Assassin in Unused Storage", RegNames.Sector6_Main[6]),
+    (903, "Sector 7 - Defeat Komato Assassin in Internal Security", RegNames.Sector7_Main[5]),
+    (904, "Sector 7 - Defeat Komato Assassin in Phantom Hammer Control", RegNames.Sector7_Main[8]),
+    (905, "Sector 9 - Defeat Komato Assassin in Quarantine", RegNames.Sector9_Main[2]),
+    (906, "Sector 9 - Defeat Komato Assassin in Illegal Goods Storage", RegNames.Sector9_Poster[0]),
+    (907, "Sector 9 - Defeat Komato Assassin in Megacore Research", RegNames.Sector9_Main[9]),
+    (908, "Sector 9 - Defeat 1st Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (909, "Sector 9 - Defeat 2nd Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (910, "Sector 9 - Defeat 3rd Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (911, "Sector 9 - Defeat 4th Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (912, "Sector 9 - Defeat 5th Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (913, "Sector 9 - Defeat 6th Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),
+    (914, "Sector 9 - Defeat 7th Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9])
+]
+Kills_Annihilators: List[tuple[int, str, str]] = [
+    (636, "Sector 8 - Kill Komato Annihilator Deltojaro", RegNames.Sector8_Main[2]),
+    (640, "Sector 8 - Kill Komato Annihilator Helri Lo", RegNames.Sector8_Main[2]),
+    (658, "Sector 8 - Kill Komato Annihilator Gerakka", RegNames.Sector8_Main[3]),
+    (687, "Sector 9 - Kill Komato Annihilator Be Xuya", RegNames.Sector9_Main[3]),
+    (708, "Sector 9 - Kill Komato Annihilator Yrie", RegNames.Sector9_Main[9]),
+    (726, "Sector X - Kill Komato Annihilator Vasa", RegNames.SectorX_Main[1]),
+    (745, "Sector X - Kill Komato Annihilator Siena", RegNames.SectorX_Core[1]),
+    (771, "Sector X - Kill Komato Annihilator Saejao Buhastahel", RegNames.SectorX_Final[0]),
+    (792, "Sector X - Kill Komato Annihilator Tubuvak Asna", RegNames.SectorX_Final[3]),
+]
+
+Kills_Sector_Z: List[str] = [
+    "Sector Z - Kill 1 White Sphere",   # 801 -> 822
+    "Sector Z - Kill 2 White Spheres",
+    "Sector Z - Kill 3 White Spheres",
+    "Sector Z - Kill 4 White Spheres",
+    "Sector Z - Kill 5 White Spheres",
+    "Sector Z - Kill 6 White Spheres",
+    "Sector Z - Kill 7 White Spheres",
+    "Sector Z - Kill 8 White Spheres",
+    "Sector Z - Kill 9 White Spheres",
+    "Sector Z - Kill 10 White Spheres",
+    "Sector Z - Kill 11 White Spheres",
+    "Sector Z - Kill 12 White Spheres",
+    "Sector Z - Kill 13 White Spheres",
+    "Sector Z - Kill 14 White Spheres",
+    "Sector Z - Kill 15 White Spheres",
+    "Sector Z - Kill 16 White Spheres",
+    "Sector Z - Kill 17 White Spheres",
+    "Sector Z - Kill 18 White Spheres",
+    "Sector Z - Kill 19 White Spheres",
+    "Sector Z - Kill 20 White Spheres",
+    "Sector Z - Kill 21 White Spheres",
+    "Sector Z - Kill 22 White Spheres",
+
+    "Sector Z - Kill 1 Blue Fuzz",      # 823 -> 847
+    "Sector Z - Kill 2 Blue Fuzzes",
+    "Sector Z - Kill 3 Blue Fuzzes",
+    "Sector Z - Kill 4 Blue Fuzzes",
+    "Sector Z - Kill 5 Blue Fuzzes",
+    "Sector Z - Kill 6 Blue Fuzzes",
+    "Sector Z - Kill 7 Blue Fuzzes",
+    "Sector Z - Kill 8 Blue Fuzzes",
+    "Sector Z - Kill 9 Blue Fuzzes",
+    "Sector Z - Kill 10 Blue Fuzzes",
+    "Sector Z - Kill 11 Blue Fuzzes",
+    "Sector Z - Kill 12 Blue Fuzzes",
+    "Sector Z - Kill 13 Blue Fuzzes",
+    "Sector Z - Kill 14 Blue Fuzzes",
+    "Sector Z - Kill 15 Blue Fuzzes",
+    "Sector Z - Kill 16 Blue Fuzzes",
+    "Sector Z - Kill 17 Blue Fuzzes",
+    "Sector Z - Kill 18 Blue Fuzzes",
+    "Sector Z - Kill 19 Blue Fuzzes",
+    "Sector Z - Kill 20 Blue Fuzzes",
+    "Sector Z - Kill 21 Blue Fuzzes",
+    "Sector Z - Kill 22 Blue Fuzzes",
+    "Sector Z - Kill 23 Blue Fuzzes",
+    "Sector Z - Kill 24 Blue Fuzzes",
+    "Sector Z - Kill 25 Blue Fuzzes",
+
+    "Sector Z - Kill 1 Trapper",        # 848 -> 871
+    "Sector Z - Kill 2 Trappers",
+    "Sector Z - Kill 3 Trappers",
+    "Sector Z - Kill 4 Trappers",
+    "Sector Z - Kill 5 Trappers",
+    "Sector Z - Kill 6 Trappers",
+    "Sector Z - Kill 7 Trappers",
+    "Sector Z - Kill 8 Trappers",
+    "Sector Z - Kill 9 Trappers",
+    "Sector Z - Kill 10 Trappers",
+    "Sector Z - Kill 11 Trappers",
+    "Sector Z - Kill 12 Trappers",
+    "Sector Z - Kill 13 Trappers",
+    "Sector Z - Kill 14 Trappers",
+    "Sector Z - Kill 15 Trappers",
+    "Sector Z - Kill 16 Trappers",
+    "Sector Z - Kill 17 Trappers",
+    "Sector Z - Kill 18 Trappers",
+    "Sector Z - Kill 19 Trappers",
+    "Sector Z - Kill 20 Trappers",
+    "Sector Z - Kill 21 Trappers",
+    "Sector Z - Kill 22 Trappers",
+    "Sector Z - Kill 23 Trappers",
+    "Sector Z - Kill 24 Trappers",
+
+    "Sector Z - Kill 1 Drone",      # 872 -> 899
+    "Sector Z - Kill 2 Drones",
+    "Sector Z - Kill 3 Drones",
+    "Sector Z - Kill 4 Drones",
+    "Sector Z - Kill 5 Drones",
+    "Sector Z - Kill 6 Drones",
+    "Sector Z - Kill 7 Drones",
+    "Sector Z - Kill 8 Drones",
+    "Sector Z - Kill 9 Drones",
+    "Sector Z - Kill 10 Drones",
+    "Sector Z - Kill 11 Drones",
+    "Sector Z - Kill 12 Drones",
+    "Sector Z - Kill 13 Drones",
+    "Sector Z - Kill 14 Drones",
+    "Sector Z - Kill 15 Drones",
+    "Sector Z - Kill 16 Drones",
+    "Sector Z - Kill 17 Drones",
+    "Sector Z - Kill 18 Drones",
+    "Sector Z - Kill 19 Drones",
+    "Sector Z - Kill 20 Drones",
+    "Sector Z - Kill 21 Drones",
+    "Sector Z - Kill 22 Drones",
+    "Sector Z - Kill 23 Drones",
+    "Sector Z - Kill 24 Drones",
+    "Sector Z - Kill 25 Drones",
+    "Sector Z - Kill 26 Drones",
+    "Sector Z - Kill 27 Drones",
+    "Sector Z - Kill 28 Drones",
 ]

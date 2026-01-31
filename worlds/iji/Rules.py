@@ -6,6 +6,7 @@ from .Options import combined_weapons_indices
 
 from BaseClasses import CollectionState
 from .Names import RegNames, ItemNames, EventNames
+from ..stardew_valley.stardew_rule import true_
 
 if TYPE_CHECKING:
     from . import IjiWorld
@@ -258,6 +259,10 @@ def can_kill_annihilators(state: CollectionState, world: "IjiWorld") -> bool:
             has_any_weapons_plus_points(state, world, [3,4,7,8], 8)
         )
     )
+
+def can_kill_yukabacera(state: CollectionState, world: "IjiWorld") -> bool:
+    # TODO
+    return True
 
 def has_any_weapons_plus_points(state: CollectionState, world: "IjiWorld", weapon_indices: List[int], extra_points: int = 0) -> bool:
     for i in weapon_indices:

@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 from BaseClasses import Item, ItemClassification, Location, MultiWorld, Tutorial
 from worlds.generic.Rules import add_rule, set_rule
 from .Data.DoorData import DoorData, shuffle_doors
-from .Items import create_itempool, create_item, item_groups_table, IjiItem
+from .Items import create_item_pool, create_item, item_groups_table, IjiItem
 from .Locations import events_and_locations, location_groups_table
 from .Data.LocData import location_table
 from .Data.ItemData import item_table
@@ -11,7 +11,7 @@ from .Regions import create_regions
 from .Names import RegNames, EventNames, ItemNames
 from .Options import (IjiOptions, iji_option_groups, define_health_balancing, get_shuffled_music,
                       weapon_requirements_to_slot_data,
-                      get_weapon_requirements_from_slot_data, finalize_weapon_stats)
+                      get_weapon_requirements_from_slot_data)
 from worlds.AutoWorld import WebWorld, World, CollectionState
 from .Maps.map_page_index import map_page_index
 from Rules import WeaponData
@@ -101,6 +101,8 @@ class IjiWorld(World):
     door_stats: Dict[int, DoorData] = {}
     total_posters: int = 0
     post_goal_locations: int = 0
+
+    # on_added location functions
     def increment_total_posters(self):
         self.total_posters += 1
     def add_max_stats(self, stat_name: str, count: int):
@@ -122,7 +124,7 @@ class IjiWorld(World):
         super().__init__(multiworld, player)
 
     def create_items(self):
-        self.multiworld.itempool += create_itempool(self)
+        self.multiworld.itempool += create_item_pool(self)
 
     def create_item(self, name: str) -> Item:
         return create_item(self, name)
@@ -222,24 +224,20 @@ class IjiWorld(World):
                 self.compact_stats = {key:value for key,value in passthrough["CompactStats"].items()}
 
                 # TODO get Door Shuffle Data from passthrough
-                get_weapon_requirements_from_slot_data(self, passthrough["WeaponStats"])
+                #get_weapon_requirements_from_slot_data(self, passthrough["WeaponStats"])
 
 
         else:
             # If not using Universal Tracker
             self.health_balancing_values = define_health_balancing(self)
-            #if self.options.goal_posters.value > self.options.end_goal.value:
-            #    self.options.goal_posters.value = self.options.end_goal.value
-            #    logging.warning(f"{self.player_name} required more posters than available sectors.")
-            #    logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
-            shuffle_doors(self)
+            for name, value in self.options.starting_stats.get_starting_stat_items(self).items():
+                self.current_stats[name] += value
 
-        ## Always do this, UT or not
-        #self.max_stats[EventNames.Levels[0]] = (
-        #        self.options.end_goal.get_normal_sector_count() * self.options.game_difficulty.levels_per_sector() +
-        #        self.options.supercharge_locations.max_without_weapons(self.options.end_goal.get_normal_sector_count())
-        #)
-        finalize_weapon_stats(self)
+            #shuffle_doors(self)
+
+        # Always do this, UT or not
+
+        #finalize_weapon_stats(self)
 
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -260,6 +258,8 @@ class IjiWorld(World):
             self.current_stat_items[item_name] += self.compact_stats[item_name]
         elif item_name == EventNames.Weapons[0]:
             self.current_stat_items[ItemNames.Supercharge] += 99
+        elif item_name == EventNames.Levels[0]:
+            self.current_stat_items[ItemNames.Supercharge] += 1
 
         return ret
 
@@ -273,10 +273,18 @@ class IjiWorld(World):
             self.current_stat_items[item_name] -= self.compact_stats[item_name]
         elif item_name == EventNames.Weapons[0]:
             self.current_stat_items[ItemNames.Supercharge] -= 99
+        elif item_name == EventNames.Levels[0]:
+            self.current_stat_items[ItemNames.Supercharge] -= 1
 
         return ret
 
     def set_rules(self):
+        if self.options.poster_locations.value > self.total_posters:
+            self.options.goal_posters.value = self.options.end_goal.value
+            logging.warning(f"{self.player_name} required more posters than available sectors.")
+            logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
+
+
         for loc in self.multiworld.get_locations(self.player):
             set_rule(loc, lambda state, temploc=loc: events_and_locations[temploc.name].logic(self, state))
 

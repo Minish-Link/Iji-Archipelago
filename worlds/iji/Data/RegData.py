@@ -516,24 +516,19 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
 
                 (is_difficulty_in_logic(world, 1) and state.has(EventNames.Weapons[4], world.player) and
-                 state.has(ItemNames.Stat_Health, world.player, 1) and has_enough_points(state, world, 10)) or
+                 state.has(ItemNames.Stat_Health, world.player, 1) and has_enough_points(world, 10)) or
 
-                (can_rocket_boost(state, world) and ((world.options.logic_difficulty.value >= 3 and
-                 state.has(ItemNames.Stat_Strength, world.player, 5) and has_enough_points(state, world, 6)) or
-                 world.options.logic_difficulty.value >= 4))
+                (can_rocket_boost(state, world) and is_difficulty_in_logic(world, 2))
             )
         ),
         RegNames.Sector5_Poster[0]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
 
-                (world.options.logic_difficulty.value >= 2 and state.has(EventNames.Weapons[4], world.player) and
-                 state.has(ItemNames.Stat_Health, world.player, 1) and has_enough_points(state, world, 10)) or
+                (is_difficulty_in_logic(world, 1) and state.has(EventNames.Weapons[4], world.player) and
+                 state.has(ItemNames.Stat_Health, world.player, 1) and has_enough_points(world, 10)) or
 
-                (can_rocket_boost(state, world) and
-                 ((world.options.logic_difficulty.value >= 3 and
-                   state.has(ItemNames.Stat_Strength, world.player, 5) and has_enough_points(state, world, 6)) or
-                 world.options.logic_difficulty.value >= 4))
+                (can_rocket_boost(state, world) and is_difficulty_in_logic(world, 2))
             )
         ),
         RegNames.Sector5_Ribbon: ExitData(
@@ -622,7 +617,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector5_Poster[2]: ExitData(
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[12], world.player) or
-                (world.options.logic_difficulty.value >= 2 and state.has(EventNames.Weapons[4], world.player))
+                (is_difficulty_in_logic(world, 1) and state.has(EventNames.Weapons[4], world.player))
             )
         )
     },
@@ -649,7 +644,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 1) or 
 
-                (world.options.logic_difficulty.value >= 1 and
+                (is_difficulty_in_logic(world, 1) and
                  can_mpfb_boost(state, world))
             )
         ),
@@ -672,7 +667,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector6_Main[4]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 1) or 
-               (world.options.logic_difficulty.value >= 2 and
+               (is_difficulty_in_logic(world, 1) and
                 can_mpfb_boost(state, world))
             )
         )
@@ -714,14 +709,6 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
                 state.has(EventNames.Sector6_Terminal_Ribbon, world.player)
             )
         ),
-        RegNames.Sector6_Main[9]: ExitData(
-            valid=lambda world: (
-                world.options.logic_difficulty.value >= 4
-            ),
-            logic=lambda world, state: (
-                can_mpfb_boost(state, world)
-            )
-        ),
         RegNames.Sector6_Super: ExitData(
             logic=lambda world, state: (
                 can_reach_superchargesix(state, world)
@@ -750,6 +737,14 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
                 state.has(EventNames.Sector6_Terminal_BlackOps, world.player) and
                 state.has(ItemNames.Upgrade_Jump, world.player, 2)
             )
+        ),
+        RegNames.Sector6_Main[9]: ExitData(
+            valid=lambda world: (
+                is_difficulty_in_logic(world, 2)
+            ),
+            logic=lambda world, state: (
+                can_mpfb_boost(state, world)
+            )
         )
     },
     # Side Paths
@@ -777,7 +772,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector6_Side[9]: ExitData(),
         RegNames.Sector6_Poster[1]: ExitData(
             valid=lambda world: (
-                world.options.logic_difficulty.value >= 1
+                is_difficulty_in_logic(world, 1)
             ),
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 1) and can_rocket_boost(state, world)
@@ -810,17 +805,18 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector6_Poster[1]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
-                (can_mpfb_boost(state, world) and world.options.logic_difficulty.value >= 2)
+                (can_mpfb_boost(state, world) and is_difficulty_in_logic(world, 1))
             )
         ),
         RegNames.Sector6_Side[8]: ExitData(
             valid=lambda world: (
-                world.options.logic_difficulty.value >= 2 and
+                is_difficulty_in_logic(world, 1) and
                 world.options.debug_item.value >= 1
             ),
             logic=lambda world, state: (
                 state.has(ItemNames.Debug, world.player) and
-                state.has(ItemNames.Upgrade_Jump, world.player, 1)
+                state.has(ItemNames.Upgrade_Jump, world.player, 1) and
+                has_weapon_plus_points(state, world, 5, 0)
             )
         )
     },
@@ -886,7 +882,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[11], world.player) or
                 (can_rocket_boost(state, world) and
-                 world.options.logic_difficulty.value >= 1)
+                 is_difficulty_in_logic(world, 1))
             )
         )
     },
@@ -912,7 +908,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector7_Main[5]: ExitData(),
         RegNames.Sector7_Main[6]: ExitData(
             valid=lambda world: (
-                world.options.logic_difficulty.value >= 1 and
+                is_difficulty_in_logic(world, 1) and
                 world.options.debug_item.value >= 1
             ),
             logic=lambda world, state: (
@@ -943,9 +939,9 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[8], world.player) and
                 state.has(ItemNames.Stat_Attack, world.player, 2) and
-                has_enough_points(state, world, 11) and
+                has_enough_points(world, 11) and
                 (state.has(EventNames.Weapons[12], world.player) or
-                (world.options.logic_difficulty.value >= 2 and
+                (is_difficulty_in_logic(world, 1) and
                 state.has_all([ItemNames.Debug, EventNames.Weapons[3]], world.player)))
             )
         )
@@ -1069,9 +1065,9 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: (
                 state.has(ItemNames.Stat_Strength, world.player, 2) and
                 ((state.has(EventNames.Weapons[14], world.player) and
-                 has_enough_points(state, world, 10)) or
+                 has_enough_points(world, 10)) or
                  (state.has_all([ItemNames.Debug, EventNames.Weapons[5]], world.player) and
-                  has_enough_points(state, world, 2)))
+                  has_enough_points(world, 2)))
             )
         )
     },
@@ -1109,7 +1105,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector9_Side[12]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 1) or
-                (can_mpfb_boost(state, world) and world.options.logic_difficulty.value >= 2)
+                (can_mpfb_boost(state, world) and is_difficulty_in_logic(world, 1))
             )
         )
     },
@@ -1142,7 +1138,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector9_Side[13]: ExitData(
             logic=lambda world, state: (
                 state.has_any([EventNames.Weapons[3], EventNames.Weapons[7]], world.player) or
-                world.options.logic_difficulty.value >= 1
+                is_difficulty_in_logic(world, 1)
             )
         )
     },
@@ -1199,7 +1195,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[14], world.player) and
                 state.has(ItemNames.Stat_Strength, world.player, 4) and
-                has_enough_points(state, world, 14)
+                has_enough_points(world, 14)
             )
         )
     },
@@ -1329,11 +1325,11 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.SectorX_Poster[0]: ExitData(
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[12], world.player) or
-                (world.options.logic_difficulty.value >= 3 and
+                (is_difficulty_in_logic(world, 2) and
                 state.has(ItemNames.Debug, world.player) and
                 state.has_any([EventNames.Weapons[3], EventNames.Weapons[7]], world.player) and
                 can_rocket_boost(state, world) and
-                has_enough_points(state, world, 6))
+                has_enough_points(world, 6))
             )
         ),
         RegNames.SectorX_Side[7]: ExitData()
@@ -1404,9 +1400,9 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.SectorX_Final[0]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
-                (state.has(ItemNames.Debug, world.player) and world.options.logic_difficulty.value >= 3 and
+                (state.has(ItemNames.Debug, world.player) and is_difficulty_in_logic(world, 2) and
                  state.has_any([EventNames.Weapons[3], EventNames.Weapons[7]], world.player) and
-                 can_rocket_boost(state, world) and has_enough_points(state, world, 6))
+                 can_rocket_boost(state, world) and has_enough_points(world, 6))
             )
         )
     },
@@ -1463,7 +1459,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.SectorX_Final[1]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
-                (world.options.logic_difficulty.value >= 3 and can_mpfb_boost(state, world))
+                (is_difficulty_in_logic(world, 2) and can_mpfb_boost(state, world))
             )
         ),
         RegNames.SectorX_Side[2]: ExitData(
@@ -1481,8 +1477,8 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.SectorX_Final[2]: ExitData(
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2) or
-                (world.options.logic_difficulty.value >= 3 and can_mpfb_boost(state, world) and
-                 state.has(ItemNames.Stat_Health, world.player, 3) and has_enough_points(state, world, 12))
+                (is_difficulty_in_logic(world, 2) and can_mpfb_boost(state, world) and
+                 state.has(ItemNames.Stat_Health, world.player, 3) and has_enough_points(world, 12))
            )
        )
    },
@@ -1554,11 +1550,11 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.SectorX_Poster[3]: ExitData(
             logic=lambda world, state: (
                 state.has(EventNames.Weapons[12], world.player) or
-                (world.options.logic_difficulty.value >= 3 and
+                (is_difficulty_in_logic(world, 2) and
                  state.has(ItemNames.Debug, world.player) and
                  state.has_any([EventNames.Weapons[3], EventNames.Weapons[7]], world.player) and
                  can_rocket_boost(state, world)) and
-                 has_enough_points(state, world, 6)
+                 has_enough_points(world, 6)
              )
         )
     },
