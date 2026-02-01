@@ -166,7 +166,7 @@ def choose_random_option_from_string(world: "IjiWorld",
                                      lower_bound: int = 0,
                                      upper_bound: int = 9) -> int:
     options = option_range.split('-')
-    values: List[int] = []
+    values: List[int] = [0,0]
     if len(options) == 1:
         try:
             values[0] = int(options[0])
@@ -927,17 +927,17 @@ class FillerWeights(OptionDict):
     """
     display_name = "Filler Weights"
     default = {
-        "Health Pickup": 0,
-        "Armor Pickup": 0,
-        "Nano Pickup": 0,
-        "Machine Ammo": 0,
-        "Rocket Ammo": 0,
-        "MPFB Ammo": 0,
-        "Pulse Ammo": 0,
-        "Shock Ammo": 0,
-        "CFIS Ammo": 0,
-        "Nano Overload": 0,
-        "Bundle of Ammo": 0,
+        "Health Pickup": 50,
+        "Armor Pickup": 20,
+        "Nano Pickup": 40,
+        "Machine Ammo": 30,
+        "Rocket Ammo": 20,
+        "MPFB Ammo": 10,
+        "Pulse Ammo": 30,
+        "Shock Ammo": 20,
+        "CFIS Ammo": 10,
+        "Nano Overload": 10,
+        "Bundle of Ammo": 40,
         "Can of Soda": 0,
     }
 
@@ -1006,7 +1006,7 @@ class EnemyLocationTypes(OptionDict):
         "Komato Berserker": True,
         "Komato Beast": True,
         "Komato Assassin": True,
-        "Komato Annihilator": True,
+        "Komato Annihilator": False,
         "Sector Z": False
     }
 

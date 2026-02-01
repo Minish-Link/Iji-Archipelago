@@ -26,13 +26,13 @@ class DoorData(NamedTuple):
             if self.type == DoorType.STRENGTH:
                 if world.current_stat_items["Strength Stat"]+1 < self.level:
                     return False
-                return has_stats(world, "Strength Stat", self.level)
+                return has_stats(world, "Strength Stat", self.level - 1)
             else:
                 if world.current_stat_items["Crack Stat"]+1 < self.level:
                     return False
-                return has_stats(world, "Crack Stat", self.level)
+                return has_stats(world, "Crack Stat", self.level - 1)
         else:
-            return has_stats(world, "Crack Stat", self.level)
+            return has_stats(world, "Crack Stat", self.terminal - 1)
 
     def is_valid_entrance(self, world: "IjiWorld") -> bool:
         if self.terminal != 0:

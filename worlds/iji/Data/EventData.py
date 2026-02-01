@@ -1859,7 +1859,7 @@ events_miscellaneous: Dict[str, IjiLocData] = {
     "Iosa's Fate": IjiLocData(
         region = RegNames.Sector_Ends[8],
         locked_item=lambda world: "Iosa's Fate",
-        logic=lambda world, state: location_table[LocNames.Kills_Bosses][1].logic(world, state)
+        logic=lambda world, state: location_table[LocNames.Kills_Bosses[1]].logic(world, state)
     )
 }
 

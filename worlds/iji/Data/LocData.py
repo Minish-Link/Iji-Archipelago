@@ -44,7 +44,7 @@ locations_stat_levels: Dict[str, IjiLocData] = {
         code = 400+(i*10)+j, region = RegNames.Global,
         valid = (
             lambda world: False) if j == 0 else (
-            lambda world,stat=i,items=j: (world.max_stats[ItemNames.Stats[stat]] >= items)),
+            lambda world,stat=i,items=j: (world.current_stat_items[ItemNames.Stats[stat]] < items)),
         logic = lambda world, state,stat=i,items=j: has_stats(world,ItemNames.Stats[stat],items)
     ) for i in range(7) for j in range(10)
 } | {

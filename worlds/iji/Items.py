@@ -92,10 +92,6 @@ def create_compacted_stat_items(world: "IjiWorld") -> List[Item]:
     for name, value in world.max_stats.items():
         stats_needed = ceil((value - world.current_stat_items[name]) / world.compact_stats[name])
         ret += create_multiple_items(world, name, stats_needed)
-        logging.warning(f"Adding {stats_needed} {name}s to Item Pool")
-        logging.warning(world.max_stats[name])
-        logging.warning(world.compact_stats[name])
-        logging.warning(world.current_stat_items[name])
     return ret
 
 def create_multiple_items(world: "IjiWorld", name: str, count: int, progtype: ItemClassification = None) -> List[Item]:

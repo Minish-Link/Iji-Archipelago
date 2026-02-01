@@ -54,6 +54,7 @@ class IjiWorld(World):
     max_stats: Dict[str, int]
     compact_stats: Dict[str, int]
     current_stat_items: Dict[str, int]
+    starting_stats: Dict[str, int]
     door_stats: Dict[int, DoorData]
     total_posters: int = 0
     post_goal_locations: int = 0
@@ -102,6 +103,16 @@ class IjiWorld(World):
         ItemNames.Supercharge: 0
         }
         self.current_stat_items = {
+        ItemNames.Stat_Health: 0,
+        ItemNames.Stat_Attack: 0,
+        ItemNames.Stat_Assimilate: 0,
+        ItemNames.Stat_Strength: 0,
+        ItemNames.Stat_Crack: 0,
+        ItemNames.Stat_Tasen: 0,
+        ItemNames.Stat_Komato: 0,
+        ItemNames.Supercharge: 0
+        }
+        self.starting_stats = {
         ItemNames.Stat_Health: 0,
         ItemNames.Stat_Attack: 0,
         ItemNames.Stat_Assimilate: 0,
@@ -173,6 +184,7 @@ class IjiWorld(World):
             "LogbookLocations": self.options.logbook_locations.value,
             "CrackBoxLocations": self.options.security_box_locations.value,
             "OverloadLocations": self.options.nano_overload_locations.value,
+            "EnemyLocations": self.options.enemy_locations.value,
 
             "SpecialTraits": self.options.special_trait_items.value,
             "JumpUpgrades": self.options.jump_upgrades.value,
@@ -180,14 +192,16 @@ class IjiWorld(World):
             "Levelsanity": self.options.levelsanity.value,
             "FireAnytime": self.options.debug_item.value,
             "CompactStats": self.compact_stats,
+            "StartingStats": self.starting_stats,
 
             "NullDriveFactor": self.options.null_drive_factor.value,
+            "MoreEnemies": self.options.more_enemies.value,
+            "EnemyLocationTypes": self.options.enemy_location_types,
 
             # TODO: Convert shuffled door data into something that can be passed into slot data
             #"DoorShuffle": self.options.door_shuffle.value,
             #"WeaponStats": weapon_requirements_to_slot_data(self),
 
-            #"StartingStats": self.options.starting_stats.value,
 
             "DeathLink": self.options.deathlink.value,
             "DeathLinkDamage": self.options.deathlink_damage.value,
@@ -196,6 +210,7 @@ class IjiWorld(World):
             "Scrambler": self.options.scrambler.value,
             "AlternateOutfit": self.options.alternate_outfit.value,
         }
+
 
     def generate_early(self):
         self.initialize_stat_dicts()
@@ -243,7 +258,10 @@ class IjiWorld(World):
             # If not using Universal Tracker
             self.health_balancing_values = define_health_balancing(self)
             for name, value in self.options.starting_stats.get_starting_stat_items(self).items():
-                self.current_stat_items[name] += value
+                self.current_stat_items[name] = value
+                self.starting_stats[name] = value
+            for name, value in self.options.compact_stats.get_chosen_compact_values(self).items():
+                self.compact_stats[name] = value
 
             #shuffle_doors(self)
 
@@ -298,10 +316,6 @@ class IjiWorld(World):
             self.options.goal_posters.value = self.total_posters
             logging.warning(f"{self.player_name} required more posters than available sectors.")
             logging.warning(f"Their poster requirement was reduced to {self.options.goal_posters.value}")
-
-        logging.warning(f"{self.player_name} Post Goal Locations: {self.post_goal_locations}")
-        logging.warning(f"{self.player_name} Supercharge Max: {self.max_stats['Supercharge']}")
-        logging.warning(f"{self.player_name} Posters: {self.options.goal_posters.value} / {self.total_posters}")
 
         if self.options.end_goal.value == 3:
             self.multiworld.completion_condition[self.player] = lambda state: (
