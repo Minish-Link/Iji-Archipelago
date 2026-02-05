@@ -360,7 +360,7 @@ region_exit_table: Dict[str, Dict[str, ExitData]] = {
         RegNames.Sector4_Main[5]: ExitData(),
         RegNames.Sector4_Side[4]: ExitData(
             valid=lambda world: (
-                False #world.options.logic_difficulty.value >= 1 # TODO fix in 1.3.0
+                False #world.options.logic_difficulty.value >= 1
             ),
             logic=lambda world, state: (
                 state.has(ItemNames.Upgrade_Jump, world.player, 2)

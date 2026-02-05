@@ -60,6 +60,7 @@ Traps: List[str] = [
 Debug = "Fire Anytime"
 Upgrade_Jump = "Jump Upgrade"
 Upgrade_Armor = "Armor Upgrade"
+Glitch = "Glitches"
 
 Weapons: List[str] = [
     "Null Driver",
