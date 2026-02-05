@@ -193,8 +193,8 @@ class IjiWorld(World):
             "ArmorUpgrades": self.options.armor_upgrades.value,
             "Levelsanity": self.options.levelsanity.value,
             "FireAnytime": self.options.debug_item.value,
-            "CompactStats": self.compact_stats,
-            "StartingStats": self.starting_stats,
+            "CompactStats": {key:value for key, value in self.compact_stats.items()},
+            "StartingStats": {key:value for key, value in self.starting_stats.items()},
 
             "NullDriveFactor": self.options.null_drive_factor.value,
 
