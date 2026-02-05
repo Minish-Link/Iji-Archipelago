@@ -386,10 +386,11 @@ Kills_Bosses: List[str] = [
     "Sector X - Kill Komato General Tor",  #798
     "Sector 7 - Destroy Komato Sentinel Proxima", #915
     "Sector 6 - Kill Tasen Soldier Yukabacera", #276
+    "Sector 5 - Defeat Komato Assassin Asha", # 916
 ]
 
-NORMAL: int = 0
-HARD: int = 1
+NORMAL: int = 5
+HARD: int = 4
 Kills_Scouts: List[tuple[int, str, str, int]] = [ # ID, Name, Region, Difficulty
     (1, "Sector 1 - Kill Tasen Scout Tuva", RegNames.Sector1_Main[0], NORMAL),
     (2, "Sector 1 - Kill Tasen Scout Ogrensie Tayu", RegNames.Sector1_Main[1], NORMAL),
@@ -998,7 +999,7 @@ Kills_Assassins: List[tuple[int, str, str]] = [
     (902, "Sector 6 - Defeat Komato Assassin in Unused Storage", RegNames.Sector6_Main[6]),
     (903, "Sector 7 - Defeat Komato Assassin in Internal Security", RegNames.Sector7_Main[5]),
     (904, "Sector 7 - Defeat Komato Assassin in Phantom Hammer Control", RegNames.Sector7_Main[8]),
-    (905, "Sector 9 - Defeat Komato Assassin in Quarantine", RegNames.Sector9_Main[2]),
+    (905, "Sector 9 - Defeat Komato Assassin in Elevator Trap", RegNames.Sector9_Main[2]),
     (906, "Sector 9 - Defeat Komato Assassin in Illegal Goods Storage", RegNames.Sector9_Poster[0]),
     (907, "Sector 9 - Defeat Komato Assassin in Megacore Research", RegNames.Sector9_Main[9]),
     (908, "Sector 9 - Defeat 1st Komato Assassin in Deep Sector", RegNames.Sector9_Deep[9]),

@@ -2141,7 +2141,7 @@ locations_enemy_bosses: Dict[str, IjiLocData] = {
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
         on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 9 else None
     ),
-    LocNames.Kills_Bosses[2]: IjiLocData( # Asha
+    LocNames.Kills_Bosses[2]: IjiLocData( # Asha (Sector X)
         code=2755, region = RegNames.SectorX_Core[7],
         valid = lambda world: enemy_is_valid(world, "Bosses", 0),
     ),
@@ -2158,8 +2158,13 @@ locations_enemy_bosses: Dict[str, IjiLocData] = {
     ),
     LocNames.Kills_Bosses[5]: IjiLocData( # Yukabacera (Not actually a boss)
         code=2276, region = RegNames.Sector6_Poster[3],
-        valid = lambda world: enemy_is_valid(world, "Tasen Soldier", 0),
+        valid = lambda world: enemy_is_valid(world, "Yukabacera", 0),
         logic = lambda world, state: can_kill_yukabacera(state, world)
+    ),
+    LocNames.Kills_Bosses[6]: IjiLocData( # Asha (Sector 5)
+    code=2916, region = RegNames.Sector_Ends[4],
+        valid = lambda world: enemy_is_valid(world, "Bosses", 0),
+        on_added = lambda world: world.increment_post_goal_locations() if world.options.end_goal.value == 5 else None
     )
 }
 

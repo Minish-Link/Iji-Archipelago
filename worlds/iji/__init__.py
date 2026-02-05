@@ -185,6 +185,8 @@ class IjiWorld(World):
             "CrackBoxLocations": self.options.security_box_locations.value,
             "OverloadLocations": self.options.nano_overload_locations.value,
             "EnemyLocations": self.options.enemy_locations.value,
+            "MoreEnemies": self.options.more_enemies.value,
+            "EnemyLocationTypes": self.options.enemy_location_types.get_slot_data(),
 
             "SpecialTraits": self.options.special_trait_items.value,
             "JumpUpgrades": self.options.jump_upgrades.value,
@@ -195,8 +197,6 @@ class IjiWorld(World):
             "StartingStats": self.starting_stats,
 
             "NullDriveFactor": self.options.null_drive_factor.value,
-            "MoreEnemies": self.options.more_enemies.value,
-            "EnemyLocationTypes": self.options.enemy_location_types,
 
             # TODO: Convert shuffled door data into something that can be passed into slot data
             #"DoorShuffle": self.options.door_shuffle.value,
@@ -242,6 +242,9 @@ class IjiWorld(World):
                 self.options.logbook_locations.value = passthrough["LogbookLocations"]
                 self.options.security_box_locations.value = passthrough["CrackBoxLocations"]
                 self.options.nano_overload_locations.value = passthrough["OverloadLocations"]
+                self.options.enemy_locations.value = passthrough["EnemyLocations"]
+                self.options.more_enemies.value = passthrough["MoreEnemies"]
+                self.options.enemy_location_types.set_from_slot_data(passthrough["EnemyLocationTypes"])
 
                 self.options.special_trait_items.value = passthrough["SpecialTraits"]
                 self.options.jump_upgrades.value = passthrough["JumpUpgrades"]
@@ -249,9 +252,9 @@ class IjiWorld(World):
                 self.options.levelsanity.value = passthrough["Levelsanity"]
                 self.options.debug_item.value = passthrough["FireAnytime"]
                 self.compact_stats = {key:value for key,value in passthrough["CompactStats"].items()}
+                self.starting_stats = {key:value for key,value in passthrough["StartingStats"].items()}
 
-                # TODO get Door Shuffle Data from passthrough
-                #get_weapon_requirements_from_slot_data(self, passthrough["WeaponStats"])
+                # TODO get missing Data from passthrough
 
 
         else:

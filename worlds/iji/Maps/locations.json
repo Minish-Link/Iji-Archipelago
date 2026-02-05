@@ -1234,7 +1234,853 @@
           {
             "map": "World",
             "x": 1050,
-            "y": 600
+            "y": 574
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Enemies",
+        "sections": [
+          {"name": "Sector 1 - Kill Tasen Scout Tuva"},
+          {"name": "Sector 1 - Kill Tasen Scout Ogrensie Tayu"},
+          {"name": "Sector 1 - Kill Tasen Scout Favi Savakrie"},
+          {"name": "Sector 1 - Kill Tasen Scout Zonrak"},
+          {"name": "Sector 1 - Kill Tasen Scout Xutei"},
+          {"name": "Sector 1 - Kill Tasen Scout Lofeito Hel"},
+          {"name": "Sector 1 - Kill Tasen Scout Shohaka"},
+          {"name": "Sector 1 - Kill Tasen Scout Uzon"},
+          {"name": "Sector 1 - Kill Tasen Scout Jao Viy"},
+          {"name": "Sector 1 - Kill Tasen Scout Sunsak"},
+          {"name": "Sector 1 - Kill Tasen Scout Mari"},
+          {"name": "Sector 1 - Kill Tasen Scout Fahel"},
+          {"name": "Sector 1 - Kill Tasen Soldier Iri"},
+          {"name": "Sector 1 - Kill Tasen Soldier Elsa Haukti"},
+          {"name": "Sector 1 - Kill Tasen Soldier Tajasun"},
+          {"name": "Sector 1 - Kill Tasen Soldier Tusun Tuvaxu"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Enemies",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Sasjusa"},
+          {"name": "Sector 2 - Kill Tasen Scout Grenkaitu"},
+          {"name": "Sector 2 - Kill Tasen Scout Saetor"},
+          {"name": "Sector 2 - Kill Tasen Scout Tei Faratie"},
+          {"name": "Sector 2 - Kill Tasen Scout Yuyu"},
+          {"name": "Sector 2 - Kill Tasen Scout Asdel"},
+          {"name": "Sector 2 - Kill Tasen Scout Kepaktoh"},
+          {"name": "Sector 2 - Kill Tasen Scout Bulei"},
+          {"name": "Sector 2 - Kill Tasen Scout Cobu"},
+          {"name": "Sector 2 - Kill Tasen Scout Wakro"},
+          {"name": "Sector 2 - Kill Tasen Scout Quhtei"},
+          {"name": "Sector 2 - Kill Tasen Scout Yah Rieba"},
+          {"name": "Sector 2 - Kill Tasen Scout Elipera"},
+          {"name": "Sector 2 - Kill Tasen Scout Zege Ba"},
+          {"name": "Sector 2 - Kill Tasen Scout Greno"},
+          {"name": "Sector 2 - Kill Tasen Soldier Cazedel"},
+          {"name": "Sector 2 - Kill Tasen Soldier Helmkai"},
+          {"name": "Sector 2 - Kill Tasen Soldier Yizepay"},
+          {"name": "Sector 2 - Kill Tasen Soldier Suntie"},
+          {"name": "Sector 2 - Kill Tasen Soldier Kari Lo"},
+          {"name": "Sector 2 - Kill Tasen Soldier Bupaqu"},
+          {"name": "Sector 2 - Kill Tasen Soldier Klexu"},
+          {"name": "Sector 2 - Kill Tasen Soldier Wusae"},
+          {"name": "Sector 2 - Kill Tasen Commander Shahauk Hasja"},
+          {"name": "Sector 2 - Kill Tasen Commander Jage"},
+          {"name": "Sector 2 - Kill Tasen Commander Matoh Feiwaktor"},
+          {"name": "Sector 2 - Kill Tasen Elite Teira Sunjao"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Enemies",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Scout Yankaio"},
+          {"name": "Sector 3 - Kill Tasen Scout Berge Ansho"},
+          {"name": "Sector 3 - Kill Tasen Scout Yisaktu"},
+          {"name": "Sector 3 - Kill Tasen Scout Hemsarier Izoni"},
+          {"name": "Sector 3 - Kill Tasen Scout Zonotuca"},
+          {"name": "Sector 3 - Kill Tasen Scout Xuribeyi"},
+          {"name": "Sector 3 - Kill Tasen Scout Hauk Viqu"},
+          {"name": "Sector 3 - Kill Tasen Scout Waktuke Zo"},
+          {"name": "Sector 3 - Kill Tasen Scout Emmae"},
+          {"name": "Sector 3 - Kill Tasen Scout Hasto"},
+          {"name": "Sector 3 - Kill Tasen Scout Jati"},
+          {"name": "Sector 3 - Kill Tasen Scout Siefa"},
+          {"name": "Sector 3 - Kill Tasen Scout Mawa Yae"},
+          {"name": "Sector 3 - Kill Tasen Scout Zonhelico"},
+          {"name": "Sector 3 - Kill Tasen Scout Zesie"},
+          {"name": "Sector 3 - Kill Tasen Scout Hawu"},
+          {"name": "Sector 3 - Kill Tasen Scout Heseilo"},
+          {"name": "Sector 3 - Kill Tasen Scout Zongeas"},
+          {"name": "Sector 3 - Kill Tasen Soldier Vateilika"},
+          {"name": "Sector 3 - Kill Tasen Soldier Naeman Jezo"},
+          {"name": "Sector 3 - Kill Tasen Soldier Vitohlei"},
+          {"name": "Sector 3 - Kill Tasen Soldier Hasu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Coriwaqu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Quburu Mari"},
+          {"name": "Sector 3 - Kill Tasen Soldier Zonohasha"},
+          {"name": "Sector 3 - Kill Tasen Soldier An Wak"},
+          {"name": "Sector 3 - Kill Tasen Soldier Waquhes"},
+          {"name": "Sector 3 - Kill Tasen Soldier Grenuti"},
+          {"name": "Sector 3 - Kill Tasen Soldier Yabaturaibu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Cetor Fei"},
+          {"name": "Sector 3 - Kill Tasen Soldier Saenanita"},
+          {"name": "Sector 3 - Kill Tasen Soldier Jao Genio"},
+          {"name": "Sector 3 - Kill Tasen Soldier Maeja"},
+          {"name": "Sector 3 - Kill Tasen Commander Taasjasak"},
+          {"name": "Sector 3 - Kill Tasen Commander Lohauk Mae"},
+          {"name": "Sector 3 - Kill Tasen Commander Falo"},
+          {"name": "Sector 3 - Kill Tasen Commander Pahot"},
+          {"name": "Sector 3 - Kill Tasen Commander Quwao Sun"},
+          {"name": "Sector 3 - Kill Tasen Commander Cerixumah"},
+          {"name": "Sector 3 - Kill Tasen Elite Jhokta"},
+          {"name": "Sector 3 - Kill Tasen Elite Krotera"},
+          {"name": "Sector 3 - Kill Komato Trooper Zonharak"},
+          {"name": "Sector 3 - Kill Komato Trooper Siete"},
+          {"name": "Sector 3 - Kill Komato Trooper Xavi"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 998,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Enemies",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Tiikatei"},
+          {"name": "Sector 4 - Kill Tasen Scout Haia"},
+          {"name": "Sector 4 - Kill Tasen Scout Ashdel Es"},
+          {"name": "Sector 4 - Kill Tasen Scout Mali"},
+          {"name": "Sector 4 - Kill Tasen Scout Saefa"},
+          {"name": "Sector 4 - Kill Tasen Scout Wugren"},
+          {"name": "Sector 4 - Kill Tasen Scout Pah Bai"},
+          {"name": "Sector 4 - Kill Tasen Scout Tiei"},
+          {"name": "Sector 4 - Kill Tasen Scout Yinaklas"},
+          {"name": "Sector 4 - Kill Tasen Scout Tidepaash Sho"},
+          {"name": "Sector 4 - Kill Tasen Scout Zerie Cahashem"},
+          {"name": "Sector 4 - Kill Tasen Scout Hem Li"},
+          {"name": "Sector 4 - Kill Tasen Scout Vajagren"},
+          {"name": "Sector 4 - Kill Tasen Scout Detorpe Voe"},
+          {"name": "Sector 4 - Kill Tasen Scout Au Xutor"},
+          {"name": "Sector 4 - Kill Tasen Scout Rakaiwu"},
+          {"name": "Sector 4 - Kill Tasen Scout Torkai An"},
+          {"name": "Sector 4 - Kill Tasen Scout Rayah"},
+          {"name": "Sector 4 - Kill Tasen Scout Ke Fakera"},
+          {"name": "Sector 4 - Kill Tasen Scout Hastuwate"},
+          {"name": "Sector 4 - Kill Tasen Scout Malei Besha"},
+          {"name": "Sector 4 - Kill Tasen Scout Saegren Ta"},
+          {"name": "Sector 4 - Kill Tasen Scout Asti"},
+          {"name": "Sector 4 - Kill Tasen Scout Xuotta"},
+          {"name": "Sector 4 - Kill Tasen Scout Sunhem"},
+          {"name": "Sector 4 - Kill Tasen Scout Del Bacoisun"},
+          {"name": "Sector 4 - Kill Tasen Scout Ja Sha"},
+          {"name": "Sector 4 - Kill Tasen Scout Yaze"},
+          {"name": "Sector 4 - Kill Tasen Soldier Esem Sie"},
+          {"name": "Sector 4 - Kill Tasen Soldier Grenka"},
+          {"name": "Sector 4 - Kill Tasen Soldier Hemgren"},
+          {"name": "Sector 4 - Kill Tasen Soldier Sharaiqy"},
+          {"name": "Sector 4 - Kill Tasen Soldier Hassjawak"},
+          {"name": "Sector 4 - Kill Tasen Soldier Zetirie"},
+          {"name": "Sector 4 - Kill Tasen Soldier Tilohauk"},
+          {"name": "Sector 4 - Kill Tasen Soldier Zebeli"},
+          {"name": "Sector 4 - Kill Tasen Soldier Ber Viketo"},
+          {"name": "Sector 4 - Kill Tasen Soldier Uria"},
+          {"name": "Sector 4 - Kill Tasen Soldier Yahwak"},
+          {"name": "Sector 4 - Kill Tasen Soldier Otelcau"},
+          {"name": "Sector 4 - Kill Tasen Soldier Jhoktai"},
+          {"name": "Sector 4 - Kill Tasen Soldier Ribe Ayah"},
+          {"name": "Sector 4 - Kill Tasen Soldier Rafajena"},
+          {"name": "Sector 4 - Kill Tasen Soldier Delderohas"},
+          {"name": "Sector 4 - Kill Tasen Soldier Payte"},
+          {"name": "Sector 4 - Kill Tasen Soldier Xuaroika"},
+          {"name": "Sector 4 - Kill Tasen Soldier Grenrahauk"},
+          {"name": "Sector 4 - Kill Tasen Soldier Emshata"},
+          {"name": "Sector 4 - Kill Tasen Commander Rakwu"},
+          {"name": "Sector 4 - Kill Tasen Commander Xaas"},
+          {"name": "Sector 4 - Kill Tasen Commander Paktei"},
+          {"name": "Sector 4 - Kill Tasen Commander Astoh Cacosaolo"},
+          {"name": "Sector 4 - Kill Tasen Commander Loroiyi"},
+          {"name": "Sector 4 - Kill Tasen Elite Xusha"},
+          {"name": "Sector 4 - Kill Tasen Elite Peihemfei"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1418,
+            "y": 146
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Enemies",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Rorak Viamae"},
+          {"name": "Sector 5 - Kill Tasen Scout Yriema"},
+          {"name": "Sector 5 - Kill Tasen Scout Askeiota"},
+          {"name": "Sector 5 - Kill Tasen Scout Roigren"},
+          {"name": "Sector 5 - Kill Tasen Scout Qurasha"},
+          {"name": "Sector 5 - Kill Tasen Scout Asei Xurai"},
+          {"name": "Sector 5 - Kill Tasen Scout Kaquosun"},
+          {"name": "Sector 5 - Kill Tasen Scout Helsak Losaeja"},
+          {"name": "Sector 5 - Kill Tasen Scout Rakjanio"},
+          {"name": "Sector 5 - Kill Tasen Scout Utoli"},
+          {"name": "Sector 5 - Kill Tasen Scout Pahesk Maeo"},
+          {"name": "Sector 5 - Kill Tasen Scout Saka"},
+          {"name": "Sector 5 - Kill Tasen Scout Klogrenu"},
+          {"name": "Sector 5 - Kill Tasen Scout Shouma"},
+          {"name": "Sector 5 - Kill Tasen Scout Aswu"},
+          {"name": "Sector 5 - Kill Tasen Scout Harieje"},
+          {"name": "Sector 5 - Kill Tasen Scout Torjaoto Saw"},
+          {"name": "Sector 5 - Kill Tasen Scout Berako"},
+          {"name": "Sector 5 - Kill Tasen Scout Zonrie"},
+          {"name": "Sector 5 - Kill Tasen Scout Elde Lipakotsun"},
+          {"name": "Sector 5 - Kill Tasen Scout Hel Wavate"},
+          {"name": "Sector 5 - Kill Tasen Scout Xugepei"},
+          {"name": "Sector 5 - Kill Tasen Scout Covayah"},
+          {"name": "Sector 5 - Kill Tasen Scout Sunkeroi"},
+          {"name": "Sector 5 - Kill Tasen Scout Aslova"},
+          {"name": "Sector 5 - Kill Tasen Scout Derak Jhokdel"},
+          {"name": "Sector 5 - Kill Tasen Scout Grenti Rokai"},
+          {"name": "Sector 5 - Kill Tasen Scout Yahpa"},
+          {"name": "Sector 5 - Kill Tasen Scout Niwakmae"},
+          {"name": "Sector 5 - Kill Tasen Scout Esgren Mae"},
+          {"name": "Sector 5 - Kill Tasen Scout Nidely"},
+          {"name": "Sector 5 - Kill Tasen Scout Anmaesk"},
+          {"name": "Sector 5 - Kill Tasen Scout Voetoro"},
+          {"name": "Sector 5 - Kill Tasen Scout Yies"},
+          {"name": "Sector 5 - Kill Tasen Scout Rasha"},
+          {"name": "Sector 5 - Kill Tasen Scout Rihauk"},
+          {"name": "Sector 5 - Kill Tasen Scout Toh Yuraiwu"},
+          {"name": "Sector 5 - Kill Tasen Scout Xuantura"},
+          {"name": "Sector 5 - Kill Tasen Scout Auta"},
+          {"name": "Sector 5 - Kill Tasen Scout Aumaba"},
+          {"name": "Sector 5 - Kill Tasen Scout Tosjael"},
+          {"name": "Sector 5 - Kill Tasen Scout Voesak Zoxu"},
+          {"name": "Sector 5 - Kill Tasen Scout Ka Namae"},
+          {"name": "Sector 5 - Kill Tasen Scout Caanwa"},
+          {"name": "Sector 5 - Kill Tasen Scout Jaope Te"},
+          {"name": "Sector 5 - Kill Tasen Scout Tohel"},
+          {"name": "Sector 5 - Kill Tasen Soldier Visun"},
+          {"name": "Sector 5 - Kill Tasen Soldier Sunmawa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ibupay"},
+          {"name": "Sector 5 - Kill Tasen Soldier Kapah"},
+          {"name": "Sector 5 - Kill Tasen Soldier Paydepei"},
+          {"name": "Sector 5 - Kill Tasen Soldier Bevapa Riya"},
+          {"name": "Sector 5 - Kill Tasen Soldier Hel Rie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Tisae"},
+          {"name": "Sector 5 - Kill Tasen Soldier Grenhasel"},
+          {"name": "Sector 5 - Kill Tasen Soldier Voe Vaksaera"},
+          {"name": "Sector 5 - Kill Tasen Soldier Helroihauk"},
+          {"name": "Sector 5 - Kill Tasen Soldier Kematasa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Voesak"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ikajhok Mae"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yaeisako Sie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Peroi"},
+          {"name": "Sector 5 - Kill Tasen Soldier Shofali"},
+          {"name": "Sector 5 - Kill Tasen Soldier Eswakzo"},
+          {"name": "Sector 5 - Kill Tasen Soldier Besaeti"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ti Ce"},
+          {"name": "Sector 5 - Kill Tasen Soldier Xueshastu"},
+          {"name": "Sector 5 - Kill Tasen Soldier Sakhas"},
+          {"name": "Sector 5 - Kill Tasen Soldier Roniba"},
+          {"name": "Sector 5 - Kill Tasen Soldier Otraktie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Wu Mahro"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yrak"},
+          {"name": "Sector 5 - Kill Tasen Soldier Embu"},
+          {"name": "Sector 5 - Kill Tasen Soldier Wawaksie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Del Je"},
+          {"name": "Sector 5 - Kill Tasen Soldier Zoniorak"},
+          {"name": "Sector 5 - Kill Tasen Soldier Japeito"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ra Bexu"},
+          {"name": "Sector 5 - Kill Tasen Soldier Es Abersa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yahi"},
+          {"name": "Sector 5 - Kill Tasen Soldier Cece"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ti Payra"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yisie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Zotakai"},
+          {"name": "Sector 5 - Kill Tasen Soldier Pakaze"},
+          {"name": "Sector 5 - Kill Tasen Commander Otozobe Sha"},
+          {"name": "Sector 5 - Kill Tasen Commander Pahemli"},
+          {"name": "Sector 5 - Kill Tasen Commander Baqyi"},
+          {"name": "Sector 5 - Kill Tasen Commander Saqubu"},
+          {"name": "Sector 5 - Kill Tasen Commander Leige Raktor"},
+          {"name": "Sector 5 - Kill Tasen Commander Sunha"},
+          {"name": "Sector 5 - Kill Tasen Commander Eswa Kepah"},
+          {"name": "Sector 5 - Kill Tasen Commander Liroto"},
+          {"name": "Sector 5 - Kill Tasen Commander Haisak"},
+          {"name": "Sector 5 - Kill Tasen Commander Zoyah"},
+          {"name": "Sector 5 - Kill Tasen Commander Yukeca"},
+          {"name": "Sector 5 - Kill Tasen Commander As Xuvaksie"},
+          {"name": "Sector 5 - Kill Tasen Commander Na Mae"},
+          {"name": "Sector 5 - Kill Tasen Elite Vakrai"},
+          {"name": "Sector 5 - Kill Tasen Elite An Fa"},
+          {"name": "Sector 5 - Kill Tasen Elite Dehemni Helpak"},
+          {"name": "Sector 5 - Kill Tasen Elite Haspei"},
+          {"name": "Sector 5 - Kill Tasen Elite Kabe"},
+          {"name": "Sector 5 - Kill Tasen Elite Raber Shamah"},
+          {"name": "Sector 5 - Kill Komato Trooper Tortie"},
+          {"name": "Sector 5 - Kill Komato Trooper Wulei"},
+          {"name": "Sector 5 - Kill Komato Trooper Yaqupay"},
+          {"name": "Sector 5 - Kill Komato Trooper Mapei Pake"},
+          {"name": "Sector 5 - Kill Komato Trooper Naperak"},
+          {"name": "Sector 5 - Kill Komato Trooper Pa Essak"},
+          {"name": "Sector 5 - Kill Komato Trooper Xusun"},
+          {"name": "Sector 5 - Kill Komato Trooper Conaot"},
+          {"name": "Sector 5 - Kill Komato Trooper Ranibewu"},
+          {"name": "Sector 5 - Kill Komato Trooper Ja Losho"},
+          {"name": "Sector 5 - Kill Komato Trooper Esmah"},
+          {"name": "Sector 5 - Kill Komato Trooper Berem Niri"},
+          {"name": "Sector 5 - Kill Komato Trooper Elhas Valei"},
+          {"name": "Sector 5 - Kill Komato Trooper Dehemtor"},
+          {"name": "Sector 5 - Kill Komato Trooper Coro"},
+          {"name": "Sector 5 - Kill Komato Trooper Heltei"},
+          {"name": "Sector 5 - Kill Komato Trooper Zonjapako"},
+          {"name": "Sector 5 - Kill Komato Trooper Anzoma"},
+          {"name": "Sector 5 - Kill Komato Trooper Esa"},
+          {"name": "Sector 5 - Kill Komato Trooper Hasnio"},
+          {"name": "Sector 5 - Kill Komato Trooper Delpay"},
+          {"name": "Sector 5 - Kill Komato Trooper Hasa Vashode"},
+          {"name": "Sector 5 - Kill Komato Trooper Elbu"},
+          {"name": "Sector 5 - Kill Komato Trooper Sakteto"},
+          {"name": "Sector 5 - Kill Komato Trooper Berotpak"},
+          {"name": "Sector 5 - Kill Komato Berserker Zonio"},
+          {"name": "Sector 5 - Kill Komato Berserker Xarai"},
+          {"name": "Sector 5 - Kill Komato Berserker Hasmah"},
+          {"name": "Sector 5 - Kill Komato Berserker Vakalei"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Enemies",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Asa Riesratu"},
+          {"name": "Sector 6 - Kill Tasen Soldier Rieesk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nicosaktor"},
+          {"name": "Sector 6 - Kill Tasen Soldier Hapa Famae"},
+          {"name": "Sector 6 - Kill Tasen Soldier Teitu"},
+          {"name": "Sector 6 - Kill Tasen Soldier Lite"},
+          {"name": "Sector 6 - Kill Tasen Soldier Dezo Ge"},
+          {"name": "Sector 6 - Kill Tasen Soldier Yukabacera"},
+          {"name": "Sector 6 - Kill Tasen Soldier Peio"},
+          {"name": "Sector 6 - Kill Tasen Soldier Ro Nio"},
+          {"name": "Sector 6 - Kill Tasen Soldier Anli"},
+          {"name": "Sector 6 - Kill Tasen Soldier Delpah"},
+          {"name": "Sector 6 - Kill Tasen Soldier Bujaoro"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nio Wunio"},
+          {"name": "Sector 6 - Kill Tasen Soldier Sharai Hage"},
+          {"name": "Sector 6 - Kill Tasen Soldier Jaofei Lotu"},
+          {"name": "Sector 6 - Kill Tasen Soldier Barosie"},
+          {"name": "Sector 6 - Kill Tasen Soldier Pei Ashridel"},
+          {"name": "Sector 6 - Kill Tasen Soldier Honadelot"},
+          {"name": "Sector 6 - Kill Tasen Soldier Xufei"},
+          {"name": "Sector 6 - Kill Tasen Soldier Ashihaso"},
+          {"name": "Sector 6 - Kill Tasen Soldier Tor Zelei"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nazon Payhauk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Maezon"},
+          {"name": "Sector 6 - Kill Tasen Soldier Xatie"},
+          {"name": "Sector 6 - Kill Tasen Soldier Qurawa"},
+          {"name": "Sector 6 - Kill Tasen Soldier Delsho"},
+          {"name": "Sector 6 - Kill Tasen Soldier Qunati"},
+          {"name": "Sector 6 - Kill Tasen Soldier Espay Hauk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Riero"},
+          {"name": "Sector 6 - Kill Tasen Soldier Lixu"},
+          {"name": "Sector 6 - Kill Tasen Soldier Kasaot"},
+          {"name": "Sector 6 - Kill Tasen Soldier Copakri"},
+          {"name": "Sector 6 - Kill Tasen Soldier Unijero"},
+          {"name": "Sector 6 - Kill Tasen Soldier Zerak"},
+          {"name": "Sector 6 - Kill Tasen Commander Yipaxu"},
+          {"name": "Sector 6 - Kill Tasen Commander Ka Del"},
+          {"name": "Sector 6 - Kill Tasen Commander Taelfei"},
+          {"name": "Sector 6 - Kill Tasen Commander Aysa"},
+          {"name": "Sector 6 - Kill Tasen Commander Cesun"},
+          {"name": "Sector 6 - Kill Tasen Commander Bacatabu"},
+          {"name": "Sector 6 - Kill Tasen Commander Raigren"},
+          {"name": "Sector 6 - Kill Tasen Commander Mahxu"},
+          {"name": "Sector 6 - Kill Tasen Commander Zon Rihemco"},
+          {"name": "Sector 6 - Kill Tasen Commander Roja"},
+          {"name": "Sector 6 - Kill Tasen Commander Klash"},
+          {"name": "Sector 6 - Kill Tasen Commander Shofei"},
+          {"name": "Sector 6 - Kill Komato Trooper Bepei"},
+          {"name": "Sector 6 - Kill Komato Trooper Siero"},
+          {"name": "Sector 6 - Kill Komato Trooper Maoliem Buyah"},
+          {"name": "Sector 6 - Kill Komato Trooper Hastodel"},
+          {"name": "Sector 6 - Kill Komato Trooper Esvaksun"},
+          {"name": "Sector 6 - Kill Komato Trooper Ashber"},
+          {"name": "Sector 6 - Kill Komato Trooper Licehel Yavoe"},
+          {"name": "Sector 6 - Kill Komato Trooper Jahauk"},
+          {"name": "Sector 6 - Kill Komato Trooper Yasjulo"},
+          {"name": "Sector 6 - Kill Komato Trooper Bede"},
+          {"name": "Sector 6 - Kill Komato Trooper Zevitei"},
+          {"name": "Sector 6 - Kill Komato Trooper Qudel"},
+          {"name": "Sector 6 - Kill Komato Trooper Yeke"},
+          {"name": "Sector 6 - Kill Komato Trooper Sae"},
+          {"name": "Sector 6 - Kill Komato Trooper Butie Pahes"},
+          {"name": "Sector 6 - Kill Komato Trooper Sunwaktor"},
+          {"name": "Sector 6 - Kill Komato Trooper Teihasel"},
+          {"name": "Sector 6 - Kill Komato Trooper Rihauk Bewak"},
+          {"name": "Sector 6 - Kill Komato Trooper Bei Jexa"},
+          {"name": "Sector 6 - Kill Komato Trooper Shomahtu"},
+          {"name": "Sector 6 - Kill Komato Trooper Sakja"},
+          {"name": "Sector 6 - Kill Komato Berserker Toniterai"},
+          {"name": "Sector 6 - Kill Komato Berserker Hemesko"},
+          {"name": "Sector 6 - Kill Komato Berserker Tegesun"},
+          {"name": "Sector 6 - Kill Komato Berserker Losho"},
+          {"name": "Sector 6 - Kill Komato Berserker Xuge"},
+          {"name": "Sector 6 - Defeat Komato Assassin in Neoweapons Storage"},
+          {"name": "Sector 6 - Defeat Komato Assassin in Unused Storage"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Enemies",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Soldier Kalo"},
+          {"name": "Sector 7 - Kill Tasen Soldier Hastohem"},
+          {"name": "Sector 7 - Kill Tasen Soldier Toshadel"},
+          {"name": "Sector 7 - Kill Tasen Soldier Hempei"},
+          {"name": "Sector 7 - Kill Tasen Soldier Shoca Bervoe"},
+          {"name": "Sector 7 - Kill Tasen Soldier Teini"},
+          {"name": "Sector 7 - Kill Tasen Soldier Emhauk"},
+          {"name": "Sector 7 - Kill Tasen Soldier Ritema"},
+          {"name": "Sector 7 - Kill Tasen Soldier Yutorha"},
+          {"name": "Sector 7 - Kill Tasen Soldier Ifei"},
+          {"name": "Sector 7 - Kill Tasen Soldier Mapak"},
+          {"name": "Sector 7 - Kill Tasen Soldier Viride"},
+          {"name": "Sector 7 - Kill Tasen Soldier Niowaklo"},
+          {"name": "Sector 7 - Kill Tasen Elite Mavak"},
+          {"name": "Sector 7 - Kill Tasen Elite Jeka Berke"},
+          {"name": "Sector 7 - Kill Tasen Elite Coesta"},
+          {"name": "Sector 7 - Kill Tasen Elite Haukpei"},
+          {"name": "Sector 7 - Kill Tasen Elite Niquh"},
+          {"name": "Sector 7 - Kill Komato Trooper Shotupa"},
+          {"name": "Sector 7 - Kill Komato Trooper Fasiebe"},
+          {"name": "Sector 7 - Kill Komato Trooper Vakesha"},
+          {"name": "Sector 7 - Kill Komato Trooper Ashelhauk"},
+          {"name": "Sector 7 - Kill Komato Trooper Hember"},
+          {"name": "Sector 7 - Kill Komato Trooper Payroica"},
+          {"name": "Sector 7 - Kill Komato Trooper Yva Tataber"},
+          {"name": "Sector 7 - Kill Komato Trooper Auroba"},
+          {"name": "Sector 7 - Kill Komato Trooper Klas Ze"},
+          {"name": "Sector 7 - Kill Komato Trooper Jevak Delha"},
+          {"name": "Sector 7 - Kill Komato Trooper Raisak"},
+          {"name": "Sector 7 - Kill Komato Trooper Uusun"},
+          {"name": "Sector 7 - Kill Komato Trooper Shamakai"},
+          {"name": "Sector 7 - Kill Komato Trooper Hasetei"},
+          {"name": "Sector 7 - Kill Komato Trooper Valii Xuta"},
+          {"name": "Sector 7 - Kill Komato Trooper Nawa"},
+          {"name": "Sector 7 - Kill Komato Trooper Nihel"},
+          {"name": "Sector 7 - Kill Komato Trooper Ashniber"},
+          {"name": "Sector 7 - Kill Komato Trooper Tieropay"},
+          {"name": "Sector 7 - Kill Komato Trooper Saerak"},
+          {"name": "Sector 7 - Kill Komato Trooper Zehas"},
+          {"name": "Sector 7 - Kill Komato Trooper Payuka"},
+          {"name": "Sector 7 - Kill Komato Trooper Yahlei"},
+          {"name": "Sector 7 - Kill Komato Trooper Tei Torber"},
+          {"name": "Sector 7 - Kill Komato Trooper Namahot"},
+          {"name": "Sector 7 - Kill Komato Trooper Toba"},
+          {"name": "Sector 7 - Kill Komato Trooper Perie Viba"},
+          {"name": "Sector 7 - Kill Komato Trooper Peinioca"},
+          {"name": "Sector 7 - Kill Komato Trooper Yapakte Sabeze"},
+          {"name": "Sector 7 - Kill Komato Trooper Shavamah"},
+          {"name": "Sector 7 - Kill Komato Berserker Roive Besiena"},
+          {"name": "Sector 7 - Kill Komato Berserker Xutei"},
+          {"name": "Sector 7 - Kill Komato Berserker Ti Jhokro"},
+          {"name": "Sector 7 - Kill Komato Berserker Hauksha"},
+          {"name": "Sector 7 - Kill Komato Berserker Zondebaot"},
+          {"name": "Sector 7 - Kill Komato Berserker Saktoro"},
+          {"name": "Sector 7 - Kill Komato Berserker Teixato"},
+          {"name": "Sector 7 - Kill Komato Berserker Roquh"},
+          {"name": "Sector 7 - Kill Komato Berserker Ke Deyi"},
+          {"name": "Sector 7 - Kill Komato Berserker Saesie"},
+          {"name": "Sector 7 - Kill Komato Berserker Betorsa"},
+          {"name": "Sector 7 - Kill Komato Berserker Gevi"},
+          {"name": "Sector 7 - Kill Komato Berserker Coturie"},
+          {"name": "Sector 7 - Kill Komato Beast Yahli Saetoh"},
+          {"name": "Sector 7 - Kill Komato Beast Waktaka"},
+          {"name": "Sector 7 - Kill Komato Beast Debapa"},
+          {"name": "Sector 7 - Kill Komato Beast Bu Sha"},
+          {"name": "Sector 7 - Kill Komato Beast Pah Sunlonio"},
+          {"name": "Sector 7 - Kill Komato Beast Osaklas"},
+          {"name": "Sector 7 - Kill Komato Beast Jaoemni Rodel"},
+          {"name": "Sector 7 - Kill Komato Beast Payma Fagren"},
+          {"name": "Sector 7 - Kill Komato Beast Wurie"},
+          {"name": "Sector 7 - Kill Komato Beast Shatei"},
+          {"name": "Sector 7 - Kill Komato Beast Anvakta"},
+          {"name": "Sector 7 - Kill Komato Beast Mahnio"},
+          {"name": "Sector 7 - Kill Komato Beast Payjaux"},
+          {"name": "Sector 7 - Defeat Komato Assassin in Internal Security"},
+          {"name": "Sector 7 - Defeat Komato Assassin in Phantom Hammer Control"},
+          {"name": "Sector 7 - Destroy Komato Sentinel Proxima"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 998,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Enemies",
+        "sections": [
+          {"name": "Sector 8 - Kill Tasen Commander Roha Pexu"},
+          {"name": "Sector 8 - Kill Tasen Commander Nixuto Hastoh"},
+          {"name": "Sector 8 - Kill Tasen Commander Yahsie Kai"},
+          {"name": "Sector 8 - Kill Tasen Commander Deroi"},
+          {"name": "Sector 8 - Kill Tasen Commander Klasjaan"},
+          {"name": "Sector 8 - Kill Tasen Commander As Teisie"},
+          {"name": "Sector 8 - Kill Tasen Commander Em Sho"},
+          {"name": "Sector 8 - Kill Tasen Commander Xaxa Helni"},
+          {"name": "Sector 8 - Kill Tasen Commander Cosietu"},
+          {"name": "Sector 8 - Kill Tasen Elite Vakeelta"},
+          {"name": "Sector 8 - Kill Tasen Elite Lei Ixuel"},
+          {"name": "Sector 8 - Kill Tasen Elite Hasconio"},
+          {"name": "Sector 8 - Kill Tasen Elite Jao Zejeni"},
+          {"name": "Sector 8 - Kill Tasen Elite Jaberi"},
+          {"name": "Sector 8 - Kill Tasen Elite Kavak"},
+          {"name": "Sector 8 - Kill Tasen Elite Xalei"},
+          {"name": "Sector 8 - Kill Tasen Elite Estepei"},
+          {"name": "Sector 8 - Kill Tasen Elite Xarajao"},
+          {"name": "Sector 8 - Kill Tasen Elite Torri"},
+          {"name": "Sector 8 - Kill Tasen Elite Mae Zeja"},
+          {"name": "Sector 8 - Kill Tasen Elite Pa Sjarak"},
+          {"name": "Sector 8 - Kill Komato Trooper Kairoi"},
+          {"name": "Sector 8 - Kill Komato Trooper Teloro"},
+          {"name": "Sector 8 - Kill Komato Trooper Maeri"},
+          {"name": "Sector 8 - Kill Komato Trooper Bewu"},
+          {"name": "Sector 8 - Kill Komato Trooper Grento Tei"},
+          {"name": "Sector 8 - Kill Komato Trooper Wakeske"},
+          {"name": "Sector 8 - Kill Komato Trooper Aheli"},
+          {"name": "Sector 8 - Kill Komato Trooper Teroma Rabuco"},
+          {"name": "Sector 8 - Kill Komato Trooper Buyi"},
+          {"name": "Sector 8 - Kill Komato Trooper Tohankai"},
+          {"name": "Sector 8 - Kill Komato Trooper Cotorni"},
+          {"name": "Sector 8 - Kill Komato Trooper Emhaja"},
+          {"name": "Sector 8 - Kill Komato Trooper Zokepei"},
+          {"name": "Sector 8 - Kill Komato Trooper Xusa Yu"},
+          {"name": "Sector 8 - Kill Komato Trooper Haukot"},
+          {"name": "Sector 8 - Kill Komato Trooper Yusak Jao"},
+          {"name": "Sector 8 - Kill Komato Trooper Torrabaya"},
+          {"name": "Sector 8 - Kill Komato Trooper Zonna"},
+          {"name": "Sector 8 - Kill Komato Trooper Xube"},
+          {"name": "Sector 8 - Kill Komato Trooper Esuvi"},
+          {"name": "Sector 8 - Kill Komato Trooper Toheska"},
+          {"name": "Sector 8 - Kill Komato Berserker Yubi"},
+          {"name": "Sector 8 - Kill Komato Berserker Saewa"},
+          {"name": "Sector 8 - Kill Komato Berserker Jao Otdel"},
+          {"name": "Sector 8 - Kill Komato Berserker Jali"},
+          {"name": "Sector 8 - Kill Komato Berserker Bunazo"},
+          {"name": "Sector 8 - Kill Komato Berserker Gekeelzo"},
+          {"name": "Sector 8 - Kill Komato Berserker Eri"},
+          {"name": "Sector 8 - Kill Komato Berserker Juibertei"},
+          {"name": "Sector 8 - Kill Komato Berserker Leisun Jeyu"},
+          {"name": "Sector 8 - Kill Komato Berserker Voe Vi"},
+          {"name": "Sector 8 - Kill Komato Annihilator Deltojaro"},
+          {"name": "Sector 8 - Kill Komato Annihilator Helri Lo"},
+          {"name": "Sector 8 - Kill Komato Annihilator Gerakka"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1418,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Enemies",
+        "sections": [
+          {"name": "Sector 9 - Kill Tasen Elite Pahemsun"},
+          {"name": "Sector 9 - Kill Tasen Elite Haavi"},
+          {"name": "Sector 9 - Kill Komato Trooper Hemvi"},
+          {"name": "Sector 9 - Kill Komato Trooper Xao"},
+          {"name": "Sector 9 - Kill Komato Trooper Asfaroi"},
+          {"name": "Sector 9 - Kill Komato Trooper Bawa Natei"},
+          {"name": "Sector 9 - Kill Komato Trooper Haniri"},
+          {"name": "Sector 9 - Kill Komato Trooper Elhasan"},
+          {"name": "Sector 9 - Kill Komato Trooper Saewu"},
+          {"name": "Sector 9 - Kill Komato Trooper Zeca Paktubero"},
+          {"name": "Sector 9 - Kill Komato Trooper Yusae Behem"},
+          {"name": "Sector 9 - Kill Komato Trooper Voekasho"},
+          {"name": "Sector 9 - Kill Komato Trooper Zeberan"},
+          {"name": "Sector 9 - Kill Komato Trooper Payrie"},
+          {"name": "Sector 9 - Kill Komato Trooper Ohauk Wakrai"},
+          {"name": "Sector 9 - Kill Komato Trooper Saeta"},
+          {"name": "Sector 9 - Kill Komato Trooper Hasta"},
+          {"name": "Sector 9 - Kill Komato Trooper Feidesho"},
+          {"name": "Sector 9 - Kill Komato Trooper Zozenata Tofao"},
+          {"name": "Sector 9 - Kill Komato Trooper Nio Xebe"},
+          {"name": "Sector 9 - Kill Komato Trooper Mahesmae"},
+          {"name": "Sector 9 - Kill Komato Trooper Xa Decaa"},
+          {"name": "Sector 9 - Kill Komato Trooper Yao Wahem"},
+          {"name": "Sector 9 - Kill Komato Trooper Tushata"},
+          {"name": "Sector 9 - Kill Komato Trooper Kaiya"},
+          {"name": "Sector 9 - Kill Komato Trooper Baqu Ta"},
+          {"name": "Sector 9 - Kill Komato Trooper Astor"},
+          {"name": "Sector 9 - Kill Komato Trooper Delli"},
+          {"name": "Sector 9 - Kill Komato Trooper Mavatonio"},
+          {"name": "Sector 9 - Kill Komato Trooper Zontu"},
+          {"name": "Sector 9 - Kill Komato Trooper Fayati Sho"},
+          {"name": "Sector 9 - Kill Komato Trooper Keto"},
+          {"name": "Sector 9 - Kill Komato Trooper Saki Ro"},
+          {"name": "Sector 9 - Kill Komato Berserker Vilokato"},
+          {"name": "Sector 9 - Kill Komato Berserker Litor"},
+          {"name": "Sector 9 - Kill Komato Berserker Sharaceti"},
+          {"name": "Sector 9 - Kill Komato Berserker Sie Esk"},
+          {"name": "Sector 9 - Kill Komato Berserker Au Rakrai"},
+          {"name": "Sector 9 - Kill Komato Berserker Licozon"},
+          {"name": "Sector 9 - Kill Komato Berserker Jefei"},
+          {"name": "Sector 9 - Kill Komato Berserker Li Sakel"},
+          {"name": "Sector 9 - Kill Komato Berserker Kahapa"},
+          {"name": "Sector 9 - Kill Komato Berserker Irai Helto"},
+          {"name": "Sector 9 - Kill Komato Berserker Varo"},
+          {"name": "Sector 9 - Kill Komato Berserker Auratoh"},
+          {"name": "Sector 9 - Kill Komato Beast Lioma"},
+          {"name": "Sector 9 - Kill Komato Beast Tupei Mator"},
+          {"name": "Sector 9 - Defeat Komato Assassin in Elevator Trap"},
+          {"name": "Sector 9 - Defeat Komato Assassin in Illegal Goods Storage"},
+          {"name": "Sector 9 - Defeat Komato Assassin in Megacore Research"},
+          {"name": "Sector 9 - Defeat 1st Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 2nd Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 3rd Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 4th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 5th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 6th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 7th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Kill Komato Annihilator Be Xuya"},
+          {"name": "Sector 9 - Kill Komato Annihilator Yrie"},
+          {"name": "Sector 9 - Kill Komato Annihilator Iosa Sakera"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 158,
+            "y": 626
+          }
+        ]
+      },
+      {
+        "name": "Sector X Enemies",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Hasroi"},
+          {"name": "Sector X - Kill Komato Trooper Xuroi"},
+          {"name": "Sector X - Kill Komato Trooper Ottohas Sha"},
+          {"name": "Sector X - Kill Komato Trooper Nasatorai"},
+          {"name": "Sector X - Kill Komato Trooper Ba Waturi"},
+          {"name": "Sector X - Kill Komato Trooper Batasa"},
+          {"name": "Sector X - Kill Komato Trooper Yuta"},
+          {"name": "Sector X - Kill Komato Trooper Una"},
+          {"name": "Sector X - Kill Komato Trooper Fahasma"},
+          {"name": "Sector X - Kill Komato Trooper Zon Hemriesk"},
+          {"name": "Sector X - Kill Komato Trooper Ausu"},
+          {"name": "Sector X - Kill Komato Trooper Tetorni Hasot"},
+          {"name": "Sector X - Kill Komato Trooper Jexao Haasa"},
+          {"name": "Sector X - Kill Komato Trooper Shokaiya"},
+          {"name": "Sector X - Kill Komato Trooper Liquh Yirai"},
+          {"name": "Sector X - Kill Komato Trooper Mateii"},
+          {"name": "Sector X - Kill Komato Trooper Yahesk"},
+          {"name": "Sector X - Kill Komato Trooper Ni Hato"},
+          {"name": "Sector X - Kill Komato Trooper Buzon"},
+          {"name": "Sector X - Kill Komato Trooper Pean"},
+          {"name": "Sector X - Kill Komato Trooper Yuroi Kahel"},
+          {"name": "Sector X - Kill Komato Trooper Ateesto"},
+          {"name": "Sector X - Kill Komato Trooper Xusakya"},
+          {"name": "Sector X - Kill Komato Trooper Otber"},
+          {"name": "Sector X - Kill Komato Trooper Torash"},
+          {"name": "Sector X - Kill Komato Trooper Rai Ke"},
+          {"name": "Sector X - Kill Komato Trooper Yugewu Shasha"},
+          {"name": "Sector X - Kill Komato Trooper Zekailo"},
+          {"name": "Sector X - Kill Komato Trooper Tarixuro"},
+          {"name": "Sector X - Kill Komato Trooper Shaba"},
+          {"name": "Sector X - Kill Komato Trooper Yahra"},
+          {"name": "Sector X - Kill Komato Trooper Xuhauk Cozea"},
+          {"name": "Sector X - Kill Komato Trooper Xadelhauk"},
+          {"name": "Sector X - Kill Komato Trooper Tebusjua"},
+          {"name": "Sector X - Kill Komato Trooper Sha Vaemash"},
+          {"name": "Sector X - Kill Komato Trooper Yufei"},
+          {"name": "Sector X - Kill Komato Trooper Au Wuria"},
+          {"name": "Sector X - Kill Komato Trooper Tupei"},
+          {"name": "Sector X - Kill Komato Trooper Dejama"},
+          {"name": "Sector X - Kill Komato Trooper Kerohasel"},
+          {"name": "Sector X - Kill Komato Trooper Jaau"},
+          {"name": "Sector X - Kill Komato Trooper Satesja"},
+          {"name": "Sector X - Kill Komato Trooper Auzefei"},
+          {"name": "Sector X - Kill Komato Trooper Cati Ketosun"},
+          {"name": "Sector X - Kill Komato Berserker Livigren"},
+          {"name": "Sector X - Kill Komato Berserker Niodely"},
+          {"name": "Sector X - Kill Komato Berserker Voe Ikahas"},
+          {"name": "Sector X - Kill Komato Berserker Peterol"},
+          {"name": "Sector X - Kill Komato Berserker Cerisha"},
+          {"name": "Sector X - Kill Komato Berserker Tor Rosun"},
+          {"name": "Sector X - Kill Komato Berserker Roxayi"},
+          {"name": "Sector X - Kill Komato Berserker Baviem"},
+          {"name": "Sector X - Kill Komato Berserker Xubusak"},
+          {"name": "Sector X - Kill Komato Berserker Anbevi"},
+          {"name": "Sector X - Kill Komato Berserker Hariewu Cekai"},
+          {"name": "Sector X - Kill Komato Berserker Cosaeco"},
+          {"name": "Sector X - Kill Komato Berserker Qygren"},
+          {"name": "Sector X - Kill Komato Berserker Viramah"},
+          {"name": "Sector X - Kill Komato Berserker Tormaebu"},
+          {"name": "Sector X - Kill Komato Berserker Feirakotem"},
+          {"name": "Sector X - Kill Komato Berserker Bauni Ce"},
+          {"name": "Sector X - Kill Komato Berserker Vazonja"},
+          {"name": "Sector X - Kill Komato Beast Hassali"},
+          {"name": "Sector X - Kill Komato Beast Viri"},
+          {"name": "Sector X - Kill Komato Beast Yiyu Qyan"},
+          {"name": "Sector X - Kill Komato Beast Gejacora"},
+          {"name": "Sector X - Kill Komato Beast Auwak"},
+          {"name": "Sector X - Kill Komato Assassin Asha"},
+          {"name": "Sector X - Kill Komato Annihilator Vasa"},
+          {"name": "Sector X - Kill Komato Annihilator Siena"},
+          {"name": "Sector X - Kill Komato Annihilator Saejao Buhastahel"},
+          {"name": "Sector X - Kill Komato Annihilator Tubuvak Asna"},
+          {"name": "Sector X - Kill Komato General Tor"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 578,
+            "y": 626
+          }
+        ]
+      },
+      {
+        "name": "Sector Z Enemies",
+        "sections": [
+          {"name": "Sector Z - Kill 1 White Sphere"},
+          {"name": "Sector Z - Kill 2 White Spheres"},
+          {"name": "Sector Z - Kill 3 White Spheres"},
+          {"name": "Sector Z - Kill 4 White Spheres"},
+          {"name": "Sector Z - Kill 5 White Spheres"},
+          {"name": "Sector Z - Kill 6 White Spheres"},
+          {"name": "Sector Z - Kill 7 White Spheres"},
+          {"name": "Sector Z - Kill 8 White Spheres"},
+          {"name": "Sector Z - Kill 9 White Spheres"},
+          {"name": "Sector Z - Kill 10 White Spheres"},
+          {"name": "Sector Z - Kill 11 White Spheres"},
+          {"name": "Sector Z - Kill 12 White Spheres"},
+          {"name": "Sector Z - Kill 13 White Spheres"},
+          {"name": "Sector Z - Kill 14 White Spheres"},
+          {"name": "Sector Z - Kill 15 White Spheres"},
+          {"name": "Sector Z - Kill 16 White Spheres"},
+          {"name": "Sector Z - Kill 17 White Spheres"},
+          {"name": "Sector Z - Kill 18 White Spheres"},
+          {"name": "Sector Z - Kill 19 White Spheres"},
+          {"name": "Sector Z - Kill 20 White Spheres"},
+          {"name": "Sector Z - Kill 21 White Spheres"},
+          {"name": "Sector Z - Kill 22 White Spheres"},
+          {"name": "Sector Z - Kill 1 Blue Fuzz"},
+          {"name": "Sector Z - Kill 2 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 3 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 4 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 5 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 6 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 7 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 8 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 9 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 10 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 11 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 12 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 13 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 14 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 15 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 16 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 17 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 18 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 19 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 20 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 21 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 22 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 23 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 24 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 25 Blue Fuzzes"},
+          {"name": "Sector Z - Kill 1 Trapper"},
+          {"name": "Sector Z - Kill 2 Trappers"},
+          {"name": "Sector Z - Kill 3 Trappers"},
+          {"name": "Sector Z - Kill 4 Trappers"},
+          {"name": "Sector Z - Kill 5 Trappers"},
+          {"name": "Sector Z - Kill 6 Trappers"},
+          {"name": "Sector Z - Kill 7 Trappers"},
+          {"name": "Sector Z - Kill 8 Trappers"},
+          {"name": "Sector Z - Kill 9 Trappers"},
+          {"name": "Sector Z - Kill 10 Trappers"},
+          {"name": "Sector Z - Kill 11 Trappers"},
+          {"name": "Sector Z - Kill 12 Trappers"},
+          {"name": "Sector Z - Kill 13 Trappers"},
+          {"name": "Sector Z - Kill 14 Trappers"},
+          {"name": "Sector Z - Kill 15 Trappers"},
+          {"name": "Sector Z - Kill 16 Trappers"},
+          {"name": "Sector Z - Kill 17 Trappers"},
+          {"name": "Sector Z - Kill 18 Trappers"},
+          {"name": "Sector Z - Kill 19 Trappers"},
+          {"name": "Sector Z - Kill 20 Trappers"},
+          {"name": "Sector Z - Kill 21 Trappers"},
+          {"name": "Sector Z - Kill 22 Trappers"},
+          {"name": "Sector Z - Kill 23 Trappers"},
+          {"name": "Sector Z - Kill 24 Trappers"},
+          {"name": "Sector Z - Kill 1 Drone"},
+          {"name": "Sector Z - Kill 2 Drones"},
+          {"name": "Sector Z - Kill 3 Drones"},
+          {"name": "Sector Z - Kill 4 Drones"},
+          {"name": "Sector Z - Kill 5 Drones"},
+          {"name": "Sector Z - Kill 6 Drones"},
+          {"name": "Sector Z - Kill 7 Drones"},
+          {"name": "Sector Z - Kill 8 Drones"},
+          {"name": "Sector Z - Kill 9 Drones"},
+          {"name": "Sector Z - Kill 10 Drones"},
+          {"name": "Sector Z - Kill 11 Drones"},
+          {"name": "Sector Z - Kill 12 Drones"},
+          {"name": "Sector Z - Kill 13 Drones"},
+          {"name": "Sector Z - Kill 14 Drones"},
+          {"name": "Sector Z - Kill 15 Drones"},
+          {"name": "Sector Z - Kill 16 Drones"},
+          {"name": "Sector Z - Kill 17 Drones"},
+          {"name": "Sector Z - Kill 18 Drones"},
+          {"name": "Sector Z - Kill 19 Drones"},
+          {"name": "Sector Z - Kill 20 Drones"},
+          {"name": "Sector Z - Kill 21 Drones"},
+          {"name": "Sector Z - Kill 22 Drones"},
+          {"name": "Sector Z - Kill 23 Drones"},
+          {"name": "Sector Z - Kill 24 Drones"},
+          {"name": "Sector Z - Kill 25 Drones"},
+          {"name": "Sector Z - Kill 26 Drones"},
+          {"name": "Sector Z - Kill 27 Drones"},
+          {"name": "Sector Z - Kill 28 Drones"}
+        ],
+        "map_locations": [
+          {
+            "map": "World",
+            "x": 1050,
+            "y": 626
           }
         ]
       },
@@ -1273,7 +2119,8 @@
       {
         "name": "Sector 1 Start",
         "sections": [
-          { "name": "Sector 1 - 1st Tutorial Logbook" }
+          { "name": "Sector 1 - 1st Tutorial Logbook" },
+          {"name": "Sector 1 - Kill Tasen Scout Tuva"}
         ],
         "map_locations": [
           {
@@ -1329,15 +2176,61 @@
         ]
       },
       {
+        "name": "Sector 1 Used Materials Access Left",
+        "sections": [
+          {"name": "Sector 1 - Kill Tasen Scout Ogrensie Tayu"},
+          {"name": "Sector 1 - Kill Tasen Scout Favi Savakrie"},
+          {"name": "Sector 1 - Kill Tasen Scout Zonrak"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector1",
+            "x": 384,
+            "y": 322
+          }
+        ]
+      },
+      {
         "name": "Sector 1 Used Materials Access Right",
         "sections": [
-          { "name": "Sector 1 - Logbook in Used Materials Access" }
+          { "name": "Sector 1 - Logbook in Used Materials Access" },
+          {"name": "Sector 1 - Kill Tasen Scout Xutei"},
+          {"name": "Sector 1 - Kill Tasen Soldier Iri"}
         ],
         "map_locations": [
           {
             "map": "Sector1",
             "x": 540,
             "y": 357
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Unsorted Materials Top",
+        "sections": [
+          {"name": "Sector 1 - Kill Tasen Soldier Elsa Haukti"},
+          {"name": "Sector 1 - Kill Tasen Scout Lofeito Hel"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector1",
+            "x": 672,
+            "y": 271
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Unsorted Materials Bottom",
+        "sections": [
+          {"name": "Sector 1 - Kill Tasen Scout Shohaka"},
+          {"name": "Sector 1 - Kill Tasen Scout Uzon"},
+          {"name": "Sector 1 - Kill Tasen Soldier Tajasun"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector1",
+            "x": 700,
+            "y": 320
           }
         ]
       },
@@ -1372,7 +2265,8 @@
       {
         "name": "Sector 1 Guard Post",
         "sections": [
-          { "name": "Sector 1 - Logbook in Guard Post" }
+          { "name": "Sector 1 - Logbook in Guard Post" },
+          {"name": "Sector 1 - Kill Tasen Scout Jao Viy"}
         ],
         "map_locations": [
           {
@@ -1398,7 +2292,23 @@
         ]
       },
       {
-        "name": "Sector 1 Medical Surplus",
+        "name": "Sector 1 Medical Surplus Left",
+        "sections": [
+          {"name": "Sector 1 - Kill Tasen Scout Sunsak"},
+          {"name": "Sector 1 - Kill Tasen Scout Mari"},
+          {"name": "Sector 1 - Kill Tasen Scout Fahel"},
+          {"name": "Sector 1 - Kill Tasen Soldier Tusun Tuvaxu"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector1",
+            "x": 950,
+            "y": 428
+          }
+        ]
+      },
+      {
+        "name": "Sector 1 Medical Surplus Right",
         "sections": [
           { "name": "Sector 1 - Logbook at End of Sector" },
           { "name": "Sector 1 - Sector Complete" }
@@ -1480,7 +2390,9 @@
       {
         "name": "Sector 2 Doctors' Offices Bottom Left",
         "sections": [
-          { "name": "Sector 2 - Security Box in Doctors' Offices" }
+          { "name": "Sector 2 - Security Box in Doctors' Offices" },
+          {"name": "Sector 2 - Kill Tasen Scout Sasjusa"},
+          {"name": "Sector 2 - Kill Tasen Soldier Cazedel"}
         ],
         "map_locations": [
           {
@@ -1493,7 +2405,8 @@
       {
         "name": "Sector 2 Doctors' Offices Top",
         "sections": [
-          { "name": "Sector 2 - Logbook Left of Breakable Wall" }
+          { "name": "Sector 2 - Logbook Left of Breakable Wall" },
+          {"name": "Sector 2 - Kill Tasen Scout Yuyu"}
         ],
         "map_locations": [
           {
@@ -1603,13 +2516,16 @@
       {
         "name": "Sector 2 Right of Checkpoint",
         "sections": [
-          { "name": "Sector 2 - Logbook Near 1st Terminal" }
+          { "name": "Sector 2 - Logbook Near 1st Terminal" },
+          {"name": "Sector 2 - Kill Tasen Scout Asdel"},
+          {"name": "Sector 2 - Kill Tasen Scout Kepaktoh"},
+          {"name": "Sector 2 - Kill Tasen Scout Bulei"}
         ],
         "map_locations": [
           {
             "map": "Sector2",
-            "x": 727,
-            "y": 269
+            "x": 704,
+            "y": 257
           }
         ]
       },
@@ -1627,6 +2543,22 @@
         ]
       },
       {
+        "name": "Sector 2 Medical Bay Enemies",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Cobu"},
+          {"name": "Sector 2 - Kill Tasen Soldier Suntie"},
+          {"name": "Sector 2 - Kill Tasen Soldier Kari Lo"},
+          {"name":"Sector 2 - Kill Tasen Commander Jage"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 491,
+            "y": 266
+          }
+        ]
+      },
+      {
         "name": "Sector 2 Ribbon",
         "sections": [
           { "name": "Sector 2 - Ribbon" }
@@ -1640,15 +2572,44 @@
         ]
       },
       {
+        "name": "Sector 2 Head Doctors' Office",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Wakro"},
+          {"name": "Sector 2 - Kill Tasen Scout Quhtei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 398,
+            "y": 341
+          }
+        ]
+      },
+      {
         "name": "Sector 2 Medical Access Top",
         "sections": [
-          { "name": "Sector 2 - Logbook at Top of Medical Access" }
+          { "name": "Sector 2 - Logbook at Top of Medical Access" },
+          {"name": "Sector 2 - Kill Tasen Commander Matoh Feiwaktor"}
         ],
         "map_locations": [
           {
             "map": "Sector2",
             "x": 736,
             "y": 321
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Storage",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Elipera"},
+          {"name": "Sector 2 - Kill Tasen Scout Zege Ba"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 695,
+            "y": 200
           }
         ]
       },
@@ -1668,13 +2629,28 @@
       {
         "name": "Sector 2 Security Overload",
         "sections": [
-          { "name": "Sector 2 - Nano Overload in Security Station" }
+          { "name": "Sector 2 - Nano Overload in Security Station" },
+          { "name": "Sector 2 - Kill Tasen Elite Teira Sunjao" }
         ],
         "map_locations": [
           {
             "map": "Sector2",
-            "x": 593,
-            "y": 132
+            "x": 575,
+            "y": 152
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Ventilation Shaft",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Greno"},
+          {"name": "Sector 2 - Kill Tasen Soldier Klexu"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 890,
+            "y": 383
           }
         ]
       },
@@ -1709,7 +2685,8 @@
       {
         "name": "Sector 2 Storeroom",
         "sections": [
-          { "name": "Sector 2 - Security Box in Storeroom" }
+          { "name": "Sector 2 - Security Box in Storeroom" },
+          {"name": "Sector 2 - Kill Tasen Soldier Wusae"}
         ],
         "map_locations": [
           {
@@ -1761,6 +2738,50 @@
             "y": 627
           }
         ]
+      },
+      {
+        "name": "Sector 2 Supplies A",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Commander Shahauk Hasja"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 533,
+            "y": 440
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Doctors' Offices Middle",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Grenkaitu"},
+          {"name": "Sector 2 - Kill Tasen Scout Saetor"},
+          {"name": "Sector 2 - Kill Tasen Scout Tei Faratie"},
+          {"name": "Sector 2 - Kill Tasen Soldier Helmkai"},
+          {"name": "Sector 2 - Kill Tasen Soldier Yizepay"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 599,
+            "y": 464
+          }
+        ]
+      },
+      {
+        "name": "Sector 2 Storage Transport Top",
+        "sections": [
+          {"name": "Sector 2 - Kill Tasen Scout Yah Rieba"},
+          {"name": "Sector 2 - Kill Tasen Soldier Bupaqu"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector2",
+            "x": 509,
+            "y": 398
+          }
+        ]
       }
     ]
   },
@@ -1783,7 +2804,10 @@
       {
         "name": "Sector 3 Software Development Left",
         "sections": [
-          { "name": "Sector 3 - Logbook in Software Development" }
+          { "name": "Sector 3 - Logbook in Software Development" },
+          {"name": "Sector 3 - Kill Tasen Scout Berge Ansho"},
+          {"name": "Sector 3 - Kill Tasen Scout Yisaktu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Naeman Jezo"}
         ],
         "map_locations": [
           {
@@ -1808,9 +2832,26 @@
         ]
       },
       {
+        "name": "Sector 3 Software Development Right",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Scout Yankaio"},
+          {"name": "Sector 3 - Kill Tasen Soldier Vateilika"},
+          {"name": "Sector 3 - Kill Tasen Soldier Vitohlei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 350,
+            "y": 296
+          }
+        ]
+      },
+      {
         "name": "Sector 3 Software Development Far Right",
         "sections": [
-          { "name": "Sector 3 - Logbook at Right of Software Development" }
+          { "name": "Sector 3 - Logbook at Right of Software Development" },
+          {"name": "Sector 3 - Kill Tasen Soldier Hasu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Coriwaqu"}
         ],
         "map_locations": [
           {
@@ -1826,7 +2867,9 @@
           { "name": "Sector 3 - Security Box in Storage A" },
           { "name": "Obtain Machine Gun" },
           { "name": "Sector 3 - Machine Gun" },
-          { "name": "Sector 3 - Machine Gun in Storage A" }
+          { "name": "Sector 3 - Machine Gun in Storage A" },
+          { "name": "Sector 3 - Kill Tasen Scout Hemsarier Izoni" },
+          { "name": "Sector 3 - Kill Tasen Scout Zonotuca" }
         ],
         "map_locations": [
           {
@@ -1854,13 +2897,28 @@
       {
         "name": "Sector 3 Forked Ventilation Left",
         "sections": [
-          { "name": "Sector 3 - Logbook near Ceiling Blits" }
+          { "name": "Sector 3 - Logbook near Ceiling Blits" },
+          {"name": "Sector 3 - Kill Tasen Scout Xuribeyi"},
+          {"name": "Sector 3 - Kill Tasen Soldier Quburu Mari"}
         ],
         "map_locations": [
           {
             "map": "Sector3",
-            "x": 320,
-            "y": 503
+            "x": 329,
+            "y": 521
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Storage B",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Commander Taasjasak"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 191,
+            "y": 536
           }
         ]
       },
@@ -1896,13 +2954,36 @@
         "sections": [
           { "name": "Obtain Machine Gun" },
           { "name": "Sector 3 - Machine Gun" },
-          { "name": "Sector 3 - Machine Gun in Main Entrance Left" }
+          { "name": "Sector 3 - Machine Gun in Main Entrance Left" },
+          {"name": "Sector 3 - Kill Tasen Scout Hauk Viqu"},
+          {"name": "Sector 3 - Kill Tasen Scout Waktuke Zo"},
+          {"name": "Sector 3 - Kill Tasen Scout Emmae"},
+          {"name": "Sector 3 - Kill Tasen Soldier Zonohasha"},
+          {"name": "Sector 3 - Kill Tasen Soldier An Wak"},
+          {"name": "Sector 3 - Kill Tasen Soldier Waquhes"},
+          {"name": "Sector 3 - Kill Tasen Soldier Grenuti"},
+          {"name": "Sector 3 - Kill Tasen Commander Lohauk Mae"}
         ],
         "map_locations": [
           {
             "map": "Sector3",
-            "x": 388,
-            "y": 591
+            "x": 418,
+            "y": 613
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Main Entrance Middle",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Scout Hasto"},
+          {"name": "Sector 3 - Kill Tasen Scout Jati"},
+          {"name": "Sector 3 - Kill Tasen Commander Falo"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 527,
+            "y": 620
           }
         ]
       },
@@ -1912,13 +2993,34 @@
           { "name": "Sector 3 - Checkpoint" },
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 3 - Rocket Launcher" },
-          { "name": "Sector 3 - Rocket Launcher in Main Entrance Right" }
+          { "name": "Sector 3 - Rocket Launcher in Main Entrance Right" },
+          {"name": "Sector 3 - Kill Tasen Scout Siefa"},
+          {"name": "Sector 3 - Kill Tasen Scout Mawa Yae"},
+          {"name": "Sector 3 - Kill Tasen Scout Zonhelico"},
+          {"name": "Sector 3 - Kill Tasen Soldier Yabaturaibu"},
+          {"name": "Sector 3 - Kill Tasen Soldier Cetor Fei"},
+          {"name": "Sector 3 - Kill Tasen Commander Pahot"}
         ],
         "map_locations": [
           {
             "map": "Sector3",
-            "x": 663,
-            "y": 609
+            "x": 626,
+            "y": 614
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Recreation",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Scout Zesie"},
+          {"name": "Sector 3 - Kill Tasen Scout Hawu"},
+          {"name": "Sector 3 - Kill Tasen Elite Jhokta"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 722,
+            "y": 623
           }
         ]
       },
@@ -1927,13 +3029,31 @@
         "sections": [
           { "name": "Sector 3 - Armor Upgrade" },
           { "name": "Sector 3 - 1st Logbook near Armor Upgrade" },
-          { "name": "Sector 3 - 2nd Logbook near Armor Upgrade" }
+          { "name": "Sector 3 - 2nd Logbook near Armor Upgrade" },
+          {"name": "Sector 3 - Kill Tasen Scout Heseilo"},
+          {"name": "Sector 3 - Kill Tasen Soldier Saenanita"},
+          {"name": "Sector 3 - Kill Tasen Soldier Jao Genio"},
+          {"name": "Sector 3 - Kill Tasen Commander Quwao Sun"}
         ],
         "map_locations": [
           {
             "map": "Sector3",
-            "x": 724,
-            "y": 521
+            "x": 725,
+            "y": 508
+          }
+        ]
+      },
+      {
+        "name": "Sector 3 Armory Top",
+        "sections": [
+          {"name": "Sector 3 - Kill Tasen Scout Zongeas"},
+          {"name": "Sector 3 - Kill Tasen Commander Cerixumah"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector3",
+            "x": 731,
+            "y": 455
           }
         ]
       },
@@ -1957,13 +3077,16 @@
           { "name": "Sector 3 - 3rd Komato Logbook" },
           { "name": "Sector 3 - 4th Komato Logbook" },
           { "name": "Obtain Resonance Detonator" },
-          { "name": "Sector 3 - Resonance Detonator" }
+          { "name": "Sector 3 - Resonance Detonator" },
+          {"name": "Sector 3 - Kill Komato Trooper Zonharak"},
+          {"name": "Sector 3 - Kill Komato Trooper Siete"},
+          {"name": "Sector 3 - Kill Komato Trooper Xavi"}
         ],
         "map_locations": [
           {
             "map": "Sector3",
-            "x": 712,
-            "y": 292
+            "x": 707,
+            "y": 307
           }
         ]
       },
@@ -2018,7 +3141,8 @@
           { "name": "Sector 3 - Machine Gun near End" },
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 3 - Rocket Launcher" },
-          { "name": "Sector 3 - Rocket Launcher in Secured Box near End" }
+          { "name": "Sector 3 - Rocket Launcher in Secured Box near End" },
+          {"name": "Sector 3 - Kill Tasen Soldier Maeja"}
         ],
         "map_locations": [
           {
@@ -2057,7 +3181,8 @@
       {
         "name": "Sector 3 End",
         "sections": [
-          { "name": "Sector 3 - Sector Complete" }
+          { "name": "Sector 3 - Sector Complete" },
+          {"name": "Sector 3 - Kill Tasen Elite Krotera"}
         ],
         "map_locations": [
           {
@@ -2118,13 +3243,45 @@
       {
         "name": "Sector 4 Surveillance Control",
         "sections": [
-          { "name": "Sector 4 - Logbook Behind Breakable Wall at Start" }
+          { "name": "Sector 4 - Logbook Behind Breakable Wall at Start" },
+          {"name": "Sector 4 - Kill Tasen Commander Rakwu"}
         ],
         "map_locations": [
           {
             "map": "Sector4",
             "x": 416,
-            "y": 185
+            "y": 166
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Main Storage Hub Left",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Tiikatei"},
+          {"name": "Sector 4 - Kill Tasen Soldier Esem Sie"},
+          {"name": "Sector 4 - Kill Tasen Commander Xaas"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 425,
+            "y": 266
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Main Storage Hub Right",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Haia"},
+          {"name": "Sector 4 - Kill Tasen Scout Ashdel Es"},
+          {"name": "Sector 4 - Kill Tasen Soldier Grenka"},
+          {"name": "Sector 4 - Kill Tasen Soldier Hemgren"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 566,
+            "y": 278
           }
         ]
       },
@@ -2135,13 +3292,32 @@
           { "name": "Sector 4 - Rocket Launcher" },
           { "name": "Sector 4 - Rocket Launcher near First Terminal" },
           { "name": "Obtain Resonance Detonator" },
-          { "name": "Sector 4 - Resonance Detonator" }
+          { "name": "Sector 4 - Resonance Detonator" },
+          {"name": "Sector 4 - Kill Tasen Scout Mali"},
+          {"name": "Sector 4 - Kill Tasen Scout Saefa"},
+          {"name": "Sector 4 - Kill Tasen Scout Wugren"},
+          {"name": "Sector 4 - Kill Tasen Scout Pah Bai"},
+          {"name": "Sector 4 - Kill Tasen Soldier Sharaiqy"}
         ],
         "map_locations": [
           {
             "map": "Sector4",
             "x": 531,
             "y": 307
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Main Storage Hub Exit",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Soldier Hassjawak"},
+          {"name": "Sector 4 - Kill Tasen Soldier Zetirie"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 404,
+            "y": 308
           }
         ]
       },
@@ -2155,6 +3331,37 @@
             "map": "Sector4",
             "x": 606,
             "y": 355
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Main Storage Top Middle",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Tiei"},
+          {"name": "Sector 4 - Kill Tasen Scout Yinaklas"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 516,
+            "y": 359
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Main Storage Bottom",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Tidepaash Sho"},
+          {"name": "Sector 4 - Kill Tasen Scout Zerie Cahashem"},
+          {"name": "Sector 4 - Kill Tasen Soldier Tilohauk"},
+          {"name": "Sector 4 - Kill Tasen Soldier Zebeli"},
+          {"name": "Sector 4 - Kill Tasen Soldier Ber Viketo"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 503,
+            "y": 395
           }
         ]
       },
@@ -2187,10 +3394,14 @@
         ]
       },
       {
-        "name": "Sector 4 Main Storage Bottom",
+        "name": "Sector 4 Main Storage Exit",
         "sections": [
           { "name": "Obtain Machine Gun" },
-          { "name": "Sector 4 - Machine Gun" }
+          { "name": "Sector 4 - Machine Gun" },
+          {"name": "Sector 4 - Kill Tasen Scout Hem Li"},
+          {"name": "Sector 4 - Kill Tasen Scout Vajagren"},
+          {"name": "Sector 4 - Kill Tasen Soldier Uria"},
+          {"name": "Sector 4 - Kill Tasen Soldier Yahwak"}
         ],
         "map_locations": [
           {
@@ -2199,6 +3410,18 @@
             "y": 417
           }
         ]
+      },
+      {
+        "name": "Sector 4 Before Double Doors",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Detorpe Voe"},
+          {"name": "Sector 4 - Kill Tasen Scout Au Xutor"},
+          {"name": "Sector 4 - Kill Tasen Scout Rakaiwu"},
+          {"name": "Sector 4 - Kill Tasen Commander Paktei"}
+        ],
+        "map_locations": "Sector4",
+        "x": 704,
+        "y": 392
       },
       {
         "name": "Sector 4 Guard Post",
@@ -2214,22 +3437,53 @@
         ]
       },
       {
-        "name": "Sector 4 Right Terminal",
+        "name": "Sector 4 Before Right Terminal",
         "sections": [
           { "name": "Sector 4 - Logbook in Shaft above Secured Doors" },
           { "name": "Sector 4 - Checkpoint" },
           { "name": "Sector 4 - Logbook toward Right Terminal" },
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 4 - Rocket Launcher" },
-          { "name": "Sector 4 - Rocket Launcher near Checkpoint" },
-          { "name": "Obtain Pulse Cannon" },
-          { "name": "Sector 4 - Pulse Cannon" }
+          { "name": "Sector 4 - Rocket Launcher near Checkpoint" }
         ],
         "map_locations": [
           {
             "map": "Sector4",
-            "x": 813,
-            "y": 301
+            "x": 791,
+            "y": 302
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Right Terminal",
+        "sections": [
+          {"name": "Obtain Pulse Cannon"},
+          {"name": "Sector 4 - Pulse Cannon"},
+          {"name": "Sector 4 - Kill Tasen Scout Rayah"},
+          {"name": "Sector 4 - Kill Tasen Scout Ke Fakera"},
+          {"name": "Sector 4 - Kill Tasen Soldier Otelcau"},
+          {"name": "Sector 4 - Kill Tasen Soldier Jhoktai"},
+          {"name": "Sector 4 - Kill Tasen Elite Peihemfei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 872,
+            "y": 290
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Below Left Terminal",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Torkai An"},
+          {"name": "Sector 4 - Kill Tasen Elite Xusha"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 689,
+            "y": 326
           }
         ]
       },
@@ -2263,13 +3517,32 @@
       {
         "name": "Sector 4 Crackbox",
         "sections": [
-          { "name": "Sector 4 - Security Box" }
+          { "name": "Sector 4 - Security Box" },
+          {"name": "Sector 4 - Kill Tasen Soldier Ribe Ayah"}
         ],
         "map_locations": [
           {
             "map": "Sector4",
-            "x": 885,
-            "y": 385
+            "x": 842,
+            "y": 380
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Restricted Storage Access",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Hastuwate"},
+          {"name": "Sector 4 - Kill Tasen Scout Malei Besha"},
+          {"name": "Sector 4 - Kill Tasen Scout Saegren Ta"},
+          {"name": "Sector 4 - Kill Tasen Scout Asti"},
+          {"name": "Sector 4 - Kill Tasen Soldier Rafajena"},
+          {"name": "Sector 4 - Kill Tasen Commander Astoh Cacosaolo"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 841,
+            "y": 452
           }
         ]
       },
@@ -2283,6 +3556,24 @@
             "map": "Sector4",
             "x": 701,
             "y": 466
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Reactor Core Enemies",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Scout Xuotta"},
+          {"name": "Sector 4 - Kill Tasen Scout Sunhem"},
+          {"name": "Sector 4 - Kill Tasen Soldier Delderohas"},
+          {"name": "Sector 4 - Kill Tasen Soldier Grenrahauk"},
+          {"name": "Sector 4 - Kill Tasen Soldier Emshata"},
+          {"name": "Sector 4 - Kill Tasen Commander Loroiyi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 605,
+            "y": 503
           }
         ]
       },
@@ -2303,13 +3594,30 @@
       {
         "name": "Sector 4 End Weapon Station",
         "sections": [
-          { "name": "Sector 4 - Logbook near End" }
+          { "name": "Sector 4 - Logbook near End" },
+          {"name": "Sector 4 - Kill Tasen Scout Del Bacoisun"},
+          {"name": "Sector 4 - Kill Tasen Scout Ja Sha"},
+          {"name": "Sector 4 - Kill Tasen Scout Yaze"}
         ],
         "map_locations": [
           {
             "map": "Sector4",
-            "x": 803,
+            "x": 779,
             "y": 569
+          }
+        ]
+      },
+      {
+        "name": "Sector 4 Final Shredders",
+        "sections": [
+          {"name": "Sector 4 - Kill Tasen Soldier Payte"},
+          {"name": "Sector 4 - Kill Tasen Soldier Xuaroika"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 764,
+            "y": 512
           }
         ]
       },
@@ -2363,6 +3671,29 @@
     "name": "Sector 5",
     "children": [
       {
+        "name": "Sector 5 Start",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Rorak Viamae"},
+          {"name": "Sector 5 - Kill Tasen Scout Yriema"},
+          {"name": "Sector 5 - Kill Tasen Scout Askeiota"},
+          {"name": "Sector 5 - Kill Tasen Scout Roigren"},
+          {"name": "Sector 5 - Kill Tasen Scout Qurasha"},
+          {"name": "Sector 5 - Kill Tasen Soldier Visun"},
+          {"name": "Sector 5 - Kill Tasen Soldier Sunmawa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ibupay"},
+          {"name": "Sector 5 - Kill Komato Trooper Tortie"},
+          {"name": "Sector 5 - Kill Komato Trooper Wulei"},
+          {"name": "Sector 5 - Kill Komato Trooper Yaqupay"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 158,
+            "y": 596
+          }
+        ]
+      },
+      {
         "name": "Sector 5 Early Crackboxes",
         "sections": [
           { "name": "Sector 5 - Security Box 1 in First Storeroom" },
@@ -2382,13 +3713,21 @@
         "sections": [
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 5 - Rocket Launcher" },
-          { "name": "Sector 5 - Rocket Launcher after First Elevator" }
+          { "name": "Sector 5 - Rocket Launcher after First Elevator" },
+          {"name": "Sector 5 - Kill Tasen Soldier Bevapa Riya"},
+          {"name": "Sector 5 - Kill Tasen Soldier Hel Rie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Tisae"},
+          {"name": "Sector 5 - Kill Tasen Elite Vakrai"},
+          {"name": "Sector 5 - Kill Komato Trooper Xusun"},
+          {"name": "Sector 5 - Kill Komato Trooper Conaot"},
+          {"name": "Sector 5 - Kill Komato Trooper Ranibewu"},
+          {"name": "Sector 5 - Kill Komato Trooper Ja Losho"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
-            "x": 249,
-            "y": 435
+            "x": 283,
+            "y": 444
           }
         ]
       },
@@ -2397,13 +3736,24 @@
         "sections": [
           { "name": "Obtain Machine Gun" },
           { "name": "Sector 5 - Machine Gun" },
-          { "name": "Sector 5 - Machine Gun Left of First Elevator" }
+          { "name": "Sector 5 - Machine Gun Left of First Elevator" },
+          {"name": "Sector 5 - Kill Tasen Scout Asei Xurai"},
+          {"name": "Sector 5 - Kill Tasen Scout Kaquosun"},
+          {"name": "Sector 5 - Kill Tasen Scout Helsak Losaeja"},
+          {"name": "Sector 5 - Kill Tasen Scout Rakjanio"},
+          {"name": "Sector 5 - Kill Tasen Scout Utoli"},
+          {"name": "Sector 5 - Kill Tasen Soldier Kapah"},
+          {"name": "Sector 5 - Kill Tasen Soldier Paydepei"},
+          {"name": "Sector 5 - Kill Tasen Commander Otozobe Sha"},
+          {"name": "Sector 5 - Kill Komato Trooper Mapei Pake"},
+          {"name": "Sector 5 - Kill Komato Trooper Naperak"},
+          {"name": "Sector 5 - Kill Komato Trooper Pa Essak"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
-            "x": 131,
-            "y": 435
+            "x": 164,
+            "y": 444
           }
         ]
       },
@@ -2421,15 +3771,73 @@
         ]
       },
       {
-        "name": "Sector 5 Storage Control Sideroom",
+        "name": "Sector 5 Storage Control Bottom",
         "sections": [
-          { "name": "Sector 5 - Nano Overload in Storage Control Sideroom" }
+          {"name": "Sector 5 - Kill Tasen Scout Pahesk Maeo"},
+          {"name": "Sector 5 - Kill Tasen Scout Saka"},
+          {"name": "Sector 5 - Kill Tasen Soldier Grenhasel"},
+          {"name": "Sector 5 - Kill Tasen Commander Pahemli"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
-            "x": 135,
-            "y": 333
+            "x": 265,
+            "y": 386
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Storage Control Left",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Klogrenu"},
+          {"name": "Sector 5 - Kill Tasen Scout Shouma"},
+          {"name": "Sector 5 - Kill Tasen Scout Aswu"},
+          {"name": "Sector 5 - Kill Tasen Scout Harieje"},
+          {"name": "Sector 5 - Kill Tasen Soldier Pakaze"},
+          {"name": "Sector 5 - Kill Tasen Commander Baqyi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 192,
+            "y": 343
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Storage Control Right",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Torjaoto Saw"},
+          {"name": "Sector 5 - Kill Tasen Scout Berako"},
+          {"name": "Sector 5 - Kill Tasen Scout Zonrie"},
+          {"name": "Sector 5 - Kill Tasen Scout Elde Lipakotsun"},
+          {"name": "Sector 5 - Kill Tasen Scout Hel Wavate"},
+          {"name": "Sector 5 - Kill Tasen Soldier Kematasa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Voesak"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ikajhok Mae"},
+          {"name": "Sector 5 - Kill Tasen Commander Saqubu"},
+          {"name": "Sector 5 - Kill Komato Berserker Zonio"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 323,
+            "y": 332
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Storage Control Sideroom",
+        "sections": [
+          { "name": "Sector 5 - Nano Overload in Storage Control Sideroom" },
+          {"name": "Sector 5 - Kill Tasen Soldier Voe Vaksaera"},
+          {"name": "Sector 5 - Kill Tasen Soldier Helroihauk"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 125,
+            "y": 343
           }
         ]
       },
@@ -2482,7 +3890,15 @@
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector 5 - Pulse Cannon" },
           { "name": "Sector 5 - Pulse Cannon in Komato Assault Carrier" },
-          { "name": "Sector 5 - Logbook in Komato Assault Carrier" }
+          { "name": "Sector 5 - Logbook in Komato Assault Carrier" },
+          {"name": "Sector 5 - Kill Tasen Soldier Yaeisako Sie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Peroi"},
+          {"name": "Sector 5 - Kill Tasen Soldier Shofali"},
+          {"name": "Sector 5 - Kill Tasen Soldier Eswakzo"},
+          {"name": "Sector 5 - Kill Tasen Commander Leige Raktor"},
+          {"name": "Sector 5 - Kill Komato Trooper Berem Niri"},
+          {"name": "Sector 5 - Kill Komato Trooper Elhas Valei"},
+          {"name": "Sector 5 - Kill Komato Berserker Xarai"}
         ],
         "map_locations": [
           {
@@ -2493,22 +3909,61 @@
         ]
       },
       {
-        "name": "Sector 5 Below Poster",
+        "name": "Sector 5 Left of Assault Carrier",
         "sections": [
-          { "name": "Sector 5 - Logbook below Poster" }
+          {"name": "Sector 5 - Kill Tasen Scout Xugepei"},
+          {"name": "Sector 5 - Kill Tasen Commander Sunha"},
+          {"name": "Sector 5 - Kill Komato Trooper Dehemtor"},
+          {"name": "Sector 5 - Kill Komato Trooper Coro"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
-            "x": 798,
-            "y": 180
+            "x": 635,
+            "y": 197
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Logbook Below Poster",
+        "sections": [
+          { "name": "Sector 5 - Logbook below Poster" },
+          {"name": "Sector 5 - Kill Tasen Soldier Besaeti"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ti Ce"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 796,
+            "y": 169
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Enemies Below Poster",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Covayah"},
+          {"name": "Sector 5 - Kill Tasen Scout Sunkeroi"},
+          {"name": "Sector 5 - Kill Tasen Soldier Xueshastu"},
+          {"name": "Sector 5 - Kill Tasen Commander Eswa Kepah"},
+          {"name": "Sector 5 - Kill Tasen Commander Liroto"},
+          {"name": "Sector 5 - Kill Tasen Commander Haisak"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 794,
+            "y": 131
           }
         ]
       },
       {
         "name": "Sector 5 Poster",
         "sections": [
-          { "name": "Sector 5 - Poster" }
+          { "name": "Sector 5 - Poster" },
+          {"name": "Sector 5 - Kill Tasen Commander Zoyah"},
+          {"name": "Sector 5 - Kill Tasen Elite An Fa"},
+          {"name": "Sector 5 - Kill Tasen Elite Dehemni Helpak"}
         ],
         "map_locations": [
           {
@@ -2519,16 +3974,91 @@
         ]
       },
       {
+        "name": "Sector 5 Materials Analysis A Top",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Aslova"},
+          {"name": "Sector 5 - Kill Tasen Soldier Sakhas"},
+          {"name": "Sector 5 - Kill Tasen Soldier Roniba"},
+          {"name": "Sector 5 - Kill Tasen Soldier Otraktie"},
+          {"name": "Sector 5 - Kill Tasen Commander Yukeca"},
+          {"name": "Sector 5 - Kill Tasen Elite Haspei"},
+          {"name": "Sector 5 - Kill Komato Trooper Heltei"},
+          {"name": "Sector 5 - Kill Komato Berserker Hasmah"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 707,
+            "y": 335
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Tasen vs Komato Door",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Derak Jhokdel"},
+          {"name": "Sector 5 - Kill Tasen Scout Grenti Rokai"},
+          {"name": "Sector 5 - Kill Tasen Scout Yahpa"},
+          {"name": "Sector 5 - Kill Tasen Scout Niwakmae"},
+          {"name": "Sector 5 - Kill Tasen Soldier Wu Mahro"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yrak"},
+          {"name": "Sector 5 - Kill Tasen Commander As Xuvaksie"},
+          {"name": "Sector 5 - Kill Komato Trooper Zonjapako"},
+          {"name": "Sector 5 - Kill Komato Trooper Anzoma"},
+          {"name": "Sector 5 - Kill Komato Trooper Esa"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 689,
+            "y": 377
+          }
+        ]
+      },
+      {
         "name": "Sector 5 Left Terminal",
         "sections": [
           { "name": "Sector 5 - 1st Logbook near Left Terminal" },
-          { "name": "Sector 5 - 2nd Logbook near Left Terminal" }
+          { "name": "Sector 5 - 2nd Logbook near Left Terminal" },
+          {"name": "Sector 5 - Kill Tasen Scout Esgren Mae"},
+          {"name": "Sector 5 - Kill Tasen Scout Nidely"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
             "x": 720,
             "y": 400
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Materials Analysis B Top",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Anmaesk"},
+          {"name": "Sector 5 - Kill Tasen Scout Voetoro"},
+          {"name": "Sector 5 - Kill Tasen Scout Yies"},
+          {"name": "Sector 5 - Kill Tasen Soldier Wawaksie"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 872,
+            "y": 416
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Materials Analysis B Terminal",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Rasha"},
+          {"name": "Sector 5 - Kill Tasen Scout Rihauk"},
+          {"name": "Sector 5 - Kill Tasen Soldier Del Je"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 905,
+            "y": 467
           }
         ]
       },
@@ -2561,6 +4091,28 @@
         ]
       },
       {
+        "name": "Sector 5 Classified Materials Control",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Toh Yuraiwu"},
+          {"name": "Sector 5 - Kill Tasen Scout Xuantura"},
+          {"name": "Sector 5 - Kill Tasen Soldier Zoniorak"},
+          {"name": "Sector 5 - Kill Tasen Soldier Japeito"},
+          {"name": "Sector 5 - Kill Tasen Commander Na Mae"},
+          {"name": "Sector 5 - Kill Tasen Elite Kabe"},
+          {"name": "Sector 5 - Kill Komato Trooper Hasnio"},
+          {"name": "Sector 5 - Kill Komato Trooper Delpay"},
+          {"name": "Sector 5 - Kill Komato Trooper Hasa Vashode"},
+          {"name": "Sector 5 - Kill Komato Trooper Elbu"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 695,
+            "y": 554
+          }
+        ]
+      },
+      {
         "name": "Sector 5 Classified Materials Analysis",
         "sections": [
           { "name": "Obtain Machine Gun" },
@@ -2568,13 +4120,44 @@
           { "name": "Sector 5 - Machine Gun near Floor 3 Terminal" },
           { "name": "Sector 5 - 1st Logbook near Floor 3 Terminal" },
           { "name": "Sector 5 - 2nd Logbook near Floor 3 Terminal" },
-          { "name": "Sector 5 - Nano Overload in Classified Materials Analysis" }
+          { "name": "Sector 5 - Nano Overload in Classified Materials Analysis" },
+          {"name": "Sector 5 - Kill Tasen Scout Auta"},
+          {"name": "Sector 5 - Kill Tasen Scout Aumaba"},
+          {"name": "Sector 5 - Kill Tasen Scout Tosjael"},
+          {"name": "Sector 5 - Kill Tasen Scout Voesak Zoxu"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ra Bexu"},
+          {"name": "Sector 5 - Kill Tasen Soldier Es Abersa"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yahi"}
         ],
         "map_locations": [
           {
             "map": "Sector5",
             "x": 560,
             "y": 588
+          }
+        ]
+      },
+      {
+        "name": "Sector 5 Classified Materials Storage",
+        "sections": [
+          {"name": "Sector 5 - Kill Tasen Scout Ka Namae"},
+          {"name": "Sector 5 - Kill Tasen Scout Caanwa"},
+          {"name": "Sector 5 - Kill Tasen Scout Jaope Te"},
+          {"name": "Sector 5 - Kill Tasen Scout Tohel"},
+          {"name": "Sector 5 - Kill Tasen Soldier Cece"},
+          {"name": "Sector 5 - Kill Tasen Soldier Ti Payra"},
+          {"name": "Sector 5 - Kill Tasen Soldier Yisie"},
+          {"name": "Sector 5 - Kill Tasen Soldier Zotakai"},
+          {"name": "Sector 5 - Kill Tasen Elite Raber Shamah"},
+          {"name": "Sector 5 - Kill Komato Trooper Sakteto"},
+          {"name": "Sector 5 - Kill Komato Trooper Berotpak"},
+          {"name": "Sector 5 - Kill Komato Berserker Vakalei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector5",
+            "x": 749,
+            "y": 626
           }
         ]
       },
@@ -2640,7 +4223,8 @@
           { "name": "Sector 5 - Resonance Detonator" },
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector 5 - Pulse Cannon" },
-          { "name": "Sector 5 - Pulse Cannon near Ribbon" }
+          { "name": "Sector 5 - Pulse Cannon near Ribbon" },
+          {"name": "Sector 5 - Kill Tasen Soldier Embu"}
         ],
         "map_locations": [
           {
@@ -2700,6 +4284,45 @@
     "name": "Sector 6",
     "children": [
       {
+        "name": "Sector 6 Shipping Control",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Asa Riesratu"},
+          {"name": "Sector 6 - Kill Tasen Soldier Rieesk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nicosaktor"},
+          {"name": "Sector 6 - Kill Tasen Soldier Hapa Famae"},
+          {"name": "Sector 6 - Kill Tasen Soldier Teitu"},
+          {"name": "Sector 6 - Kill Tasen Commander Yipaxu"},
+          {"name": "Sector 6 - Kill Tasen Commander Ka Del"},
+          {"name": "Sector 6 - Kill Komato Trooper Bepei"},
+          {"name": "Sector 6 - Kill Komato Trooper Siero"},
+          {"name": "Sector 6 - Kill Komato Trooper Maoliem Buyah"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 377,
+            "y": 304
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Ventilation Shaft",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Lite"},
+          {"name": "Sector 6 - Kill Tasen Soldier Dezo Ge"},
+          {"name": "Sector 6 - Kill Tasen Commander Taelfei"},
+          {"name": "Sector 6 - Kill Komato Trooper Hastodel"},
+          {"name": "Sector 6 - Kill Komato Trooper Esvaksun"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 427,
+            "y": 392
+          }
+        ]
+      },
+      {
         "name": "Sector 6 Ventilation Shocksplinter",
         "sections": [
           { "name": "Obtain Shocksplinter" },
@@ -2716,11 +4339,27 @@
         ]
       },
       {
+        "name": "Sector 6 Security Network Admin",
+        "sections": [
+          {"name": "Sector 6 - Kill Komato Trooper Ashber"},
+          {"name": "Sector 6 - Kill Komato Trooper Licehel Yavoe"},
+          {"name": "Sector 6 - Kill Komato Trooper Jahauk"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 521,
+            "y": 290
+          }
+        ]
+      },
+      {
         "name": "Sector 6 First Assassin",
         "sections": [
           { "name": "Obtain Resonance Detonator" },
           { "name": "Sector 6 - Resonance Detonator" },
-          { "name": "Sector 6 - Logbook next to First Assassin" }
+          { "name": "Sector 6 - Logbook next to First Assassin" },
+          {"name": "Sector 6 - Defeat Komato Assassin in Neoweapons Storage"}
         ],
         "map_locations": [
           {
@@ -2770,10 +4409,43 @@
         ]
       },
       {
+        "name": "Sector 6 Genetic Research Access",
+        "sections": [
+          {"name": "Sector 6 - Kill Komato Trooper Yasjulo"},
+          {"name": "Sector 6 - Kill Komato Trooper Bede"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 635,
+            "y": 272
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Genetic Research Access Top",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Peio"},
+          {"name": "Sector 6 - Kill Tasen Commander Aysa"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 585,
+            "y": 244
+          }
+        ]
+      },
+      {
         "name": "Sector 6 CFIS",
         "sections": [
           { "name": "Obtain Cyclic Fusion Ignition System" },
-          { "name": "Sector 6 - Cyclic Fusion Ignition System" }
+          { "name": "Sector 6 - Cyclic Fusion Ignition System" },
+          {"name": "Sector 6 - Kill Tasen Soldier Ro Nio"},
+          {"name": "Sector 6 - Kill Tasen Soldier Anli"},
+          {"name": "Sector 6 - Kill Tasen Soldier Delpah"},
+          {"name": "Sector 6 - Kill Tasen Commander Cesun"},
+          {"name": "Sector 6 - Kill Tasen Commander Bacatabu"}
         ],
         "map_locations": [
           {
@@ -2802,7 +4474,8 @@
         "name": "Sector 6 Poster",
         "sections": [
           { "name": "Sector 6 - Poster" },
-          { "name": "Sector 6 - Logbook next to Poster" }
+          { "name": "Sector 6 - Logbook next to Poster" },
+          {"name": "Sector 6 - Kill Tasen Soldier Yukabacera"}
         ],
         "map_locations": [
           {
@@ -2820,7 +4493,12 @@
           { "name": "Sector 6 - Machine Gun in Neoweapons Research Top" },
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 6 - Rocket Launcher" },
-          { "name": "Sector 6 - Rocket Launcher in Neoweapons Research Top" }
+          { "name": "Sector 6 - Rocket Launcher in Neoweapons Research Top" },
+          {"name": "Sector 6 - Kill Tasen Soldier Bujaoro"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nio Wunio"},
+          {"name": "Sector 6 - Kill Tasen Soldier Sharai Hage"},
+          {"name": "Sector 6 - Kill Tasen Soldier Jaofei Lotu"},
+          {"name": "Sector 6 - Kill Tasen Commander Raigren"}
         ],
         "map_locations": [
           {
@@ -2831,12 +4509,47 @@
         ]
       },
       {
+        "name": "Sector 6 Neoweapons Research Top Right",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Barosie"},
+          {"name": "Sector 6 - Kill Tasen Soldier Pei Ashridel"},
+          {"name": "Sector 6 - Kill Tasen Soldier Honadelot"},
+          {"name": "Sector 6 - Kill Tasen Soldier Xufei"},
+          {"name": "Sector 6 - Kill Tasen Commander Mahxu"},
+          {"name": "Sector 6 - Kill Komato Trooper Zevitei"},
+          {"name": "Sector 6 - Kill Komato Trooper Qudel"},
+          {"name": "Sector 6 - Kill Komato Trooper Yeke"},
+          {"name": "Sector 6 - Kill Komato Trooper Sae"},
+          {"name": "Sector 6 - Kill Komato Berserker Toniterai"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 779,
+            "y": 353
+          }
+        ]
+      },
+      {
         "name": "Sector 6 Neoweapons Research Bottom Left",
         "sections": [
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector 6 - Pulse Cannon" },
           { "name": "Sector 6 - Pulse Cannon in Neoweapons Research Bottom" },
-          { "name": "Sector 6 - Nano Overload at Bottom of Neoweapons Research" }
+          { "name": "Sector 6 - Nano Overload at Bottom of Neoweapons Research" },
+          {"name": "Sector 6 - Kill Tasen Soldier Ashihaso"},
+          {"name": "Sector 6 - Kill Tasen Soldier Tor Zelei"},
+          {"name": "Sector 6 - Kill Tasen Soldier Nazon Payhauk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Maezon"},
+          {"name": "Sector 6 - Kill Tasen Soldier Xatie"},
+          {"name": "Sector 6 - Kill Tasen Soldier Qurawa"},
+          {"name": "Sector 6 - Kill Tasen Soldier Delsho"},
+          {"name": "Sector 6 - Kill Tasen Commander Zon Rihemco"},
+          {"name": "Sector 6 - Kill Tasen Commander Roja"},
+          {"name": "Sector 6 - Kill Tasen Commander Klash"},
+          {"name": "Sector 6 - Kill Komato Trooper Butie Pahes"},
+          {"name": "Sector 6 - Kill Komato Berserker Hemesko"},
+          {"name": "Sector 6 - Kill Komato Berserker Tegesun"}
         ],
         "map_locations": [
           {
@@ -2852,7 +4565,11 @@
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 6 - Rocket Launcher" },
           { "name": "Sector 6 - Rocket Launcher in Neoweapons Research Bottom" },
-          { "name": "Sector 6 - Logbook in Neoweapons Research Bottom" }
+          { "name": "Sector 6 - Logbook in Neoweapons Research Bottom" },
+          {"name": "Sector 6 - Kill Tasen Soldier Qunati"},
+          {"name": "Sector 6 - Kill Tasen Soldier Espay Hauk"},
+          {"name": "Sector 6 - Kill Tasen Soldier Riero"},
+          {"name": "Sector 6 - Kill Komato Trooper Sunwaktor"}
         ],
         "map_locations": [
           {
@@ -2892,7 +4609,8 @@
       {
         "name": "Sector 6 Second Assassin",
         "sections": [
-          { "name": "Sector 6 - Logbook next to Second Assassin" }
+          { "name": "Sector 6 - Logbook next to Second Assassin" },
+          {"name": "Sector 6 - Defeat Komato Assassin in Unused Storage"}
         ],
         "map_locations": [
           {
@@ -2983,6 +4701,55 @@
         ]
       },
       {
+        "name": "Sector 6 Black Ops Left",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Kasaot"},
+          {"name": "Sector 6 - Kill Tasen Soldier Copakri"},
+          {"name": "Sector 6 - Kill Tasen Soldier Unijero"},
+          {"name": "Sector 6 - Kill Tasen Soldier Zerak"},
+          {"name": "Sector 6 - Kill Tasen Commander Shofei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 807,
+            "y": 544
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Black Ops Right",
+        "sections": [
+          {"name": "Sector 6 - Kill Tasen Soldier Lixu"},
+          {"name": "Sector 6 - Kill Komato Trooper Shomahtu"},
+          {"name": "Sector 6 - Kill Komato Trooper Sakja"},
+          {"name": "Sector 6 - Kill Komato Berserker Xuge"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 899,
+            "y": 544
+          }
+        ]
+      },
+      {
+        "name": "Sector 6 Neoweapons Control",
+        "sections": [
+          {"name": "Sector 6 - Kill Komato Trooper Teihasel"},
+          {"name": "Sector 6 - Kill Komato Trooper Rihauk Bewak"},
+          {"name": "Sector 6 - Kill Komato Trooper Bei Jexa"},
+          {"name": "Sector 6 - Kill Komato Berserker Losho"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector6",
+            "x": 902,
+            "y": 416
+          }
+        ]
+      },
+      {
         "name": "Sector 6 End Logbook",
         "sections": [
           { "name": "Sector 6 - Logbook near End of Sector" }
@@ -3044,6 +4811,22 @@
         ]
       },
       {
+        "name": "Sector 7 Security Station",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Shotupa"},
+          {"name": "Sector 7 - Kill Komato Trooper Fasiebe"},
+          {"name": "Sector 7 - Kill Komato Trooper Vakesha"},
+          {"name": "Sector 7 - Kill Komato Trooper Ashelhauk"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 293,
+            "y": 473
+          }
+        ]
+      },
+      {
         "name": "Sector 7 First Overload",
         "sections": [
           { "name": "Sector 7 - Nano Overload in Security Station" }
@@ -3083,6 +4866,41 @@
         ]
       },
       {
+        "name": "Sector 7 Neoweapons Storage",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Yva Tataber"},
+          {"name": "Sector 7 - Kill Komato Trooper Auroba"},
+          {"name": "Sector 7 - Kill Komato Trooper Klas Ze"},
+          {"name": "Sector 7 - Kill Komato Trooper Jevak Delha"},
+          {"name": "Sector 7 - Kill Komato Trooper Raisak"},
+          {"name": "Sector 7 - Kill Komato Trooper Uusun"},
+          {"name": "Sector 7 - Kill Komato Berserker Xutei"},
+          {"name": "Sector 7 - Kill Komato Berserker Ti Jhokro"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 266,
+            "y": 539
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Above Exotic Technology Access",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Hember"},
+          {"name": "Sector 7 - Kill Komato Trooper Payroica"},
+          {"name": "Sector 7 - Kill Komato Berserker Roive Besiena"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 403,
+            "y": 446
+          }
+        ]
+      },
+      {
         "name": "Sector 7 Exotic Technology Access",
         "sections": [
           { "name": "Sector 7 - Logbook before Exotic Technology Access" }
@@ -3092,6 +4910,70 @@
             "map": "Sector7",
             "x": 389,
             "y": 474
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Exotic Technology Analysis Left",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Soldier Kalo"},
+          {"name": "Sector 7 - Kill Tasen Soldier Hastohem"},
+          {"name": "Sector 7 - Kill Tasen Soldier Toshadel"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 407,
+            "y": 521
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Exotic Technology Analysis Right",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Shamakai"},
+          {"name": "Sector 7 - Kill Komato Trooper Hasetei"},
+          {"name": "Sector 7 - Kill Komato Trooper Valii Xuta"},
+          {"name": "Sector 7 - Kill Komato Trooper Nawa"},
+          {"name": "Sector 7 - Kill Komato Berserker Hauksha"},
+          {"name": "Sector 7 - Kill Komato Beast Yahli Saetoh"},
+          {"name": "Sector 7 - Kill Komato Beast Waktaka"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 497,
+            "y": 521
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Armory Access",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Soldier Hempei"},
+          {"name": "Sector 7 - Kill Tasen Elite Mavak"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 572,
+            "y": 467
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Armory Security",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Soldier Shoca Bervoe"},
+          {"name": "Sector 7 - Kill Tasen Soldier Teini"},
+          {"name": "Sector 7 - Kill Tasen Soldier Emhauk"},
+          {"name": "Sector 7 - Kill Tasen Soldier Ritema"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 643,
+            "y": 427
           }
         ]
       },
@@ -3143,6 +5025,19 @@
         ]
       },
       {
+        "name": "Sector 7 Above Checkpoint 1",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Berserker Zondebaot"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 509,
+            "y": 143
+          }
+        ]
+      },
+      {
         "name": "Sector 7 CFIS",
         "sections": [
           { "name": "Obtain Cyclic Fusion Ignition System" },
@@ -3154,6 +5049,49 @@
             "map": "Sector7",
             "x": 474,
             "y": 226
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Main Gate Access Right",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Nihel"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 476,
+            "y": 176
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Main Gate Access Left",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Beast Debapa"},
+          {"name": "Sector 7 - Kill Komato Beast Bu Sha"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 383,
+            "y": 217
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Database",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Yahlei"},
+          {"name": "Sector 7 - Kill Komato Trooper Tei Torber"},
+          {"name": "Sector 7 - Kill Komato Beast Pah Sunlonio"},
+          {"name": "Sector 7 - Kill Komato Beast Osaklas"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 485,
+            "y": 116
           }
         ]
       },
@@ -3172,6 +5110,21 @@
         ]
       },
       {
+        "name": "Sector 7 Internal Security Top",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Zehas"},
+          {"name": "Sector 7 - Kill Komato Trooper Payuka"},
+          {"name": "Sector 7 - Defeat Komato Assassin in Internal Security"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 317,
+            "y": 128
+          }
+        ]
+      },
+      {
         "name": "Sector 7 Hyper Turret Logs",
         "sections": [
           { "name": "Sector 7 - 1st Logbook in Top Left of Komato Ship" },
@@ -3186,9 +5139,12 @@
         ]
       },
       {
-        "name": "Sector 7 Internal Security",
+        "name": "Sector 7 Internal Security Bottom",
         "sections": [
-          { "name": "Sector 7 - Logbook near Internal Security Terminal" }
+          { "name": "Sector 7 - Logbook near Internal Security Terminal" },
+          {"name": "Sector 7 - Kill Komato Trooper Ashniber"},
+          {"name": "Sector 7 - Kill Komato Trooper Tieropay"},
+          {"name": "Sector 7 - Kill Komato Trooper Saerak"}
         ],
         "map_locations": [
           {
@@ -3245,27 +5201,55 @@
         ]
       },
       {
-        "name": "Sector 7 Ship Overload",
+        "name": "Sector 7 Phantom Hammer Control",
         "sections": [
-          { "name": "Sector 7 - Nano Overload in Phantom Hammer Control" }
+          { "name": "Sector 7 - Nano Overload in Phantom Hammer Control" },
+          {"name": "Sector 7 - Kill Komato Trooper Namahot"},
+          {"name": "Sector 7 - Kill Komato Trooper Toba"},
+          {"name": "Sector 7 - Kill Komato Trooper Perie Viba"},
+          {"name": "Sector 7 - Kill Komato Beast Jaoemni Rodel"},
+          {"name": "Sector 7 - Kill Komato Beast Payma Fagren"},
+          {"name": "Sector 7 - Kill Komato Beast Wurie"},
+          {"name": "Sector 7 - Kill Komato Beast Shatei"},
+          {"name": "Sector 7 - Defeat Komato Assassin in Phantom Hammer Control"}
         ],
         "map_locations": [
           {
             "map": "Sector7",
-            "x": 645,
-            "y": 204
+            "x": 687,
+            "y": 203
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Assembly Hall",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Trooper Peinioca"},
+          {"name": "Sector 7 - Kill Komato Trooper Yapakte Sabeze"},
+          {"name": "Sector 7 - Kill Komato Trooper Shavamah"},
+          {"name": "Sector 7 - Kill Komato Berserker Saktoro"},
+          {"name": "Sector 7 - Kill Komato Berserker Teixato"},
+          {"name": "Sector 7 - Kill Komato Berserker Roquh"},
+          {"name": "Sector 7 - Kill Komato Berserker Ke Deyi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 821,
+            "y": 197
           }
         ]
       },
       {
         "name": "Sector 7 Ship Exit",
         "sections": [
-          { "name": "Sector 7 - Logbook near Komato Ship Exit" }
+          { "name": "Sector 7 - Logbook near Komato Ship Exit" },
+          {"name": "Sector 7 - Kill Komato Berserker Saesie"}
         ],
         "map_locations": [
           {
             "map": "Sector7",
-            "x": 866,
+            "x": 851,
             "y": 241
           }
         ]
@@ -3280,6 +5264,20 @@
             "map": "Sector7",
             "x": 708,
             "y": 304
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Rooftops",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Berserker Betorsa"},
+          {"name": "Sector 7 - Kill Komato Berserker Gevi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 798,
+            "y": 335
           }
         ]
       },
@@ -3310,6 +5308,38 @@
             "map": "Sector7",
             "x": 693,
             "y": 487
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 After Rooftops",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Soldier Yutorha"},
+          {"name": "Sector 7 - Kill Tasen Soldier Ifei"},
+          {"name": "Sector 7 - Kill Tasen Soldier Mapak"},
+          {"name": "Sector 7 - Kill Tasen Soldier Viride"},
+          {"name": "Sector 7 - Kill Tasen Soldier Niowaklo"},
+          {"name": "Sector 7 - Kill Tasen Elite Jeka Berke"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 680,
+            "y": 521
+          }
+        ]
+      },
+      {
+        "name": "Sector 7 Below Ribbon",
+        "sections": [
+          {"name": "Sector 7 - Kill Komato Beast Anvakta"},
+          {"name": "Sector 7 - Kill Komato Beast Mahnio"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 785,
+            "y": 529
           }
         ]
       },
@@ -3349,6 +5379,23 @@
         ]
       },
       {
+        "name": "Sector 7 Exotic Technology Storage",
+        "sections": [
+          {"name": "Sector 7 - Kill Tasen Elite Coesta"},
+          {"name": "Sector 7 - Kill Tasen Elite Haukpei"},
+          {"name": "Sector 7 - Kill Tasen Elite Niquh"},
+          {"name": "Sector 7 - Kill Komato Berserker Coturie"},
+          {"name": "Sector 7 - Kill Komato Beast Payjaux"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector7",
+            "x": 710,
+            "y": 614
+          }
+        ]
+      },
+      {
         "name": "Sector 7 End Portal 2",
         "sections": [
           { "name": "Sector 7 - Logbook next to Teleporter at End of Sector" }
@@ -3365,7 +5412,8 @@
         "name": "Sector 7 End",
         "sections": [
           { "name": "Sector 7 - Sector Complete" },
-          { "name": "Sector 7 - Supercharge" }
+          { "name": "Sector 7 - Supercharge" },
+          {"name": "Sector 7 - Destroy Komato Sentinel Proxima"}
         ],
         "map_locations": [
           {
@@ -3411,16 +5459,77 @@
         ]
       },
       {
-        "name": "Sector 8 XQX Shocksplinter",
+        "name": "Sector 8 XQX Labs Middle",
+        "sections": [
+          {"name": "Sector 8 - Kill Komato Trooper Maeri"},
+          {"name": "Sector 8 - Kill Komato Trooper Bewu"},
+          {"name": "Sector 8 - Kill Komato Berserker Saewa"},
+          {"name": "Sector 8 - Kill Komato Berserker Jao Otdel"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 299,
+            "y": 353
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 XQX Labs Top Left",
+        "sections": [
+          {"name": "Sector 8 - Kill Komato Trooper Kairoi"},
+          {"name": "Sector 8 - Kill Komato Trooper Teloro"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 271,
+            "y": 329
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 XQX Labs Top Right",
+        "sections": [
+          {"name": "Sector 8 - Kill Komato Berserker Yubi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 343,
+            "y": 329
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 XQX Bottom",
         "sections": [
           { "name": "Obtain Shocksplinter" },
           { "name": "Sector 8 - Shocksplinter" },
-          { "name": "Sector 8 - Shocksplinter near Start" }
+          { "name": "Sector 8 - Shocksplinter near Start" },
+          {"name": "Sector 8 - Kill Komato Trooper Grento Tei"},
+          {"name": "Sector 8 - Kill Komato Trooper Wakeske"},
+          {"name": "Sector 8 - Kill Komato Berserker Jali"}
         ],
         "map_locations": [
           {
             "map": "Sector8",
             "x": 335,
+            "y": 377
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 XQX Labs Tasen",
+        "sections": [
+          {"name": "Sector 8 - Kill Tasen Commander Roha Pexu"},
+          {"name": "Sector 8 - Kill Tasen Commander Nixuto Hastoh"},
+          {"name": "Sector 8 - Kill Tasen Elite Vakeelta"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 238,
             "y": 377
           }
         ]
@@ -3442,23 +5551,59 @@
         ]
       },
       {
-        "name": "Sector 8 Staff Storage",
+        "name": "Sector 8 Staff Storage Left",
         "sections": [
-          { "name": "Sector 8 - Logbook next to Staff Storage Teleporter" },
-          { "name": "Sector 8 - Supercharge" }
+          {"name": "Sector 8 - Kill Komato Trooper Aheli"},
+          {"name": "Sector 8 - Kill Komato Trooper Teroma Rabuco"},
+          {"name": "Sector 8 - Kill Komato Annihilator Deltojaro"}
         ],
         "map_locations": [
           {
             "map": "Sector8",
-            "x": 558,
-            "y": 499
+            "x": 461,
+            "y": 497
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Staff Storage Right",
+        "sections": [
+          { "name": "Sector 8 - Logbook next to Staff Storage Teleporter" },
+          { "name": "Sector 8 - Supercharge" },
+          {"name": "Sector 8 - Kill Tasen Elite Lei Ixuel"},
+          {"name": "Sector 8 - Kill Tasen Elite Hasconio"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 539,
+            "y": 497
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Staff Recruitment",
+        "sections": [
+          {"name": "Sector 8 - Kill Tasen Commander Deroi"},
+          {"name": "Sector 8 - Kill Tasen Elite Jao Zejeni"},
+          {"name": "Sector 8 - Kill Tasen Elite Jaberi"},
+          {"name": "Sector 8 - Kill Tasen Elite Kavak"},
+          {"name": "Sector 8 - Kill Komato Berserker Bunazo"},
+          {"name": "Sector 8 - Kill Komato Annihilator Helri Lo"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 566,
+            "y": 356
           }
         ]
       },
       {
         "name": "Sector 8 Right of Pitfall",
         "sections": [
-          { "name": "Sector 8 - Security Box next to Pitfall" }
+          { "name": "Sector 8 - Security Box next to Pitfall" },
+          {"name": "Sector 8 - Kill Tasen Commander Yahsie Kai"}
         ],
         "map_locations": [
           {
@@ -3478,7 +5623,8 @@
           { "name": "Obtain Machine Gun" },
           { "name": "Sector 8 - Machine Gun" },
           { "name": "Obtain MPFB Devastator" },
-          { "name": "Sector 8 - MPFB Devastator" }
+          { "name": "Sector 8 - MPFB Devastator" },
+          {"name": "Sector 8 - Kill Komato Trooper Buyi"}
         ],
         "map_locations": [
           {
@@ -3510,7 +5656,8 @@
           { "name": "Sector 8 - Resonance Detonator" },
           { "name": "Obtain Pulse Cannon" },
           { "name": "Sector 8 - Pulse Cannon" },
-          { "name": "Sector 8 - Pulse Cannon Right of Second Annihilator" }
+          { "name": "Sector 8 - Pulse Cannon Right of Second Annihilator" },
+          {"name": "Sector 8 - Kill Komato Trooper Tohankai"}
         ],
         "map_locations": [
           {
@@ -3538,6 +5685,24 @@
         ]
       },
       {
+        "name": "Sector 8 Timed Terminal",
+        "sections": [
+          {"name": "Sector 8 - Kill Komato Trooper Cotorni"},
+          {"name": "Sector 8 - Kill Komato Trooper Emhaja"},
+          {"name": "Sector 8 - Kill Komato Trooper Zokepei"},
+          {"name": "Sector 8 - Kill Komato Trooper Xusa Yu"},
+          {"name": "Sector 8 - Kill Komato Berserker Gekeelzo"},
+          {"name": "Sector 8 - Kill Komato Berserker Eri"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 731,
+            "y": 349
+          }
+        ]
+      },
+      {
         "name": "Sector 8 Checkpoint",
         "sections": [
           { "name": "Sector 8 - Checkpoint" }
@@ -3560,6 +5725,29 @@
             "map": "Sector8",
             "x": 862,
             "y": 241
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Recreation Enemies",
+        "sections": [
+          {"name": "Sector 8 - Kill Tasen Commander Klasjaan"},
+          {"name": "Sector 8 - Kill Tasen Commander As Teisie"},
+          {"name": "Sector 8 - Kill Tasen Elite Xalei"},
+          {"name": "Sector 8 - Kill Tasen Elite Estepei"},
+          {"name": "Sector 8 - Kill Komato Trooper Haukot"},
+          {"name": "Sector 8 - Kill Komato Trooper Yusak Jao"},
+          {"name": "Sector 8 - Kill Komato Trooper Torrabaya"},
+          {"name": "Sector 8 - Kill Komato Trooper Zonna"},
+          {"name": "Sector 8 - Kill Komato Berserker Juibertei"},
+          {"name": "Sector 8 - Kill Komato Berserker Leisun Jeyu"},
+          {"name": "Sector 8 - Kill Komato Berserker Voe Vi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 836,
+            "y": 274
           }
         ]
       },
@@ -3615,13 +5803,35 @@
       {
         "name": "Sector 8 Below Final Annihilator",
         "sections": [
-          { "name": "Sector 8 - Logbook below Final Annihilator" }
+          { "name": "Sector 8 - Logbook below Final Annihilator" },
+          {"name": "Sector 8 - Kill Komato Trooper Esuvi"},
+          {"name": "Sector 8 - Kill Komato Trooper Toheska"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector8",
+            "x": 943,
+            "y": 470
+          }
+        ]
+      },
+      {
+        "name": "Sector 8 Final Annihilator",
+        "sections": [
+          {"name": "Sector 8 - Kill Tasen Commander Em Sho"},
+          {"name": "Sector 8 - Kill Tasen Commander Xaxa Helni"},
+          {"name": "Sector 8 - Kill Tasen Commander Cosietu"},
+          {"name": "Sector 8 - Kill Tasen Elite Xarajao"},
+          {"name": "Sector 8 - Kill Tasen Elite Torri"},
+          {"name": "Sector 8 - Kill Tasen Elite Mae Zeja"},
+          {"name": "Sector 8 - Kill Tasen Elite Pa Sjarak"},
+          {"name": "Sector 8 - Kill Komato Annihilator Gerakka"}
         ],
         "map_locations": [
           {
             "map": "Sector8",
             "x": 928,
-            "y": 469
+            "y": 446
           }
         ]
       },
@@ -3701,43 +5911,80 @@
         ]
       },
       {
-        "name": "Sector 9 Start Pit Logbook",
+        "name": "Sector 9 Start Bottom",
         "sections": [
-          { "name": "Sector 9 - Logbook Right of Start" }
+          {"name": "Sector 9 - Kill Komato Trooper Bawa Natei"},
+          {"name": "Sector 9 - Kill Komato Trooper Haniri"},
+          {"name": "Sector 9 - Kill Komato Berserker Vilokato"}
         ],
         "map_locations": [
           {
             "map": "Sector9",
-            "x": 181,
-            "y": 509
+            "x": 185,
+            "y": 536
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Guard Post",
+        "sections": [
+          { "name": "Sector 9 - Logbook Right of Start" },
+          {"name": "Sector 9 - Kill Komato Trooper Hemvi"},
+          {"name": "Sector 9 - Kill Komato Trooper Xao"},
+          {"name": "Sector 9 - Kill Komato Trooper Asfaroi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 193,
+            "y": 490
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Above First Terminal",
+        "sections": [
+          { "name": "Obtain Resonance Detonator" },
+          { "name": "Sector 9 - Resonance Detonator" },
+          { "name": "Sector 9 - Resonance Detonator above First Terminal" },
+          {"name": "Sector 9 - Kill Komato Trooper Zeca Paktubero"},
+          {"name": "Sector 9 - Kill Komato Beast Lioma"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 290,
+            "y": 578
           }
         ]
       },
       {
         "name": "Sector 9 First Terminal",
         "sections": [
-          { "name": "Obtain Resonance Detonator" },
-          { "name": "Sector 9 - Resonance Detonator" },
-          { "name": "Sector 9 - Resonance Detonator above First Terminal" }
+          {"name": "Sector 9 - Kill Komato Berserker Sharaceti"},
+          {"name": "Sector 9 - Kill Komato Berserker Sie Esk"}
         ],
         "map_locations": [
           {
             "map": "Sector9",
-            "x": 316,
-            "y": 577
+            "x": 290,
+            "y": 617
           }
         ]
       },
       {
         "name": "Sector 9 First Overload",
         "sections": [
-          { "name": "Sector 9 - Nano Overload near Start" }
+          { "name": "Sector 9 - Nano Overload near Start" },
+          {"name": "Sector 9 - Kill Komato Trooper Elhasan"},
+          {"name": "Sector 9 - Kill Komato Trooper Saewu"},
+          {"name": "Sector 9 - Kill Komato Berserker Litor"}
         ],
         "map_locations": [
           {
             "map": "Sector9",
-            "x": 313,
-            "y": 532
+            "x": 290,
+            "y": 548
           }
         ]
       },
@@ -3754,8 +6001,8 @@
         "map_locations": [
           {
             "map": "Sector9",
-            "x": 315,
-            "y": 438
+            "x": 314,
+            "y": 440
           }
         ]
       },
@@ -3768,13 +6015,45 @@
           { "name": "Obtain Shocksplinter" },
           { "name": "Sector 9 - Shocksplinter" },
           { "name": "Sector 9 - Shocksplinter near Assassin Ambush" },
-          { "name": "Sector 9 - Security Box Above Elevator Trap" }
+          { "name": "Sector 9 - Security Box Above Elevator Trap" },
+          {"name": "Sector 9 - Defeat Komato Assassin in Elevator Trap"}
         ],
         "map_locations": [
           {
             "map": "Sector9",
             "x": 370,
             "y": 426
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Special Security Unit Bottom Left",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Payrie"},
+          {"name": "Sector 9 - Kill Komato Trooper Ohauk Wakrai"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 314,
+            "y": 392
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Special Security Unit Elite",
+        "sections": [
+          {"name": "Sector 9 - Kill Tasen Elite Pahemsun"},
+          {"name": "Sector 9 - Kill Komato Trooper Yusae Behem"},
+          {"name": "Sector 9 - Kill Komato Trooper Voekasho"},
+          {"name": "Sector 9 - Kill Komato Trooper Zeberan"},
+          {"name": "Sector 9 - Kill Komato Berserker Au Rakrai"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 314,
+            "y": 416
           }
         ]
       },
@@ -3809,7 +6088,8 @@
         "sections": [
           { "name": "Obtain Rocket Launcher" },
           { "name": "Sector 9 - Rocket Launcher" },
-          { "name": "Sector 9 - Rocket Launcher at Top of Bulkhead Area" }
+          { "name": "Sector 9 - Rocket Launcher at Top of Bulkhead Area" },
+          {"name": "Sector 9 - Kill Komato Berserker Licozon"}
         ],
         "map_locations": [
           {
@@ -3835,13 +6115,102 @@
       {
         "name": "Sector 9 Checkpoint 1",
         "sections": [
-          { "name": "Sector 9 - First Checkpoint" }
+          { "name": "Sector 9 - First Checkpoint" },
+          {"name": "Sector 9 - Kill Komato Trooper Mahesmae"},
+          {"name": "Sector 9 - Kill Komato Trooper Xa Decaa"}
         ],
         "map_locations": [
           {
             "map": "Sector9",
             "x": 569,
             "y": 370
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Special Security Unit Annihilator",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Hasta"},
+          {"name": "Sector 9 - Kill Komato Trooper Feidesho"},
+          {"name": "Sector 9 - Kill Komato Annihilator Be Xuya"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 467,
+            "y": 392
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Bulkhead Lock A",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Zozenata Tofao"},
+          {"name": "Sector 9 - Kill Komato Trooper Nio Xebe"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 392,
+            "y": 332
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Bulkhead Lock C",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Saeta"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 408,
+            "y": 392
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Bulkhead Lock D",
+        "sections": [
+          {"name": "Sector 9 - Kill Tasen Elite Haavi"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 531,
+            "y": 392
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 After Bulkhead Door",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Yao Wahem"},
+          {"name": "Sector 9 - Kill Komato Trooper Tushata"},
+          {"name": "Sector 9 - Kill Komato Trooper Kaiya"},
+          {"name": "Sector 9 - Kill Komato Berserker Jefei"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 644,
+            "y": 370
+          }
+        ]
+      },
+      {
+        "name": "Sector 9 Break Room B Bottom",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Baqu Ta"},
+          {"name": "Sector 9 - Kill Komato Trooper Astor"},
+          {"name": "Sector 9 - Kill Komato Berserker Li Sakel"},
+          {"name": "Sector 9 - Kill Komato Berserker Kahapa"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 761,
+            "y": 371
           }
         ]
       },
@@ -3856,7 +6225,9 @@
           { "name": "Sector 9 - Pulse Cannon in Head Guards' Offices" },
           { "name": "Obtain Shocksplinter" },
           { "name": "Sector 9 - Shocksplinter" },
-          { "name": "Sector 9 - Shocksplinter in Head Guards' Offices" }
+          { "name": "Sector 9 - Shocksplinter in Head Guards' Offices" },
+          {"name": "Sector 9 - Kill Komato Trooper Delli"},
+          {"name": "Sector 9 - Kill Komato Trooper Mavatonio"}
         ],
         "map_locations": [
           {
@@ -3886,6 +6257,20 @@
         ]
       },
       {
+        "name": "Sector 9 Master Security",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Zontu"},
+          {"name": "Sector 9 - Kill Komato Trooper Fayati Sho"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 704,
+            "y": 284
+          }
+        ]
+      },
+      {
         "name": "Sector 9 Ribbon",
         "sections": [
           { "name": "Sector 9 - Ribbon" },
@@ -3906,7 +6291,8 @@
         "name": "Sector 9 Assassin Below Poster",
         "sections": [
           { "name": "Sector 9 - 1st Logbook near Assassin below Poster" },
-          { "name": "Sector 9 - 2nd Logbook near Assassin below Poster" }
+          { "name": "Sector 9 - 2nd Logbook near Assassin below Poster" },
+          {"name": "Sector 9 - Defeat Komato Assassin in Illegal Goods Storage"}
         ],
         "map_locations": [
           {
@@ -3979,6 +6365,21 @@
         ]
       },
       {
+        "name": "Sector 9 Megacore Research Middle",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Berserker Irai Helto"},
+          {"name": "Sector 9 - Kill Komato Beast Tupei Mator"},
+          {"name": "Sector 9 - Kill Komato Annihilator Yrie"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 828,
+            "y": 511
+          }
+        ]
+      },
+      {
         "name": "Sector 9 Megacore Research Left",
         "sections": [
           { "name": "Sector 9 - Logbook above Shaft Leading to Bunker" }
@@ -3992,9 +6393,26 @@
         ]
       },
       {
+        "name": "Sector 9 Megacore Research Top Left",
+        "sections": [
+          {"name": "Sector 9 - Kill Komato Trooper Keto"},
+          {"name": "Sector 9 - Kill Komato Trooper Saki Ro"},
+          {"name": "Sector 9 - Kill Komato Berserker Varo"},
+          {"name": "Sector 9 - Kill Komato Berserker Auratoh"}
+        ],
+        "map_locations": [
+          {
+            "map": "Sector9",
+            "x": 761,
+            "y": 452
+          }
+        ]
+      },
+      {
         "name": "Sector 9 Megacore Research Top",
         "sections": [
-          { "name": "Sector 9 - Nano Overload in Megacore Research" }
+          { "name": "Sector 9 - Nano Overload in Megacore Research" },
+          {"name": "Sector 9 - Defeat Komato Assassin in Megacore Research"}
         ],
         "map_locations": [
           {
@@ -4051,7 +6469,14 @@
           { "name": "Sector 9 - 1st Logbook in Deep Sector" },
           { "name": "Sector 9 - 2nd Logbook in Deep Sector" },
           { "name": "Sector 9 - 3rd Logbook in Deep Sector" },
-          { "name": "Sector 9 - Supercharge" }
+          { "name": "Sector 9 - Supercharge" },
+          {"name": "Sector 9 - Defeat 1st Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 2nd Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 3rd Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 4th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 5th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 6th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 7th Komato Assassin in Deep Sector"}
         ],
         "map_locations": [
           {
@@ -4064,7 +6489,8 @@
       {
         "name": "Sector 9 End",
         "sections": [
-          { "name": "Sector 9 - Sector Complete" }
+          { "name": "Sector 9 - Sector Complete" },
+          {"name": "Sector 9 - Kill Komato Annihilator Iosa Sakera"}
         ],
         "map_locations": [
           {
@@ -4110,7 +6536,7 @@
         ]
       },
       {
-        "name": "Deep Sector Middle",
+        "name": "Deep Sector Level One",
         "sections": [
           { "name": "Sector 9 - 2nd Logbook in Deep Sector" }
         ],
@@ -4119,6 +6545,61 @@
             "map": "DeepSector",
             "x": 680,
             "y": 288
+          }
+        ]
+      },
+      {
+        "name": "Deep Sector Level Two",
+        "sections": [
+          {"name": "Sector 9 - Defeat 6th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 7th Komato Assassin in Deep Sector"}
+        ],
+        "map_locations": [
+          {
+            "map": "DeepSector",
+            "x": 661,
+            "y": 324
+          }
+        ]
+      },
+      {
+        "name": "Deep Sector Level Three",
+        "sections": [
+          {"name": "Sector 9 - Defeat 4th Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 5th Komato Assassin in Deep Sector"}
+        ],
+        "map_locations": [
+          {
+            "map": "DeepSector",
+            "x": 677,
+            "y": 377
+          }
+        ]
+      },
+      {
+        "name": "Deep Sector Level Four",
+        "sections": [
+          {"name": "Sector 9 - Defeat 1st Komato Assassin in Deep Sector"},
+          {"name": "Sector 9 - Defeat 2nd Komato Assassin in Deep Sector"}
+        ],
+        "map_locations": [
+          {
+            "map": "DeepSector",
+            "x": 605,
+            "y": 527
+          }
+        ]
+      },
+      {
+        "name": "Deep Sector Storage",
+        "sections": [
+          {"name": "Sector 9 - Defeat 3rd Komato Assassin in Deep Sector"}
+        ],
+        "map_locations": [
+          {
+            "map": "DeepSector",
+            "x": 707,
+            "y": 539
           }
         ]
       },
@@ -4190,6 +6671,42 @@
             "map": "SectorX",
             "x": 148,
             "y": 276
+          }
+        ]
+      },
+      {
+        "name": "Sector X Daedalus Labs A",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Hasroi"},
+          {"name": "Sector X - Kill Komato Trooper Xuroi"},
+          {"name": "Sector X - Kill Komato Trooper Ottohas Sha"},
+          {"name": "Sector X - Kill Komato Berserker Livigren"},
+          {"name": "Sector X - Kill Komato Berserker Niodely"},
+          {"name": "Sector X - Kill Komato Annihilator Vasa"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 260,
+            "y": 431
+          }
+        ]
+      },
+      {
+        "name": "Sector X Daedalus Labs B",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Nasatorai"},
+          {"name": "Sector X - Kill Komato Trooper Ba Waturi"},
+          {"name": "Sector X - Kill Komato Berserker Voe Ikahas"},
+          {"name": "Sector X - Kill Komato Beast Hassali"},
+          {"name": "Sector X - Kill Komato Beast Viri"},
+          {"name": "Sector X - Kill Komato Beast Yiyu Qyan"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 256,
+            "y": 512
           }
         ]
       },
@@ -4302,20 +6819,86 @@
         ]
       },
       {
-        "name": "Sector X Icarus Labs Top",
+        "name": "Sector X Above Icarus Labs Right",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Batasa"},
+          {"name": "Sector X - Kill Komato Trooper Yuta"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 377,
+            "y": 240
+          }
+        ]
+      },
+      {
+        "name": "Sector X Above Icarus Labs Left",
         "sections": [
           { "name": "Obtain Resonance Detonator" },
           { "name": "Sector X - Resonance Detonator" },
           { "name": "Sector X - Resonance Detonator in Icarus Labs" },
           { "name": "Obtain MPFB Devastator" },
           { "name": "Sector X - MPFB Devastator" },
-          { "name": "Sector X - MPFB Devastator in Icarus Labs" }
+          { "name": "Sector X - MPFB Devastator in Icarus Labs" },
+          {"name": "Sector X - Kill Komato Trooper Una"},
+          {"name": "Sector X - Kill Komato Trooper Fahasma"},
+          {"name": "Sector X - Kill Komato Trooper Zon Hemriesk"},
+          {"name": "Sector X - Kill Komato Berserker Peterol"}
         ],
         "map_locations": [
           {
             "map": "SectorX",
-            "x": 285,
+            "x": 293,
             "y": 240
+          }
+        ]
+      },
+      {
+        "name": "Sector X Icarus Labs Top",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Ausu"},
+          {"name": "Sector X - Kill Komato Trooper Tetorni Hasot"},
+          {"name": "Sector X - Kill Komato Trooper Jexao Haasa"},
+          {"name": "Sector X - Kill Komato Trooper Shokaiya"},
+          {"name": "Sector X - Kill Komato Trooper Liquh Yirai"},
+          {"name": "Sector X - Kill Komato Trooper Mateii"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 342,
+            "y": 287
+          }
+        ]
+      },
+      {
+        "name": "Sector X Icarus Labs Middle",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Yahesk"},
+          {"name": "Sector X - Kill Komato Trooper Ni Hato"},
+          {"name": "Sector X - Kill Komato Annihilator Siena"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 342,
+            "y": 314
+          }
+        ]
+      },
+      {
+        "name": "Sector X Icarus Labs Bottom",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Buzon"},
+          {"name": "Sector X - Kill Komato Trooper Pean"},
+          {"name": "Sector X - Kill Komato Berserker Cerisha"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 342,
+            "y": 341
           }
         ]
       },
@@ -4354,6 +6937,34 @@
             "map": "SectorX",
             "x": 690,
             "y": 270
+          }
+        ]
+      },
+      {
+        "name": "Sector X Megacore Control Enemies",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Yuroi Kahel"},
+          {"name": "Sector X - Kill Komato Trooper Ateesto"},
+          {"name": "Sector X - Kill Komato Berserker Tor Rosun"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 704,
+            "y": 296
+          }
+        ]
+      },
+      {
+        "name": "Sector X Megacore Control Bottom",
+        "sections": [
+          {"name": "Sector X - Kill Komato Berserker Roxayi"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 703,
+            "y": 338
           }
         ]
       },
@@ -4414,6 +7025,19 @@
         ]
       },
       {
+        "name": "Sector X Asha",
+        "sections": [
+          {"name": "Sector X - Kill Komato Assassin Asha"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 615,
+            "y": 374
+          }
+        ]
+      },
+      {
         "name": "Sector X Checkpoint 2",
         "sections": [
           { "name": "Sector X - Second Checkpoint" },
@@ -4454,6 +7078,81 @@
         ]
       },
       {
+        "name": "Sector X Military Research Top Left",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Xusakya"},
+          {"name": "Sector X - Kill Komato Berserker Baviem"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 652,
+            "y": 470
+          }
+        ]
+      },
+      {
+        "name": "Sector X Military Research Top Right",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Otber"},
+          {"name": "Sector X - Kill Komato Trooper Torash"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 739,
+            "y": 470
+          }
+        ]
+      },
+      {
+        "name": "Sector X Military Research Middle Left",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Rai Ke"},
+          {"name": "Sector X - Kill Komato Trooper Yugewu Shasha"},
+          {"name": "Sector X - Kill Komato Trooper Zekailo"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 657,
+            "y": 497
+          }
+        ]
+      },
+      {
+        "name": "Sector X Military Research Middle Right",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Tarixuro"},
+          {"name": "Sector X - Kill Komato Trooper Shaba"},
+          {"name": "Sector X - Kill Komato Berserker Xubusak"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 740,
+            "y": 497
+          }
+        ]
+      },
+      {
+        "name": "Sector X Military Research Bottom",
+        "sections": [
+          {"name": "Sector X - Kill Komato Berserker Anbevi"},
+          {"name": "Sector X - Kill Komato Berserker Hariewu Cekai"},
+          {"name": "Sector X - Kill Komato Berserker Cosaeco"},
+          {"name": "Sector X - Kill Komato Berserker Qygren"},
+          {"name": "Sector X - Kill Komato Berserker Viramah"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 711,
+            "y": 524
+          }
+        ]
+      },
+      {
         "name": "Sector X Helios Labs Weapons",
         "sections": [
           { "name": "Sector X - Logbook before Final Climb" },
@@ -4482,9 +7181,32 @@
         ]
       },
       {
-        "name": "Sector X Helios Labs",
+        "name": "Sector X Helio Labs Level One",
         "sections": [
-          { "name": "Sector X - Nano Overload in Final Climb" }
+          {"name": "Sector X - Kill Komato Berserker Tormaebu"},
+          {"name": "Sector X - Kill Komato Berserker Feirakotem"},
+          {"name": "Sector X - Kill Komato Annihilator Saejao Buhastahel"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 849,
+            "y": 419
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Level Two",
+        "sections": [
+          { "name": "Sector X - Nano Overload in Final Climb" },
+          {"name": "Sector X - Kill Komato Trooper Yahra"},
+          {"name": "Sector X - Kill Komato Trooper Xuhauk Cozea"},
+          {"name": "Sector X - Kill Komato Trooper Xadelhauk"},
+          {"name": "Sector X - Kill Komato Trooper Tebusjua"},
+          {"name": "Sector X - Kill Komato Trooper Sha Vaemash"},
+          {"name": "Sector X - Kill Komato Trooper Yufei"},
+          {"name": "Sector X - Kill Komato Beast Gejacora"},
+          {"name": "Sector X - Kill Komato Beast Auwak"}
         ],
         "map_locations": [
           {
@@ -4495,7 +7217,64 @@
         ]
       },
       {
-        "name": "Sector X Helios Labs Box",
+        "name": "Sector X Helios Labs Level Three",
+        "sections": [
+          {"name": "Sector X - Kill Komato Berserker Bauni Ce"},
+          {"name": "Sector X - Kill Komato Berserker Vazonja"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 849,
+            "y": 365
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Level Four Left",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Tupei"},
+          {"name": "Sector X - Kill Komato Trooper Kerohasel"},
+          {"name": "Sector X - Kill Komato Trooper Jaau"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 808,
+            "y": 333
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Level Four Right",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Dejama"},
+          {"name": "Sector X - Kill Komato Trooper Satesja"},
+          {"name": "Sector X - Kill Komato Trooper Auzefei"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 892,
+            "y": 333
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Left Sideroom",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Au Wuria"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 758,
+            "y": 342
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Right Sideroom",
         "sections": [
           { "name": "Sector X - Security Box in Final Climb" }
         ],
@@ -4504,6 +7283,20 @@
             "map": "SectorX",
             "x": 928,
             "y": 342
+          }
+        ]
+      },
+      {
+        "name": "Sector X Helios Labs Top",
+        "sections": [
+          {"name": "Sector X - Kill Komato Trooper Cati Ketosun"},
+          {"name": "Sector X - Kill Komato Annihilator Tubuvak Asna"}
+        ],
+        "map_locations": [
+          {
+            "map": "SectorX",
+            "x": 844,
+            "y": 278
           }
         ]
       },
@@ -4603,7 +7396,8 @@
       {
         "name": "Sector X General Tor",
         "sections": [
-          { "name": "Sector X - Sector Complete" }
+          { "name": "Sector X - Sector Complete" },
+          {"name": "Sector X - Kill Komato General Tor"}
         ],
         "map_locations": [
           {

@@ -107,12 +107,6 @@ combined_weapons_indices: Dict[str, List[str]] = {
         WeaponNames[16]: [WeaponNames[4], WeaponNames[8]]
     }
 
-def starting_stats_to_slot_data(world: "IjiWorld") -> Dict[str,int]:
-    ret: Dict[str, int] = {}
-    for key, data in world.options.starting_stats.value:
-        pass #TODO
-    return ret
-
 #def finalize_weapon_stats(world: "IjiWorld"):
 #    ret: Dict[str, WeaponData] = {}
 #    for i in range(2, 9): # iterate through basic weapons
@@ -387,8 +381,6 @@ class LogbookLocations(Toggle):
 class ExtraItemCount(OptionDict):
     """
     How many duplicates of each major item to add to the pool.
-    You can have the randomizer choose a random value within a given range by entering a string representing a random range, instead of a number
-    e.g putting "2-5" for an item will add 2 to 5 of that item (inclusive)
 
     If you choose to have extra sector accesses with out of order sectors enabled,
     an even split of the sector accesses will be added.
@@ -511,10 +503,6 @@ class HealthBalancing(OptionDict):
     It won't physically lock you out of the Sectors, so you can still play Sectors out of logic if you want.
 
     Values should range from 0 to 9.
-    Alternatively, you can also enter negative numbers to choose a random value for that sector.
-    The absolute value of a negative number determines the maximum range for that random value.
-    e.g. a value of -9 will allow any number between 0 and 9 to be chosen,
-    and a value of -3 will choose a number between 0 and 3.
 
     NOTE: Later sectors can be brutally difficult with low health,
     only mess around with this if you are absolutely confident in your abilities.
@@ -656,6 +644,7 @@ class CrackBoxLocations(Toggle):
 class OverloadLocations(Toggle):
     """
     If enabled, picking up Nano Overloads will be checks.
+    Also, if you are playing on Extreme difficulty where Overloads can't naturally appear, enabling this option will force them to spawn
     """
     display_name = "Nano Overload Locations"
 
@@ -797,9 +786,6 @@ class WeaponTasenRequirements(OptionDict):
     If fewer than 9 Tasen items are required to obtain all basic weapons,
     excess Tasen stat items and locations will be removed.
     The requirement for the VENGEANCE special trait will be whatever the new maximum is.
-
-    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
-    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
     """
     default = {
         "Machine Gun": 2,
@@ -821,8 +807,6 @@ class WeaponKomatoRequirements(OptionDict):
     excess Komato stat items and locations will be removed.
     The requirement for the GLORY special trait will be whatever the new maximum is.
 
-    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
-    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
     """
     default = {
         "Machine Gun": 0,
@@ -837,9 +821,6 @@ class WeaponKomatoRequirements(OptionDict):
 class WeaponCrackRequirements(OptionDict):
     """
     How many Crack stat items are required in order to combine two weapons together.
-
-    If you want a random requirement for a weapon, you can enter a string representing a random range, instead of a number
-    e.g. putting "4-8" will choose a random number between 4 and 8 (inclusive). Requirements can range between 0 and 9.
     """
     default = {
         "Buster Gun": 2,
@@ -871,9 +852,6 @@ class CompactStats(OptionDict):
     Compacting supercharges only affects Supercharge items you receive,
     either from the levelsanity option, supercharge location option, or duplicate supercharges from the extra_items option
     Stat points awarded from picking up Supercharges in levels will not give additional points.
-
-    If you want to choose a random value, you can enter a string representing a random range, instead of a number.
-    e.g. putting "2-4" will choose a random number between 2 and 4 (inclusive). Valid values range between 1 and 9
     """
     display_name = "Compact Stats"
     default = {
@@ -972,7 +950,7 @@ class StartingStats(OptionDict):
                 ret[stat] = 0
         return ret
 
-class StatLocations(Toggle):
+class StatLocations(DefaultOnToggle):
     """
     If enabled, leveling up a stat to a specific level will contain a random item
     If you have special_trait_items enabled, reaching the max level of a stat will still contain an item
@@ -1007,11 +985,32 @@ class EnemyLocationTypes(OptionDict):
         "Komato Beast": True,
         "Komato Assassin": True,
         "Komato Annihilator": False,
-        "Sector Z": False
+        "Sector Z": False,
+        "Yukabacera": False
     }
 
     def type_allowed(self, world: "IjiWorld", enemy_type: str) -> bool:
         return world.options.enemy_locations and enemy_type in self.value.keys() and self.value[enemy_type]
+    
+    def get_slot_data(self) -> Dict[str, int]:
+        ret: Dict[str, int] = {}
+        for name in self.default.keys():
+            if name in self.value.keys():
+                if self.value[name] == True:
+                    ret[name] = 1
+                else:
+                    ret[name] = 0
+            else:
+                ret[name] = 0
+
+        return ret
+
+    def set_from_slot_data(self, slot_data: Dict[str, int]):
+        for name, value in slot_data.items():
+            if value > 0:
+                self.value[name] = True
+            else:
+                self.value[name] = False
 
 class MoreEnemies(Toggle):
     """
