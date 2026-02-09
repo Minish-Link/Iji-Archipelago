@@ -261,7 +261,6 @@ class IjiWorld(World):
             # If not using Universal Tracker
             self.health_balancing_values = define_health_balancing(self)
             for name, value in self.options.starting_stats.get_starting_stat_items(self).items():
-                self.current_stat_items[name] = value
                 self.starting_stats[name] = value
             for name, value in self.options.compact_stats.get_chosen_compact_values(self).items():
                 self.compact_stats[name] = value
@@ -269,6 +268,9 @@ class IjiWorld(World):
             #shuffle_doors(self)
 
         # Always do this, UT or not
+        for name, value in self.starting_stats.values():
+            self.current_stat_items[name] = value
+            logging.warning((name, value))
 
         #finalize_weapon_stats(self)
 

@@ -1,8 +1,8 @@
 from typing import Any
 
 map_pages = {
-    "World": 0,
-    "Sector1": 1,
+    "World": 1,
+    "Sector1": 0,
     "Sector2": 2,
     "Sector3": 3,
     "Sector4": 4,

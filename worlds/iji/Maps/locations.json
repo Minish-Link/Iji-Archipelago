@@ -316,7 +316,6 @@
       {
         "name": "Sector 1 Weapons",
         "sections": [
-          {"name": "Obtain Machine Gun"},
           {"name": "Sector 1 - Machine Gun"}
         ],
         "map_locations": [
@@ -3419,9 +3418,13 @@
           {"name": "Sector 4 - Kill Tasen Scout Rakaiwu"},
           {"name": "Sector 4 - Kill Tasen Commander Paktei"}
         ],
-        "map_locations": "Sector4",
-        "x": 704,
-        "y": 392
+        "map_locations": [
+          {
+            "map": "Sector4",
+            "x": 704,
+            "y": 392
+          }
+        ]
       },
       {
         "name": "Sector 4 Guard Post",

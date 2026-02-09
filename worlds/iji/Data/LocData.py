@@ -42,14 +42,13 @@ locations_level_up: Dict[str, IjiLocData] = {
 locations_stat_levels: Dict[str, IjiLocData] = {
     LocNames.Stat_Levels[i][j]: IjiLocData(
         code = 400+(i*10)+j, region = RegNames.Global,
-        valid = (
-            lambda world: False) if j == 0 else (
+        valid = (lambda world: False) if j == 0 else (
             lambda world,stat=i,items=j: (world.current_stat_items[ItemNames.Stats[stat]] < items)),
         logic = lambda world, state,stat=i,items=j: has_stats(world,ItemNames.Stats[stat],items)
     ) for i in range(7) for j in range(10)
 } | {
     LocNames.Stat_Levels[i][10]: IjiLocData(
-        code = 470+i, region = RegNames.Global,
+        code = 471+i, region = RegNames.Global,
         valid = lambda world: world.options.special_trait_items,
         logic = (
             lambda world, state, stat=i: (has_stats(world,ItemNames.Stats[stat],

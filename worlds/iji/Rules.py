@@ -3,6 +3,7 @@ from math import floor, ceil
 from typing import Dict, TYPE_CHECKING, List, NamedTuple
 #from .Data.DoorData import DoorData
 from .Options import combined_weapons_indices
+import logging
 
 from BaseClasses import CollectionState
 from .Names import RegNames, ItemNames, EventNames
@@ -115,9 +116,17 @@ xp_table: List[List[List[int]]] = [
 #        return world.current_stat_items[ItemNames.Supercharge]
 
 def has_enough_points(world: "IjiWorld", points_needed: int) -> bool:
+        if not(world.current_stat_items[ItemNames.Supercharge] >= points_needed):
+            logging.warning(f"false: {world.current_stat_items[ItemNames.Supercharge]} / {points_needed} Points")
+        else:
+            logging.warning(f"true: {world.current_stat_items[ItemNames.Supercharge]} / {points_needed} Points")
         return world.current_stat_items[ItemNames.Supercharge] >= points_needed
 
 def has_stats(world: "IjiWorld", stat_needed: str, amount_needed: int) -> bool:
+    if not (world.current_stat_items[stat_needed] >= amount_needed and has_enough_points(world, amount_needed)):
+        logging.warning(f"false: {world.current_stat_items[stat_needed]} {amount_needed} {stat_needed}")
+    else:
+        logging.warning(f"true: {world.current_stat_items[stat_needed]} {amount_needed} {stat_needed}")
     return world.current_stat_items[stat_needed] >= amount_needed and has_enough_points(world, amount_needed)
 
 def has_multiple_stats(world: "IjiWorld", stats_needed: Dict[str, int]) -> bool:
