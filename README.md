@@ -4,9 +4,6 @@
 
 ### Setup
 
-To connect to a server, change the values in the ConnectionInfo.ini file to match your slot name, server address/port, and password (if there is one),
-then launch the game and press Connect on the main menu.
-
 ### Where is the Music?
 
 While I am able to modify and distribute the source code, I may not be allowed to distribute the music files, as they are outside the source project file, So to play it safe I did not include those files.
