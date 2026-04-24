@@ -1,6 +1,8 @@
 from math import ceil
 from typing import List, TYPE_CHECKING, Dict
 from dataclasses import dataclass
+
+from test.general.test_rule_builder import ToggleOption
 from worlds.AutoWorld import PerGameCommonOptions
 from Options import Range, Toggle, DeathLink, Choice, DefaultOnToggle, OptionGroup, OptionList, OptionDict
 
@@ -139,11 +141,21 @@ class RibbonItemCount(Range):
 
 class AllowSectorZ(Choice):
     """
-    Whether or not your world will be able to enter Sector Z, and whether or not you'll be able to reach the Null Driver
-    If your goal is Sector Z, this option won't do anything unless you choose to also enable the Null Driver
-    If your goal is Sector Y, this option won't do anything at all.
-    You can also additionally lock Sector Z behind the same ribbon/poster requirement as your goal
+    Whether or not your world will be able to enter Sector Z.
+    If your goal is Sector Z or Sector Y, this will be enabled by default
+
+    With Goal Requirement: You cannot enter Sector Z until you obtain the ribbons and posters needed for your goal.
+    If your goal is Sector Z or Sector Y, this will be enabled by default.
+
+    And Null Driver: The barrier blocking access to the Null Driver will be removed, allowing you access to it.
+    If your goal is Sector Y, this will be enabled by default.
+
+    As Item: Instead of accessing Sector Z through its portal in Sector 1,
+    you will instead need a Sector Z Access item which will get shuffled into the item pool.
+
     If your chosen goal allows you to reach Sector X, and you choose to allow getting the null driver here, Sector Y locations will also be added.
+
+
     """
     display_name = "Allow Sector Z Locations"
     default = 0
@@ -152,6 +164,62 @@ class AllowSectorZ(Choice):
     option_sector_z_and_nulldriver = 0b011
     option_sector_z_with_goal_requirement = 0b101
     option_sector_z_and_null_driver_with_goal_requirement = 0b111
+    option_as_item = 0b1001
+    option_as_item_and_nulldriver = 0b1011
+    option_as_item_with_goal_requirement = 0b1101
+    option_as_item_and_nulldriver_with_goal_requirement = 0b1111
+
+class AllowSectorY(Choice):
+    """
+    Whether or not your world will be able to enter Sector Y.
+
+    After Last Sector: You will automatically be transported to Sector Y after reaching your goal.
+    If
+
+    """
+    display_name = "Allow Sector Y"
+    default = 0
+    option_off = 0
+    option_after_goal_sector = 0b001
+    option_after_goal_sector_with_nulldriver = 0b011
+
+
+class StartingSector(Choice):
+    """
+    Which Sector you should start the game in.
+    Your starting sector will ignore its requirement set in the health_balancing option.
+    If you choose a starting sector that is not included in your world, Sector 1 will be your starting sector instead.
+
+    WARNING: Some starting sectors may result in you having very few checks at the start of the game, or none at all.
+    The number of locations available at the start will vary depending on your settings.
+    Sectors 1, 2, and 4 typically have a medium number of reachable locations without any jump upgrades.
+    Sector Y has a total of 16 reachable locations with logbooks enabled, but only 1 without.
+
+
+    WARNING: Setting your starting Sector to None will result in ZERO sphere 1 checks.
+    Generation WILL fail if there are no other games in the multiworld to send you Sector Accesses, and you will not
+    be able to play your game until someone does. Only do this if you know what you're doing.
+    """
+    display_name = "Starting Sector"
+    default = 1
+    option_sector_1 = 1
+    option_sector_2 = 2
+    option_sector_3 = 3
+    option_sector_4 = 4
+    option_sector_5 = 5
+    option_sector_6 = 6
+    option_sector_7 = 7
+    option_sector_8 = 8
+    option_sector_9 = 9
+    option_sector_x = 10
+    option_sector_y = 12
+    option_sector_z = 11
+    option_none = 0
+    option_random_safe_sector = -1
+    option_any_random_sector = -2
+
+    def get_starting_sector(self, world: "IjiWorld") -> int:
+        if world
 
 class PosterLocations(DefaultOnToggle):
     """
@@ -259,83 +327,11 @@ class SectorAccessItems(Range):
     range_start = 0
     range_end = 20
 
-class HealthItems(Range):
-    """
-    How many extra Health Stat items to add to the item pool.
-    """
-    display_name = "Extra Health Stat items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class AttackItems(Range):
-    """
-    How many extra Attack Stat items to add to the item pool.
-    """
-    display_name = "Extra Attack Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class AssimilateItems(Range):
-    """
-    How many extra Assimilate Stat items to add to the item pool.
-    """
-    display_name = "Extra Assimilate Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class StrengthItems(Range):
-    """
-    How many extra Strength Stat items to add to the item pool.
-    """
-    display_name = "Extra Strength Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class CrackItems(Range):
-    """
-    How many extra Crack Stat items to add to the item pool.
-    """
-    display_name = "Extra Crack Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class TasenItems(Range):
-    """
-    How many extra Tasen Stat items to add to the item pool.
-    """
-    display_name = "Extra Tasen Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
-class KomatoItems(Range):
-    """
-    How many extra Komato Stat items to add to the item pool.
-    """
-    display_name = "Extra Komato Stat Items"
-    default = 0
-    range_start = 0
-    range_end = 20
-
 class SpecialTraitItems(Toggle):
     """
     If enabled, the Special Trait items will be shuffled into the item pool.
     """
     display_name = "Special Traits"
-
-class ExtraSupercharges(Range):
-    """
-    Adds extra Supercharge items to the pool that each grant 1 Stat point at the start of each Sector.
-    """
-    display_name = "Extra Supercharges"
-    default = 0
-    range_start = 0
-    range_end = 20
 
 class TrapPercentage(Range):
     """
@@ -357,6 +353,7 @@ class TrapWeights(OptionDict):
     Clown Shoes makes Iji's footsteps squeaky for 1 minute.
     Power Nap knocks Iji down for 10 seconds (or until damaged)
     Null Drive randomly swaps around background textures, effect persists until the game is closed.
+    Assassin spawns a Komato Assassin that does not drop XP when defeated.
     """
     display_name = "Trap Weights"
     default = {
@@ -366,96 +363,34 @@ class TrapWeights(OptionDict):
         "Turbo Mode": 10,
         "Clown Shoes": 10,
         "Power Nap": 20,
-        "Null Drive": 0
+        "Null Drive": 0,
+        "Assassin": 0
     }
-
-class RocketTrapWeight(Range):
-    """
-    How weighted Rocket to the Face traps are to be chosen, if traps are shuffled.
-    Spawns a rocket that flies towards Iji's face.
-    0 Disables Rocket to the Face traps.
-    """
-    display_name = "Rocket to the Face Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class BlitsTrapWeight(Range):
-    """
-    How weighted Blits traps are to be chosen, if traps are shuffled.
-    Spawns a Blits nest under Iji's feet that spawns a few Blits enemies.
-    0 Disables Blits traps.
-    """
-    display_name = "Blits Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class NullDriveTrapWeight(Range):
-    """
-    How weighted Null Drive traps are to be chosen, if traps are shuffled.
-    Randomly shuffles some of the background/tileset images until the game is closed.
-    0 Disables Null Drive traps
-    """
-    display_name = "Null Drive Weight"
-    default = 0
-    range_start = 0
-    range_end = 100
 
 class NullDriveFactor(Range):
     """
     How severe the effect of Null Drive traps are.
     The higher the value, the more backgrounds/tileset images get reassigned.
-    50 is the severity used by the vanilla Null Driver
+    50 is the severity used by the vanilla Null Driver.
     """
     display_name = "Null Drive Factor"
-    default = 25
+    default = 50
     range_start = 1
     range_end = 100
 
-class TurboTrapWeight(Range):
+class TrapLink(Choice):
     """
-    How weighted Turbo traps are to be chosen, if traps are shuffled.
-    Doubles the game speed for 20 seconds.
-    0 Disables Turbo traps
-    """
-    display_name = "Turbo Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
+    Only Enabled: Only traps that have a weight greater than 0 in your trap weights option can be received.
 
-class NapTrapWeight(Range):
-    """
-    How weighted Nap traps are to be chosen, if traps are shuffled.
-    Knocks Iji down, and prevents her from getting up for 5 seconds.
-    0 Disables Nap traps
-    """
-    display_name = "Nap Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
+    Normal: Any traps listed in the Trap Weights default keys can be received, even if you set its weight to 0.
 
-class BananaTrapWeight(Range):
+    Experimental: Same as normal, but also a wider variety of unique traps can be received from non-Iji games.
     """
-    How weighted Banana traps are to be chosen, if traps are shuffled.
-    Spawns a banana.
-    0 Disables Banana traps
-    """
-    display_name = "Banana Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
-
-class ClownShoesWeight(Range):
-    """
-    How weighted Clown Shoe traps are to be chosen, if traps are shuffled.
-    Iji's footsteps make squeaky noises for 1 minute.
-    0 Disables Clown Shoe traps
-    """
-    display_name = "Clown Shoes Weight"
-    default = 20
-    range_start = 0
-    range_end = 100
+    display_name = "Trap Link"
+    option_off = 0
+    option_only_enabled = 1
+    option_normal = 2
+    option_experimental = 3
 
 class HealthBalancing(OptionDict):
     """
@@ -465,16 +400,13 @@ class HealthBalancing(OptionDict):
     It won't physically lock you out of the Sectors, so you can still play Sectors out of logic if you want.
 
     Values should range from 0 to 9.
-    Alternatively, you can also enter negative numbers to choose a random value for that sector.
-    The absolute value of a negative number determines the maximum range for that random value.
-    e.g. a value of -9 will allow any number between 0 and 9 to be chosen,
-    and a value of -3 will choose a number between 0 and 3.
 
     NOTE: Later sectors can be brutally difficult with low health,
     only mess around with this if you are absolutely confident in your abilities.
     """
     display_name = "Health Balancing Values"
     default = {
+        "Sector 1": 0,
         "Sector 2": 1,
         "Sector 3": 2,
         "Sector 4": 3,
@@ -485,6 +417,41 @@ class HealthBalancing(OptionDict):
         "Sector 9": 8,
         "Sector X": 9
     }
+
+class EnforceHealthBalancing(Toggle):
+    """
+    If this option is enabled, you will be prevented from entering a Sector until you meet its health balancing requirement.
+    """
+    display_name = "Enforce Health Balancing"
+
+class EnemyKillLocations(Toggle):
+    """
+
+    """
+    display_name = "Enemy Kill Locations"
+
+class EnemyKillLocationTypes(OptionDict):
+    """
+    If enemy kill locations are enabled, only enemies
+    """
+    display_name = "Enemy Kill Location Types"
+    default = {
+        "Tasen Scout": True,
+        "Tasen Soldier": True,
+        "Tasen Commander": True,
+        "Tasen Elite": True,
+        "Yukabacera": False,
+        "Komato Trooper": True,
+        "Komato Berserker": True,
+        "Komato Assassin": False,
+        "Komato Beast": True,
+        "Komato Annihilator": False,
+        "Bosses": False
+        #"Dan": False
+    }
+
+    def is_enemy_allowed(self, world: "IjiWorld", enemy_name: str) -> bool:
+        return self.value.get(enemy_name, False)
 
 class IjiDeathLink(DeathLink):
     """
@@ -551,6 +518,71 @@ class MusicShuffle(Choice):
     option_singularity = 3
     default = 0
 
+    level_list: List[str] = ["secintro", "sec1", "sec2", "sec3", "sec4", "sec5"]
+
+    music_list: List[str] = level_list + ["boss", "tor", "ending", "mainmenu", "clear", "calm", "dark", "sad", "asha", "hero3d"]
+
+    def get_shuffled_music(self, world: "IjiWorld") -> Dict[str, str]:
+        if self.value == self.option_off:
+            return {}
+
+        ret: Dict[str, str] = {}
+        levels_only: bool = self.value == self.option_levels_only
+        allowed_tracks = self.get_allowed_tracks(levels_only)
+
+        plando: Dict[str, str] = world.options.music_shuffle_plando.get_plandoed_tracks()
+        for key in plando.keys():
+            if key in self.music_list:
+                ret[key] = plando[key]
+                if key in allowed_tracks:
+                    allowed_tracks.remove(key)
+        if len(allowed_tracks) == 0:
+            allowed_tracks = self.get_allowed_tracks(levels_only)
+
+        temp_allowed_tracks: List[str] = allowed_tracks[:]
+        for track in self.music_list:
+            if track not in ret.keys() and self.is_track_allowed(track, levels_only):
+                rand_index = world.random.randint(0, len(temp_allowed_tracks) - 1)
+                ret[track] = temp_allowed_tracks.pop(rand_index)
+                if len(temp_allowed_tracks) == 0:
+                    temp_allowed_tracks = allowed_tracks[:]
+
+        return ret
+
+    def is_track_allowed(self, track: str, levels_only: bool) -> bool:
+        if levels_only:
+            return track in self.level_list
+        else:
+            return track in self.music_list
+
+    def get_allowed_tracks(self, levels_only: bool) -> List[str]:
+        allowed_tracks: List[str] = []
+        if levels_only:
+            for name in self.level_list:
+                allowed_tracks.append(name)
+        else:
+            for name in self.music_list:
+                allowed_tracks.append(name)
+
+        return allowed_tracks
+
+class MusicShufflePlando(OptionDict):
+    """
+    If you have music shuffle enabled, you can specify one or more tracks here to be replaced by ones of your choice.
+    Any songs you don't replace will use random songs as usual, and will use songs you didn't choose as replacements,
+    if able.
+    e.g. adding "sec1": "boss" as a key:value pair will replace sector 1's theme with the boss music,
+    and the boss music will not be chosen as a replacement for remaining non-plandoed replacements.
+
+    Valid keys and values are "secintro", "sec1", "sec2", "sec3", "sec4", "sec5", "boss", "tor", "ending",
+    "mainmenu", "clear", "calm", "dark", "sad", "asha", "hero3d"
+    """
+    display_name = "Music Shuffle Plando"
+    default = {}
+
+    def get_plandoed_tracks(self) -> Dict[str, str]:
+        return self.value
+
 class OutOfOrderSectors(Toggle):
     """
     If enabled, Sector Access Items will give access to a specific sector, and Sectors may be accessed outside their intended order.
@@ -563,9 +595,45 @@ class OutOfOrderSectors(Toggle):
 class Levelsanity(Toggle):
     """
     If enabled, Leveling up will no longer award stat points.
-    Instead, 50 Supercharge items will be added to the multiworld.
+    Instead, a Supercharge item for each of these levels will be added to the item pool
+    (9 to 50, dependent on your goal and game difficulty settings.)
     """
     display_name = "Levelsanity"
+
+class AutomaticStats(Toggle):
+    """
+    If enabled, each stat will automatically be raised to its cap without needing to spend points.
+    Levels won't be needed, and any Supercharge items for your world will be removed from the item pool.
+    """
+    display_name = "Automatic Stats"
+
+class CompactStats(OptionDict):
+    """
+    This option determines how much each Stat item increases its respective stat's cap by,
+    or how many points you earn from each Supercharge item. Compacted stats will have fewer items in
+    the multiworld's item pool to compensate
+    e.g. Setting Health to increase the cap by 2 will result in 1/2 of the Health items being added, (from 9 to 5)
+
+    Note: Compact supercharges have no effect on points obtained from leveling up,
+    or from obtaining vanilla supercharges. It only affects Supercharge items sent through the server.
+    """
+    display_name = "Compact Stats"
+    default = {
+        "Health Stat": 1,
+        "Attack Stat": 1,
+        "Assimilate Stat": 1,
+        "Strength Stat": 1,
+        "Crack Stat": 1,
+        "Tasen Stat": 1,
+        "Komato Stat": 1,
+        "Supercharge": 1
+    }
+
+class StartingStats(OptionDict):
+    """
+    How many of each stat/supercharge you will start the game with.
+    These starting stats are unaffected by the compact stats option.
+    """
 
 class JumpUpgrades(Choice):
     """
@@ -687,6 +755,7 @@ class IjiOptions(PerGameCommonOptions):
     deathlink:                      IjiDeathLink
     deathlink_damage:               DeathLinkDamage
     music_shuffle:                  MusicShuffle
+    music_shuffle_plando:           MusicShufflePlando
 
 iji_option_groups = [
     OptionGroup("Goal Options", [
@@ -723,6 +792,7 @@ iji_option_groups = [
         OutOfOrderSectors,
         IjiDeathLink,
         DeathLinkDamage,
-        MusicShuffle
+        MusicShuffle,
+        MusicShufflePlando
     ])
 ]

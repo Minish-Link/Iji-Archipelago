@@ -148,6 +148,13 @@ items_traps: Dict[str, IjiItemData] = {
     ),
     ItemNames.Traps[6]: IjiItemData(
         code=407, progtype=ItemClassification.trap
+    ),
+    # TrapLink specific
+    "Banana Peel": IjiItemData(
+        code=408, progtype=ItemClassification.trap
+    ),
+    "Death Scream": IjiItemData(
+        code=409, progtype=ItemClassifcation.trap
     )
 }
 

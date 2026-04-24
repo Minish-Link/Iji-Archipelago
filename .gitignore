@@ -203,3 +203,4 @@ Thumbs.db
 # fuzz.py
 fuzz.py
 fuzz_output/
+hooks/
